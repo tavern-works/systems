@@ -1,0 +1,515 @@
+use tavern::{anyhow, Roll, Uid};
+
+use crate::{Ability, BaseWeapon, WeaponComplexity};
+use super::attribute_map;
+
+fn get_damage_type(attributes) {
+    if attributes.contains_key("acid") {
+        Some("acid")
+    } else if attributes.contains_key("bludgeoning") {
+        Some("bludgeoning")
+    } else if attributes.contains_key("piercing") {
+        Some("piercing")
+    } else if attributes.contains_key("radiant") {
+        Some("radiant")
+    } else if attributes.contains_key("slashing") {
+        Some("slashing")
+    } else {
+        None
+    }
+}
+
+impl super::Character {
+    fn has_weapon_proficiency(self, proficiencies, weapon, attributes) {
+        if proficiencies.iter().any(|proficiency| {
+            proficiency["condition"] == None &&
+            proficiency["with"] is BaseWeapon &&
+            proficiency["with"].0 == Uid::from_string(weapon.get_value("compendium")?)
+        }) {
+            return Ok(true)
+        }
+
+        if attributes.contains_key("simple_weapon") {
+            if proficiencies.iter().any(|proficiency| {
+                proficiency["condition"] == None &&
+                proficiency["with"] is WeaponComplexity &&
+                proficiency["with"] == WeaponComplexity::Simple
+            }) {
+                return Ok(true)
+            }
+        }
+
+        if attributes.contains_key("martial_weapon") {
+            if proficiencies.iter().any(|proficiency| {
+                proficiency["condition"] == None &&
+                proficiency["with"] is WeaponComplexity &&
+                proficiency["with"] == WeaponComplexity::Martial
+            }) {
+                return Ok(true)
+            }
+        }
+
+        Ok(false)
+    }
+
+    fn attacks_for_item(self, tables, ability_scores, proficiencies, item) {
+        let dexterity_modifier = Ability::modifier_for_value(ability_scores[Ability::Dexterity.name()]);
+        let strength_modifier = Ability::modifier_for_value(ability_scores[Ability::Strength.name()]);
+        let attacks = [];
+
+        let item = tables.get_entry_by_id(self.carried, item)?;
+        let attributes = item.get_value("attributes").unwrap_or([]);
+        let attributes = attribute_map(attributes);
+
+        let ability_modifier = if attributes.contains_key("finesse") && dexterity_modifier > strength_modifier {
+            (Ability::Dexterity, dexterity_modifier)
+        } else {
+            (Ability::Strength, strength_modifier)
+        };
+
+        let ability = if let (ability, _) = ability_modifier {
+            ability
+        } else {
+            panic!("failed to match tuple");
+        };
+
+        let modifier = if let (_, modifier) = ability_modifier {
+            modifier
+        } else {
+            panic!("failed to match tuple")
+        };
+        
+        let melee_or_reach = if attributes.contains_key("melee_weapon") {
+            Some("melee_attack")
+        } else if attributes.contains_key("reach") {
+            Some("reach")
+        } else {
+            None
+        };
+
+        if let Some(attack_type) = melee_or_reach {
+            let proficiency_factor = if self.has_weapon_proficiency(proficiencies, item, attributes)? {
+                1
+            } else {
+                0
+            };
+
+            let damage_type = get_damage_type(attributes).ok_or_else(|| anyhow!("Expected to find a damage type"))?;
+            if let (damage, name) = if attributes.contains_key("versatile") && self.off_hand.is_none() {
+                (attributes["versatile"], item.get_value("name")? + " (Versatile)")
+            } else {
+                (attributes[damage_type], item.get_value("name")?)
+            } {
+                let damage_value = Roll::simplified(format!("{damage} + {modifier}"))?;
+
+                let attack_roll = self.build_attack_roll(
+                    name,
+                    ability,
+                    proficiency_factor,
+                    format!("{damage} + {}", ability.modifier_variable()),
+                    damage_type,
+                )?;
+
+                self.attack_rolls.push(attack_roll);
+
+                attacks.push(#{
+                    "id": item.get_value("id")?,
+                    "name": name,
+                    "to_hit": modifier + proficiency_factor * self.proficiency_bonus(),
+                    "attributes": [
+                        #{
+                            "type": attack_type,
+                        },
+                        #{
+                            "type": damage_type,
+                            "value": damage_value,
+                        }
+                    ],
+                });
+    
+                if attributes.contains_key("thrown") {
+                    let attack_roll = self.build_attack_roll(
+                        name + " (Thrown)",
+                        ability,
+                        proficiency_factor,
+                        format!("{damage} + {}", ability.modifier_variable()),
+                        damage_type,
+                    )?;
+    
+                    self.attack_rolls.push(attack_roll);
+
+                    attacks.push(#{
+                        "id": item.get_value("id")? + "+thrown",
+                        "name": name + " (Thrown)",
+                        "to_hit": modifier + proficiency_factor * self.proficiency_bonus(),
+                        "attributes": [
+                            #{
+                                "type": "thrown",
+                            },
+                            #{
+                                "type": "range",
+                                "value": attributes.get("range").ok_or_else(|| anyhow!("Failed to get range"))?,
+                            },
+                            #{
+                                "type": damage_type,
+                                "value": damage_value,
+                            }
+                        ]
+                    });
+                }
+            }
+        }
+
+        if attributes.contains_key("ranged_weapon") {
+            let proficiency_factor = if self.has_weapon_proficiency(proficiencies, item, attributes)? {
+                1
+            } else {
+                0
+            };
+
+            let ability_modifier = if attributes.contains_key("thrown") {
+                (Ability::Strength, strength_modifier)
+            } else if attributes.contains_key("finesse") && strength_modifier > dexterity_modifier {
+                (Ability::Strength, strength_modifier)
+            } else {
+                (Ability::Dexterity, dexterity_modifier)
+            };
+
+            let ability = if let (ability, _) = ability_modifier {
+                ability
+            } else {
+                panic!("failed to match tuple");
+            };
+    
+            let modifier = if let (_, modifier) = ability_modifier {
+                modifier
+            } else {
+                panic!("failed to match tuple")
+            };
+
+            let attack_attributes = [
+                #{
+                    "type": "ranged_weapon"
+                }
+            ];
+
+            if attributes.contains_key("thrown") {
+                attack_attributes.push(#{
+                    "type": "thrown"
+                })
+            }
+
+            attack_attributes.push(#{
+                "type": "range",
+                "value": attributes.get("range").ok_or_else(|| anyhow!("Failed to get range"))?
+            });
+
+            let name = item.get_value("name")?;
+
+            if let Some(damage_type) = get_damage_type(attributes) {
+                let damage = if damage_type == "acid" || damage_type == "radiant" {
+                    attributes[damage_type]
+                } else {
+                    Roll::simplified(format!("{} + {modifier}", attributes[damage_type]))?
+                };
+
+                attack_attributes.push(#{
+                    "type": damage_type,
+                    "value": damage,
+                });
+
+                let attack_roll = self.build_attack_roll(
+                    name,
+                    ability,
+                    proficiency_factor,
+                    damage,
+                    damage_type,
+                )?;
+        
+                self.attack_rolls.push(attack_roll);
+            } else {
+                let attack_roll = self.build_attack_roll(
+                    name,
+                    ability,
+                    proficiency_factor,
+                    (),
+                    (),
+                )?;
+        
+                self.attack_rolls.push(attack_roll);
+            }
+
+            attacks.push(#{
+                "id": item.get_value("id")?,
+                "name": name,
+                "to_hit": modifier + proficiency_factor * self.proficiency_bonus(),
+                "attributes": attack_attributes,
+            })
+        }
+
+        Ok(attacks)
+    }
+
+    fn attacks_for_main_hand(self, tables, ability_scores, proficiencies) {
+        let attacks = [];
+        if let Some(main_hand) = self.main_hand {
+            attacks = self.attacks_for_item(tables, ability_scores, proficiencies, main_hand)?;
+        }
+
+        Ok(attacks)
+    }
+
+    fn second_attacks_for_item(self, tables, ability_scores, proficiencies, item) {
+        let item = tables.get_entry_by_id(self.carried, item)?;
+        let attributes = item.get_value("attributes").unwrap_or([]);
+        let attributes = attribute_map(attributes);
+
+        let dexterity_modifier = Ability::modifier_for_value(ability_scores[Ability::Dexterity.name()]);
+        let strength_modifier = Ability::modifier_for_value(ability_scores[Ability::Strength.name()]);
+        let ability_modifier = if attributes.contains_key("finesse") && dexterity_modifier > strength_modifier {
+            (Ability::Dexterity, dexterity_modifier)
+        } else {
+            (Ability::Strength, strength_modifier)
+        };
+
+        let ability = if let (ability, _) = ability_modifier {
+            ability
+        } else {
+            panic!("failed to match tuple");
+        };
+
+        let modifier = if let (_, modifier) = ability_modifier {
+            modifier
+        } else {
+            panic!("failed to match tuple")
+        };
+        
+        let proficiency_factor = if self.has_weapon_proficiency(proficiencies, item, attributes)? {
+            1
+        } else {
+            0
+        };
+
+        let damage_type = get_damage_type(attributes).ok_or_else(|| anyhow!("Failed to get damage type for second attack"))?;
+        let damage = attributes[damage_type];
+
+        let id = item.get_value("id")?;
+        let name = item.get_value("name")?;
+
+        let attack_roll = self.build_attack_roll(
+            name + " (Second Attack)",
+            ability,
+            proficiency_factor,
+            damage,
+            damage_type,
+        )?;
+
+        self.attack_rolls.push(attack_roll);
+
+        let attacks = [
+            #{
+                "id": id + "+second",
+                "name": name + " (Second Attack)",
+                "to_hit": modifier + proficiency_factor * self.proficiency_bonus(),
+                "attributes": [
+                    #{
+                        "type": "melee_weapon",
+                    },
+                    #{
+                        "type": damage_type,
+                        "value": damage,
+                    }
+                ]
+            }
+        ];
+
+        if attributes.contains_key("thrown") {
+            let attack_roll = self.build_attack_roll(
+                name + " (Second Attack, Thrown)",
+                ability,
+                proficiency_factor,
+                damage,
+                damage_type,
+            )?;
+    
+            self.attack_rolls.push(attack_roll);
+
+            attacks.push(#{
+                "id": id + "+second-thrown",
+                "name": name + " (Second Attack, Thrown)",
+                "to_hit": modifier + proficiency_factor * self.proficiency_bonus(),
+                "attributes": [
+                    #{
+                        "type": "thrown",
+                    },
+                    #{
+                        "type": "range",
+                        "value": attributes.get("range").ok_or_else(|| anyhow!("Failed to get range"))?,
+                    },
+                    #{
+                        "type": damage_type,
+                        "value": damage,
+                    }
+                ]
+            });
+        }
+
+        Ok(attacks)
+    }
+
+    fn attacks_for_off_hand(self, tables, ability_scores, proficiencies) {
+        let attacks = [];
+        if let Some(off_hand) = self.off_hand {
+            let off_hand_entry = tables.get_entry_by_id(self.carried, off_hand)?;
+            let off_hand_compendium = off_hand_entry.get_value("compendium")?;
+
+            if let Some(main_hand) = self.main_hand {
+                let main_hand_entry = tables.get_entry_by_id(self.carried, main_hand)?;
+                let main_hand_compendium = main_hand_entry.get_value("compendium")?;
+
+                if off_hand_compendium != main_hand_compendium {
+                    attacks.extend(self.attacks_for_item(tables, ability_scores, proficiencies, off_hand)?);
+                }
+
+                let main_hand_attributes = main_hand_entry.get_value("attributes").unwrap_or([]);
+                let main_hand_attributes = attribute_map(main_hand_attributes);
+                let off_hand_attributes = off_hand_entry.get_value("attributes").unwrap_or([]);
+                let off_hand_attributes = attribute_map(off_hand_attributes);
+
+                let can_use_two_weapons = main_hand_attributes.contains_key("light_weapon") &&
+                    main_hand_attributes.contains_key("melee_weapon") &&
+                    off_hand_attributes.contains_key("light_weapon") &&
+                    off_hand_attributes.contains_key("melee_weapon");
+                    
+                if can_use_two_weapons && !self.has_two_weapon_fighting() {
+                    if off_hand_compendium != main_hand_compendium {
+                        attacks.extend(self.second_attacks_for_item(tables, ability_scores, proficiencies, main_hand)?);
+                    }
+                    attacks.extend(self.second_attacks_for_item(tables, ability_scores, proficiencies, off_hand)?);
+                }
+            } else {
+                attacks.extend(self.attacks_for_item(tables, ability_scores, proficiencies, off_hand)?);
+            }
+        }
+
+        Ok(attacks)
+    }
+
+    fn update_attacks(self, tables) {
+        let ability_scores = self.ability_scores();
+        let proficiencies = self.proficiencies();
+        let strength_modifier = Ability::modifier_for_value(ability_scores[Ability::Strength.name()]);
+
+        self.attack_rolls = [];
+        tables.clear_table(self.attacks)?;
+        let order = 0;
+
+        for attack in self.attacks_for_main_hand(tables, ability_scores, proficiencies)? {
+            attack["order"] = order;
+            tables.create_entry_silent(self.attacks, attack)?;
+            order += 1;
+        }
+
+        for attack in self.attacks_for_off_hand(tables, ability_scores, proficiencies)? {
+            attack["order"] = order;
+            tables.create_entry_silent(self.attacks, attack)?;
+            order += 1;
+        }
+
+        let unarmed_strike = self.build_attack_roll(
+            "Unarmed Strike",
+            Ability::Strength,
+            1,
+            "1 + $strMod",
+            "bludgeoning",
+        )?;
+
+        tables.create_entry_silent(
+            self.attacks,
+            #{
+                "id": Uid::from_string("unarmed_strike"),
+                "order": order,
+                "name": "Unarmed Strike",
+                "to_hit": strength_modifier + self.proficiency_bonus(),
+                "attributes": [
+                    #{
+                        "type": "melee_attack",
+                    },
+                    #{
+                        "type": "bludgeoning_attack",
+                        "value": 1 + strength_modifier,
+                    }
+                ],
+            })?;
+
+        self.attack_rolls.push(unarmed_strike);
+
+        order += 1;
+
+        let improvised_damage = Roll::simplified(format!("1d4 + {strength_modifier}"))?;
+
+        let improvised_roll = self.build_attack_roll(
+            "Improvised Weapon",
+            Ability::Strength,
+            0,
+            "1d4 + $strMod",
+            "bludgeoning",
+        )?;
+
+        self.attack_rolls.push(improvised_roll);
+
+        tables.create_entry_silent(
+            self.attacks,
+            #{
+                "id": Uid::from_string("improvised"),
+                "order": order,
+                "name": "Improvised Weapon",
+                "to_hit": strength_modifier,
+                "attributes": [
+                    #{
+                        "type": "melee_weapon"
+                    },
+                    #{
+                        "type": "untyped_damage",
+                        "value": improvised_damage
+                    }
+                ]
+            })?;
+
+        order += 1;
+
+        let improvised_thrown_roll = self.build_attack_roll(
+            "Improvised Weapon (Thrown)",
+            Ability::Strength,
+            0,
+            "1d4 + $strMod",
+            "bludgeoning",
+        )?;
+
+        self.attack_rolls.push(improvised_thrown_roll);
+
+        tables.create_entry(
+            self.attacks,
+            #{
+                "id": Uid::from_string("improvised_thrown"),
+                "order": order,
+                "name": "Improvised Weapon (Thrown)",
+                "to_hit": strength_modifier,
+                "attributes": [
+                    #{
+                        "type": "thrown"
+                    },
+                    #{
+                        "type": "range",
+                        "value": "20/60"
+                    },
+                    #{
+                        "type": "untyped_damage",
+                        "value": improvised_damage
+                    },
+                ]
+            })?;
+
+        Ok(())
+    }
+}

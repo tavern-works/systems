@@ -1,0 +1,201 @@
+use json::from_bytes;
+use tavern::Uid;
+
+use crate::{Ability, Alignment, Class, Race};
+
+fn parse_bool(parsed, key) {
+    if !parsed.contains_key(key) {
+        ::tavern::bail!("Couldn't find {key}");
+    }
+    let value = parsed[key];
+    if value is not bool {
+        ::tavern::bail!("Expected {key} to be a bool");
+    }
+    Ok(value)
+}
+
+fn parse_i64(parsed, key) {
+    if !parsed.contains_key(key) {
+        ::tavern::bail!("Couldn't find {key}");
+    }
+    let value = parsed[key];
+    if value is not i64 {
+        ::tavern::bail!("Expected {key} to be an integer");
+    }
+    Ok(value)
+}
+
+fn parse_string(parsed, key) {
+    if !parsed.contains_key(key) {
+        ::tavern::bail!("Couldn't find {key}");
+    }
+    let value = parsed[key];
+    if value is not String {
+        ::tavern::bail!("Expected {key} to be a string");
+    }
+    Ok(value)
+}
+
+fn parse_vec(parsed, key) {
+    if !parsed.contains_key(key) {
+        ::tavern::bail!("couldn't find {key}");
+    }
+    let value = parsed[key];
+    if value is not Vec {
+        ::tavern::bail!("expected {key} to be an array");
+    }
+    Ok(value)
+}
+
+pub fn parse_lead(parsed, tables) {
+    let id = Uid::from_string(parse_string(parsed, "id")?);
+    let avatar = parse_string(parsed, "avatar")?;
+    let name = parse_string(parsed, "name")?;
+
+    if !parsed.contains_key("baseAbilityScores") {
+        ::tavern::bail!("couldn't find baseAbilityScores");
+    }
+    let parsed_ability_scores = parsed["baseAbilityScores"];
+
+    let base_ability_scores = #{};
+    for ability in Ability::all() {
+        if !parsed_ability_scores.contains_key(ability.name()) {
+            ::tavern::bail!("Couldn't find {} ability score", ability.name());
+        }
+        base_ability_scores[ability.name()] = parsed_ability_scores[ability.name()];
+    }
+
+    let race = Race::from_string(parse_string(parsed, "race")?);
+
+    let known_languages = tables.get_compendium_list("languages")?;
+    let languages = parse_vec(parsed, "languages")?;
+    for language in languages {
+        if known_languages.iter().find(|item| item == language).is_none() {
+            ::tavern::bail!("Character language {language} not found in compendium");
+        }
+    }
+
+    let classes = parse_vec(parsed, "classes")?;
+    let classes = classes.iter().map(|string| Class::from_string(string)).collect::<Vec>();
+
+    let alignment = Alignment::from_string(parse_string(parsed, "alignment")?);
+
+    let experience = parse_i64(parsed, "experience")?;
+
+    let hp_rolled = parse_vec(parsed, "hpRolled")?;
+    if hp_rolled.len() != classes.len() {
+        ::tavern::bail!("Expected to find {} hpRolled, found {}", classes.len(), hp_rolled.len());
+    }
+    for element in hp_rolled.iter().enumerate() {
+        if let (index, roll) = element {
+            if roll is not i64 {
+                ::tavern::bail!("Expected hpRolled to be integers, found {roll}");
+            }
+            if roll > classes[index].hit_die() {
+                ::tavern::bail!("Expected roll {index} to be <= {}, found {roll}", classes[index].hit_die());
+            }
+        }
+    }
+
+    let hit_die_used = parse_vec(parsed, "hitDieUsed")?;
+    if hit_die_used.len() != classes.len() {
+        ::tavern::bail!("Expected to find {} hitDieUsed, found {}", classes.len(), hit_die_used.len());
+    }
+    for die in hit_die_used {
+        if die is not bool {
+            ::tavern::bail!("Expected hitDieUsed to be boolean, found {die}");
+        }
+    }
+
+    let hp = parse_i64(parsed, "hp")?;
+    let temp_hp = parse_i64(parsed, "tempHp")?;
+
+    let death_successes = parse_i64(parsed, "deathSuccesses")?;
+    let death_failures = parse_i64(parsed, "deathFailures")?;
+
+    let inspiration = parse_bool(parsed, "inspiration")?;
+
+    let choices = #{};
+    race.parse_choices(parsed, choices);
+    let class_level = #{};
+    for element in classes.iter().enumerate() {
+        if let (index, class) = element {
+            if class_level.contains_key(class.name()) {
+                class_level[class.name()] = class_level[class.name()] + 1;
+            } else {
+                class_level[class.name()] = 1;
+            }
+
+            class.parse_choices(parsed, choices, class_level[class.name()], index == 0);
+        }
+    }
+
+    let coins = parse_vec(parsed, "coins")?;
+    if coins.len() != 5 {
+        ::tavern::bail!("Expected 5 denominations of coins");
+    }
+    for denomination in coins {
+        if denomination is not i64 {
+            ::tavern::bail!("Expected coin counts to be integers, found {denomination}");
+        }
+    }
+
+    let use_encumbrance = parse_bool(parsed, "use_encumbrance")?;
+
+    let carried = Uid::from_string(parse_string(parsed, "carried")?);
+    let containers = parse_vec(parsed, "containers")?;
+    for container in containers {
+        container["id"] = Uid::from_string(container["id"])
+    }
+
+    let resources = Uid::from_string(parse_string(parsed, "resources")?);
+    let features = Uid::from_string(parse_string(parsed, "features")?);
+    let attacks = Uid::from_string(parse_string(parsed, "attacks")?);
+
+    let character = super::Character {
+        id,
+        avatar,
+        name,
+        base_ability_scores,
+        race,
+        languages,
+        classes,
+        alignment,
+        experience,
+        hp_rolled,
+        hit_die_used,
+        hp,
+        temp_hp,
+        death_successes,
+        death_failures,
+        inspiration,
+        choices,
+        coins,
+        use_encumbrance,
+        carried,
+        containers,
+        main_hand: None,
+        off_hand: None,
+        resources,
+        features,
+        attacks,
+        attack_rolls: [],
+    };
+
+    character.update_resources(tables)?;
+    character.update_features(tables)?;
+    character.update_attacks(tables)?;
+
+    Ok(character.get_methods())
+}
+
+pub fn parse(bytes, tables) {
+    let parsed = from_bytes(Bytes::from_vec(bytes))?;
+
+    let is_lead = parse_bool(parsed, "is_lead")?;
+    if is_lead {
+        parse_lead(parsed, tables)
+    } else {
+        ::tavern::bail!("Parsing supported characters not yet supported");
+    }
+}

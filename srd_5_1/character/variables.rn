@@ -1,0 +1,48 @@
+use tavern::Variable;
+
+use super::Ability;
+
+impl super::Character {
+    fn get_variables(self, tables) {
+        let variables = [];
+
+        for entry in self.ability_scores() {
+            let ability = Ability::from_string(entry.0);
+
+            variables.push(Variable::try_new(
+                ability.variable_name(),
+                ability.name() + " Score",
+                ability.name()[0..3],
+                entry.1)?
+            );
+
+            variables.push(Variable::try_new(
+                ability.modifier_variable(),
+                ability.name() + " Modifier",
+                ability.name()[0..3] + " Mod",
+                Ability::modifier_for_value(entry.1)
+            )?);
+        }
+
+        let class_levels = self.class_levels();
+        for class_level in class_levels {
+            if let (class, level) = class_level {
+                variables.push(Variable::try_new(
+                    "$" + class.to_lowercase(),
+                    class + " Level",
+                    class + " Lvl",
+                    level
+                )?);
+            }
+        }
+
+        variables.push(Variable::try_new(
+            "$profBonus",
+            "Proficiency Bonus",
+            "Prof Bonus",
+            self.proficiency_bonus()
+        )?);
+
+        Ok(variables)
+    }
+}

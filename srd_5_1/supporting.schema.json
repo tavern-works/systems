@@ -1,0 +1,447 @@
+{
+    "type": "object",
+    "definitions": {
+        "armor": {
+            "oneOf": [
+                {
+                    "title": "Leather Armor",
+                    "type": "string",
+                    "const": "mVvkHTZh19NX",
+                    "default": "mVvkHTZh19NX"
+                },
+                {
+                    "title": "Shield",
+                    "type": "string",
+                    "const": "nY7KF1CqTVKG",
+                    "default": "nY7KF1CqTVKG"
+                }
+            ]
+        },
+        "attribute": {
+            "oneOf": [
+                {
+                    "title": "Melee Weapon",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "const": "melee_weapon",
+                            "default": "melee_weapon"
+                        }
+                    },
+                    "required": ["type"]
+                },
+                {
+                    "title": "Slashing Attack",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "const": "slashing_attack",
+                            "default": "slashing_attack"
+                        },
+                        "value": {
+                            "title": "Damage",
+                            "type": "string",
+                            "default": "1d6 + 2"
+                        }
+                    },
+                    "required": ["type", "value"]
+                },
+                {
+                    "title": "Piercing Attack",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "const": "piercing_attack",
+                            "default": "piercing_attack"
+                        },
+                        "value": {
+                            "title": "Damage",
+                            "type": "string",
+                            "default": "1d6 + 2"
+                        }
+                    }
+                },
+                {
+                    "title": "Range",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "const": "range",
+                            "default": "range"
+                        },
+                        "value": {
+                            "type": "string",
+                            "description": "Typically a normal/long range distance, such as 80/320"
+                        }
+                    },
+                    "required": ["type", "value"]
+                },
+                {
+                    "title": "Ranged Weapon",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "const": "ranged_weapon",
+                            "default": "ranged_weapon"
+                        }
+                    },
+                    "required": ["type"]
+                },
+                {
+                    "title": "To Hit",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "const": "to_hit",
+                            "default": "to_hit"
+                        },
+                        "value": {
+                            "type": "string",
+                            "default": "+0"
+                        }
+                    },
+                    "required": ["type", "value"]
+                }
+            ]
+        },
+        "condition": {
+            "title": "Condition",
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "enum": [
+                        "Charmed",
+                        "Frightened",
+                        "Paralyzed",
+                        "Petrified",
+                        "Poisoned",
+                        "Unconscious"
+                    ]
+                }
+            }
+        },
+        "damage": {
+            "title": "Damage Roll",
+            "type": "object",
+            "properties": {
+                "type": {
+                    "title": "Damage Type",
+                    "type": "string",
+                    "enum": ["Bludgeoning", "Piercing", "Slashing"]
+                },
+                "count": {
+                    "title": "Count",
+                    "description": "Number of dice to roll",
+                    "type": "integer"
+                },
+                "sides": {
+                    "title": "Sides",
+                    "description": "Sides on the dice",
+                    "type": "integer"
+                },
+                "modifier": {
+                    "title": "Modifier",
+                    "description": "Modifier to add to the roll (e.g., the 4 in 1d20 + 4)",
+                    "type": "integer"
+                }
+            },
+            "required": ["type", "count", "sides", "modifier"]
+        },
+        "damage_type": {
+            "title": "Damage Type",
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "enum": ["Fire", "Piercing", "Poison"]
+                }
+            }
+        },
+        "extras": {
+            "title": "Extras",
+            "type": "object",
+            "properties": {
+                "attributes": {
+                    "title": "Attributes",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/attribute"
+                    }
+                },
+                "description": {
+                    "title": "Description",
+                    "type": "string"
+                },
+                "roll": {
+                    "title": "Roll",
+                    "type": "string"
+                }
+            }
+        },
+        "feature": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "title": "Name",
+                    "type": "string"
+                },
+                "id": {
+                    "title": "ID",
+                    "description": "Will use a snake_case version of the name if omitted",
+                    "type": "string"
+                },
+                "extras": {
+                    "$ref": "#/definitions/extras"
+                }
+            },
+            "required": ["name"]
+        },
+        "roll": {
+            "title": "Roll",
+            "type": "object",
+            "properties": {
+                "name": {
+                    "title": "Name",
+                    "type": "string"
+                },
+                "expression": {
+                    "title": "Expression",
+                    "description": "Use {d20} to insert a d20 with [dis]advantage",
+                    "type": "string"
+                },
+                "damage": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/damage"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                }
+            },
+            "required": ["name", "expression"]
+        },
+        "sense": {
+            "title": "Sense",
+            "oneOf": [
+                {
+                    "title": "Darkvision",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "const": "darkvision",
+                            "default": "darkvision"
+                        },
+                        "value": {
+                            "title": "Range",
+                            "type": "integer"
+                        }
+                    },
+                    "required": ["type", "value"]
+                },
+                {
+                    "title": "Passive Perception",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "const": "passive_perception",
+                            "default": "passive_perception"
+                        },
+                        "value": {
+                            "title": "Score",
+                            "type": "integer"
+                        }
+                    },
+                    "required": ["type", "value"]
+                }
+            ]
+        }
+    },
+    "properties": {
+        "name": {
+            "title": "Name",
+            "type": "string"
+        },
+        "id": {
+            "title": "ID",
+            "type": "string"
+        },
+        "size": {
+            "title": "Size",
+            "type": "string",
+            "enum": ["Small"]
+        },
+        "type": {
+            "title": "Type",
+            "type": "string"
+        },
+        "alignment": {
+            "title": "Alignment",
+            "type": "string",
+            "enum": ["Neutral Evil", "Unaligned"]
+        },
+        "headline": {
+            "title": "Headline",
+            "type": "string"
+        },
+        "armor": {
+            "title": "Armor",
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+                "$ref": "#/definitions/armor"
+            }
+        },
+        "hp": {
+            "title": "HP",
+            "description": "Dice expression",
+            "type": "string"
+        },
+        "speed": {
+            "title": "Speed",
+            "type": "string"
+        },
+        "abilityScores": {
+            "title": "Ability Scores",
+            "description": "STR DEX CON INT WIS CHA",
+            "type": "array",
+            "minItems": 6,
+            "maxItems": 6,
+            "items": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 30
+            }
+        },
+        "skills": {
+            "title": "Skills",
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": ["Stealth"]
+                    },
+                    "value": {
+                        "type": "string"
+                    }
+                },
+                "required": ["type", "value"]
+            }
+        },
+        "damage_vulnerabilities": {
+            "title": "Damage Vulnerabilities",
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+                "$ref": "#/definitions/damage_type"
+            }
+        },
+        "damage_resistances": {
+            "title": "Damage Resistances",
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+                "$ref": "#/definitions/damage_type"
+            }
+        },
+        "damage_immunities": {
+            "title": "Damage Immunities",
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+                "$ref": "#definitions/damage_type"
+            }
+        },
+        "condition_immunities": {
+            "title": "Condition Immunities",
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+                "$ref": "#definitions/condition"
+            }
+        },
+        "senses": {
+            "title": "Senses",
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+                "$ref": "#/definitions/sense"
+            }
+        },
+        "languages": {
+            "title": "Languages",
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "value": {
+                        "title": "Language",
+                        "type": "string",
+                        "enum": [
+                            "Common",
+                            "Goblin",
+                            "One language known by its creator"
+                        ]
+                    }
+                }
+            }
+        },
+        "challenge": {
+            "title": "Challenge",
+            "type": "string",
+            "enum": ["0 (10XP)", "1/4 (50XP)"]
+        },
+        "features": {
+            "title": "Features",
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/feature"
+            }
+        },
+        "actions": {
+            "title": "Actions",
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/feature"
+            }
+        },
+        "rolls": {
+            "title": "Rolls",
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/roll"
+            }
+        },
+        "description": {
+            "title": "Description",
+            "type": "string"
+        }
+    },
+    "required": [
+        "id",
+        "name",
+        "size",
+        "type",
+        "alignment",
+        "headline",
+        "armor",
+        "hp",
+        "speed",
+        "abilityScores",
+        "challenge"
+    ]
+}

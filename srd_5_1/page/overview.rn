@@ -1,0 +1,130 @@
+use ::tavern::{Alignment, Cell, Columns, Contents, Font, Grid, Page, PrepareOptions, Section};
+
+use crate::{Ability, Skill};
+
+const NAME = "Character Overview";
+
+pub fn get_page(character) {
+    let page = Page::new();
+    page.character = character.id();
+    page.name = NAME;
+    page.icon = "newsmode";
+    page.shortcut = "c";
+    page
+}
+
+fn build_ability(ability) {
+    let check_roll = PrepareOptions::by_name(format!("{} Check", ability.name()));
+    let save_roll = PrepareOptions::by_name(format!("{} Save", ability.name()));
+
+    let cells = [
+        Cell::try_new(0..12, 0..5, Contents::Outline)?,
+        Cell::try_new(0..4, 0..3, Contents::new_number(ability.variable_name()).read_only()?.label(ability.name())?.font(Font::Bold)?)?,
+        Cell::try_new(0..2, 3..4, Contents::new_number(ability.modifier_variable()).read_only()?.with_sign()?)?,
+        Cell::try_new(2..4, 3..4, Contents::new_number(ability.save_variable()).read_only()?.with_sign()?)?,
+        Cell::try_new(0..2, 4..5, Contents::new_button().roll(check_roll)?.label("Check")?.tooltip(format!("Roll {} Check", ability.name()))?)?,
+        Cell::try_new(2..4, 4..5, Contents::new_button().roll(save_roll)?.label("Save")?.tooltip(format!("Roll {} Save", ability.name()))?)?,
+    ];
+
+    for enumerated in Skill::all().iter().filter(|skill| skill.ability() == ability).enumerate() {
+        if let (index, skill) = enumerated {
+            let stub = skill.stub();
+        
+            cells.push(Cell::try_new(
+                4..5,
+                index..index + 1,
+                Contents::new_text(skill.proficiency_name()).align(Alignment::Center)?.read_only()?)?
+            );
+            let options = PrepareOptions::by_name(skill.name());
+            cells.push(Cell::try_new(
+                5..6,
+                index..index + 1,
+                Contents::new_number(skill.bonus_name()).with_sign()?.roll(options)?.tooltip(format!("Roll {} Check", skill.name()))?)?
+            );
+            cells.push(Cell::try_new(
+                6..12,
+                index..index + 1,
+                Contents::new_label().label(skill.name())?)?
+            );
+        }
+    }
+
+    Ok(cells)
+}
+
+pub fn get_layout(name) {
+    if name != NAME {
+        return Ok(None);
+    }
+
+    let layout = [];
+
+    let description_cells = [
+        Cell::try_new(0..6, 0..6, Contents::Image("portrait"))?,
+        Cell::try_new(6..12, 0..1, Contents::new_text("name").label("Name")?)?,
+        Cell::try_new(6..12, 1..2, Contents::new_text("race").read_only()?.label("Race")?)?,
+        Cell::try_new(6..12, 2..3, Contents::new_text("class").read_only()?.label("Class")?)?,
+        Cell::try_new(6..12, 3..4, Contents::new_text("background").read_only()?.label("Background")?)?,
+        Cell::try_new(6..12, 4..5, Contents::new_text("alignment").read_only()?.label("Alignment")?)?,
+        Cell::try_new(6..12, 5..6, Contents::new_number("experience").align(Alignment::Left)?.label("Experience")?)?,
+        Cell::try_new(0..1, 6..7, Contents::new_checkbox("inspiration"))?,
+        Cell::try_new(1..4, 6..7, Contents::new_label().label("Inspiration")?)?,
+        Cell::try_new(4..5, 6..7, Contents::new_number("passivePerception").read_only()?)?,
+        Cell::try_new(5..9, 6..7, Contents::new_label().label("Passive Perception")?)?,
+        Cell::try_new(9..10, 6..7, Contents::new_number("profBonus").read_only()?)?,
+        Cell::try_new(10..12, 6..7, Contents::new_label().label("Proficiency")?)?,
+    ];
+    let description = Grid::new(description_cells, false);
+
+    let initiative_roll = PrepareOptions::by_name("Initiative");
+    let hp_cells = [
+        Cell::try_new(0..4, 0..2, Contents::new_number("ac").read_only()?.label("Armor Class")?)?,
+        Cell::try_new(4..8, 0..2, Contents::new_number("init").read_only()?.with_sign()?.label("Initiative")?.roll(initiative_roll)?.tooltip("Roll Initiative Check")?)?,
+        Cell::try_new(8..12, 0..2, Contents::new_number("speed").read_only()?.label("Speed")?.suffix("ft")?)?,
+        Cell::try_new(0..4, 2..4, Contents::new_number("hp").label("Hit Points")?)?,
+        Cell::try_new(4..8, 2..4, Contents::new_number("tempHp").label("Temporary HP")?)?,
+        Cell::try_new(8..12, 2..4, Contents::new_number("maxHp").read_only()?.label("Maximum HP")?)?,
+
+        Cell::try_new(0..8, 4..5, Contents::new_label().label("Hit Dice")?.align(Alignment::Center)?)?,
+        Cell::try_new(0..1, 5..6, Contents::new_label().label("d6")?.align(Alignment::Center)?)?,
+        Cell::try_new(1..2, 5..6, Contents::new_button().key("remove_hit_die_6")?.label("−")?.depends_on("hasAvailableHitDie6")?)?,
+        Cell::try_new(2..3, 5..6, Contents::new_number("hitDice6").roll(PrepareOptions::by_name("Hit Die (d6)"))?.depends_on("hasAvailableHitDie6")?)?,
+        Cell::try_new(3..4, 5..6, Contents::new_button().key("add_hit_die_6")?.label("+")?.depends_on("hasUsedHitDie6")?)?,
+        Cell::try_new(4..5, 5..6, Contents::new_label().label("d8")?.align(Alignment::Center)?)?,
+        Cell::try_new(5..6, 5..6, Contents::new_button().key("remove_hit_die_8")?.label("−")?.depends_on("hasAvailableHitDie8")?)?,
+        Cell::try_new(6..7, 5..6, Contents::new_number("hitDice8").roll(PrepareOptions::by_name("Hit Die (d8)"))?.depends_on("hasAvailableHitDie8")?)?,
+        Cell::try_new(7..8, 5..6, Contents::new_button().key("add_hit_die_8")?.label("+")?.depends_on("hasUsedHitDie8")?)?,
+        Cell::try_new(0..1, 6..7, Contents::new_label().label("d10")?.align(Alignment::Center)?)?,
+        Cell::try_new(1..2, 6..7, Contents::new_button().key("remove_hit_die_10")?.label("−")?.depends_on("hasAvailableHitDie10")?)?,
+        Cell::try_new(2..3, 6..7, Contents::new_number("hitDice10").roll(PrepareOptions::by_name("Hit Die (d10)"))?.depends_on("hasAvailableHitDie10")?)?,
+        Cell::try_new(3..4, 6..7, Contents::new_button().key("add_hit_die_10")?.label("+")?.depends_on("hasUsedHitDie10")?)?,
+        Cell::try_new(4..5, 6..7, Contents::new_label().label("d12")?.align(Alignment::Center)?)?,
+        Cell::try_new(5..6, 6..7, Contents::new_button().key("remove_hit_die_12")?.label("−")?.depends_on("hasAvailableHitDie12")?)?,
+        Cell::try_new(6..7, 6..7, Contents::new_number("hitDice12").roll(PrepareOptions::by_name("Hit Die (d12)"))?.depends_on("hasAvailableHitDie12")?)?,
+        Cell::try_new(7..8, 6..7, Contents::new_button().key("add_hit_die_12")?.label("+")?.depends_on("hasUsedHitDie12")?)?,
+
+        Cell::try_new(8..12, 4..7, Contents::Outline)?,
+        Cell::try_new(8..11, 4..5, Contents::new_label().label("Death Saves")?.align(Alignment::Center)?)?,
+        Cell::try_new(11..12, 4..5, Contents::new_button().roll(PrepareOptions::by_name("Death Saving Throw"))?.icon("ifl")?)?,
+        Cell::try_new(8..9, 5..6, Contents::new_label().icon("check_circle")?)?,
+        Cell::try_new(9..10, 5..6, Contents::new_checkbox("death_success_1"))?,
+        Cell::try_new(10..11, 5..6, Contents::new_checkbox("death_success_2"))?,
+        Cell::try_new(11..12, 5..6, Contents::new_checkbox("death_success_3"))?,
+        Cell::try_new(8..9, 6..7, Contents::new_label().icon("cancel")?)?,
+        Cell::try_new(9..10, 6..7, Contents::new_checkbox("death_failure_1"))?,
+        Cell::try_new(10..11, 6..7, Contents::new_checkbox("death_failure_2"))?,
+        Cell::try_new(11..12, 6..7, Contents::new_checkbox("death_failure_3"))?,
+    ];
+    let hp = Grid::new(hp_cells, false);
+
+    layout.push(Section::Columns(Columns::new([description, hp])));
+    layout.push(Section::Gap);
+
+    let abilities = [];
+    for ability in Ability::all() {
+        abilities.push(Grid::new(build_ability(ability)?, false))
+    }
+    layout.push(Section::Columns(Columns::new(abilities)));
+
+    Ok(Some(layout))
+}

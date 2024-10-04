@@ -1,0 +1,106 @@
+use tavern::{Alignment, Cell, Column, Columns, Contents, Font, Grid, PrepareOptions, Size, Table};
+
+use crate::Ability;
+
+impl super::Supporting {
+    fn get_layout(self) {
+        let cells = [
+            Cell::try_new(0..10, 0..2, Contents::new_text("name"))?,
+            Cell::try_new(0..12, 2..3, Contents::new_text("headline").read_only()?.font(Font::Italic)?)?,
+            
+            Cell::try_new(0..3, 3..4, Contents::new_label().label("Armor Class")?.align(Alignment::Right)?)?,
+            Cell::try_new(3..12, 3..4, Contents::new_text("armor").read_only()?)?,
+            Cell::try_new(0..3, 4..5, Contents::new_label().label("Hit Points")?.align(Alignment::Right)?)?,
+            Cell::try_new(3..5, 4..5, Contents::new_number("hp").align(Alignment::Center)?)?,
+            Cell::try_new(5..7, 4..5, Contents::new_label().label("Max HP")?.align(Alignment::Right)?)?,
+            Cell::try_new(7..9, 4..5, Contents::new_number("max_hp").align(Alignment::Center)?)?,
+            Cell::try_new(9..11, 4..5, Contents::new_text("hp_expression").align(Alignment::Center)?.read_only()?)?,
+            Cell::try_new(11..12, 4..5, Contents::new_number("temp_hp").align(Alignment::Center)?.label("Temp")?)?,
+            Cell::try_new(0..3, 5..6, Contents::new_label().label("Speed")?.align(Alignment::Right)?)?,
+            Cell::try_new(3..9, 5..6, Contents::new_text("speed").align(Alignment::Left)?.read_only()?)?,
+            Cell::try_new(9..12, 5..6, Contents::new_button().roll(PrepareOptions::by_name("Initiative"))?.label("Initiative")?)?,
+            Cell::try_new(0..12, 3..6, Contents::Outline)?,
+        ];
+
+        let start = 0;
+        for ability in Ability::all() {
+            cells.push(Cell::try_new(start..start + 2, 6..7, Contents::new_label().label(ability.name()[0..3].to_uppercase())?.align(Alignment::Center)?)?);
+            start += 2;
+        }
+
+        let start = 0;
+        for ability in Ability::all() {
+            cells.push(Cell::try_new(start..start + 1, 7..8, Contents::new_number(ability.variable_name()).align(Alignment::Center)?.read_only()?)?);
+            
+            let check_roll = PrepareOptions::by_name(format!("{} Check", ability.name())).for_character(self.id);
+            let modifier = Contents::new_number(ability.modifier_variable())
+                .align(Alignment::Center)?
+                .read_only()?
+                .with_sign()?
+                .roll(check_roll)?;
+            
+            cells.push(Cell::try_new(start + 1..start + 2, 7..8, modifier)?);
+            start += 2;
+        }
+
+        let skills = [
+            Cell::try_new(0..2, 8..9, Contents::new_label().label("Skills")?.align(Alignment::Right)?)?,
+            Cell::try_new(2..12, 8..9, Contents::ChipList("skills"))?,
+        ];
+
+        cells.extend(skills);
+
+        let senses = [
+            Cell::try_new(0..2, 9..10, Contents::new_label().label("Senses")?.align(Alignment::Right)?)?,
+            Cell::try_new(2..12, 9..10, Contents::ChipList("senses"))?,
+        ];
+
+        cells.extend(senses);
+
+        let languages = [
+            Cell::try_new(0..3, 10..11, Contents::new_label().label("Languages")?.align(Alignment::Right)?)?,
+            Cell::try_new(3..12, 10..11, Contents::ChipList("languages"))?,
+        ];
+
+        cells.extend(languages);
+
+        let challenge = [
+            Cell::try_new(0..3, 11..12, Contents::new_label().label("Challenge")?.align(Alignment::Right)?)?,
+            Cell::try_new(3..12, 11..12, Contents::new_text("challenge").read_only()?)?,
+        ];
+
+        cells.extend(challenge);
+
+        let left_cells = [
+            Cell::try_new(0..12, 0..1, Contents::new_label().label("Features")?.size(Size::Large)?.align(Alignment::Center)?)?,
+        ];
+        let left = Grid::new(left_cells, false);
+        let feature_controls = Columns::new([left, Grid::new([], false)]);
+        let feature_columns = [
+            Column::new("name", 12, Contents::new_text("name").read_only()?),
+        ];
+        let feature_table = Table::new("features", feature_controls, [], feature_columns, "order");
+        let features = [
+            Cell::try_new(0..12, 12..16, Contents::Table(feature_table))?
+        ];
+
+        cells.extend(features);
+
+        let left_cells = [
+            Cell::try_new(0..12, 0..1, Contents::new_label().label("Actions")?.size(Size::Large)?.align(Alignment::Center)?)?,
+        ];
+        let left = Grid::new(left_cells, false);
+        let action_controls = Columns::new([left, Grid::new([], false)]);
+        let action_columns = [
+            Column::new("name", 12, Contents::new_text("name").read_only()?),
+        ];
+        let action_table = Table::new("actions", action_controls, [], action_columns, "order");
+        let actions = [
+            Cell::try_new(0..12, 16..24, Contents::Table(action_table))?
+        ];
+
+        cells.extend(actions);
+
+        Ok(Grid::new(cells, false))
+    }
+}

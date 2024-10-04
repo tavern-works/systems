@@ -1,0 +1,173 @@
+use std::collections::{HashMap, HashSet};
+use tavern::{Action, ConfigOption, Roll, RollConfig, Target};
+
+use crate::{Ability, Skill};
+
+fn string_for_factor(factor) {
+    match (factor.to::<f64>() * 2.0).round().to::<i64>() {
+        0 => "0×",
+        1 => "½×",
+        2 => "1×",
+        4 => "2×",
+        _ => {
+            log::error!("Unhandled factor {factor}");
+            "0×"
+        }
+    }
+}
+
+impl super::Character {
+    fn build_attack_roll(self, name, ability, proficiency_factor, damage, damage_type) {
+        let proficiency_options = [
+            ConfigOption::try_new("0×", 0)?,
+            ConfigOption::try_new("½×", 0.5)?,
+            ConfigOption::try_new("1×", 1)?,
+            ConfigOption::try_new("2×", 2)?,
+        ];
+
+        let configs = [
+            RollConfig::new("Advantage", "@advantage", 'A', [], "false"),
+            RollConfig::new("Disadvantage", "@disadvantage", 'D', [], "false"),
+            RollConfig::new("Proficiency Bonus", "@proficiency", 'P', proficiency_options, string_for_factor(proficiency_factor)),
+        ];
+
+        let d20 = "if (@advantage, if (@disadvantage, 1d20, 2d20kh1), if (@disadvantage, 2d20kl1, 1d20))";
+
+        let expression = format!(
+            "{d20} + {} + floor(@proficiency * $profBonus)",
+            ability.modifier_variable(),
+        );
+
+        let roll = Roll::try_new(name, configs, expression)?;
+
+        let configs = [
+            RollConfig::new("Critical Hit", "@critical", 'C', [], "false"),
+        ];
+
+        let damage_expression = format!("if (@critical, {}, {damage})", Roll::doubled(damage)?);
+        let damage_roll = Roll::try_new(damage_type[..1].to_uppercase() + damage_type[1..] + " Damage", configs, damage_expression)?;
+
+        roll.set_next(damage_roll);
+        Ok(roll)
+    }
+
+    fn get_rolls(self, tables) {
+        let rolls = self.attack_rolls.iter().map(|r| r.clone()).collect::<Vec>();
+
+        let classes_seen = HashSet::new();
+        for class in self.classes {
+            if classes_seen.contains(class.name()) {
+                continue;
+            }
+
+            rolls.extend(class.rolls(self.resources.clone(), tables)?);
+
+            classes_seen.insert(class.name());
+        }
+
+        let proficiencies = self.proficiencies();
+        let proficiency_options = [
+            ConfigOption::try_new("0×", 0)?,
+            ConfigOption::try_new("½×", 0.5)?,
+            ConfigOption::try_new("1×", 1)?,
+            ConfigOption::try_new("2×", 2)?,
+        ];
+
+        let d20 = "if (@advantage, if (@disadvantage, 1d20, 2d20kh1), if (@disadvantage, 2d20kl1, 1d20))";
+
+        for skill in Skill::all() {
+            let proficiency_options = proficiency_options.iter().map(|o| o.clone()).collect::<Vec>();
+            let unconditional_factor = skill.unconditional_factor(proficiencies);
+
+            let configs = [
+                RollConfig::new("Advantage", "@advantage", 'A', [], "false"),
+                RollConfig::new("Disadvantage", "@disadvantage", 'D', [], "false"),
+                RollConfig::new("Proficiency Bonus", "@proficiency", 'P', proficiency_options, string_for_factor(unconditional_factor)),
+            ];
+
+            let expression = format!(
+                "{d20} + {} + floor(@proficiency * $profBonus)",
+                skill.ability().modifier_variable()
+            );
+
+            let roll = Roll::try_new(skill.name(), configs, expression)?;
+            rolls.push(roll);
+        }
+
+        let proficiency_options = [
+            ConfigOption::try_new("0×", 0)?,
+            ConfigOption::try_new("½×", 0.5)?,
+            ConfigOption::try_new("1×", 1)?,
+            ConfigOption::try_new("2×", 2)?,
+        ];
+
+        for ability in Ability::all() {
+            let options = proficiency_options.iter().map(|o| o.clone()).collect::<Vec>();
+
+            let configs = [
+                RollConfig::new("Advantage", "@advantage", 'A', [], "false"),
+                RollConfig::new("Disadvantage", "@disadvantage", 'D', [], "false"),
+                RollConfig::new("Proficiency Bonus", "@proficiency", 'P', options, "0×"),
+            ];
+
+            let expression = format!(
+                "{d20} + {} + floor(@proficiency * $profBonus)",
+                ability.modifier_variable()
+            );
+
+            let roll = Roll::try_new(ability.name() + " Check", configs, expression.clone())?;
+            rolls.push(roll);
+
+            let options = proficiency_options.iter().map(|o| o.clone()).collect::<Vec>();
+            let saving_throw_factor = ability.saving_throw_factor(proficiencies);
+
+            let configs = [
+                RollConfig::new("Advantage", "@advantage", 'A', [], "false"),
+                RollConfig::new("Disadvantage", "@disadvantage", 'D', [], "false"),
+                RollConfig::new("Proficiency Bonus", "@proficiency", 'P', options, string_for_factor(saving_throw_factor)),
+            ];
+
+            let roll = Roll::try_new(ability.name() + " Save", configs, expression)?;
+            rolls.push(roll);
+        }
+
+        let configs = [
+            RollConfig::new("Advantage", "@advantage", 'A', [], "false"),
+            RollConfig::new("Disadvantage", "@disadvantage", 'D', [], "false"),
+        ];
+        let expression = format!(
+            "{d20} + {}",
+            Ability::Dexterity.modifier_variable()
+        );
+        let initiative = Roll::try_new("Initiative", configs, expression)?;
+        rolls.push(initiative);
+
+        let available_hit_dice = HashMap::new();
+        for die in [6, 8, 10, 12] {
+            available_hit_dice.insert(die, 0);
+        }
+        for die in self.hit_dice() {
+            if !die["used"] {
+                available_hit_dice[die["sides"]] = available_hit_dice[die["sides"]] + 1;
+            }
+        }
+
+        for sides in [6, 8, 10, 12] {
+            if available_hit_dice[sides] > 0 {
+                let hit_die_roll = Roll::try_new(format!("Hit Die (d{sides})"), [], format!("1d{sides}"))?;
+                hit_die_roll.set_action(Action::new(Target::Roller, format!("use_hit_die_{sides}")));
+                rolls.push(hit_die_roll);
+            }
+        }
+
+        let configs = [
+            RollConfig::new("Advantage", "@advantage", 'A', [], "false"),
+            RollConfig::new("Disadvantage", "@disadvantage", 'D', [], "false"),
+        ];
+        let death_saving_throw = Roll::try_new("Death Saving Throw", configs, d20)?;
+        death_saving_throw.set_action(Action::new(Target::Roller, "death_saving_throw"));
+        rolls.push(death_saving_throw);
+
+        Ok(rolls)
+    }
+}

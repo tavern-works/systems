@@ -1,0 +1,144 @@
+use tavern::Uid;
+
+use crate::{Advantage, Ability, BaseWeapon, DamageType, Proficiency, Resistance, SavingThrow, Skill, Tool};
+
+mod dwarf;
+
+enum Race {
+    HighElf,
+    HillDwarf,
+    Human,
+    Tiefling,
+}
+
+impl Race {
+    pub fn from_string(string) {
+        match string {
+            "High Elf" => Race::HighElf,
+            "Hill Dwarf" => Race::HillDwarf,
+            "Human" => Race::Human,
+            "Tiefling" => Race::Tiefling,
+            _ => panic(`unknown race ${string}`),
+        }
+    }
+
+    fn name(self) {
+        match self {
+            Race::HighElf => "High Elf",
+            Race::HillDwarf => "Hill Dwarf",
+            Race::Human => "Human",
+            Race::Tiefling => "Tiefling"
+        }
+    }
+
+    fn short_name(self) {
+        match self {
+            Race::HighElf => "Elf",
+            Race::HillDwarf => "Dwarf",
+            Race::Human => "Human",
+            Race::Tiefling => "Tiefling"
+        }
+    }
+
+    fn ability_score_increases(self) {
+        let increases = #{};
+        match self {
+            Race::HillDwarf => {
+                increases[Ability::Constitution.name()] = 2;
+                increases[Ability::Wisdom.name()] = 1;
+            }
+        }
+        increases
+    }
+
+    fn advantages(self) {
+        match self {
+            Race::HillDwarf => [Advantage { source: "Dwarven Resistance", against: SavingThrow::Poison }],
+        }
+    }
+
+    fn features(self) {
+        match self {
+            Race::HillDwarf => self.dwarf_features(),
+            _ => [],
+        }
+    }
+
+    fn heavy_armor_speed(self) {
+        match self {
+            Race::HighElf => 20,
+            Race::HillDwarf => 25,
+            Race::Human => 20,
+            Race::Tiefling => 20,
+        }
+    }
+
+    fn max_hp_modifier(self, character) {
+        match self {
+            Race::HighElf => 0,
+            Race::HillDwarf => character.level(),
+            Race::Human => 0,
+            Race::Tiefling => 0,
+        }
+    }
+
+    fn parse_choices(self, parsed, choices) {
+        match self {
+            Race::HillDwarf => {
+                if parsed.contains_key("toolProficiency") {
+                    choices["tool_proficiency"] = parsed["toolProficiency"]
+                } else {
+                    panic("expected a tool proficiency selection as a Hill Dwarf");
+                }
+            }
+        }
+    }
+
+    fn proficiencies(self, character) {
+        let proficiencies = [];
+        match self {
+            Race::HillDwarf => {
+                proficiencies.extend([
+                    BaseWeapon(Uid::from_string("rrWRGLd8SQpN")),
+                    BaseWeapon(Uid::from_string("LZbwW2QST6gv")),
+                    BaseWeapon(Uid::from_string("B3BB2bH6RVHv")),
+                    BaseWeapon(Uid::from_string("Q7D6ZddlFQx2")),
+                ].iter().map(|weapon| Proficiency { source: "Dwarven Combat Training", factor: 1, with: weapon, condition: None }).collect::<Vec>());
+                
+                let tool_proficiency = character.choices["tool_proficiency"];
+                let valid_tools = ["JL52DgCn63Gk", "SXZDTXxSBvCb", "16k0jyNBNyXt"];
+                if !valid_tools.iter().find(|value| value == tool_proficiency).is_some() {
+                    panic!("invalid tool {tool_proficiency}");
+                }
+                proficiencies.push(Proficiency { source: "Dwarven Tool Proficiency", factor: 1, with: Tool::Artisan(Uid::from_string(tool_proficiency)), condition: None });
+
+                proficiencies.push(Proficiency { source: "Stonecunning", factor: 2, with: Skill::History, condition: Some("related to the origin of stonework") });
+            }
+        }
+        proficiencies
+    }
+
+    fn resistances(self) {
+        match self {
+            Race::HillDwarf => [Resistance { source: "Dwarven Resistance", damage_type: DamageType::Poison }],
+        }
+    }
+
+    fn speed(self) {
+        match self {
+            Race::HighElf => 30,
+            Race::HillDwarf => 25,
+            Race::Human => 30,
+            Race::Tiefling => 30,
+        }
+    }
+
+    fn vision(self) {
+        match self {
+            Race::HighElf => "Darkvision",
+            Race::HillDwarf => "Darkvision",
+            Race::Human => "Normal",
+            Race::Tiefling => "Darkvision",
+        }
+    }
+}

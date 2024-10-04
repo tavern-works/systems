@@ -1,0 +1,16 @@
+impl super::Character {
+    fn update_resources(self, tables) {
+        tables.clear_table(self.resources)?;
+        let order = 0;
+
+        for class in self.classes {
+            for resource in class.resources() {
+                resource["order"] = order;
+                order += 1;
+                tables.create_entry(self.resources, resource)?
+            }
+        }
+
+        Ok(())
+    }
+}

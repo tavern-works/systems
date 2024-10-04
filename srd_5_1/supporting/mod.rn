@@ -1,0 +1,315 @@
+use crate::{Ability, Skill};
+
+use tavern::{Card, Change, HitPoints, Roll, RollConfig, Uid, Variable};
+
+mod layout;
+
+struct Supporting {
+    id,
+    template,
+    name,
+    hp,
+    temp_hp,
+    max_hp,
+    hp_expression,
+    features,
+    actions,
+}
+
+pub fn create(tables, id, template_id, name) {
+    let template = tables.get_compendium_entry_by_id(template_id)?;
+
+    let average = Roll::average(template["hp"])?;
+
+    let character = Supporting { 
+        id,
+        template: template_id,
+        name,
+        hp: average,
+        temp_hp: 0,
+        max_hp: average,
+        hp_expression: template["hp"],
+        features: tables.create_table(),
+        actions: tables.create_table(),
+    };
+
+    for feature in template["features"] {
+        tables.create_entry(character.features, feature);
+    }
+
+    for action in template["actions"] {
+        tables.create_entry(character.actions, action)
+    }
+
+    Ok(character.get_methods())
+}
+
+impl Supporting {
+    fn get_methods(self) {
+        #{ 
+            "apply_sheet_update": |tables, key, value| self.apply_update(tables, key, value),
+            "get_card": |tables| self.get_card(tables),
+            "get_layout": || self.get_layout(),
+            "get_rolls": |tables| self.get_rolls(tables),
+            "get_sheet_data": |tables| self.get_sheet_data(tables),
+            "get_tables": || self.get_tables(),
+            "get_variables": |tables| self.get_variables(tables),
+        }
+    }
+
+    fn apply_update(self, tables, key, value) {
+        let notify_card = false;
+        let notify_sheet = false;
+        
+        match key {
+            "hp" => {
+                self.hp = value.min(self.max_hp).max(0);
+                notify_card = true;
+                notify_sheet = true;
+            }
+            "max_hp" => {
+                self.max_hp = value.max(0);
+                self.hp = self.hp.min(self.max_hp);
+                notify_card = true;
+                notify_sheet = true;
+            }
+            "name" => {
+                self.name = value;
+                notify_card = true;
+                notify_sheet = true;
+            }
+            "temp_hp" => {
+                self.temp_hp = value.max(0);
+                notify_card = true;
+                notify_sheet = true;
+            }
+            _ => ::log::error!("Unhandled update {key}"),
+        }
+
+        let changes = [];
+        if notify_card {
+            changes.push(Change::Card(self.get_card(tables)));
+        }
+        if notify_sheet {
+            changes.push(Change::SheetData(self.get_sheet_data(tables)?));
+        }
+
+        Ok(changes)
+    }
+
+    fn get_card(self, tables) {
+        let template = tables.get_compendium_entry_by_id(self.template)?;
+
+        let card = Card::new();
+
+        card.name = self.name.clone();
+        card.headline = self.headline(template, false);
+
+        let hp = HitPoints::new();
+        hp.current = self.hp;
+        hp.maximum = self.max_hp;
+        hp.temporary = self.temp_hp;
+        card.hp = Some(hp);
+
+        card.pages = [];
+
+        card
+    }
+
+    fn get_rolls(self, tables) {
+        let template = tables.get_compendium_entry_by_id(self.template)?;
+
+        let rolls = [];
+
+        let d20 = "if (@advantage, if (@disadvantage, 1d20, 2d20kh1), if (@disadvantage, 2d20kl1, 1d20))";
+
+        for ability in Ability::all() {
+            let configs = [
+                RollConfig::new("Advantage", "@advantage", 'A', [], "false"),
+                RollConfig::new("Disadvantage", "@disadvantage", 'D', [], "false"),
+            ];
+
+            let expression = format!("{d20} + {}", ability.modifier_variable());
+            let roll = Roll::try_new(ability.name() + " Check", configs, expression)?;
+            rolls.push(roll);
+        }
+
+        let configs = [
+            RollConfig::new("Advantage", "@advantage", 'A', [], "false"),
+            RollConfig::new("Disadvantage", "@disadvantage", 'D', [], "false"),
+        ];
+        let expression = format!("{d20} + {}", Ability::Dexterity.modifier_variable());
+        let roll = Roll::try_new("Initiative", configs, expression)?;
+        rolls.push(roll);
+
+        for skill in Skill::all() {
+            let configs = [
+                RollConfig::new("Advantage", "@advantage", 'A', [], "false"),
+                RollConfig::new("Disadvantage", "@disadvantage", 'D', [], "false"),
+            ];
+
+            if let Some(proficiency) = template["skills"].iter().find(|s| s["type"] == skill.name()) {
+                let expression = format!("{d20} {}", proficiency["value"]);
+                let roll = Roll::try_new(skill.name() + " Check", configs, expression)?;
+                rolls.push(roll);
+            } else {
+                let ability = skill.ability();
+                let expression = format!("{d20} + {}", self.ability_modifier(template, ability));
+                let roll = Roll::try_new(skill.name() + " Check", configs, expression)?;
+                rolls.push(roll);
+            }
+        }
+
+        for roll in template["rolls"] {
+            let configs = [
+                RollConfig::new("Advantage", "@advantage", 'A', [], "false"),
+                RollConfig::new("Disadvantage", "@disadvantage", 'D', [], "false"),
+            ];
+
+            let expression = roll["expression"].replace("{d20}", d20);
+            let pending = Roll::try_new(roll["name"], configs, expression)?;
+
+            if roll.contains_key("damage") {
+                let configs = [
+                    RollConfig::new("Critical Hit", "@critical", 'C', [], "false"),
+                ];
+
+                let damage = roll["damage"];
+
+                let name = format!("{} Damage", damage["type"]);
+
+                let count = damage["count"];
+                let sides = damage["sides"];
+                let modifier = damage["modifier"];
+
+                let expression = format!("if (@critical, {}d{sides}, {count}d{sides}) + {modifier}", 2 * count);
+                let damage_roll = Roll::try_new(name, configs, expression)?;
+                pending.set_next(damage_roll);
+            }
+
+            rolls.push(pending);
+        }
+
+        Ok(rolls)
+    }
+
+    fn get_sheet_data(self, tables) {
+        let template = tables.get_compendium_entry_by_id(self.template)?;
+
+        let data = #{
+            "name": self.name,
+            "headline": self.headline(template, true),
+            
+            "armor": self.armor_description(tables, template),
+            "hp": self.hp,
+            "max_hp": self.max_hp,
+            "hp_expression": self.hp_expression.clone(),
+            "temp_hp": self.temp_hp,
+            "speed": template["speed"],
+
+            "skills": template["skills"],
+            "senses": template["senses"],
+            "languages": template["languages"],
+            "challenge": template["challenge"],
+        };
+
+        for ability in Ability::all() {
+            data[ability.variable_name()] = self.ability_score(template, ability);
+            data[ability.modifier_variable()] = self.ability_modifier(template, ability);
+        }
+
+        Ok(data)
+    }
+
+    fn get_tables(self) {
+        #{
+            "features": [self.features.clone()],
+            "actions": [self.actions.clone()]
+        }
+    }
+
+    fn get_variables(self, tables) {
+        let template = tables.get_compendium_entry_by_id(self.template)?;
+
+        let variables = [];
+
+        for ability in Ability::all() {
+            variables.push(Variable::try_new(
+                ability.modifier_variable(),
+                ability.name() + " Modifier",
+                ability.name()[0..3] + " Mod",
+                self.ability_modifier(template, ability)
+            )?);
+        }
+        
+        Ok(variables)
+    }
+}
+
+impl Supporting {
+    fn ability_modifier(self, template, ability) {
+        Ability::modifier_for_value(self.ability_score(template, ability))
+    }
+
+    fn ability_score(self, template, ability) {
+        template["abilityScores"][ability.index()]
+    }
+
+    fn armor_class(self, tables, template) {
+        let ac = 0;
+        let dex_mod = self.ability_modifier(template, Ability::Dexterity);
+        let has_armor = false;
+
+        for item in template["armor"] {
+            let item = tables.get_compendium_entry_by_id(Uid::from_string(item))?;
+            for attribute in item["attributes"] {
+                match attribute["type"] {
+                    "ac_plus_dex_mod" => {
+                        has_armor = true;
+                        ac += attribute["value"] + dex_mod
+                    },
+                    "ac_plus_capped_dex_mod" => {
+                        has_armor = true;
+                        ac += attribute["value"] + dex_mod.max(2)
+                    }
+                    "ac" => {
+                        has_armor = true;
+                        ac += attribute["value"]
+                    },
+                    "shield" => ac += 2,
+                }
+            }
+        }
+
+        if !has_armor {
+            ac += 10 + dex_mod;
+        }
+
+        ac
+    }
+
+    fn armor_description(self, tables, template) {
+        let names = "";
+        for item in template["armor"] {
+            let item = tables.get_compendium_entry_by_id(Uid::from_string(item))?;
+            if !names.is_empty() {
+                names += ", ";
+            }
+            names += item["name"].to_lowercase();
+        }
+
+        if names.is_empty() {
+            format!("{}", self.armor_class(tables, template))
+        } else {
+            format!("{} ({names})", self.armor_class(tables, template))
+        }
+    }
+
+    fn headline(self, template, extended) {
+        let headline = format!("{} {}", template["size"], template["type"]);
+        if extended {
+            headline += format!(", {}", template["alignment"].to_lowercase());
+        }
+        headline
+    }
+}

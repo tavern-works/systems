@@ -1,0 +1,270 @@
+use tavern::{anyhow, bail, Change, Confirmation, TableKey, Uid};
+
+impl super::Character {
+    fn apply_table_update(self, tables, key, value) {
+        let entry = tables.get_entry_by_id(key.table_id, key.entry_id)?;
+        if key.name.starts_with("use-") {
+            let index = key.name.split("-").skip(1).next().ok_or_else(|| anyhow!("Failed to find use index"))?;
+            let index = index.parse::<i64>()?;
+            let extras = entry.get_value("extras")?;
+            extras["used"][index] = value;
+            entry.set_value("extras", extras)?;
+            tables.save_entry(entry)?;
+            return Ok([]);
+        }
+
+        match key.name {
+            "active" => {
+                let attributes = entry.get_value("attributes")?;
+
+                if value && attributes.iter().find(|attribute| attribute["type"].ends_with("_armor")).is_some() {
+                    if let Some(active_armor) = self.active_armor(tables) {
+                        active_armor.set_value("active", false)?;
+                        tables.save_entry(active_armor)?;
+                    }
+                }
+
+                self.set_held_item_active(tables, entry, value)?;
+
+                entry.set_value("active", value)?;
+                tables.save_entry(entry)?;
+
+                Ok([
+                    Change::SheetData(self.get_sheet_data(tables)?),
+                    Change::Rolls(self.get_rolls(tables)?)
+                ])
+            }
+            "quantity" => {
+                if value < 0 {
+                    bail!("Quantity may not be less than 0");
+                } else if value == 0 {
+                    key.name = "remove-no-confirm";
+                    Ok(Confirmation::new(format!("Remove **{}** from&nbsp;inventory?", entry.get_value("name")?), "Remove", self.id(), key.to_string()))
+                } else {
+                    entry.set_value("quantity", value)?;
+                    tables.save_entry(entry)?;
+                    Ok([Change::SheetData(self.get_sheet_data(tables)?)])
+                }
+            }
+            _ => {
+                log::warn!("Unknown key: {}", key.name);
+                Ok([])
+            }
+        }
+    }
+
+    fn apply_container_update(self, tables, key, value) {
+        let split = key.split(":").collect::<Vec>();
+        if split.len() != 3 {
+            bail!("Failed to parse container update key");
+        }
+
+        let table_id = Uid::from_string(split[1]);
+        let command = split[2];
+        let container = self.containers.iter().find(|container| container["id"] == table_id).ok_or_else(|| anyhow!("Failed to find container with id {:?}", table_id))?;
+        match command {
+            "carried" => container["carried"] = value,
+            "name" => container["name"] = value,
+            _ => bail!("Unknown command {command}"),
+        }
+
+        Ok(())
+    }
+
+    fn apply_update(self, tables, key, value) {
+        if value is Tuple && value.len() == 0 {
+            return self.apply_action(tables, key);
+        }
+
+        let notify_card = false;
+        let notify_rolls = false;
+        let notify_sheet = false;
+        if let Some(table_key) = TableKey::try_parse(key) {
+            return self.apply_table_update(tables, table_key, value);
+        } else if key.ends_with(":carried") || key.ends_with(":name") {
+            self.apply_container_update(tables, key, value)?;
+            notify_sheet = true;
+        } else if key.ends_with(":name") {
+            let split = key.split(":");
+            if let Some(table_id) = split.skip(1).next() {
+                let table_id = Uid::from_string(table_id);
+                for container in self.containers {
+                    if container["id"] == table_id {
+                        container["carried"] = value;
+                        notify_sheet = true;
+                        break;
+                    }
+                }
+            } else {
+                bail!("Failed to parse key {key} in carried");
+            }
+        } else if key.starts_with("death_failure_") {
+            let index = key[14..].parse::<i64>()?;
+            if value {
+                if index == self.death_failures {
+                    self.death_failures -= 1;
+                } else {
+                    self.death_failures = index;
+                }
+            } else {
+                self.death_failures = index - 1;
+            }
+
+            notify_sheet = true;
+        } else if key.starts_with("death_success_") {
+            let index = key[14..].parse::<i64>()?;
+            if value {
+                if index == self.death_successes {
+                    self.death_successes -= 1;
+                } else {
+                    self.death_successes = index;
+                }
+            } else {
+                self.death_successes = index - 1;
+            }
+
+            notify_sheet = true;
+        } else if key.starts_with("use_hit_die_") {
+            let sides = key[12..].parse::<i64>()?;
+            if value is f64 {
+                value = value.round();
+                value = value as i64;
+            }
+
+            let found = false;
+            for index_die in self.hit_dice().iter().enumerate() {
+                if let (index, die) = index_die {
+                    if die["sides"] != sides {
+                        continue;
+                    }
+
+                    if self.hit_die_used[index] {
+                        continue;
+                    }
+
+                    found = true;
+                    self.hit_die_used[index] = true;
+                    self.hp = self.max_hp().min(self.hp + value);
+                    break;
+                }
+            }
+
+            if found {
+                notify_card = true;
+                notify_sheet = true;
+                notify_rolls = true;
+            } else {
+                log::error!("No unused {sides}-sided hit dice found");
+            }
+        } else {
+            match key {
+                "copper" => {
+                    self.coins[4] = value.max(0);
+                    notify_sheet = true;
+                }
+                "death_saving_throw" => {
+                    if value is f64 {
+                        value = value.round();
+                        value = value as i64;
+                    }
+
+                    if value == 1 {
+                        self.death_failures = 3.min(self.death_failures + 2);
+                    } else if value == 20 {
+                        self.death_successes = 0;
+                        self.death_failures = 0;
+                        self.hp = 1;
+                    } else if value >= 10 {
+                        self.death_successes = 3.min(self.death_successes + 1);
+                    } else {
+                        self.death_failures = 3.min(self.death_failures + 1);
+                    }
+
+                    notify_card = true;
+                    notify_sheet = true;
+                }
+                "electrum" => {
+                    self.coins[2] = value.max(0);
+                    notify_sheet = true;
+                }
+                "experience" => {
+                    self.experience = value.max(0);
+                    notify_sheet = true;
+                }
+                "gold" => {
+                    self.coins[1] = value.max(0);
+                    notify_sheet = true;
+                }
+                "hp" => {
+                    self.hp = value.min(self.max_hp()).max(0);
+                    notify_card = true;
+                    notify_sheet = true;
+                }
+                "inspiration" => {
+                    self.inspiration = value;
+                    notify_sheet = true;
+                }
+                "name" => {
+                    self.name = value;
+                    notify_card = true;
+                    notify_sheet = true;
+                }
+                "platinum" => {
+                    self.coins[0] = value.max(0);
+                    notify_sheet = true;
+                }
+                "second_wind" => {
+                    if value is f64 {
+                        value = value.round();
+                        value = value as i64;
+                    }
+
+                    self.hp = 0.max(self.hp + value).min(self.max_hp());
+
+                    let entry = tables.get_entry_by_id(self.resources, Uid::from_string("second_wind"))?;
+                    let extras = entry.get_value("extras")?;
+                    let used = extras["used"];
+                    for i in 0..used.len() {
+                        if !used[i] {
+                            used[i] = true;
+                            break;
+                        }
+                    }
+                    extras["used"] = used;
+                    entry.set_value("extras", extras)?;
+                    tables.save_entry(entry)?;
+
+                    notify_card = true;
+                    notify_sheet = true;
+                }
+                "silver" => {
+                    self.coins[3] = value.max(0);
+                    notify_sheet = true;
+                }
+                "tempHp" => {
+                    self.temp_hp = value.max(0);
+                    notify_card = true;
+                    notify_sheet = true;
+                }
+                "use_encumbrance" => {
+                    self.use_encumbrance = value;
+                    notify_sheet = true;
+                }
+                _ => bail!("Unknown key {key}"),
+            }
+        }
+
+        let changes = [];
+        if notify_card {
+            changes.push(Change::Card(self.get_card(tables)));
+        }
+        if notify_rolls {
+            changes.push(Change::Rolls(self.get_rolls(tables)?));
+        }
+        if notify_sheet {
+            changes.push(Change::SheetData(self.get_sheet_data(tables)?));
+        }
+
+        Ok(changes)
+    }
+}

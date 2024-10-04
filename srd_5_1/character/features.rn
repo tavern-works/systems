@@ -1,0 +1,22 @@
+impl super::Character {
+    fn update_features(self, tables) {
+        tables.clear_table(self.features)?;
+        let order = 0;
+
+        for feature in self.race.features() {
+            feature["order"] = order;
+            order += 1;
+            tables.create_entry(self.features, feature)?
+        }
+
+        for class in self.classes {
+            for feature in class.features() {
+                feature["order"] = order;
+                order += 1;
+                tables.create_entry(self.features, feature)?
+            }
+        }
+
+        Ok(())
+    }
+}

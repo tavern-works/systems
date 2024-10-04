@@ -1,0 +1,382 @@
+use json::from_string;
+
+pub mod character;
+pub mod chip;
+pub mod class;
+use class::Class;
+pub mod compendium;
+pub mod page;
+pub mod race;
+use race::Race;
+pub mod supporting;
+
+struct Advantage {
+    source,
+    against,
+}
+
+enum DamageType {
+    Poison,
+}
+
+struct Resistance {
+    source,
+    damage_type,
+}
+
+enum Armor {
+    Light,
+    Medium,
+    Heavy,
+    Shields,
+    All
+}
+
+enum WeaponComplexity {
+    Simple,
+    Martial
+}
+
+struct BaseWeapon(id);
+
+enum Tool {
+    Artisan(craft)
+}
+
+struct Proficiency {
+    source,
+    factor,
+    with,
+    condition,
+}
+
+enum Factor {
+    None,
+    Some(factor),
+    Indeterminate,
+}
+
+struct Compendium {
+    languages,
+}
+
+impl Compendium {
+    pub fn parse(string) {
+        let compendium = from_string(string)?;
+
+        if !compendium.contains_key("languages") {
+            panic("couldn't find languages")
+        }
+        if compendium["languages"] is not Vec {
+            panic("expected languages to be an array")
+        }
+
+        Compendium { languages: compendium["languages"] }
+    }
+}
+
+enum SavingThrow {
+    Poison,
+    Ability(ability)
+}
+
+pub enum Ability {
+    Strength,
+    Dexterity,
+    Constitution,
+    Intelligence,
+    Wisdom,
+    Charisma,
+}
+
+impl Ability {
+    pub fn all() {
+        [Ability::Strength, Ability::Dexterity, Ability::Constitution, Ability::Intelligence, Ability::Wisdom, Ability::Charisma]
+    }
+
+    fn from_string(string) {
+        match string {
+            "Strength" => Ability::Strength,
+            "Dexterity" => Ability::Dexterity,
+            "Constitution" => Ability::Constitution,
+            "Intelligence" => Ability::Intelligence,
+            "Wisdom" => Ability::Wisdom,
+            "Charisma" => Ability::Charisma,
+            _ => panic(`unknown ability ${string}`),
+        }
+    }
+
+    fn name(self) {
+        match self {
+            Ability::Strength => "Strength",
+            Ability::Dexterity => "Dexterity",
+            Ability::Constitution => "Constitution",
+            Ability::Intelligence => "Intelligence",
+            Ability::Wisdom => "Wisdom",
+            Ability::Charisma => "Charisma",
+        }
+    }
+
+    fn variable_name(self) {
+        "$" + self.name()[0..3].to_lowercase()
+    }
+
+    fn modifier_variable(self) {
+        self.variable_name() + "Mod"
+    }
+
+    fn save_variable(self) {
+        self.variable_name() + "Save"
+    }
+
+    fn check_key(self) {
+        self.name() + "_check"
+    }
+
+    fn save_key(self) {
+        self.variable_name() + "_save"
+    }
+
+    fn index(self) {
+        match self {
+            Ability::Strength => 0,
+            Ability::Dexterity => 1,
+            Ability::Constitution => 2,
+            Ability::Intelligence => 3,
+            Ability::Wisdom => 4,
+            Ability::Charisma => 5,
+        }
+    }
+
+    fn modifier_for_value(value) {
+        if value is not i64 {
+            panic!("expected {value} to be an integer");
+        }
+        // Workaround for parser issue (?)
+        let fractional = (value.to::<f64>() - 10.0) / 2.0;
+        fractional.floor().to::<i64>()
+    }
+
+    fn saving_throw_factor(self, proficiencies) {
+        let relevant_proficiencies = proficiencies.iter().filter(|p| p.with is SavingThrow && p.with == SavingThrow::Ability(self) && p.condition.is_none());
+        let factor = if let Some(proficiency) = relevant_proficiencies.next() {
+            proficiency.factor
+        } else {
+            0
+        };
+
+        if let Some(proficiency) = relevant_proficiencies.next() {
+            panic!("multiple unconditional proficiencies for {}", self.name());
+        }
+
+        factor
+    }
+}
+
+pub enum Skill {
+    Acrobatics,
+    AnimalHandling,
+    Arcana,
+    Athletics,
+    Deception,
+    History,
+    Insight,
+    Intimidation,
+    Investigation,
+    Medicine,
+    Nature,
+    Perception,
+    Performance,
+    Persuasion,
+    Religion,
+    SleightOfHand,
+    Stealth,
+    Survival,
+}
+
+impl Skill {
+    pub fn all() {
+        [
+            Skill::Acrobatics,
+            Skill::AnimalHandling,
+            Skill::Arcana,
+            Skill::Athletics,
+            Skill::Deception,
+            Skill::History,
+            Skill::Insight,
+            Skill::Intimidation,
+            Skill::Investigation,
+            Skill::Medicine,
+            Skill::Nature,
+            Skill::Perception,
+            Skill::Performance,
+            Skill::Persuasion,
+            Skill::Religion,
+            Skill::SleightOfHand,
+            Skill::Stealth,
+            Skill::Survival,
+        ]
+    }
+
+    fn from_string(string) {
+        match string {
+            "Acrobatics" => Skill::Acrobatics,
+            "Animal Handling" => Skill::AnimalHandling,
+            "Arcana" => Skill::Arcana,
+            "Athletics" => Skill::Athletics,
+            "Deception" => Skill::Deception,
+            "History" => Skill::History,
+            "Insight" => Skill::Insight,
+            "Intimidation" => Skill::Intimidation,
+            "Investigation" => Skill::Investigation,
+            "Medicine" => Skill::Medicine,
+            "Nature" => Skill::Nature,
+            "Perception" => Skill::Perception,
+            "Performance" => Skill::Performance,
+            "Persuasion" => Skill::Persuasion,
+            "Religion" => Skill::Religion,
+            "Sleight of Hand" => Skill::SleightOfHand,
+            "Stealth" => Skill::Stealth,
+            "Survival" => Skill::Survival,
+            _ => panic!("unknown skill {string}"),
+        }
+    }
+
+    fn name(self) {
+        match self {
+            Skill::Acrobatics => "Acrobatics",
+            Skill::AnimalHandling => "Animal Handling",
+            Skill::Arcana => "Arcana",
+            Skill::Athletics => "Athletics",
+            Skill::Deception => "Deception",
+            Skill::History => "History",
+            Skill::Insight => "Insight",
+            Skill::Intimidation => "Intimidation",
+            Skill::Investigation => "Investigation",
+            Skill::Medicine => "Medicine",
+            Skill::Nature => "Nature",
+            Skill::Perception => "Perception",
+            Skill::Performance => "Performance",
+            Skill::Persuasion => "Persuasion",
+            Skill::Religion => "Religion",
+            Skill::SleightOfHand => "Sleight of Hand",
+            Skill::Stealth => "Stealth",
+            Skill::Survival => "Survival",
+        }
+    }
+
+    fn stub(self) {
+        self.name().split(" ").next().unwrap().to_lowercase()
+    }
+
+    fn ability(self) {
+        match self {
+            Skill::Acrobatics => Ability::Dexterity,
+            Skill::AnimalHandling => Ability::Wisdom,
+            Skill::Arcana => Ability::Intelligence,
+            Skill::Athletics => Ability::Strength,
+            Skill::Deception => Ability::Charisma,
+            Skill::History => Ability::Intelligence,
+            Skill::Insight => Ability::Wisdom,
+            Skill::Intimidation => Ability::Charisma,
+            Skill::Investigation => Ability::Intelligence,
+            Skill::Medicine => Ability::Wisdom,
+            Skill::Nature => Ability::Intelligence,
+            Skill::Perception => Ability::Wisdom,
+            Skill::Performance => Ability::Charisma,
+            Skill::Persuasion => Ability::Charisma,
+            Skill::Religion => Ability::Intelligence,
+            Skill::SleightOfHand => Ability::Dexterity,
+            Skill::Stealth => Ability::Dexterity,
+            Skill::Survival => Ability::Wisdom,
+        }
+    }
+
+    fn bonus_name(self) {
+        self.stub() + "Bonus"
+    }
+
+    fn proficiency_name(self) {
+        self.stub() + "Prof"
+    }
+
+    fn factor(self, proficiencies) {
+        let relevant_proficiencies = proficiencies.iter().filter(|p| p.with is Skill && p.with == self);
+        let factor = if let Some(proficiency) = relevant_proficiencies.next() {
+            if proficiency.condition.is_some() {
+                return Factor::Indeterminate;
+            }
+            proficiency.factor
+        } else {
+            return Factor::None;
+        };
+
+        if let Some(proficiency) = relevant_proficiencies.next() {
+            Factor::Indeterminate
+        } else {
+            Factor::Some(factor)
+        }
+    }
+
+    fn unconditional_factor(self, proficiencies) {
+        let relevant_proficiencies = proficiencies.iter().filter(|p| p.with is Skill && p.with == self && p.condition.is_none());
+        let factor = if let Some(proficiency) = relevant_proficiencies.next() {
+            proficiency.factor
+        } else {
+            0
+        };
+
+        if let Some(proficiency) = relevant_proficiencies.next() {
+            panic!("multiple unconditional proficiencies for {}", self.name());
+        }
+
+        factor
+    }
+}
+
+enum Alignment {
+    LawfulGood,
+    NeutralGood,
+    ChaoticGood,
+    LawfulNeutral,
+    Neutral,
+    ChaoticNeutral,
+    LawfulEvil,
+    NeutralEvil,
+    ChaoticEvil,
+}
+
+impl Alignment {
+    fn from_string(string) {
+        match string {
+            "Lawful Good" => Alignment::LawfulGood,
+            "Neutral Good" => Alignment::NeutralGood,
+            "Chaotic Good" => Alignment::ChaoticGood,
+            "Lawful Neutral" => Alignment::LawfulNeutral,
+            "Neutral" => Alignment::Neutral,
+            "Chaotic Neutral" => Alignment::ChaoticNeutral,
+            "Lawful Evil" => Alignment::LawfulEvil,
+            "Neutral Evil" => Alignment::NeutralEvil,
+            "Chaotic Evil" => Alignment::ChaoticEvil,
+            _ => panic!("unknown alignment {string}"),
+        }
+    }
+
+    fn name(self) {
+        match self {
+            Alignment::LawfulGood => "Lawful Good",
+            Alignment::NeutralGood => "Neutral Good",
+            Alignment::ChaoticGood => "Chaotic Good",
+            Alignment::LawfulNeutral => "Lawful Neutral",
+            Alignment::Neutral => "Neutral",
+            Alignment::ChaoticNeutral => "Chaotic Neutral",
+            Alignment::LawfulEvil => "Lawful Evil",
+            Alignment::NeutralEvil => "Neutral Evil",
+            Alignment::ChaoticEvil => "Chaotic Evil",
+        }
+    }
+}
+
+pub fn get_chip_for_attribute(attribute) {
+    chip::get_for_attribute(attribute)
+}

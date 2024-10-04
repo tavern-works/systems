@@ -1,0 +1,138 @@
+use tavern::{anyhow, bail, Change, CompendiumOptions, Confirmation, TableKey, Uid};
+
+impl super::Character {
+    fn add_from_compendium(self, tables, id, item, table) {
+        let item = tables.get_compendium_entry_by_id(item)?;
+
+        let data = #{
+            id: id.clone(),
+            compendium: Uid::from_string(item["id"]),
+        };
+        if !item.contains_key("quantity") {
+            data["quantity"] = 1;
+        }
+        if !item.contains_key("active") {
+            data["active"] = false;
+        }
+
+        tables.create_entry(table, data)?;
+
+        Ok([Change::SheetData(self.get_sheet_data(tables)?)])
+    }
+
+    fn apply_table_action(self, tables, key) {
+        let entry = tables.get_entry_by_id(key.table_id, key.entry_id)?;
+        match key.name {
+            "decrement" => {
+                let quantity = entry.get_value("quantity")?;
+                if quantity == 1 {
+                    key.name = "remove-no-confirm";
+                    return Ok(Confirmation::new(format!("Remove **{}** from&nbsp;inventory?", entry.get_value("name")?), "Remove", self.id(), key.to_string()));
+                } else {
+                    entry.set_value("quantity", quantity - 1)?;
+                    tables.save_entry(entry)?;
+                    return Ok([Change::SheetData(self.get_sheet_data(tables)?)]);
+                }
+            }
+            "drop" => {
+                key.name = "remove-no-confirm";
+                return Ok(Confirmation::new(format!("Drop **{}**?", entry.get_value("name")?), "Drop", self.id(), key.to_string()));
+            }
+            "increment" => {
+                entry.set_value("quantity", entry.get_value("quantity")? + 1)?;
+                tables.save_entry(entry)?;
+                return Ok([Change::SheetData(self.get_sheet_data(tables)?)]);
+            }
+            "remove-no-confirm" => {
+                tables.remove_entry(entry)?;
+                return Ok([Change::SheetData(self.get_sheet_data(tables)?)]);
+            }
+            _ => {
+                log::warn!("Unhandled table action {}", key.name);
+            }
+        }
+
+        Ok([])
+    }
+
+    fn apply_container_action(self, tables, key) {
+        let split = key.split(":").collect::<Vec>();
+        if split.len() != 3 {
+            bail!("Failed to parse container action key");
+        }
+
+        let table_id = Uid::from_string(split[1]);
+        let command = split[2];
+
+        match command {
+            "add_equipment" => return Ok(CompendiumOptions::new("equipment", self.id(), table_id)),
+        }
+    }
+
+    fn apply_action(self, tables, key) {
+        if let Some(table_key) = TableKey::try_parse(key) {
+            return self.apply_table_action(tables, table_key);
+        }
+
+        if key.ends_with(":add_equipment") {
+            return self.apply_container_action(tables, key);
+        }
+
+        if key.starts_with("add_hit_die_") {
+            let sides = key.get(12..).ok_or_else(|| anyhow!("Failed to get die"))?.parse::<i64>()?;
+            for index_die in self.hit_dice().iter().enumerate() {
+                if let (index, die) = index_die {
+                    if die["sides"] == sides && die["used"] {
+                        self.hit_die_used[index] = false;
+    
+                        return Ok([
+                            Change::SheetData(self.get_sheet_data(tables)?),
+                            Change::Rolls(self.get_rolls(tables)?)
+                        ]);
+                    }
+                }
+            }
+
+            bail!("No available d{sides} hit dice to add")
+        }
+
+        if key.starts_with("remove_hit_die_") {
+            let sides = key.get(15..).ok_or_else(|| anyhow!("Failed to get die"))?.parse::<i64>()?;
+            for index_die in self.hit_dice().iter().enumerate() {
+                if let (index, die) = index_die {
+                    if die["sides"] == sides && !die["used"] {
+                        self.hit_die_used[index] = true;
+    
+                        return Ok([
+                            Change::SheetData(self.get_sheet_data(tables)?),
+                            Change::Rolls(self.get_rolls(tables)?)
+                        ]);
+                    }
+                }
+            }
+
+            bail!("No available d{sides} hit dice to remove")
+        }
+
+        match key {
+            "doff_armor" => {
+                if let Some(active_armor) = self.active_armor(tables) {
+                    active_armor.set_value("active", false)?;
+                    tables.save_entry(active_armor)?;
+                    return Ok([Change::SheetData(self.get_sheet_data(tables)?)]);
+                }
+            }
+            "drop_main_hand" => {
+                return self.drop_main_hand(tables);
+            }
+            "drop_off_hand" => {
+                return self.drop_off_hand(tables);
+            }
+            _ => {
+                log::warn!("Unhandled action {key}");
+            }
+        }
+
+        Ok([])
+    }
+}

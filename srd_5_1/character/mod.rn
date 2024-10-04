@@ -1,0 +1,768 @@
+use std::collections::{HashSet, HashMap};
+
+use tavern::{Card, Change, Core, HitPoints, Uid};
+
+use crate::{Ability, Armor, BaseWeapon, Factor, Skill, Tool, WeaponComplexity};
+
+mod actions;
+mod attacks;
+mod features;
+mod parser;
+pub use parser::parse;
+mod resources;
+mod rolls;
+mod updates;
+mod variables;
+
+fn attribute_map(attributes) {
+    HashMap::from_iter(attributes.iter().map(|attribute| {
+        (attribute["type"], attribute.get("value").unwrap_or(()))
+    }))
+}
+
+struct Character {
+    id,
+    avatar,
+    name,
+    base_ability_scores,
+    race,
+    languages,
+    classes,
+    alignment,
+    experience,
+    hp_rolled,
+    hit_die_used,
+    hp,
+    temp_hp,
+    death_successes,
+    death_failures,
+    inspiration,
+    choices,
+    coins,
+    use_encumbrance,
+    carried,
+    containers,
+    main_hand,
+    off_hand,
+    resources,
+    features,
+    attacks,
+    attack_rolls,
+}
+
+impl Character {
+    fn get_methods(self) {
+        #{
+            "add_from_compendium": |tables, id, item, table| self.add_from_compendium(tables, id, item, table),
+            "add_item": |tables, table_id, item| self.add_item(tables, table_id, item),
+            "apply_sheet_update": |tables, key, value| self.apply_update(tables, key, value),
+            "get_card": |tables| self.get_card(tables),
+            "get_core": || self.get_core(),
+            "get_rolls": |tables| self.get_rolls(tables),
+            "get_sheet_data": |tables| self.get_sheet_data(tables),
+            "get_tables": || self.get_tables(),
+            "get_variables": |tables| self.get_variables(tables),
+            "remove_item": |tables, table_id, item| self.remove_item(tables, table_id, item),
+        }
+    }
+
+    fn get_card(self, tables) {
+        let card = Card::new();
+
+        card.name = self.name.clone();
+        card.avatar = Some(self.avatar.clone());
+        card.headline = self.headline();
+
+        let hp = HitPoints::new();
+        hp.current = self.hp;
+        hp.maximum = self.max_hp();
+        hp.temporary = self.temp_hp;
+        card.hp = Some(hp);
+
+        card.pages = crate::page::get_pages(self);
+
+        card
+    }
+
+    fn get_core(self) {
+        Core::new(self.id, self.name, self.avatar)
+    }
+
+    fn get_sheet_data(self, tables) {
+        let proficiency_bonus = self.proficiency_bonus();
+
+        let proficiencies = self.proficiencies();
+
+        let data = #{
+            "unimplemented": (),
+            "name": self.name.clone(),
+            "race": self.race.name(),
+            "class": self.class_description(),
+            "background": "None",
+            "alignment": self.alignment.name(),
+            "experience": self.experience,
+            "inspiration": self.inspiration,
+            "profBonus": proficiency_bonus,
+            "ac": self.armor_class(tables)?,
+            "init": self.initiative(),
+            "hp": self.hp,
+            "tempHp": self.temp_hp,
+            "maxHp": self.max_hp(),
+            "platinum": self.coins[0],
+            "gold": self.coins[1],
+            "electrum": self.coins[2],
+            "silver": self.coins[3],
+            "copper": self.coins[4],
+            "use_encumbrance": self.use_encumbrance,
+            "armor_proficiencies": self.armor_proficiencies(proficiencies),
+            "weapon_proficiencies": self.weapon_proficiencies(tables, proficiencies)?,
+            "tool_proficiencies": self.tool_proficiencies(tables, proficiencies)?,
+            "vision": self.race.vision()
+        };
+
+        for index in 1..=3 {
+            data[format!("death_success_{index}")] = self.death_successes >= index;
+            data[format!("death_failure_{index}")] = self.death_failures >= index;
+        }
+
+        for entry in self.ability_scores() {
+            let ability = Ability::from_string(entry.0);
+            data[ability.variable_name()] = entry.1;
+            let modifier = Ability::modifier_for_value(entry.1);
+            data[ability.modifier_variable()] = modifier;
+            data[ability.save_variable()] = modifier + ability.saving_throw_factor(proficiencies) * proficiency_bonus;
+        }
+
+        let proficiencies = self.proficiencies();
+        for skill in Skill::all() {
+            match skill.factor(proficiencies) {
+                Factor::None => data[skill.proficiency_name()] = "",
+                Factor::Some(factor) => data[skill.proficiency_name()] = "×" + factor.to_string(),
+                Factor::Indeterminate => data[skill.proficiency_name()] = "🞶",
+            }
+
+            let relevant_ability = skill.ability();
+            data[skill.bonus_name()] = data[relevant_ability.modifier_variable()] + skill.unconditional_factor(proficiencies) * proficiency_bonus;
+        }
+
+        data["passivePerception"] = 10 + data[Skill::Perception.bonus_name()];
+
+        let available_hit_dice = HashMap::new();
+        let used_hit_dice = HashMap::new();
+        for die in [6, 8, 10, 12] {
+            available_hit_dice.insert(die, 0);
+            used_hit_dice.insert(die, 0);
+        }
+        for die in self.hit_dice() {
+            if die["used"] {
+                used_hit_dice[die["sides"]] = used_hit_dice[die["sides"]] + 1;
+            } else {
+                available_hit_dice[die["sides"]] = available_hit_dice[die["sides"]] + 1;
+            }
+        }
+        for die in [6, 8, 10, 12] {
+            data[format!("hitDice{die}")] = available_hit_dice[die];
+            data[format!("hasAvailableHitDie{die}")] = if available_hit_dice[die] > 0 { true } else { () };
+            data[format!("hasUsedHitDie{die}")] = if used_hit_dice[die] > 0 { true } else { () };
+        }
+
+        data["languages"] = self.languages.iter().map(|language| {
+            #{
+                "type": (),
+                "value": language.clone(),
+                "tooltip": ""
+            }
+        }).collect::<Vec>();
+
+        data["wealth"] = self.wealth();
+
+        if let (main_hand, off_hand) = self.hand_descriptions(tables)? {
+            data["main_hand"] = main_hand.unwrap_or(());
+            data["off_hand"] = off_hand.unwrap_or(());
+        }
+
+        data["armor"] = if let Some(armor) = self.active_armor(tables) {
+            armor.get_value("name")?
+        } else {
+            ()
+        };
+
+        let carried_prefix = "table:" + self.carried.to_string() + ":";
+        data[carried_prefix + "name"] = "Carried Items";
+        let carried_weight = self.get_container_weight(tables, self.carried)?;
+        data[carried_prefix + "weight"] = carried_weight;
+
+        let container_weights = 0f64;
+        for container in self.containers {
+            let container_prefix = "table:" + container["id"].to_string() + ":";
+            data[container_prefix + "name"] = container["name"];
+            data[container_prefix + "carried"] = container["carried"];
+            let container_weight = self.get_container_weight(tables, container["id"])? + container["weight"] as f64;
+            data[container_prefix + "weight"] = container_weight;
+            if container["carried"] {
+                container_weights += container_weight;
+            }
+        }
+        let money_weight = self.money_weight();
+        data["money_weight"] = money_weight;
+
+        let weight = carried_weight + container_weights + money_weight;
+        data["weight"] = weight;
+        let encumbrance = self.encumbrance(weight);
+        data["encumbrance"] = encumbrance;
+        data["speed"] = self.speed(tables, encumbrance);
+
+        Ok(data)
+    }
+
+    fn get_tables(self) {
+        #{ 
+            "carried": [self.carried.clone()],
+            "containers": self.containers.iter().map(|container| container["id"].clone()).collect::<Vec>(),
+            "resources": [self.resources.clone()],
+            "features": [self.features.clone()],
+            "attacks": [self.attacks.clone()]
+        }
+    }
+
+    fn add_item(self, tables, table_id, item) {
+        let entry = tables.create_entry(table_id, item)?;
+        entry.set_value("active", false)?;
+        tables.save_entry(entry)?;
+        Ok([Change::SheetData(self.get_sheet_data(tables)?)])
+    }
+
+    fn remove_item(self, tables, table_id, item) {
+        let id = Uid::from_string(item["id"]);
+        if self.main_hand == Some(id) {
+            self.main_hand = None;
+        }
+        if self.off_hand == Some(id) {
+            self.off_hand = None;
+        }
+
+        let entry = tables.get_entry_by_id(table_id, Uid::from_string(item["id"]))?;
+        tables.remove_entry(entry)?;
+        Ok([Change::SheetData(self.get_sheet_data(tables)?)])
+    }
+
+    fn ability_scores(self) {
+        let ability_scores = #{};
+        let increases = self.race.ability_score_increases();
+        for entry in self.base_ability_scores {
+            if increases.contains_key(entry.0) {
+                ability_scores[entry.0] = entry.1 + increases[entry.0]
+            } else {
+                ability_scores[entry.0] = entry.1;
+            }
+        }
+        ability_scores
+    }
+
+    fn active_armor(self, tables) {
+        let carried = tables.get_hydrated_entries(self.carried)?;
+        carried.iter().find(|entry| {
+            entry["active"] is bool && entry["active"] == true && entry["attributes"].iter().find(|attribute| attribute["type"].ends_with("_armor")).is_some()
+        }).and_then(|active_armor| {
+            tables.get_entry_by_id(self.carried, Uid::from_string(active_armor["id"])).ok()
+        })
+    }
+
+    fn armor_class(self, tables) {
+        let dex_modifier = Ability::modifier_for_value(self.ability_scores()[Ability::Dexterity.name()]);
+
+        let shield_bonus = if self.has_shield(tables)? {
+            2
+        } else {
+            0
+        };
+
+        let ac = if let Some(armor) = self.active_armor(tables) {
+            let attributes = attribute_map(armor.get_value("attributes")?);
+            if let Some(ac) = attributes.get("ac") {
+                ac + shield_bonus
+            } else if let Some(ac_plus_dex_mod) = attributes.get("ac_plus_dex_mod") {
+                ac_plus_dex_mod + dex_modifier + shield_bonus
+            } else if let Some(ac_plus_capped_dex_mod) = attributes.get("ac_plus_capped_dex_mod") {
+                ac_plus_capped_dex_mod + dex_modifier.min(2) + shield_bonus
+            }
+        } else {
+            10 + dex_modifier + shield_bonus
+        };
+
+        Ok(ac)
+    }
+
+    fn armor_proficiencies(self, proficiencies) {
+        let result = [];
+
+        for armor_name in [
+            (Armor::Light, "Light"),
+            (Armor::Medium, "Medium"),
+            (Armor::Heavy, "Heavy"),
+        ] {
+            if let (armor, name) = armor_name {
+                if let Some(proficiency) = proficiencies.iter().find(|proficiency| {
+                    proficiency.condition == None &&
+                    proficiency.with is Armor &&
+                    (proficiency.with == Armor::All ||
+                    proficiency.with == armor)
+                }) {
+                    result.push(#{
+                        "type": (),
+                        "value": name,
+                        "tooltip": format!("From {}", proficiency.source.clone())
+                    })
+                }
+            }
+        }
+
+        if let Some(proficiency) =  proficiencies.iter().find(|proficiency| {
+            proficiency.condition == None &&
+            proficiency.with is Armor &&
+            proficiency.with == Armor::Shields
+        }) {
+            result.push(#{
+                "type": (),
+                "value": "Shields",
+                "tooltip": format!("From {}", proficiency.source.clone())
+            })
+        }
+
+        result
+    }
+
+    fn class_description(self) {
+        let levels = self.class_levels().iter().collect::<Vec>();
+        levels.sort_by(|a, b| {
+            std::ops::cmp(b.1, a.1)
+        });
+        let description = format!("{} {}", levels[0].0, levels[0].1);
+        for class_level in levels[1..] {
+            description += format!(" / {} {}", class_level.0, class_level.1);
+        }
+        description
+    }
+
+    fn class_levels(self) {
+        let levels = HashMap::new();
+        for class in self.classes {
+            let class = class.name();
+            if levels.contains_key(class) {
+                levels[class] = levels[class] + 1;
+            } else {
+                levels.insert(class, 1);
+            }
+        }
+        levels
+    }
+
+    fn drop_main_hand(self, tables) {
+        if let Some(main_hand) = self.main_hand {
+            let main_hand = tables.get_entry_by_id(self.carried, main_hand)?;
+            let main_hand_attributes = attribute_map(main_hand.get_value("attributes")?);
+            if main_hand_attributes.contains_key("two_handed") {
+                self.off_hand = None;
+            }
+
+            main_hand.set_value("active", false)?;
+            tables.save_entry(main_hand)?;
+            self.main_hand = None;
+
+            self.rearrange_hands(tables)?;
+
+            return Ok([Change::SheetData(self.get_sheet_data(tables)?)]);
+        }
+
+        Ok([])
+    }
+
+    fn drop_off_hand(self, tables) {
+        if let Some(off_hand) = self.off_hand {
+            if let Some(main_hand) = self.main_hand {
+                if main_hand == off_hand {
+                    return self.drop_main_hand(tables);
+                }
+            }
+
+            let off_hand = tables.get_entry_by_id(self.carried, off_hand)?;
+            off_hand.set_value("active", false)?;
+            tables.save_entry(off_hand)?;
+            self.off_hand = None;
+
+            return Ok([Change::SheetData(self.get_sheet_data(tables)?)]);
+        }
+
+        Ok([])
+    }
+
+    fn encumbrance(self, weight) {
+        let strength = self.ability_scores()[Ability::Strength.name()];
+        
+        if weight > (strength * 15) as f64 {
+            format!("Over Capacity ({})", strength * 15)
+        } else {
+            if self.use_encumbrance {
+                if weight <= (strength * 5) as f64 {
+                    "Unencumbered"
+                } else if weight <= (strength * 10) as f64 {
+                    "Encumbered"
+                } else {
+                    "Heavily Encumbered"
+                }
+            } else {
+                "Under Capacity"
+            }
+        }
+    }
+
+    fn get_container_weight(self, tables, id) {
+        let table = tables.get_hydrated_entries(id)?;
+        let total = 0f64;
+        for entry in table {let quantity = entry["quantity"];
+            let quantity = if quantity is i64 || quantity is f64 {
+                quantity as f64
+            } else {
+                1f64
+            };
+
+            let weight = entry["weight"];
+            let weight = if weight is i64 || weight is f64 {
+                weight as f64
+            } else {
+                0f64
+            };
+
+            total += quantity * weight;
+        }
+
+        Ok(total)
+    }
+
+    fn hand_descriptions(self, tables) {
+        if self.main_hand == self.off_hand {
+            if self.main_hand.is_none() {
+                return Ok((None, None))
+            }
+
+            let weapon = tables.get_entry_by_id(self.carried, self.main_hand.unwrap())?;
+            let name = weapon.get_value("name")?;
+            let attributes = attribute_map(weapon.get_value("attributes")?);
+
+            if attributes.contains_key("two_handed") {
+                return Ok((Some(name + " (two-handed)"), Some(name + " (two-handed)")));
+            } else {
+                log::warn!("Unexpected item in two slots: {name}");
+                return Ok((Some(name), Some(name)));
+            }
+        }
+
+        if let Some(main_hand) = self.main_hand {
+            let main_hand = tables.get_entry_by_id(self.carried, main_hand)?;
+            let main_hand_name = main_hand.get_value("name")?;
+            let attributes = attribute_map(main_hand.get_value("attributes")?);
+            if attributes.contains_key("versatile") {
+                if let Some(off_hand) = self.off_hand {
+                    let off_hand = tables.get_entry_by_id(self.carried, off_hand)?;
+                    let off_hand_name = off_hand.get_value("name")?;
+                    return Ok((Some(main_hand_name), Some(off_hand_name)))
+                } else {
+                    return Ok((Some(main_hand_name + " (Versatile)"), Some(main_hand_name + " (Versatile)")))
+                }
+            }
+        }
+
+        let get_name = |item| {
+            item.map(|i| {
+                tables.get_entry_by_id(self.carried, i).and_then(|entry| entry.get_value("name")).map(|name| Some(name))
+            }).unwrap_or(Ok(None))
+        };
+
+        Ok((get_name(self.main_hand)?, get_name(self.off_hand)?))
+    }
+
+    fn has_shield(self, tables) {
+        let carried = tables.get_hydrated_entries(self.carried)?;
+        Ok(carried.iter().find(|entry| {
+            entry["active"] is bool && entry["active"] == true && entry["attributes"].iter().find(|attribute| attribute["type"] == "shield").is_some()
+        }).is_some())
+    }
+
+    fn has_two_weapon_fighting(self) {
+        false
+    }
+
+    fn headline(self) {
+        format!("{} {}", self.race.short_name(), self.class_description())
+    }
+
+    fn hit_dice(self) {
+        let hit_dice = [];
+        for i in 0..self.classes.len() {
+            let die = #{};
+            die["sides"] = self.classes[i].hit_die();
+            die["used"] = self.hit_die_used[i];
+            hit_dice.push(die);
+        }
+        hit_dice
+    }
+
+    fn id(self) {
+        self.id.clone()
+    }
+
+    fn initiative(self) {
+        Ability::modifier_for_value(self.ability_scores()[Ability::Dexterity.name()])
+    }
+
+    fn level(self) {
+        self.classes.len()
+    }
+
+    fn max_hp(self) {
+        let max_hp = self.hp_rolled.iter().sum::<i64>();
+        max_hp += Ability::modifier_for_value(self.ability_scores()[Ability::Constitution.name()]) * self.level();
+        max_hp + self.race.max_hp_modifier(self)
+    }
+
+    fn money_weight(self) {
+        0.02 * self.coins.iter().sum::<i64>() as f64
+    }
+
+    fn proficiencies(self) {
+        let proficiencies = self.race.proficiencies(self);
+
+        let classes_seen = HashSet::new();
+        for element in self.classes.iter().enumerate() {
+            if let (index, class) = element {
+                if classes_seen.contains(class) {
+                    continue;
+                }
+
+                proficiencies.extend(class.proficiencies(self, index == 0));
+            }
+        }
+
+        proficiencies
+    }
+
+    fn proficiency_bonus(self) {
+        2 + (self.level() - 1) / 4
+    }
+
+    fn rearrange_hands(self, tables) {
+        if self.main_hand.is_none() {
+            if let Some(off_hand) = self.off_hand {
+                let off_hand = tables.get_entry_by_id(self.carried, off_hand)?;
+                let attributes = attribute_map(off_hand.get_value("attributes")?);
+                if !attributes.contains_key("shield") {
+                    self.main_hand = self.off_hand;
+                    self.off_hand = None;
+                }
+            }
+        }
+
+        Ok(())
+    }
+
+    fn set_held_item_active(self, tables, entry, active) {
+        let attributes = attribute_map(entry.get_value("attributes")?);
+
+        if !attributes.contains_key("simple_weapon") &&
+            !attributes.contains_key("martial_weapon") &&
+            !attributes.contains_key("ranged_weapon") &&
+            !attributes.contains_key("shield") {
+            return Ok(());
+        }
+
+        if !active {
+            self.main_hand = self.main_hand.and_then(|main_hand| {
+                if main_hand == entry.id {
+                    None
+                } else {
+                    Some(main_hand)
+                }
+            });
+
+            self.off_hand = self.off_hand.and_then(|off_hand| {
+                if off_hand == entry.id {
+                    None
+                } else {
+                    Some(off_hand)
+                }
+            });
+
+            self.rearrange_hands(tables)?;
+            self.update_attacks(tables)?;
+
+            return Ok(());
+        }
+
+        if attributes.contains_key("two_handed") {
+            if let Some(main_hand) = self.main_hand {
+                if main_hand != entry.id {
+                    let main_hand = tables.get_entry_by_id(self.carried, main_hand)?;
+                    main_hand.set_value("active", false)?;
+                    tables.save_entry(main_hand)?;
+                }
+            }
+
+            if let Some(off_hand) = self.off_hand {
+                if off_hand != entry.id {
+                    let off_hand = tables.get_entry_by_id(self.carried, off_hand)?;
+                    off_hand.set_value("active", false)?;
+                    tables.save_entry(off_hand)?;
+                }
+            }
+
+            self.main_hand = Some(entry.id);
+            self.off_hand = Some(entry.id);
+
+            self.update_attacks(tables)?;
+
+            return Ok(());
+        }
+
+        if attributes.contains_key("shield") {
+            if let Some(main_hand) = self.main_hand {
+                let main_hand = tables.get_entry_by_id(self.carried, main_hand)?;
+                let main_hand_attributes = attribute_map(main_hand.get_value("attributes")?);
+                if main_hand_attributes.contains_key("two_handed") {
+                    self.main_hand = None;
+                    main_hand.set_value("active", false)?;
+                    tables.save_entry(main_hand)?;
+                }
+            }
+
+            if let Some(off_hand) = self.off_hand {
+                let off_hand = tables.get_entry_by_id(self.carried, off_hand)?;
+                off_hand.set_value("active", false)?;
+                tables.save_entry(off_hand);
+            }
+
+            self.off_hand = Some(entry.id);
+
+            self.update_attacks(tables)?;
+
+            return Ok(());
+        }
+
+        if self.main_hand.is_none() {
+            self.main_hand = Some(entry.id);
+        } else if let Some(off_hand_id) = self.off_hand {
+            let main_hand_id = self.main_hand.unwrap();
+            if off_hand_id == main_hand_id {
+                let main_hand = tables.get_entry_by_id(self.carried, main_hand_id)?;
+                main_hand.set_value("active", false)?;
+                tables.save_entry(main_hand)?;
+                self.main_hand = Some(entry.id);
+                self.off_hand = None;
+            } else {
+                let off_hand = tables.get_entry_by_id(self.carried, off_hand_id)?;
+                off_hand.set_value("active", false)?;
+                tables.save_entry(off_hand)?;
+                self.off_hand = Some(entry.id);
+            }
+        } else {
+            self.off_hand = Some(entry.id);
+        }
+
+        self.update_attacks(tables)?;
+
+        Ok(())
+    }
+
+    fn speed(self, tables, encumbrance) {
+        match encumbrance {
+            "Under Capacity" => {
+                if let Some(armor) = self.active_armor(tables) {
+                    let attributes = attribute_map(armor.get_value("attributes")?);
+                    if attributes.contains_key("heavy_armor") {
+                        let required_strength = attributes.get("strength")?;
+                        let strength = self.ability_scores()[Ability::Strength.name()];
+                        if strength < required_strength {
+                            return self.race.heavy_armor_speed();
+                        }                        
+                    }
+                }
+
+                self.race.speed()
+            }
+            "Unencumbered" => self.race.speed(),
+            "Encumbered" => self.race.speed() - 10,
+            "Heavily Encumbered" => self.race.speed() - 20,
+            _ => (),
+        }
+    }
+
+    fn tool_proficiencies(self, tables, proficiencies) {
+        let result = [];
+
+        for id_source in proficiencies.iter().filter_map(|proficiency| {
+            if proficiency.condition == None && proficiency.with is Tool {
+                match proficiency.with {
+                    Tool::Artisan(id) => Some((id.clone(), proficiency.source.clone()))
+                }
+            } else {
+                None
+            }
+        }) {
+            if let (id, source) = id_source {
+                let tool = tables.get_compendium_entry_by_id(id)?;
+                result.push(#{
+                    "type": (),
+                    "value": tool.get("name")?,
+                    "tooltip": format!("From {source}")
+                })
+            }
+        }
+
+        Ok(result)
+    }
+
+    fn wealth(self) {
+        self.coins[0] as f64 * 10.0 + self.coins[1] as f64 + self.coins[2] as f64 * 0.5 + self.coins[3] as f64 * 0.1 + self.coins[4] as f64 * 0.01
+    }
+
+    fn weapon_proficiencies(self, tables, proficiencies) {
+        let result = [];
+
+        for complexity_name in [
+            (WeaponComplexity::Simple, "Simple"),
+            (WeaponComplexity::Martial, "Martial"),
+        ] {
+            if let (complexity, name) = complexity_name {
+                if let Some(proficiency) =  proficiencies.iter().find(|proficiency| {
+                    proficiency.condition == None &&
+                    proficiency.with is WeaponComplexity &&
+                    proficiency.with == complexity
+                }) {
+                    result.push(#{
+                        "type": (),
+                        "value": name,
+                        "tooltip": format!("From {}", proficiency.source.clone())
+                    })
+                }
+            }
+        }
+
+        for id_source in proficiencies.iter().filter_map(|proficiency| {
+            if proficiency.condition == None && proficiency.with is BaseWeapon {
+                Some((proficiency.with.0.clone(), proficiency.source.clone()))
+            } else {
+                None
+            }
+        }) {
+            if let (weapon_id, source) = id_source {
+                let weapon = tables.get_compendium_entry_by_id(weapon_id)?;
+                result.push(#{
+                    "type": (),
+                    "value": weapon.get("name")?,
+                    "tooltip": format!("From {source}")
+                })
+            }
+        }
+
+        Ok(result)
+    }
+}

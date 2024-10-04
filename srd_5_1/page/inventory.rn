@@ -1,0 +1,130 @@
+use ::tavern::{Alignment, Cell, Column, Columns, Contents, Grid, Header, Page, Section, Size, Sort, Table};
+
+const NAME = "Inventory";
+
+pub fn get_page(character) {
+    let page = Page::new();
+    page.character = character.id();
+    page.name = NAME;
+    page.icon = "backpack";
+    page.shortcut = "i";
+    page
+}
+
+pub fn get_layout(name) {
+    if name != NAME {
+        return Ok(None);
+    }
+
+    let layout = [];
+
+    let overview_cells = [
+        Cell::try_new(0..4, 0..2, Contents::new_text("name").read_only()?.label("Character")?.align(Alignment::Center)?)?,
+        Cell::try_new(4..8, 0..2, Contents::new_number("ac").read_only()?.label("Armor Class")?)?,
+        Cell::try_new(8..12, 0..2, Contents::new_number("speed").read_only()?.label("Speed")?.suffix("ft")?)?,
+        Cell::try_new(0..12, 2..4, Contents::Outline)?,
+        Cell::try_new(0..3, 2..4, Contents::new_number("wealth").read_only()?.label("Wealth (GP)")?)?,
+        Cell::try_new(3..5, 2..3, Contents::new_number("gold"))?,
+        Cell::try_new(5..6, 2..3, Contents::new_label().label("GP")?)?,
+        Cell::try_new(6..8, 2..3, Contents::new_number("silver"))?,
+        Cell::try_new(8..9, 2..3, Contents::new_label().label("SP")?)?,
+        Cell::try_new(9..11, 2..3, Contents::new_number("copper"))?,
+        Cell::try_new(11..12, 2..3, Contents::new_label().label("CP")?)?,
+        Cell::try_new(3..5, 3..4, Contents::new_number("platinum"))?,
+        Cell::try_new(5..6, 3..4, Contents::new_label().label("PP")?)?,
+        Cell::try_new(6..8, 3..4, Contents::new_number("electrum"))?,
+        Cell::try_new(8..9, 3..4, Contents::new_label().label("EP")?)?,
+        Cell::try_new(9..12, 3..4, Contents::new_number("money_weight").read_only()?.suffix("lb")?)?,
+    ];
+    let overview = Grid::new(overview_cells, false);
+
+    let body_part_cells = [
+        Cell::try_new(0..2, 0..1, Contents::new_label().label("Main Hand")?.align(Alignment::Right)?)?,
+        Cell::try_new(2..11, 0..1, Contents::new_text("main_hand").read_only()?)?,
+        Cell::try_new(11..12, 0..1, Contents::new_button().key("drop_main_hand")?.icon("close")?.depends_on("main_hand")?.tooltip("Unequip Main Hand")?)?,
+        Cell::try_new(0..2, 1..2, Contents::new_label().label("Off Hand")?.align(Alignment::Right)?)?,
+        Cell::try_new(2..11, 1..2, Contents::new_text("off_hand").read_only()?)?,
+        Cell::try_new(11..12, 1..2, Contents::new_button().key("drop_off_hand")?.icon("close")?.depends_on("off_hand")?.tooltip("Unequip Off Hand")?)?,
+        Cell::try_new(0..2, 2..3, Contents::new_label().label("Armor")?.align(Alignment::Right)?)?,
+        Cell::try_new(2..11, 2..3, Contents::new_text("armor").read_only()?)?,
+        Cell::try_new(11..12, 2..3, Contents::new_button().key("doff_armor")?.icon("close")?.depends_on("armor")?.tooltip("Doff Armor")?)?,
+        Cell::try_new(0..2, 3..4, Contents::new_label().label("Carrying")?.align(Alignment::Right)?.size(Size::Large)?)?,
+        Cell::try_new(2..5, 3..4, Contents::new_number("weight").read_only()?.suffix("lb")?)?,
+        Cell::try_new(5..9, 3..4, Contents::new_text("encumbrance").read_only()?.align(Alignment::Center)?)?,
+        Cell::try_new(9..10, 3..4, Contents::new_checkbox("use_encumbrance").tooltip("Use Encumbrance Variant")?)?,
+        Cell::try_new(10..12, 3..4, Contents::new_label().label("Encumb.")?)?,
+    ];
+    let body_parts = Grid::new(body_part_cells, false);
+
+    layout.push(Section::Columns(Columns::new([overview, body_parts])));
+    layout.push(Section::Gap);
+
+    let left_cells = [
+        Cell::try_new(0..4, 0..1, Contents::new_label().label("Carried Equipment")?.size(Size::Large)?)?,
+    ];
+    let left = Grid::new(left_cells, false);
+    let right_cells = [
+        Cell::try_new(5..9, 0..1, Contents::new_button().key("add_equipment")?.size(Size::Large)?.icon("add_box")?.label("Add Item")?)?,
+        Cell::try_new(9..12, 0..1, Contents::new_number("weight").read_only()?.suffix("lb")?)?,
+    ];
+    let right = Grid::new(right_cells, false);
+    let carried_controls = Columns::new([left, right]);
+
+    let headers = [
+        Header::new("active", 1, "Act.", Sort::None),
+        Header::new("name", 5, "Name", Sort::Alphabetical),
+        Header::new("drop", 1, "Drop", Sort::None),
+        Header::new("quantity", 3, "Quantity", Sort::None),
+        Header::new("weight", 2, "Weight", Sort::None),
+        Header::new("attributes", 12, "Attributes", Sort::None),
+    ];
+
+    let columns = [
+        Column::new("active", 1, Contents::new_checkbox("active")),
+        Column::new("name", 5, Contents::new_text("name").read_only()?),
+        Column::new("drop", 1, Contents::new_button().key("drop")?.icon("place_item")?),
+        Column::new("decrement", 1, Contents::new_button().key("decrement")?.label("−")?.depends_on("quantity")?),
+        Column::new("quantity", 1, Contents::new_number("quantity")),
+        Column::new("increment", 1, Contents::new_button().key("increment")?.label("+")?.depends_on("quantity")?),
+        Column::new("weight", 2, Contents::new_number("weight").read_only()?), 
+        Column::new("attributes", 12, Contents::Attributes),
+    ];
+
+    layout.push(Section::Table(Table::new("carried", carried_controls, headers, columns, "name")));
+    layout.push(Section::Gap);
+
+    let left_cells = [
+        Cell::try_new(0..5, 0..1, Contents::new_text("name"))?,
+        Cell::try_new(5..6, 0..1, Contents::new_checkbox("carried"))?,
+        Cell::try_new(6..8, 0..1, Contents::new_label().label("Carried")?)?,
+    ];
+    let left = Grid::new(left_cells, false);
+    let right_cells = [
+        Cell::try_new(5..9, 0..1, Contents::new_button().key("add_equipment")?.size(Size::Large)?.icon("add_box")?.label("Add Item")?)?,
+        Cell::try_new(9..12, 0..1, Contents::new_number("weight").read_only()?.suffix("lb")?)?,
+    ];
+    let right = Grid::new(right_cells, false);
+    let container_controls = Columns::new([left, right]);
+
+    let headers = [
+        Header::new("name", 6, "Name", Sort::Alphabetical),
+        Header::new("drop", 1, "Drop", Sort::None),
+        Header::new("quantity", 3, "Quantity", Sort::None),
+        Header::new("weight", 2, "Weight", Sort::None),
+        Header::new("attributes", 12, "Attributes", Sort::None),
+    ];
+
+    let columns = [
+        Column::new("name", 6, Contents::new_text("name").read_only()?),
+        Column::new("drop", 1, Contents::new_button().key("drop")?.icon("place_item")?),
+        Column::new("decrement", 1, Contents::new_button().key("decrement")?.label("−")?.depends_on("quantity")?),
+        Column::new("quantity", 1, Contents::new_number("quantity")),
+        Column::new("increment", 1, Contents::new_button().key("increment")?.label("+")?.depends_on("quantity")?),
+        Column::new("weight", 2, Contents::new_number("weight").read_only()?), 
+        Column::new("attributes", 12, Contents::Attributes),
+    ];
+
+    layout.push(Section::Table(Table::new("containers", container_controls, headers, columns, "name")));
+
+    Ok(Some(layout))
+}

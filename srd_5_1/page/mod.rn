@@ -1,0 +1,16 @@
+mod abilities;
+mod inventory;
+mod overview;
+
+pub fn get_pages(character) {
+    [overview::get_page(character), abilities::get_page(character), inventory::get_page(character)]
+}
+
+pub fn get_layout(name) {
+    for get_layout in [overview::get_layout, abilities::get_layout, inventory::get_layout] {
+        if let Some(layout) = get_layout(name)? {
+            return Ok(layout);
+        }
+    }
+    Err(tavern::anyhow!("Unknown page {name} in get_layout"));
+}

@@ -1,0 +1,54 @@
+use tavern::{Action, Roll, Target, Uid};
+
+impl super::Class {
+    fn fighter_features(self) {
+        [
+            #{
+                "id": "two_weapon_fighting",
+                "name": "Two-Weapon Fighting",
+                "source": "Fighter",
+                "extras": #{
+                    "description": "When you engage in two-weapon fighting, you can add your ability modifier to the damage of the second attack"
+                }
+            }
+        ]
+    }
+
+    fn fighter_resources(self) {       
+        [
+            #{
+                "id": "second_wind",
+                "name": "Second Wind",
+                "attributes": [
+                    #{
+                        "type": "short_rest"
+                    },
+                    #{
+                        "type": "long_rest"
+                    }
+                ],
+                "extras": #{
+                    "description": "On your turn, you can use a bonus action to regain hit points equal to 1d10 + your fighter level",
+                    "roll": "Second Wind",
+                    "used": [false],
+                }
+            }
+        ]
+    }
+
+    fn fighter_rolls(self, resources, tables) {
+        let rolls = [];
+
+        let entry = tables.get_entry_by_id(resources, Uid::from_string("second_wind"))?;
+        let extras = entry.get_value("extras")?;
+        let has_second_wind = !extras["used"].iter().all(|used| used);
+        
+        if has_second_wind {
+            let second_wind = Roll::try_new("Second Wind", [], "1d10 + $fighter")?;
+            second_wind.set_action(Action::new(Target::Roller, "second_wind"));
+            rolls.push(second_wind)
+        }
+
+        Ok(rolls)
+    }
+}

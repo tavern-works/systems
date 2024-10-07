@@ -17,7 +17,10 @@ impl super::Character {
             "active" => {
                 let attributes = entry.get_value("attributes")?;
 
-                if value && attributes.iter().find(|attribute| attribute["type"].ends_with("_armor")).is_some() {
+                // Work around https://github.com/rune-rs/rune/issues/830
+                let check = value;
+
+                if check && attributes.iter().find(|attribute| attribute["type"].ends_with("_armor")).is_some() {
                     if let Some(active_armor) = self.active_armor(tables) {
                         active_armor.set_value("active", false)?;
                         tables.save_entry(active_armor)?;

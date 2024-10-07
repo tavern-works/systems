@@ -1,6 +1,6 @@
 use std::collections::{HashSet, HashMap};
 
-use tavern::{Card, Change, Core, HitPoints, Uid};
+use tavern::{bail, Card, Change, Core, HitPoints, Uid};
 
 use crate::{Ability, Armor, BaseWeapon, Factor, Skill, Tool, WeaponComplexity};
 
@@ -285,6 +285,8 @@ impl Character {
                 ac_plus_dex_mod + dex_modifier + shield_bonus
             } else if let Some(ac_plus_capped_dex_mod) = attributes.get("ac_plus_capped_dex_mod") {
                 ac_plus_capped_dex_mod + dex_modifier.min(2) + shield_bonus
+            } else {
+                bail!("got an armor entry without a valid armor attribute");
             }
         } else {
             10 + dex_modifier + shield_bonus
@@ -484,7 +486,8 @@ impl Character {
     fn has_shield(self, tables) {
         let carried = tables.get_hydrated_entries(self.carried)?;
         Ok(carried.iter().find(|entry| {
-            entry["active"] is bool && entry["active"] == true && entry["attributes"].iter().find(|attribute| attribute["type"] == "shield").is_some()
+            // The return shouldn't be necessary, but may be a workaround for https://github.com/rune-rs/rune/issues/830
+            return entry["active"] is bool && entry["active"] == true && entry["attributes"].iter().find(|attribute| attribute["type"] == "shield").is_some();
         }).is_some())
     }
 

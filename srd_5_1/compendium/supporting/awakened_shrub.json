@@ -1,0 +1,80 @@
+{
+    "name": "Awakened Shrub",
+    "id": "Vn8pmt0cwpqy",
+    "size": "Small",
+    "type": "plant",
+    "alignment": "Neutral Evil",
+    "headline": "Small plant, unaligned",
+    "armor": [],
+    "hp": "3d6",
+    "speed": "20 ft",
+    "abilityScores": [3, 8, 11, 10, 10, 6],
+    "skills": [],
+    "damage_vulnerabilities": [
+        {
+            "type": "Fire"
+        }
+    ],
+    "damage_resistances": [
+        {
+            "type": "Piercing"
+        }
+    ],
+    "damage_immunities": [],
+    "condition_immunities": [],
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 10
+        }
+    ],
+    "languages": [
+        {
+            "value": "One language known by its creator"
+        }
+    ],
+    "challenge": "0 (10XP)",
+    "features": [
+        {
+            "name": "False Appearance",
+            "extras": {
+                "attributes": [],
+                "description": "While the shrub remains motionless, it is indistinguishable from a normal shrub"
+            }
+        }
+    ],
+    "actions": [
+        {
+            "name": "Rake",
+            "extras": {
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+1"
+                    },
+                    {
+                        "type": "slashing_attack",
+                        "value": "1d4 - 1"
+                    }
+                ],
+                "roll": "Rake"
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Rake",
+            "expression": "{d20} + 1",
+            "damage": {
+                "type": "Slashing",
+                "count": 1,
+                "sides": 4,
+                "modifier": -1
+            }
+        }
+    ],
+    "description": "An **awakened shrub** is an ordinary shrub given sentience and mobility by the *awaken* spell or similar magic"
+}

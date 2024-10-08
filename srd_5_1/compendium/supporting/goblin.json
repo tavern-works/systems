@@ -1,0 +1,84 @@
+{
+    "id": "2WPKKN9VN0H7",
+    "name": "Goblin",
+    "size": "Small",
+    "type": "humanoid (goblinoid)",
+    "alignment": "Neutral Evil",
+    "headline": "Small humanoid (goblinoid), neutral evil",
+
+    "armor": ["mVvkHTZh19NX", "nY7KF1CqTVKG"],
+    "hp": "2d6",
+    "speed": "30 ft",
+
+    "abilityScores": [8, 14, 10, 10, 8, 8],
+
+    "skills": [{ "type": "Stealth", "value": "+6" }],
+    "senses": [
+        { "type": "darkvision", "value": 60 },
+        { "type": "passive_perception", "value": 9 }
+    ],
+    "languages": [{ "value": "Common" }, { "value": "Goblin" }],
+
+    "challenge": "1/4 (50 XP)",
+
+    "features": [
+        {
+            "id": "nimble_escape",
+            "name": "Nimble Escape",
+            "extras": {
+                "description": "The goblin can take the Disengage or Hide action as a bonus action on each of its turns"
+            }
+        }
+    ],
+
+    "actions": [
+        {
+            "id": "scimitar",
+            "name": "Scimitar",
+            "extras": {
+                "attributes": [
+                    { "type": "melee_weapon" },
+                    { "type": "to_hit", "value": "+4" },
+                    { "type": "slashing_attack", "value": "1d6 + 2" }
+                ],
+                "roll": "Scimitar"
+            }
+        },
+        {
+            "id": "shortbow",
+            "name": "Shortbow",
+            "extras": {
+                "attributes": [
+                    { "type": "ranged_weapon" },
+                    { "type": "range", "value": "80/320" },
+                    { "type": "to_hit", "value": "+4" },
+                    { "type": "piercing_attack", "value": "1d6 + 2" }
+                ],
+                "roll": "Shortbow"
+            }
+        }
+    ],
+
+    "rolls": [
+        {
+            "name": "Scimitar",
+            "expression": "{d20} + 4",
+            "damage": {
+                "type": "Slashing",
+                "count": 1,
+                "sides": 6,
+                "modifier": 2
+            }
+        },
+        {
+            "name": "Shortbow",
+            "expression": "{d20} + 4",
+            "damage": {
+                "type": "Piercing",
+                "count": 1,
+                "sides": 6,
+                "modifier": 2
+            }
+        }
+    ]
+}

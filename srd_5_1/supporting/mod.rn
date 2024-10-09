@@ -23,7 +23,7 @@ pub fn create(tables, id, template_id, name) {
 
     let character = Supporting { 
         id,
-        template: template_id,
+        template,
         name,
         hp: average,
         temp_hp: 0,
@@ -34,11 +34,11 @@ pub fn create(tables, id, template_id, name) {
     };
 
     for feature in template["features"] {
-        tables.create_entry(character.features, feature);
+        tables.create_entry(character.features, feature)?;
     }
 
     for action in template["actions"] {
-        tables.create_entry(character.actions, action)
+        tables.create_entry(character.actions, action)?;
     }
 
     Ok(character.get_methods())
@@ -98,12 +98,10 @@ impl Supporting {
     }
 
     fn get_card(self, tables) {
-        let template = tables.get_compendium_entry_by_id(self.template)?;
-
         let card = Card::new();
 
         card.name = self.name.clone();
-        card.headline = self.headline(template, false);
+        card.headline = self.headline(self.template, false);
 
         let hp = HitPoints::new();
         hp.current = self.hp;
@@ -117,8 +115,6 @@ impl Supporting {
     }
 
     fn get_rolls(self, tables) {
-        let template = tables.get_compendium_entry_by_id(self.template)?;
-
         let rolls = [];
 
         let d20 = "if (@advantage, if (@disadvantage, 1d20, 2d20kh1), if (@disadvantage, 2d20kl1, 1d20))";
@@ -148,19 +144,19 @@ impl Supporting {
                 RollConfig::new("Disadvantage", "@disadvantage", 'D', [], "false"),
             ];
 
-            if let Some(proficiency) = template["skills"].iter().find(|s| s["type"] == skill.name()) {
+            if let Some(proficiency) = self.template["skills"].iter().find(|s| s["type"] == skill.name()) {
                 let expression = format!("{d20} {}", proficiency["value"]);
                 let roll = Roll::try_new(skill.name() + " Check", configs, expression)?;
                 rolls.push(roll);
             } else {
                 let ability = skill.ability();
-                let expression = format!("{d20} + {}", self.ability_modifier(template, ability));
+                let expression = format!("{d20} + {}", self.ability_modifier(self.template, ability));
                 let roll = Roll::try_new(skill.name() + " Check", configs, expression)?;
                 rolls.push(roll);
             }
         }
 
-        for roll in template["rolls"] {
+        for roll in self.template["rolls"] {
             let configs = [
                 RollConfig::new("Advantage", "@advantage", 'A', [], "false"),
                 RollConfig::new("Disadvantage", "@disadvantage", 'D', [], "false"),
@@ -194,28 +190,30 @@ impl Supporting {
     }
 
     fn get_sheet_data(self, tables) {
-        let template = tables.get_compendium_entry_by_id(self.template)?;
-
         let data = #{
             "name": self.name,
-            "headline": self.headline(template, true),
+            "headline": self.headline(self.template, true),
             
-            "armor": self.armor_description(tables, template),
+            "armor": self.armor_description(tables, self.template),
             "hp": self.hp,
             "max_hp": self.max_hp,
             "hp_expression": self.hp_expression.clone(),
             "temp_hp": self.temp_hp,
-            "speed": template["speed"],
+            "speed": self.template["speed"],
 
-            "skills": template["skills"],
-            "senses": template["senses"],
-            "languages": template["languages"],
-            "challenge": template["challenge"],
+            "skills": self.template["skills"],
+            "damage_vulnerabilities": self.template["damage_vulnerabilities"],
+            "damage_resistances": self.template["damage_resistances"],
+            "damage_immunities": self.template["damage_immunities"],
+            "condition_immunities": self.template["condition_immunities"],
+            "senses": self.template["senses"],
+            "languages": self.template["languages"],
+            "challenge": self.template["challenge"],
         };
 
         for ability in Ability::all() {
-            data[ability.variable_name()] = self.ability_score(template, ability);
-            data[ability.modifier_variable()] = self.ability_modifier(template, ability);
+            data[ability.variable_name()] = self.ability_score(self.template, ability);
+            data[ability.modifier_variable()] = self.ability_modifier(self.template, ability);
         }
 
         Ok(data)
@@ -229,8 +227,6 @@ impl Supporting {
     }
 
     fn get_variables(self, tables) {
-        let template = tables.get_compendium_entry_by_id(self.template)?;
-
         let variables = [];
 
         for ability in Ability::all() {
@@ -238,7 +234,7 @@ impl Supporting {
                 ability.modifier_variable(),
                 ability.name() + " Modifier",
                 ability.name()[0..3] + " Mod",
-                self.ability_modifier(template, ability)
+                self.ability_modifier(self.template, ability)
             )?);
         }
         

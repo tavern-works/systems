@@ -2,18 +2,17 @@
     "type": "object",
     "definitions": {
         "armor": {
+            "title": "Armor",
             "oneOf": [
                 {
                     "title": "Leather Armor",
                     "type": "string",
-                    "const": "mVvkHTZh19NX",
-                    "default": "mVvkHTZh19NX"
+                    "const": "mVvkHTZh19NX"
                 },
                 {
                     "title": "Shield",
                     "type": "string",
-                    "const": "nY7KF1CqTVKG",
-                    "default": "nY7KF1CqTVKG"
+                    "const": "nY7KF1CqTVKG"
                 }
             ]
         },
@@ -25,8 +24,7 @@
                     "properties": {
                         "type": {
                             "type": "string",
-                            "const": "melee_weapon",
-                            "default": "melee_weapon"
+                            "const": "melee_weapon"
                         }
                     },
                     "required": ["type"]
@@ -37,8 +35,7 @@
                     "properties": {
                         "type": {
                             "type": "string",
-                            "const": "slashing_attack",
-                            "default": "slashing_attack"
+                            "const": "slashing_attack"
                         },
                         "value": {
                             "title": "Damage",
@@ -54,15 +51,15 @@
                     "properties": {
                         "type": {
                             "type": "string",
-                            "const": "piercing_attack",
-                            "default": "piercing_attack"
+                            "const": "piercing_attack"
                         },
                         "value": {
                             "title": "Damage",
                             "type": "string",
                             "default": "1d6 + 2"
                         }
-                    }
+                    },
+                    "required": ["type", "value"]
                 },
                 {
                     "title": "Range",
@@ -70,8 +67,7 @@
                     "properties": {
                         "type": {
                             "type": "string",
-                            "const": "range",
-                            "default": "range"
+                            "const": "range"
                         },
                         "value": {
                             "type": "string",
@@ -86,8 +82,7 @@
                     "properties": {
                         "type": {
                             "type": "string",
-                            "const": "ranged_weapon",
-                            "default": "ranged_weapon"
+                            "const": "ranged_weapon"
                         }
                     },
                     "required": ["type"]
@@ -98,8 +93,7 @@
                     "properties": {
                         "type": {
                             "type": "string",
-                            "const": "to_hit",
-                            "default": "to_hit"
+                            "const": "to_hit"
                         },
                         "value": {
                             "type": "string",
@@ -115,6 +109,7 @@
             "type": "object",
             "properties": {
                 "type": {
+                    "title": "Condition",
                     "type": "string",
                     "enum": [
                         "Charmed",
@@ -125,7 +120,8 @@
                         "Unconscious"
                     ]
                 }
-            }
+            },
+            "required": ["type"]
         },
         "damage": {
             "title": "Damage Roll",
@@ -158,11 +154,13 @@
             "title": "Damage Type",
             "type": "object",
             "properties": {
-                "type": {
+                "value": {
+                    "title": "Damage Type",
                     "type": "string",
                     "enum": ["Fire", "Piercing", "Poison"]
                 }
-            }
+            },
+            "required": ["value"]
         },
         "extras": {
             "title": "Extras",
@@ -198,6 +196,7 @@
                     "type": "string"
                 },
                 "extras": {
+                    "title": "Extras (attributes, description, roll)",
                     "$ref": "#/definitions/extras"
                 }
             },
@@ -217,14 +216,8 @@
                     "type": "string"
                 },
                 "damage": {
-                    "oneOf": [
-                        {
-                            "$ref": "#/definitions/damage"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ]
+                    "title": "Damage",
+                    "$ref": "#/definitions/damage"
                 }
             },
             "required": ["name", "expression"]
@@ -238,8 +231,7 @@
                     "properties": {
                         "type": {
                             "type": "string",
-                            "const": "darkvision",
-                            "default": "darkvision"
+                            "const": "darkvision"
                         },
                         "value": {
                             "title": "Range",
@@ -254,8 +246,7 @@
                     "properties": {
                         "type": {
                             "type": "string",
-                            "const": "passive_perception",
-                            "default": "passive_perception"
+                            "const": "passive_perception"
                         },
                         "value": {
                             "title": "Score",
@@ -318,6 +309,7 @@
             "minItems": 6,
             "maxItems": 6,
             "items": {
+                "title": "Score",
                 "type": "integer",
                 "minimum": 0,
                 "maximum": 30
@@ -328,6 +320,7 @@
             "type": "array",
             "uniqueItems": true,
             "items": {
+                "title": "Skill",
                 "type": "object",
                 "properties": {
                     "type": {
@@ -362,7 +355,7 @@
             "type": "array",
             "uniqueItems": true,
             "items": {
-                "$ref": "#definitions/damage_type"
+                "$ref": "#/definitions/damage_type"
             }
         },
         "condition_immunities": {
@@ -370,7 +363,7 @@
             "type": "array",
             "uniqueItems": true,
             "items": {
-                "$ref": "#definitions/condition"
+                "$ref": "#/definitions/condition"
             }
         },
         "senses": {
@@ -386,6 +379,7 @@
             "type": "array",
             "uniqueItems": true,
             "items": {
+                "title": "Language",
                 "type": "object",
                 "properties": {
                     "value": {
@@ -394,21 +388,23 @@
                         "enum": [
                             "Common",
                             "Goblin",
-                            "One language known by its creator"
+                            "One known by its creator"
                         ]
                     }
-                }
+                },
+                "required": ["value"]
             }
         },
         "challenge": {
             "title": "Challenge",
             "type": "string",
-            "enum": ["0 (10XP)", "1/4 (50XP)"]
+            "enum": ["0 (10 XP)", "1/4 (50 XP)"]
         },
         "features": {
             "title": "Features",
             "type": "array",
             "items": {
+                "title": "Feature",
                 "$ref": "#/definitions/feature"
             }
         },
@@ -416,6 +412,7 @@
             "title": "Actions",
             "type": "array",
             "items": {
+                "title": "Action",
                 "$ref": "#/definitions/feature"
             }
         },
@@ -442,6 +439,13 @@
         "hp",
         "speed",
         "abilityScores",
+        "skills",
+        "damage_vulnerabilities",
+        "damage_resistances",
+        "damage_immunities",
+        "condition_immunities",
+        "senses",
+        "languages",
         "challenge"
     ]
 }

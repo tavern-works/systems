@@ -3,7 +3,7 @@
     "id": "Vn8pmt0cwpqy",
     "size": "Small",
     "type": "plant",
-    "alignment": "Neutral Evil",
+    "alignment": "Unaligned",
     "headline": "Small plant, unaligned",
     "armor": [],
     "hp": "3d6",
@@ -12,12 +12,12 @@
     "skills": [],
     "damage_vulnerabilities": [
         {
-            "type": "Fire"
+            "value": "Fire"
         }
     ],
     "damage_resistances": [
         {
-            "type": "Piercing"
+            "value": "Piercing"
         }
     ],
     "damage_immunities": [],
@@ -30,15 +30,14 @@
     ],
     "languages": [
         {
-            "value": "One language known by its creator"
+            "value": "One known by its creator"
         }
     ],
-    "challenge": "0 (10XP)",
+    "challenge": "0 (10 XP)",
     "features": [
         {
             "name": "False Appearance",
             "extras": {
-                "attributes": [],
                 "description": "While the shrub remains motionless, it is indistinguishable from a normal shrub"
             }
         }

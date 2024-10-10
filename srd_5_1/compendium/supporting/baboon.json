@@ -1,0 +1,73 @@
+{
+    "name": "Baboon",
+    "id": "N3Kt4Pq9vQqX",
+    "size": "Small",
+    "type": "beast",
+    "alignment": "Unaligned",
+    "headline": "Small beast, unaligned",
+    "armor": [],
+    "hp": "1d6",
+    "speed": "30 ft, climb 30 ft",
+    "abilityScores": [
+        8,
+        14,
+        11,
+        4,
+        12,
+        6
+    ],
+    "skills": [],
+    "damage_vulnerabilities": [],
+    "damage_resistances": [],
+    "damage_immunities": [],
+    "condition_immunities": [],
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 11
+        }
+    ],
+    "languages": [],
+    "challenge": "0 (10 XP)",
+    "features": [
+        {
+            "name": "Pack Tactics",
+            "extras": {
+                "description": "The baboon has advantage on an attack roll against a creature if at least one of the baboon's allies is within 5 feet of the creature and the ally isn't incapacitated"
+            }
+        }
+    ],
+    "actions": [
+        {
+            "name": "Bite",
+            "extras": {
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+1"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d4 - 1"
+                    }
+                ],
+                "roll": "Bite"
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Bite",
+            "expression": "{d20} + 1",
+            "damage": {
+                "type": "Piercing",
+                "count": 1,
+                "sides": 4,
+                "modifier": -1
+            }
+        }
+    ]
+}

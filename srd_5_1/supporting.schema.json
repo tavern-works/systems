@@ -270,7 +270,7 @@
         "size": {
             "title": "Size",
             "type": "string",
-            "enum": ["Small"]
+            "enum": ["Small", "Tiny"]
         },
         "type": {
             "title": "Type",
@@ -385,11 +385,7 @@
                     "value": {
                         "title": "Language",
                         "type": "string",
-                        "enum": [
-                            "Common",
-                            "Goblin",
-                            "One known by its creator"
-                        ]
+                        "enum": ["Common", "Goblin", "One known by its creator"]
                     }
                 },
                 "required": ["value"]

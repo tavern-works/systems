@@ -1,0 +1,77 @@
+{
+    "name": "Badger",
+    "id": "4TkbnbmJrTKM",
+    "size": "Tiny",
+    "type": "beast",
+    "alignment": "Unaligned",
+    "headline": "Tiny beast, unaligned",
+    "armor": [],
+    "hp": "1d4 + 1",
+    "speed": "20 ft, burrow 5 ft",
+    "abilityScores": [
+        4,
+        11,
+        12,
+        2,
+        12,
+        5
+    ],
+    "skills": [],
+    "damage_vulnerabilities": [],
+    "damage_resistances": [],
+    "damage_immunities": [],
+    "condition_immunities": [],
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 30
+        },
+        {
+            "type": "passive_perception",
+            "value": 11
+        }
+    ],
+    "languages": [],
+    "challenge": "0 (10 XP)",
+    "features": [
+        {
+            "name": "Keen Smell",
+            "extras": {
+                "description": "The badger has advantage on Wisdom (Perception) checks that rely on smell"
+            }
+        }
+    ],
+    "actions": [
+        {
+            "name": "Bite",
+            "extras": {
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+2"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1"
+                    }
+                ],
+                "roll": "Bite"
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Bite",
+            "expression": "{d20} + 2",
+            "damage": {
+                "type": "Piercing",
+                "count": 0,
+                "sides": 0,
+                "modifier": 1
+            }
+        }
+    ]
+}

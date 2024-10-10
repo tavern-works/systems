@@ -166,10 +166,6 @@ impl Supporting {
             let pending = Roll::try_new(roll["name"], configs, expression)?;
 
             if roll.contains_key("damage") {
-                let configs = [
-                    RollConfig::new("Critical Hit", "@critical", 'C', [], "false"),
-                ];
-
                 let damage = roll["damage"];
 
                 let name = format!("{} Damage", damage["type"]);
@@ -178,7 +174,16 @@ impl Supporting {
                 let sides = damage["sides"];
                 let modifier = damage["modifier"];
 
-                let expression = format!("if (@critical, {}d{sides}, {count}d{sides}) + {modifier}", 2 * count);
+                let configs = [];
+                if count > 0 {
+                    configs.push(RollConfig::new("Critical Hit", "@critical", 'C', [], "false"));
+                }
+
+                let expression = if count == 0 {
+                    format!("{modifier}")
+                } else {
+                    format!("if (@critical, {}d{sides}, {count}d{sides}) + {modifier}", 2 * count)
+                };
                 let damage_roll = Roll::try_new(name, configs, expression)?;
                 pending.set_next(damage_roll);
             }

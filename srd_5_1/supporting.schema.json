@@ -340,7 +340,7 @@
                 "properties": {
                     "type": {
                         "type": "string",
-                        "enum": ["Stealth"]
+                        "enum": ["Perception", "Stealth"]
                     },
                     "value": {
                         "type": "string"

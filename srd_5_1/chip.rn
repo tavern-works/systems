@@ -65,6 +65,9 @@ pub fn get_for_attribute(attribute) {
             .tooltip("A Large or smaller creature hit by a net is restrained until it is freed. A net has no effect on creatures that are formless, or creatures that are Huge or larger. When you attack with a net, you can make only one attack regardless of the number of attacks you can normally make."),
         "passive_perception" => Chip::new([ChipField::Text("Passive Perception"), ChipField::Divider, ChipField::Value])
             .tooltip("When you hide, there's a chance someone will notice you even if they aren't searching. To determine whether such a creature notices you, the GM compares your Dexterity check with that creature's passive perception score."),
+        "Perception" => Chip::new([ChipField::Text("Perception"), ChipField::Divider, ChipField::Value])
+            .tooltip("Roll Perception Check")
+            .roll(PrepareOptions::by_name("Perception Check")),
         "piercing" => Chip::new([ChipField::Value, ChipField::Divider, ChipField::Text("Piercing")])
             .tooltip("This weapon does {} piercing damage"),
         "piercing_attack" => Chip::new([ChipField::Value, ChipField::Divider, ChipField::Text("Piercing")])

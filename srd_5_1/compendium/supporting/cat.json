@@ -1,0 +1,82 @@
+{
+    "name": "Cat",
+    "id": "LSV6LtcbMfd2",
+    "size": "Tiny",
+    "type": "beast",
+    "alignment": "Unaligned",
+    "headline": "Tiny beast, unaligned",
+    "armor": [],
+    "hp": "1d4",
+    "speed": "40 ft, climb 30 ft",
+    "abilityScores": [
+        3,
+        15,
+        10,
+        3,
+        12,
+        7
+    ],
+    "skills": [
+        {
+            "type": "Perception",
+            "value": "+3"
+        },
+        {
+            "type": "Stealth",
+            "value": "+4"
+        }
+    ],
+    "damage_vulnerabilities": [],
+    "damage_resistances": [],
+    "damage_immunities": [],
+    "condition_immunities": [],
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 13
+        }
+    ],
+    "languages": [],
+    "challenge": "0 (10 XP)",
+    "features": [
+        {
+            "name": "Keen Smell",
+            "extras": {
+                "description": "The cat has advantage on Wisdom (Perception) checks that rely on smell"
+            }
+        }
+    ],
+    "actions": [
+        {
+            "name": "Claws",
+            "extras": {
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+0"
+                    },
+                    {
+                        "type": "slashing_attack",
+                        "value": "1"
+                    }
+                ],
+                "roll": "Claws"
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Claws",
+            "expression": "{d20}",
+            "damage": {
+                "type": "Slashing",
+                "count": 0,
+                "sides": 0,
+                "modifier": 1
+            }
+        }
+    ]
+}

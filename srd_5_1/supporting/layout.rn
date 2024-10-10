@@ -132,6 +132,8 @@ impl super::Supporting {
 
         row += 1;
 
+        let features_height = self.template.get("features_height").unwrap_or(4);
+
         let left_cells = [
             Cell::try_new(0..12, 0..1, Contents::new_label().label("Features")?.size(Size::Large)?.align(Alignment::Center)?)?,
         ];
@@ -142,12 +144,12 @@ impl super::Supporting {
         ];
         let feature_table = Table::new("features", feature_controls, [], feature_columns, "order");
         let features = [
-            Cell::try_new(0..12, row..row + 4, Contents::Table(feature_table))?
+            Cell::try_new(0..12, row..row + features_height, Contents::Table(feature_table))?
         ];
 
         cells.extend(features);
 
-        row += 4;
+        row += features_height;
 
         let left_cells = [
             Cell::try_new(0..12, 0..1, Contents::new_label().label("Actions")?.size(Size::Large)?.align(Alignment::Center)?)?,

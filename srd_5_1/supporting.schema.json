@@ -226,6 +226,21 @@
             "title": "Sense",
             "oneOf": [
                 {
+                    "title": "Blindsight",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "const": "blindsight"
+                        },
+                        "value": {
+                            "title": "Range",
+                            "type": "integer"
+                        }
+                    },
+                    "required": ["type", "value"]
+                },
+                {
                     "title": "Darkvision",
                     "type": "object",
                     "properties": {
@@ -403,6 +418,12 @@
                 "title": "Feature",
                 "$ref": "#/definitions/feature"
             }
+        },
+        "features_height": {
+            "title": "Features Height",
+            "description": "Height of the features section of the brief",
+            "type": "integer",
+            "default": 4
         },
         "actions": {
             "title": "Actions",

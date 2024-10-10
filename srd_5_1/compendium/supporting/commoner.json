@@ -1,0 +1,70 @@
+{
+    "name": "Commoner",
+    "id": "Cw1rSWNrpqzj",
+    "size": "Medium",
+    "type": "humanoid (any race)",
+    "alignment": "Any",
+    "headline": "Medium humanoid (any race), any alignment",
+    "armor": [],
+    "hp": "1d8",
+    "speed": "30 ft",
+    "abilityScores": [
+        10,
+        10,
+        10,
+        10,
+        10,
+        10
+    ],
+    "skills": [],
+    "damage_vulnerabilities": [],
+    "damage_resistances": [],
+    "damage_immunities": [],
+    "condition_immunities": [],
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 10
+        }
+    ],
+    "languages": [
+        {
+            "value": "Any one"
+        }
+    ],
+    "challenge": "0 (10 XP)",
+    "rolls": [
+        {
+            "name": "Club",
+            "expression": "{d20} + 2",
+            "damage": {
+                "type": "Bludgeoning",
+                "count": 1,
+                "sides": 4,
+                "modifier": 0
+            }
+        }
+    ],
+    "actions": [
+        {
+            "name": "Club",
+            "extras": {
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+2"
+                    },
+                    {
+                        "type": "bludgeoning_attack",
+                        "value": "1d4"
+                    }
+                ],
+                "roll": "Club"
+            }
+        }
+    ],
+    "description": "**Commoners** include peasants, serfs, slaves, servants, pilgrims, merchants, artisans, and hermits"
+}

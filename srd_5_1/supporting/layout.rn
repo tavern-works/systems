@@ -132,39 +132,43 @@ impl super::Supporting {
 
         row += 1;
 
-        let features_height = self.template.get("features_height").unwrap_or(4);
+        if self.features.is_some() {
+            let features_height = self.template.get("features_height").unwrap_or(4);
 
-        let left_cells = [
-            Cell::try_new(0..12, 0..1, Contents::new_label().label("Features")?.size(Size::Large)?.align(Alignment::Center)?)?,
-        ];
-        let left = Grid::new(left_cells, false);
-        let feature_controls = Columns::new([left, Grid::new([], false)]);
-        let feature_columns = [
-            Column::new("name", 12, Contents::new_text("name").read_only()?),
-        ];
-        let feature_table = Table::new("features", feature_controls, [], feature_columns, "order");
-        let features = [
-            Cell::try_new(0..12, row..row + features_height, Contents::Table(feature_table))?
-        ];
+            let left_cells = [
+                Cell::try_new(0..12, 0..1, Contents::new_label().label("Features")?.size(Size::Large)?.align(Alignment::Center)?)?,
+            ];
+            let left = Grid::new(left_cells, false);
+            let feature_controls = Columns::new([left, Grid::new([], false)]);
+            let feature_columns = [
+                Column::new("name", 12, Contents::new_text("name").read_only()?),
+            ];
+            let feature_table = Table::new("features", feature_controls, [], feature_columns, "order");
+            let features = [
+                Cell::try_new(0..12, row..row + features_height, Contents::Table(feature_table))?
+            ];
+    
+            cells.extend(features);
+    
+            row += features_height;
+        }
 
-        cells.extend(features);
-
-        row += features_height;
-
-        let left_cells = [
-            Cell::try_new(0..12, 0..1, Contents::new_label().label("Actions")?.size(Size::Large)?.align(Alignment::Center)?)?,
-        ];
-        let left = Grid::new(left_cells, false);
-        let action_controls = Columns::new([left, Grid::new([], false)]);
-        let action_columns = [
-            Column::new("name", 12, Contents::new_text("name").read_only()?),
-        ];
-        let action_table = Table::new("actions", action_controls, [], action_columns, "order");
-        let actions = [
-            Cell::try_new(0..12, row..row + 8, Contents::Table(action_table))?
-        ];
-
-        cells.extend(actions);
+        if self.actions.is_some() {
+            let left_cells = [
+                Cell::try_new(0..12, 0..1, Contents::new_label().label("Actions")?.size(Size::Large)?.align(Alignment::Center)?)?,
+            ];
+            let left = Grid::new(left_cells, false);
+            let action_controls = Columns::new([left, Grid::new([], false)]);
+            let action_columns = [
+                Column::new("name", 12, Contents::new_text("name").read_only()?),
+            ];
+            let action_table = Table::new("actions", action_controls, [], action_columns, "order");
+            let actions = [
+                Cell::try_new(0..12, row..row + 8, Contents::Table(action_table))?
+            ];
+    
+            cells.extend(actions);
+        }
 
         Ok(Grid::new(cells, false))
     }

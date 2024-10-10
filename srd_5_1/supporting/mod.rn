@@ -29,16 +29,24 @@ pub fn create(tables, id, template_id, name) {
         temp_hp: 0,
         max_hp: average,
         hp_expression: template["hp"],
-        features: tables.create_table(),
-        actions: tables.create_table(),
+        features: None,
+        actions: None,
     };
 
-    for feature in template["features"] {
-        tables.create_entry(character.features, feature)?;
+    if let Some(features) = template.get("features") {
+        let table = tables.create_table();
+        for feature in features {
+            tables.create_entry(table, feature)?;
+        }
+        character.features = Some(table);
     }
-
-    for action in template["actions"] {
-        tables.create_entry(character.actions, action)?;
+    
+    if let Some(actions) = template.get("actions") {
+        let table = tables.create_table();
+        for action in actions {
+            tables.create_entry(table, action)?;
+        }
+        character.actions = Some(table);
     }
 
     Ok(character.get_methods())
@@ -225,10 +233,17 @@ impl Supporting {
     }
 
     fn get_tables(self) {
-        #{
-            "features": [self.features.clone()],
-            "actions": [self.actions.clone()]
+        let tables = #{};
+        
+        if let Some(features) = self.features {
+            tables["features"] = [features.clone()]
         }
+
+        if let Some(actions) = self.actions {
+            tables["actions"] = [actions.clone()]
+        }
+        
+        tables
     }
 
     fn get_variables(self, tables) {
@@ -309,7 +324,11 @@ impl Supporting {
     fn headline(self, template, extended) {
         let headline = format!("{} {}", template["size"], template["type"]);
         if extended {
-            headline += format!(", {}", template["alignment"].to_lowercase());
+            if template["alignment"] == "Any" {
+                headline += ", any alignment";    
+            } else {
+                headline += format!(", {}", template["alignment"].to_lowercase());
+            }
         }
         headline
     }

@@ -8,7 +8,14 @@
     "armor": [],
     "hp": "3d6",
     "speed": "20 ft",
-    "abilityScores": [3, 8, 11, 10, 10, 6],
+    "abilityScores": [
+        3,
+        8,
+        11,
+        10,
+        10,
+        6
+    ],
     "skills": [],
     "damage_vulnerabilities": [
         {

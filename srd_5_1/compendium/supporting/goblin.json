@@ -5,10 +5,20 @@
     "type": "humanoid (goblinoid)",
     "alignment": "Neutral Evil",
     "headline": "Small humanoid (goblinoid), neutral evil",
-    "armor": ["mVvkHTZh19NX", "nY7KF1CqTVKG"],
+    "armor": [
+        "mVvkHTZh19NX",
+        "nY7KF1CqTVKG"
+    ],
     "hp": "2d6",
     "speed": "30 ft",
-    "abilityScores": [8, 14, 10, 10, 8, 8],
+    "abilityScores": [
+        8,
+        14,
+        10,
+        10,
+        8,
+        8
+    ],
     "skills": [
         {
             "type": "Stealth",

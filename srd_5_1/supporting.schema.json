@@ -15,6 +15,11 @@
                     "const": "XSyXthp8xVjL"
                 },
                 {
+                    "title": "Natural Armor (+3)",
+                    "type": "string",
+                    "const": "KhZCsRJVgGRP"
+                },
+                {
                     "title": "Shield",
                     "type": "string",
                     "const": "nY7KF1CqTVKG"

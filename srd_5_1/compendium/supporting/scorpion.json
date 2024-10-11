@@ -1,0 +1,73 @@
+{
+    "name": "Scorpion",
+    "id": "8wNMXdLngMYW",
+    "size": "Tiny",
+    "type": "beast",
+    "alignment": "Unaligned",
+    "headline": "Tiny beast, unaligned",
+    "armor": [
+        "XSyXthp8xVjL"
+    ],
+    "hp": "1d4 - 1",
+    "speed": "10 ft",
+    "abilityScores": [
+        2,
+        11,
+        8,
+        1,
+        8,
+        2
+    ],
+    "skills": [],
+    "damage_vulnerabilities": [],
+    "damage_resistances": [],
+    "damage_immunities": [],
+    "condition_immunities": [],
+    "senses": [
+        {
+            "type": "blindsight",
+            "value": 10
+        },
+        {
+            "type": "passive_perception",
+            "value": 9
+        }
+    ],
+    "languages": [],
+    "challenge": "0 (10 XP)",
+    "actions_height": 6,
+    "rolls": [
+        {
+            "name": "Sting",
+            "expression": "{d20} + 2",
+            "damage": {
+                "type": "Piercing",
+                "count": 0,
+                "sides": 0,
+                "modifier": 1
+            }
+        }
+    ],
+    "actions": [
+        {
+            "name": "Sting",
+            "extras": {
+                "roll": "Sting",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+2"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1"
+                    }
+                ],
+                "description": "On a hit, the target must make a DC 9 Constitution saving throw, taking 1d8 poison damage on a failed save, or half as much damage on a successful one"
+            }
+        }
+    ]
+}

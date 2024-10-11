@@ -17,7 +17,7 @@ pub fn get_for_attribute(attribute) {
         "artisan_tools" => Chip::new([ChipField::Text("Artisan's Tools")])
             .tooltip("These special tools include the items needed to pursue a craft or trade. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency."),
         "blindsight" => Chip::new([ChipField::Text("Blindsight"), ChipField::Divider, ChipField::Value])
-            .tooltip("A creature with blindsight can perceive its surroundings without relying on sight, within a specific radius"),
+            .tooltip("This creature can perceive its surroundings without relying on sight within {} feet"),
         "bludgeoning" => Chip::new([ChipField::Value, ChipField::Divider, ChipField::Text("Bludgeoning")])
             .tooltip("This weapon does {} bludgeoning damage"),
         "bludgeoning_attack" => Chip::new([ChipField::Value, ChipField::Divider, ChipField::Text("Bludgeoning")])

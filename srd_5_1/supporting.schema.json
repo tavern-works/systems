@@ -230,7 +230,7 @@
                     "type": "string"
                 },
                 "extras": {
-                    "title": "Extras (attributes, description, roll)",
+                    "title": "Extras (attributes, description, roll, uses)",
                     "$ref": "#/definitions/extras"
                 }
             },
@@ -484,7 +484,7 @@
             "title": "Actions Height",
             "description": "Height of the actions feature of the brief",
             "type": "integer",
-            "default": 8
+            "default": 5
         },
         "rolls": {
             "title": "Rolls",

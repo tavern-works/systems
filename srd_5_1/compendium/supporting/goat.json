@@ -1,0 +1,85 @@
+{
+    "name": "Goat",
+    "id": "mJ1sKq2kJw31",
+    "size": "Medium",
+    "type": "beast",
+    "alignment": "Unaligned",
+    "headline": "Medium beast, unaligned",
+    "armor": [],
+    "hp": "1d8",
+    "speed": "40 ft",
+    "abilityScores": [
+        12,
+        10,
+        11,
+        2,
+        10,
+        5
+    ],
+    "skills": [],
+    "damage_vulnerabilities": [],
+    "damage_resistances": [],
+    "damage_immunities": [],
+    "condition_immunities": [],
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 10
+        }
+    ],
+    "languages": [],
+    "challenge": "0 (10 XP)",
+    "features_height": 9,
+    "features": [
+        {
+            "name": "Charge",
+            "extras": {
+                "description": "If the goat moves at least 20 feet straight toward a target and then hits it with a ram attack on the same turn, the target takes an additional 1d4 bludgeoning damage. If the target is a creature, it must succeed on a DC 10 Strength saving throw or be knocked prone.",
+                "roll": "Charge Damage"
+            }
+        },
+        {
+            "name": "Sure-Footed",
+            "extras": {
+                "description": "The goat has advantage on Strength and Dexterity saving throws made against effects that would knock it prone"
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Charge Damage",
+            "expression": "1d4"
+        },
+        {
+            "name": "Ram",
+            "expression": "{d20} + 3",
+            "damage": {
+                "type": "Bludgeoning",
+                "count": 1,
+                "sides": 4,
+                "modifier": 1
+            }
+        }
+    ],
+    "actions": [
+        {
+            "name": "Ram",
+            "extras": {
+                "roll": "Ram",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "bludgeoning_attack",
+                        "value": "1d4 + 1"
+                    }
+                ]
+            }
+        }
+    ]
+}

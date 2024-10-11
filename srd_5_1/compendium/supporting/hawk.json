@@ -1,0 +1,78 @@
+{
+    "name": "Hawk",
+    "id": "VJ8fLCr4S8V1",
+    "size": "Tiny",
+    "type": "beast",
+    "alignment": "Unaligned",
+    "headline": "Tiny beast, unaligned",
+    "armor": [],
+    "hp": "1d4 - 1",
+    "speed": "10 ft, fly 60 ft",
+    "abilityScores": [
+        5,
+        16,
+        8,
+        2,
+        14,
+        6
+    ],
+    "skills": [
+        {
+            "type": "Perception",
+            "value": "+4"
+        }
+    ],
+    "damage_vulnerabilities": [],
+    "damage_resistances": [],
+    "damage_immunities": [],
+    "condition_immunities": [],
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 14
+        }
+    ],
+    "languages": [],
+    "challenge": "0 (10 XP)",
+    "features": [
+        {
+            "name": "Keen Sight",
+            "extras": {
+                "description": "The hawk has advantage on Wisdom (Perception) checks that rely on sight"
+            }
+        }
+    ],
+    "actions": [
+        {
+            "name": "Talons",
+            "extras": {
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+5"
+                    },
+                    {
+                        "type": "slashing_attack",
+                        "value": "1"
+                    }
+                ],
+                "roll": "Talons"
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Talons",
+            "expression": "{d20} + 5",
+            "damage": {
+                "type": "Slashing",
+                "count": 0,
+                "sides": 0,
+                "modifier": 1
+            }
+        }
+    ]
+}

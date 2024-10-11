@@ -1,0 +1,95 @@
+{
+    "name": "Homunculus",
+    "id": "Jx27mxmsK3cW",
+    "size": "Tiny",
+    "type": "construct",
+    "alignment": "Neutral",
+    "headline": "Tiny construct, neutral",
+    "armor": [
+        "XSyXthp8xVjL"
+    ],
+    "hp": "2d4",
+    "speed": "20 ft, fly 40 ft",
+    "abilityScores": [
+        4,
+        15,
+        11,
+        10,
+        10,
+        7
+    ],
+    "skills": [],
+    "damage_vulnerabilities": [],
+    "damage_resistances": [],
+    "damage_immunities": [
+        {
+            "value": "Poison"
+        }
+    ],
+    "condition_immunities": [
+        {
+            "value": "Charmed"
+        },
+        {
+            "value": "Poisoned"
+        }
+    ],
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 60
+        },
+        {
+            "type": "passive_perception",
+            "value": 10
+        }
+    ],
+    "languages": [
+        {
+            "value": "Understands its creator, but can't speak"
+        }
+    ],
+    "challenge": "0 (10 XP)",
+    "features": [
+        {
+            "name": "Telepathic Bond",
+            "extras": {
+                "description": "While the homunculus is on the same plane as existence as its master, it can magically convey what it senses to its master, and the two can communicate telepathically"
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Bite",
+            "expression": "{d20} + 4",
+            "damage": {
+                "type": "Piercing",
+                "count": 0,
+                "sides": 0,
+                "modifier": 1
+            }
+        }
+    ],
+    "actions": [
+        {
+            "name": "Bite",
+            "extras": {
+                "roll": "Bite",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1"
+                    }
+                ],
+                "description": "On a hit, the target must succeed on a DC 10 Constitution saving throw or be poisoned for 1 minute. If the saving throw fails by 5 or more, the target is instead poisoned for 1d10 minutes and is unconscious while poisoned in this way."
+            }
+        }
+    ]
+}

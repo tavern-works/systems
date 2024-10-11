@@ -134,7 +134,7 @@
             "title": "Condition",
             "type": "object",
             "properties": {
-                "type": {
+                "value": {
                     "title": "Condition",
                     "type": "string",
                     "enum": [
@@ -147,7 +147,7 @@
                     ]
                 }
             },
-            "required": ["type"]
+            "required": ["value"]
         },
         "damage": {
             "title": "Damage Roll",
@@ -320,7 +320,7 @@
         "alignment": {
             "title": "Alignment",
             "type": "string",
-            "enum": ["Any", "Neutral Evil", "Unaligned"]
+            "enum": ["Any", "Neutral", "Neutral Evil", "Unaligned"]
         },
         "headline": {
             "title": "Headline",
@@ -430,7 +430,8 @@
                             "Any one",
                             "Common",
                             "Goblin",
-                            "One known by its creator"
+                            "One known by its creator",
+                            "Understands its creator, but can't speak"
                         ]
                     }
                 },

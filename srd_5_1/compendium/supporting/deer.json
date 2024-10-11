@@ -1,0 +1,65 @@
+{
+    "name": "Deer",
+    "id": "XZG7jZ0ths0X",
+    "size": "Medium",
+    "type": "beast",
+    "alignment": "Unaligned",
+    "headline": "Medium beast, unaligned",
+    "armor": [],
+    "hp": "1d8",
+    "speed": "50 ft",
+    "abilityScores": [
+        11,
+        16,
+        11,
+        2,
+        14,
+        5
+    ],
+    "skills": [],
+    "damage_vulnerabilities": [],
+    "damage_resistances": [],
+    "damage_immunities": [],
+    "condition_immunities": [],
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 12
+        }
+    ],
+    "languages": [],
+    "challenge": "0 (10 XP)",
+    "rolls": [
+        {
+            "name": "Bite",
+            "expression": "{d20} + 2",
+            "damage": {
+                "type": "Piercing",
+                "count": 1,
+                "sides": 4,
+                "modifier": 0
+            }
+        }
+    ],
+    "actions": [
+        {
+            "name": "Bite",
+            "extras": {
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+2"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d4"
+                    }
+                ],
+                "roll": "Bite"
+            }
+        }
+    ]
+}

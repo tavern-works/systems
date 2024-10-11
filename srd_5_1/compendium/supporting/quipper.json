@@ -1,0 +1,86 @@
+{
+    "name": "Quipper",
+    "id": "jJSM1GpWv60G",
+    "size": "Tiny",
+    "type": "beast",
+    "alignment": "Unaligned",
+    "headline": "Tiny beast, unaligned",
+    "armor": [],
+    "hp": "1d4 - 1",
+    "speed": "0 ft, swim 40 ft",
+    "abilityScores": [
+        2,
+        16,
+        9,
+        1,
+        7,
+        2
+    ],
+    "skills": [],
+    "damage_vulnerabilities": [],
+    "damage_resistances": [],
+    "damage_immunities": [],
+    "condition_immunities": [],
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 60
+        },
+        {
+            "type": "passive_perception",
+            "value": 8
+        }
+    ],
+    "languages": [],
+    "challenge": "0 (10 XP)",
+    "features_height": 6,
+    "features": [
+        {
+            "name": "Blood Frenzy",
+            "extras": {
+                "description": "The quipper has advantage on melee attack rolls against any creature that doesn't have all its hit points"
+            }
+        },
+        {
+            "name": "Water Breathing",
+            "extras": {
+                "description": "The quipper can breathe only underwater"
+            }
+        }
+    ],
+    "actions_height": 5,
+    "actions": [
+        {
+            "name": "Bite",
+            "extras": {
+                "roll": "Bite",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+5"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1"
+                    }
+                ]
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Bite",
+            "expression": "{d20} + 5",
+            "damage": {
+                "type": "Piercing",
+                "count": 0,
+                "sides": 0,
+                "modifier": 1
+            }
+        }
+    ],
+    "description": "A **quipper** is a carnivorous fish with sharp teeth. Quippers can adapt to any aquatic environment, including cold subterranean lakes. They frequently gather in swarms; the statistics for a *swarm of quippers* appear in a separate entry."
+}

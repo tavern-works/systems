@@ -154,7 +154,7 @@ impl super::Supporting {
         }
 
         if self.actions.is_some() {
-            let actions_height = self.template.get("actions_height").unwrap_or(8);
+            let actions_height = self.template.get("actions_height").unwrap_or(5);
 
             let left_cells = [
                 Cell::try_new(0..12, 0..1, Contents::new_label().label("Actions")?.size(Size::Large)?.align(Alignment::Center)?)?,

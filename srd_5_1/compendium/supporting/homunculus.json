@@ -91,5 +91,6 @@
                 "description": "On a hit, the target must succeed on a DC 10 Constitution saving throw or be poisoned for 1 minute. If the saving throw fails by 5 or more, the target is instead poisoned for 1d10 minutes and is unconscious while poisoned in this way."
             }
         }
-    ]
+    ],
+    "actions_height": 7
 }

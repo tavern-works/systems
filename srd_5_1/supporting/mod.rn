@@ -164,6 +164,10 @@ impl Supporting {
             }
         }
 
+        if !self.template.contains_key("rolls") {
+            return Ok(rolls);
+        }
+
         for roll in self.template["rolls"] {
             let configs = [
                 RollConfig::new("Advantage", "@advantage", 'A', [], "false"),

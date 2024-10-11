@@ -421,7 +421,12 @@
                     "value": {
                         "title": "Language",
                         "type": "string",
-                        "enum": ["Any one", "Common", "Goblin", "One known by its creator"]
+                        "enum": [
+                            "Any one",
+                            "Common",
+                            "Goblin",
+                            "One known by its creator"
+                        ]
                     }
                 },
                 "required": ["value"]
@@ -430,7 +435,7 @@
         "challenge": {
             "title": "Challenge",
             "type": "string",
-            "enum": ["0 (10 XP)", "1/4 (50 XP)"]
+            "enum": ["0 (0 XP)", "0 (10 XP)", "1/4 (50 XP)"]
         },
         "features": {
             "title": "Features",

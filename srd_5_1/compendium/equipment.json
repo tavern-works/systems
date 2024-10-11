@@ -1006,6 +1006,12 @@
         ]
     },
     {
+        "id": "XSyXthp8xVjL",
+        "name": "Natural Armor",
+        "attributes": [{ "type": "ac_plus_dex_mod", "value": 11 }],
+        "_invisible": true
+    },
+    {
         "id": "n03mVbylsJD5",
         "name": "Needle",
         "cost": 0.02,

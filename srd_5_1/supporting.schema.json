@@ -138,7 +138,9 @@
                     "title": "Condition",
                     "type": "string",
                     "enum": [
+                        "Blinded",
                         "Charmed",
+                        "Deafened",
                         "Frightened",
                         "Paralyzed",
                         "Petrified",
@@ -266,6 +268,21 @@
                         "type": {
                             "type": "string",
                             "const": "blindsight"
+                        },
+                        "value": {
+                            "title": "Range",
+                            "type": "integer"
+                        }
+                    },
+                    "required": ["type", "value"]
+                },
+                {
+                    "title": "Blindsight Only",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "const": "blindsight_only"
                         },
                         "value": {
                             "title": "Range",
@@ -482,7 +499,21 @@
         },
         "actions_height": {
             "title": "Actions Height",
-            "description": "Height of the actions feature of the brief",
+            "description": "Height of the actions section of the brief",
+            "type": "integer",
+            "default": 5
+        },
+        "reactions": {
+            "title": "Reactions",
+            "type": "array",
+            "items": {
+                "title": "Reaction",
+                "$ref": "#/definitions/feature"
+            }
+        },
+        "reactions_height": {
+            "title": "Reactions Height",
+            "description": "Height of the reactions section of the brief",
             "type": "integer",
             "default": 5
         },

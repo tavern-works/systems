@@ -14,6 +14,7 @@ struct Supporting {
     hp_expression,
     features,
     actions,
+    reactions,
 }
 
 pub fn create(tables, id, template_id, name) {
@@ -31,6 +32,7 @@ pub fn create(tables, id, template_id, name) {
         hp_expression: template["hp"],
         features: None,
         actions: None,
+        reactions: None,
     };
 
     if let Some(features) = template.get("features") {
@@ -49,6 +51,15 @@ pub fn create(tables, id, template_id, name) {
             tables.create_entry(table_id, action)?;
         }
         character.actions = Some(table_id);
+    }
+
+    if let Some(actions) = template.get("reactions") {
+        let table_id = Uid::from_string(format!("{}-reactions", id.to_string()));
+        tables.create_table(table_id);
+        for action in actions {
+            tables.create_entry(table_id, action)?;
+        }
+        character.reactions = Some(table_id);
     }
 
     Ok(character.get_methods())
@@ -266,6 +277,10 @@ impl Supporting {
 
         if let Some(actions) = self.actions {
             tables["actions"] = [actions.clone()]
+        }
+
+        if let Some(reactions) = self.reactions {
+            tables["reactions"] = [reactions.clone()]
         }
         
         tables

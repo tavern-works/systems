@@ -1,0 +1,40 @@
+{
+    "name": "Sea Horse",
+    "id": "QQCZDfVg4Fqh",
+    "size": "Tiny",
+    "type": "beast",
+    "alignment": "Unaligned",
+    "headline": "Tiny beast, unaligned",
+    "armor": [],
+    "hp": "1d4 - 1",
+    "speed": "0 ft, swim 20 ft",
+    "abilityScores": [
+        1,
+        12,
+        8,
+        1,
+        10,
+        2
+    ],
+    "skills": [],
+    "damage_vulnerabilities": [],
+    "damage_resistances": [],
+    "damage_immunities": [],
+    "condition_immunities": [],
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 10
+        }
+    ],
+    "languages": [],
+    "challenge": "0 (0 XP)",
+    "features": [
+        {
+            "name": "Water Breathing",
+            "extras": {
+                "description": "The sea horse can breathe only underwater"
+            }
+        }
+    ]
+}

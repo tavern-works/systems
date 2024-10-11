@@ -183,7 +183,7 @@
                 "value": {
                     "title": "Damage Type",
                     "type": "string",
-                    "enum": ["Fire", "Piercing", "Poison"]
+                    "enum": ["Cold", "Fire", "Piercing", "Poison"]
                 }
             },
             "required": ["value"]
@@ -320,7 +320,13 @@
         "alignment": {
             "title": "Alignment",
             "type": "string",
-            "enum": ["Any", "Neutral", "Neutral Evil", "Unaligned"]
+            "enum": [
+                "Any",
+                "Lawful Evil",
+                "Neutral",
+                "Neutral Evil",
+                "Unaligned"
+            ]
         },
         "headline": {
             "title": "Headline",
@@ -431,6 +437,7 @@
                             "Common",
                             "Goblin",
                             "One known by its creator",
+                            "Understands Infernal, but can't speak",
                             "Understands its creator, but can't speak"
                         ]
                     }

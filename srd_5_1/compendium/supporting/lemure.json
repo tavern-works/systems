@@ -1,0 +1,109 @@
+{
+    "name": "Lemure",
+    "id": "KztjWZFDGVBb",
+    "size": "Medium",
+    "type": "fiend (devil)",
+    "alignment": "Lawful Evil",
+    "headline": "Medium fiend (devil), lawful evil",
+    "armor": [],
+    "hp": "3d8",
+    "speed": "15 ft",
+    "abilityScores": [
+        10,
+        5,
+        11,
+        1,
+        11,
+        3
+    ],
+    "skills": [],
+    "damage_vulnerabilities": [],
+    "damage_resistances": [
+        {
+            "value": "Cold"
+        }
+    ],
+    "damage_immunities": [
+        {
+            "value": "Fire"
+        },
+        {
+            "value": "Poison"
+        }
+    ],
+    "condition_immunities": [
+        {
+            "value": "Charmed"
+        },
+        {
+            "value": "Frightened"
+        },
+        {
+            "value": "Poisoned"
+        }
+    ],
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 120
+        },
+        {
+            "type": "passive_perception",
+            "value": 10
+        }
+    ],
+    "languages": [
+        {
+            "value": "Understands Infernal, but can't speak"
+        }
+    ],
+    "challenge": "0 (10 XP)",
+    "features_height": 7,
+    "features": [
+        {
+            "name": "Devil's Sight",
+            "extras": {
+                "description": "Magical darkness doesn't impede the lemure's darkvision"
+            }
+        },
+        {
+            "name": "Hellish Rejuvenation",
+            "extras": {
+                "description": "A lemure that dies in the Nine Hells comes back to life with all its hit points in 1d10 days unless it is killed by a good-aligned creature with a *bless* spell cast on that creature or its remains are sprinkled with holy water"
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Fist",
+            "expression": "{d20} + 3",
+            "damage": {
+                "type": "Bludgeoning",
+                "count": 1,
+                "sides": 4,
+                "modifier": 0
+            }
+        }
+    ],
+    "actions": [
+        {
+            "name": "Fist",
+            "extras": {
+                "roll": "Fist",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "bludgeoning_attack",
+                        "value": "1d4"
+                    }
+                ]
+            }
+        }
+    ]
+}

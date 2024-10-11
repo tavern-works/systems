@@ -1,6 +1,6 @@
 use crate::{Ability, Skill};
 
-use tavern::{Card, Change, HitPoints, Roll, RollConfig, Uid, Variable};
+use tavern::{anyhow, Card, Change, HitPoints, Roll, RollConfig, TableKey, Uid, Variable};
 
 mod layout;
 
@@ -34,19 +34,21 @@ pub fn create(tables, id, template_id, name) {
     };
 
     if let Some(features) = template.get("features") {
-        let table = tables.create_table();
+        let table_id = Uid::from_string(format!("{}-features", id.to_string()));
+        tables.create_table(table_id);
         for feature in features {
-            tables.create_entry(table, feature)?;
+            tables.create_entry(table_id, feature)?;
         }
-        character.features = Some(table);
+        character.features = Some(table_id);
     }
     
     if let Some(actions) = template.get("actions") {
-        let table = tables.create_table();
+        let table_id = Uid::from_string(format!("{}-actions", id.to_string()));
+        tables.create_table(table_id);
         for action in actions {
-            tables.create_entry(table, action)?;
+            tables.create_entry(table_id, action)?;
         }
-        character.actions = Some(table);
+        character.actions = Some(table_id);
     }
 
     Ok(character.get_methods())
@@ -65,10 +67,29 @@ impl Supporting {
         }
     }
 
+    fn apply_table_update(self, tables, key, value) {
+        let entry = tables.get_entry_by_id(key.table_id, key.entry_id)?;
+        if key.name.starts_with("use-") {
+            let index = key.name.split("-").skip(1).next().ok_or_else(|| anyhow!("failed to find use index"))?;
+            let index = index.parse::<i64>()?;
+            let extras = entry.get_value("extras")?;
+            extras["used"][index] = value;
+            entry.set_value("extras", extras)?;
+            tables.save_entry(entry)?;
+            return Ok([]);
+        }
+
+        Ok([])
+    }
+
     fn apply_update(self, tables, key, value) {
         let notify_card = false;
         let notify_sheet = false;
         
+        if let Some(table_key) = TableKey::try_parse(key) {
+            return self.apply_table_update(tables, table_key, value);
+        }
+
         match key {
             "hp" => {
                 self.hp = value.min(self.max_hp).max(0);
@@ -91,7 +112,7 @@ impl Supporting {
                 notify_card = true;
                 notify_sheet = true;
             }
-            _ => ::log::error!("Unhandled update {key}"),
+            _ => ::log::error!("unhandled update {key}"),
         }
 
         let changes = [];

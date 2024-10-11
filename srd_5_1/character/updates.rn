@@ -4,7 +4,7 @@ impl super::Character {
     fn apply_table_update(self, tables, key, value) {
         let entry = tables.get_entry_by_id(key.table_id, key.entry_id)?;
         if key.name.starts_with("use-") {
-            let index = key.name.split("-").skip(1).next().ok_or_else(|| anyhow!("Failed to find use index"))?;
+            let index = key.name.split("-").skip(1).next().ok_or_else(|| anyhow!("failed to find use index"))?;
             let index = index.parse::<i64>()?;
             let extras = entry.get_value("extras")?;
             extras["used"][index] = value;

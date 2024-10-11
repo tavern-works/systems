@@ -206,6 +206,14 @@
                 "roll": {
                     "title": "Roll",
                     "type": "string"
+                },
+                "used": {
+                    "title": "Uses",
+                    "type": "array",
+                    "items": {
+                        "title": "Use",
+                        "type": "boolean"
+                    }
                 }
             }
         },
@@ -471,6 +479,12 @@
                 "title": "Action",
                 "$ref": "#/definitions/feature"
             }
+        },
+        "actions_height": {
+            "title": "Actions Height",
+            "description": "Height of the actions feature of the brief",
+            "type": "integer",
+            "default": 8
         },
         "rolls": {
             "title": "Rolls",

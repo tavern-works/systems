@@ -154,6 +154,8 @@ impl super::Supporting {
         }
 
         if self.actions.is_some() {
+            let actions_height = self.template.get("actions_height").unwrap_or(8);
+
             let left_cells = [
                 Cell::try_new(0..12, 0..1, Contents::new_label().label("Actions")?.size(Size::Large)?.align(Alignment::Center)?)?,
             ];
@@ -164,7 +166,7 @@ impl super::Supporting {
             ];
             let action_table = Table::new("actions", action_controls, [], action_columns, "order");
             let actions = [
-                Cell::try_new(0..12, row..row + 8, Contents::Table(action_table))?
+                Cell::try_new(0..12, row..row + actions_height, Contents::Table(action_table))?
             ];
     
             cells.extend(actions);

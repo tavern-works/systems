@@ -1,0 +1,97 @@
+{
+    "name": "Spider",
+    "id": "W47bhGXLRD4V",
+    "size": "Tiny",
+    "type": "beast",
+    "alignment": "Unaligned",
+    "headline": "Tiny beast, unaligned",
+    "armor": [],
+    "hp": "1d4 - 1",
+    "speed": "20 ft, climb 20 ft",
+    "abilityScores": [
+        2,
+        14,
+        8,
+        1,
+        10,
+        2
+    ],
+    "skills": [
+        {
+            "type": "Stealth",
+            "value": "+4"
+        }
+    ],
+    "damage_vulnerabilities": [],
+    "damage_resistances": [],
+    "damage_immunities": [],
+    "condition_immunities": [],
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 30
+        },
+        {
+            "type": "passive_perception",
+            "value": 10
+        }
+    ],
+    "languages": [],
+    "challenge": "0 (10 XP)",
+    "features_height": 8,
+    "features": [
+        {
+            "name": "Spider Climb",
+            "extras": {
+                "description": "The spider can climb difficult surfaces, including upside down on ceilings, without needing to make an ability check"
+            }
+        },
+        {
+            "name": "Web Sense",
+            "extras": {
+                "description": "While in contact with a web, the spider knows the exact location of any other creature in contact with the same web"
+            }
+        },
+        {
+            "name": "Web Walker",
+            "extras": {
+                "description": "The spider ignores movement restrictions caused by webbing"
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Bite",
+            "expression": "{d20} + 4",
+            "damage": {
+                "type": "Piercing",
+                "count": 0,
+                "sides": 0,
+                "modifier": 1
+            }
+        }
+    ],
+    "actions": [
+        {
+            "name": "Bite",
+            "extras": {
+                "roll": "Bite",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1"
+                    }
+                ],
+                "description": "On a hit, the target must succeed on a DC 9 Constitution saving throw or take 1d4 poison damage"
+            }
+        }
+    ],
+    "actions_height": 6
+}

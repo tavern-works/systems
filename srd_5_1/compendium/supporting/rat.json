@@ -1,0 +1,77 @@
+{
+    "name": "Rat",
+    "id": "sCtcJny87TTJ",
+    "size": "Tiny",
+    "type": "beast",
+    "alignment": "Unaligned",
+    "headline": "Tiny beast, unaligned",
+    "armor": [],
+    "hp": "1d4 - 1",
+    "speed": "20 ft",
+    "abilityScores": [
+        2,
+        11,
+        9,
+        2,
+        10,
+        4
+    ],
+    "skills": [],
+    "damage_vulnerabilities": [],
+    "damage_resistances": [],
+    "damage_immunities": [],
+    "condition_immunities": [],
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 30
+        },
+        {
+            "type": "passive_perception",
+            "value": 10
+        }
+    ],
+    "languages": [],
+    "challenge": "0 (10 XP)",
+    "features": [
+        {
+            "name": "Keen Smell",
+            "extras": {
+                "description": "The rat has advantage on Wisdom (Perception) checks that rely on smell"
+            }
+        }
+    ],
+    "actions": [
+        {
+            "name": "Bite",
+            "extras": {
+                "roll": "Bite",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+0"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1"
+                    }
+                ]
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Bite",
+            "expression": "{d20}",
+            "damage": {
+                "type": "Piercing",
+                "count": 0,
+                "sides": 0,
+                "modifier": 1
+            }
+        }
+    ]
+}

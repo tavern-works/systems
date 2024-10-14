@@ -501,6 +501,7 @@
                         "type": "string",
                         "enum": [
                             "Any one",
+                            "Aquan",
                             "Common",
                             "Draconic",
                             "Goblin",

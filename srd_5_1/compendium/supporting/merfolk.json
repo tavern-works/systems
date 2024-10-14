@@ -1,0 +1,154 @@
+{
+    "name": "Merfolk",
+    "id": "LZDFhGP59DBH",
+    "size": "Medium",
+    "type": "humanoid (merfolk)",
+    "alignment": "Neutral",
+    "headline": "Medium humanoid (merfolk), neutral",
+    "armor": [],
+    "hp": "2d8 + 2",
+    "speed": "10 ft, swim 40 ft",
+    "abilityScores": [
+        10,
+        13,
+        12,
+        11,
+        11,
+        12
+    ],
+    "skills": [
+        {
+            "type": "Perception",
+            "value": "+2"
+        }
+    ],
+    "damage_vulnerabilities": [],
+    "damage_resistances": [],
+    "damage_immunities": [],
+    "condition_immunities": [],
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 12
+        }
+    ],
+    "languages": [
+        {
+            "value": "Aquan"
+        },
+        {
+            "value": "Common"
+        }
+    ],
+    "challenge": "1/8 (25 XP)",
+    "features": [
+        {
+            "name": "Amphibious",
+            "extras": {
+                "description": "The merfolk can breathe air and water"
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Spear",
+            "expression": "{d20} + 2",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 0
+                }
+            ]
+        },
+        {
+            "name": "Spear (Thrown)",
+            "expression": "{d20} + 2",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 0
+                }
+            ]
+        },
+        {
+            "name": "Spear (Two-Handed)",
+            "expression": "{d20} + 2",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 8,
+                    "modifier": 0
+                }
+            ]
+        }
+    ],
+    "actions_height": 11,
+    "actions": [
+        {
+            "name": "Spear",
+            "extras": {
+                "roll": "Spear",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+2"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d6"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Spear (Thrown)",
+            "extras": {
+                "roll": "Spear (Thrown)",
+                "attributes": [
+                    {
+                        "type": "thrown"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+2"
+                    },
+                    {
+                        "type": "range",
+                        "value": "20/60"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d6"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Spear (Two-Handed)",
+            "extras": {
+                "roll": "Spear (Two-Handed)",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+2"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d8"
+                    }
+                ]
+            }
+        }
+    ]
+}

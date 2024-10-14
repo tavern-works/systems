@@ -1,0 +1,75 @@
+{
+    "name": "Stirge",
+    "id": "2v4B9FVcxtgK",
+    "size": "Tiny",
+    "type": "beast",
+    "alignment": "Unaligned",
+    "headline": "Tiny beast, unaligned",
+    "armor": [
+        "XSyXthp8xVjL"
+    ],
+    "hp": "1d4",
+    "speed": "10 ft, fly 40 ft",
+    "abilityScores": [
+        4,
+        16,
+        11,
+        2,
+        8,
+        6
+    ],
+    "skills": [],
+    "damage_vulnerabilities": [],
+    "damage_resistances": [],
+    "damage_immunities": [],
+    "condition_immunities": [],
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 60
+        },
+        {
+            "type": "passive_perception",
+            "value": 9
+        }
+    ],
+    "languages": [],
+    "challenge": "1/8 (25 XP)",
+    "rolls": [
+        {
+            "name": "Blood Drain",
+            "expression": "{d20} + 5",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 4,
+                    "modifier": 3
+                }
+            ]
+        }
+    ],
+    "actions_height": 8,
+    "actions": [
+        {
+            "name": "Blood Drain",
+            "extras": {
+                "roll": "Blood Drain",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+5"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d4 + 3"
+                    }
+                ],
+                "description": "On a hit, the stirge attaches to the target. While attached, the stirge doesn't attack. Instead, at the start of each of the stirge's turns, the target loses 1d4 + 3 hit points due to blood loss. The stirge can detach itself by spending 5 feet of its movement. It does so after it drains 10 hit points of blood from the target or the target dies. A creature, including the target, can use its action to detach the stirge."
+            }
+        }
+    ]
+}

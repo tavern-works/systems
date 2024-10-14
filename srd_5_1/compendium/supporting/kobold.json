@@ -1,0 +1,129 @@
+{
+    "name": "Kobold",
+    "id": "hJkG9VbkZGcx",
+    "size": "Small",
+    "type": "humanoid (kobold)",
+    "alignment": "Lawful Evil",
+    "headline": "Small humanoid (kobold), lawful evil",
+    "armor": [],
+    "hp": "2d6 - 2",
+    "speed": "30 ft",
+    "abilityScores": [
+        7,
+        15,
+        9,
+        8,
+        7,
+        8
+    ],
+    "skills": [],
+    "damage_vulnerabilities": [],
+    "damage_resistances": [],
+    "damage_immunities": [],
+    "condition_immunities": [],
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 60
+        },
+        {
+            "type": "passive_perception",
+            "value": 8
+        }
+    ],
+    "languages": [
+        {
+            "value": "Common"
+        },
+        {
+            "value": "Draconic"
+        }
+    ],
+    "challenge": "1/8 (25 XP)",
+    "actions_height": 8,
+    "actions": [
+        {
+            "name": "Dagger",
+            "extras": {
+                "roll": "Dagger",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d4 + 2"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Sling",
+            "extras": {
+                "roll": "Sling",
+                "attributes": [
+                    {
+                        "type": "ranged_weapon"
+                    },
+                    {
+                        "type": "range",
+                        "value": "30/120"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "bludgeoning_attack",
+                        "value": "1d4 + 2"
+                    }
+                ]
+            }
+        }
+    ],
+    "features_height": 7,
+    "features": [
+        {
+            "name": "Sunlight Sensitivity",
+            "extras": {
+                "description": "While in sunlight, the kobold has disadvantage on attack rolls, as well as on Wisdom (Perception) checks that rely on sight"
+            }
+        },
+        {
+            "name": "Pack Tactics",
+            "extras": {
+                "description": "The kobold has advantage on an attack roll against a creature if at least one of the kobold's allies is within 5 feet of the creature and the ally isn't incapacitated"
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Dagger",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 4,
+                    "modifier": 2
+                }
+            ]
+        },
+        {
+            "name": "Sling",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Bludgeoning",
+                    "count": 1,
+                    "sides": 4,
+                    "modifier": 2
+                }
+            ]
+        }
+    ]
+}

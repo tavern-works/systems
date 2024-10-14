@@ -502,6 +502,7 @@
                         "enum": [
                             "Any one",
                             "Common",
+                            "Draconic",
                             "Goblin",
                             "One known by its creator",
                             "Understands Infernal, but can't speak",

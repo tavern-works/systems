@@ -1,0 +1,83 @@
+{
+    "name": "Mastiff",
+    "id": "CxSbH9Ztg7c3",
+    "size": "Medium",
+    "type": "beast",
+    "alignment": "Unaligned",
+    "headline": "Medium beast, unaligned",
+    "armor": [],
+    "hp": "1d8 + 1",
+    "speed": "40 ft",
+    "abilityScores": [
+        13,
+        14,
+        12,
+        3,
+        12,
+        7
+    ],
+    "skills": [
+        {
+            "type": "Perception",
+            "value": "+3"
+        }
+    ],
+    "damage_vulnerabilities": [],
+    "damage_resistances": [],
+    "damage_immunities": [],
+    "condition_immunities": [],
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 13
+        }
+    ],
+    "languages": [],
+    "challenge": "1/8 (25 XP)",
+    "features": [
+        {
+            "name": "Keen Hearing and Smell",
+            "extras": {
+                "description": "The mastiff has advantage on Wisdom (Perception) checks that rely on hearing or smell"
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Bite",
+            "expression": "{d20} + 3",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 1
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Bite",
+            "extras": {
+                "roll": "Bite",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d6 + 1"
+                    }
+                ],
+                "description": "On a hit, a creature must succeed on a DC 11 Strength saving throw or be knocked prone"
+            }
+        }
+    ],
+    "description": "**Mastiffs** are impressive hounds prized by humanoids for their loyalty and keen senses. Mastiffs can be trained as guard dogs, hunting dogs, and war dogs. Halflings and other Small humanoids ride them as mounts.",
+    "actions_height": 6
+}

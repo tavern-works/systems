@@ -5,6 +5,11 @@
             "title": "Armor",
             "oneOf": [
                 {
+                    "title": "Breastplate",
+                    "type": "string",
+                    "const": "D09JsNwQWVPN"
+                },
+                {
                     "title": "Chain Shirt",
                     "type": "string",
                     "const": "GyBNs52x7QkZ"
@@ -436,7 +441,9 @@
                         "type": "string",
                         "enum": [
                             "Deception",
+                            "Insight",
                             "Perception",
+                            "Persuasion",
                             "Religion",
                             "Stealth"
                         ]
@@ -501,6 +508,7 @@
                         "type": "string",
                         "enum": [
                             "Any one",
+                            "Any two",
                             "Aquan",
                             "Common",
                             "Draconic",

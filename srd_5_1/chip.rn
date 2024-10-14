@@ -47,6 +47,9 @@ pub fn get_for_attribute(attribute) {
             .tooltip("Small creatures have disadvantage on attack rolls with heavy weapons"),
         "holy_symbol" => Chip::new([ChipField::Text("Holy Symbol")])
             .tooltip("A cleric or paladin can use a holy symbol as a spellcasting focus. To use the symbol in this way, the caster must hold it in hand, wear it visibly, or bear it on a shield."),
+        "Insight" => Chip::new([ChipField::Text("Insight"), ChipField::Divider, ChipField::Value])
+            .tooltip("Roll Insight Check")
+            .roll(PrepareOptions::by_name("Insight Check")),
         "lance" => Chip::new([ChipField::Text("Lance")])
             .tooltip("You have disadvantage when you use a lance to attack a target within 5 feet of you. Also, a lance requires two hands to wield when you aren't mounted."),
         "light_armor" => Chip::new([ChipField::Text("Armor"), ChipField::Divider, ChipField::Value])
@@ -73,6 +76,9 @@ pub fn get_for_attribute(attribute) {
         "Perception" => Chip::new([ChipField::Text("Perception"), ChipField::Divider, ChipField::Value])
             .tooltip("Roll Perception Check")
             .roll(PrepareOptions::by_name("Perception Check")),
+        "Persuasion" => Chip::new([ChipField::Text("Persuasion"), ChipField::Divider, ChipField::Value])
+            .tooltip("Roll Persuasion Check")
+            .roll(PrepareOptions::by_name("Persuasion Check")),
         "piercing" => Chip::new([ChipField::Value, ChipField::Divider, ChipField::Text("Piercing")])
             .tooltip("This weapon does {} piercing damage"),
         "piercing_attack" => Chip::new([ChipField::Value, ChipField::Divider, ChipField::Text("Piercing")])

@@ -1,0 +1,95 @@
+{
+    "name": "Noble",
+    "id": "1h48zHx2D2xc",
+    "size": "Medium",
+    "type": "humanoid (any race)",
+    "alignment": "Any",
+    "headline": "Medium humanoid (any race), any alignment",
+    "armor": [
+        "D09JsNwQWVPN"
+    ],
+    "hp": "2d8",
+    "speed": "30 ft",
+    "abilityScores": [
+        11,
+        12,
+        11,
+        12,
+        14,
+        16
+    ],
+    "skills": [
+        {
+            "type": "Deception",
+            "value": "+5"
+        },
+        {
+            "type": "Insight",
+            "value": "+4"
+        },
+        {
+            "type": "Persuasion",
+            "value": "+5"
+        }
+    ],
+    "damage_vulnerabilities": [],
+    "damage_resistances": [],
+    "damage_immunities": [],
+    "condition_immunities": [],
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 12
+        }
+    ],
+    "languages": [
+        {
+            "value": "Any two"
+        }
+    ],
+    "challenge": "1/8 (25 XP)",
+    "rolls": [
+        {
+            "name": "Rapier",
+            "expression": "{d20} + 3",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 8,
+                    "modifier": 1
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Rapier",
+            "extras": {
+                "roll": "Rapier",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d8 + 1"
+                    }
+                ]
+            }
+        }
+    ],
+    "reactions": [
+        {
+            "name": "Parry",
+            "extras": {
+                "description": "The noble adds 2 to its AC against one melee attack that would hit it. To do so, the noble must see the attacker and be wielding a melee weapon."
+            }
+        }
+    ],
+    "description": "**Nobles** wield great authority and influence as members of the upper class, possessing wealth and connections that can make them as powerful as monarchs and generals. A noble often travels in the company of guards, as well as servants who are commoners. The noble's statistics can also be used to represent **courtiers** who aren't of noble birth."
+}

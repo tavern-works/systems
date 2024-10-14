@@ -1,0 +1,67 @@
+{
+    "name": "Pony",
+    "id": "9k45Dtmg4zFX",
+    "size": "Medium",
+    "type": "beast",
+    "alignment": "Unaligned",
+    "headline": "Medium beast, unaligned",
+    "armor": [],
+    "hp": "2d8 + 2",
+    "speed": "40 ft",
+    "abilityScores": [
+        15,
+        10,
+        13,
+        2,
+        11,
+        7
+    ],
+    "skills": [],
+    "damage_vulnerabilities": [],
+    "damage_resistances": [],
+    "damage_immunities": [],
+    "condition_immunities": [],
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 10
+        }
+    ],
+    "languages": [],
+    "challenge": "1/8 (25 XP)",
+    "rolls": [
+        {
+            "name": "Hooves",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Bludgeoning",
+                    "count": 2,
+                    "sides": 4,
+                    "modifier": 2
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Hooves",
+            "extras": {
+                "roll": "Hooves",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "bludgeoning_attack",
+                        "value": "2d4 + 2"
+                    }
+                ]
+            }
+        }
+    ]
+}

@@ -15,6 +15,11 @@
                     "const": "GyBNs52x7QkZ"
                 },
                 {
+                    "title": "Hide Armor",
+                    "type": "string",
+                    "const": "ljnFvGbgHTcx"
+                },
+                {
                     "title": "Leather Armor",
                     "type": "string",
                     "const": "mVvkHTZh19NX"

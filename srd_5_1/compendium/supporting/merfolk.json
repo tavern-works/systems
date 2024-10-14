@@ -117,12 +117,12 @@
                         "type": "thrown"
                     },
                     {
-                        "type": "to_hit",
-                        "value": "+2"
-                    },
-                    {
                         "type": "range",
                         "value": "20/60"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+2"
                     },
                     {
                         "type": "piercing_attack",

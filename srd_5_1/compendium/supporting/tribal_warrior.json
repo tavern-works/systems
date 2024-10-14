@@ -1,30 +1,24 @@
 {
-    "name": "Guard",
-    "id": "0f89f6Ynr57f",
+    "name": "Tribal Warrior",
+    "id": "cW6Fy0VzNby0",
     "size": "Medium",
     "type": "humanoid (any race)",
     "alignment": "Any",
     "headline": "Medium humanoid (any race), any alignment",
     "armor": [
-        "GyBNs52x7QkZ",
-        "nY7KF1CqTVKG"
+        "ljnFvGbgHTcx"
     ],
     "hp": "2d8 + 2",
     "speed": "30 ft",
     "abilityScores": [
         13,
-        12,
-        12,
-        10,
         11,
-        10
+        12,
+        8,
+        11,
+        8
     ],
-    "skills": [
-        {
-            "type": "Perception",
-            "value": "+2"
-        }
-    ],
+    "skills": [],
     "damage_vulnerabilities": [],
     "damage_resistances": [],
     "damage_immunities": [],
@@ -32,7 +26,7 @@
     "senses": [
         {
             "type": "passive_perception",
-            "value": 12
+            "value": 10
         }
     ],
     "languages": [
@@ -41,6 +35,14 @@
         }
     ],
     "challenge": "1/8 (25 XP)",
+    "features": [
+        {
+            "name": "Pack Tactics",
+            "extras": {
+                "description": "The warrior has advantage on an attack roll against a creature if at least one of the warrior's allies is within 5 feet of the creature and the ally isn't incapacitated"
+            }
+        }
+    ],
     "rolls": [
         {
             "name": "Spear",
@@ -142,6 +144,6 @@
             }
         }
     ],
-    "description": "**Guards** include members of a city watch, sentries in a citadel or fortified town, and the bodyguards of merchants and nobles",
+    "description": "**Tribal warriors** live beyond civilization, most often subsisting on fishing and hunting. Each tribe acts in accordance with the wishes of its chief, who is the greatest or oldest warrior of the tribe or a tribe member blessed by the gods.",
     "actions_height": 11
 }

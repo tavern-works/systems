@@ -29,7 +29,45 @@
     ],
     "languages": [],
     "challenge": "0 (10 XP)",
-    "features_height": 9,
+    "rolls": [
+        {
+            "name": "Charge Damage",
+            "expression": "1d4"
+        },
+        {
+            "name": "Ram",
+            "expression": "{d20} + 3",
+            "damage": [
+                {
+                    "type": "Bludgeoning",
+                    "count": 1,
+                    "sides": 4,
+                    "modifier": 1
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Ram",
+            "extras": {
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "bludgeoning_attack",
+                        "value": "1d4 + 1"
+                    }
+                ],
+                "roll": "Ram"
+            }
+        }
+    ],
     "features": [
         {
             "name": "Charge",
@@ -45,41 +83,5 @@
             }
         }
     ],
-    "rolls": [
-        {
-            "name": "Charge Damage",
-            "expression": "1d4"
-        },
-        {
-            "name": "Ram",
-            "expression": "{d20} + 3",
-            "damage": {
-                "type": "Bludgeoning",
-                "count": 1,
-                "sides": 4,
-                "modifier": 1
-            }
-        }
-    ],
-    "actions": [
-        {
-            "name": "Ram",
-            "extras": {
-                "roll": "Ram",
-                "attributes": [
-                    {
-                        "type": "melee_weapon"
-                    },
-                    {
-                        "type": "to_hit",
-                        "value": "+3"
-                    },
-                    {
-                        "type": "bludgeoning_attack",
-                        "value": "1d4 + 1"
-                    }
-                ]
-            }
-        }
-    ]
+    "features_height": 9
 }

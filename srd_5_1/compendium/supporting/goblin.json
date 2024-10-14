@@ -48,12 +48,30 @@
         }
     ],
     "challenge": "1/4 (50 XP)",
-    "features": [
+    "rolls": [
         {
-            "name": "Nimble Escape",
-            "extras": {
-                "description": "The goblin can take the Disengage or Hide action as a bonus action on each of its turns"
-            }
+            "name": "Scimitar",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Slashing",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 2
+                }
+            ]
+        },
+        {
+            "name": "Shortbow",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 2
+                }
+            ]
         }
     ],
     "actions": [
@@ -100,25 +118,11 @@
             }
         }
     ],
-    "rolls": [
+    "features": [
         {
-            "name": "Scimitar",
-            "expression": "{d20} + 4",
-            "damage": {
-                "type": "Slashing",
-                "count": 1,
-                "sides": 6,
-                "modifier": 2
-            }
-        },
-        {
-            "name": "Shortbow",
-            "expression": "{d20} + 4",
-            "damage": {
-                "type": "Piercing",
-                "count": 1,
-                "sides": 6,
-                "modifier": 2
+            "name": "Nimble Escape",
+            "extras": {
+                "description": "The goblin can take the Disengage or Hide action as a bonus action on each of its turns"
             }
         }
     ]

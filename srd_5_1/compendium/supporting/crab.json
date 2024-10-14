@@ -40,24 +40,18 @@
     ],
     "languages": [],
     "challenge": "0 (10 XP)",
-    "features": [
-        {
-            "name": "Amphibious",
-            "extras": {
-                "description": "The crab can breathe air and water"
-            }
-        }
-    ],
     "rolls": [
         {
             "name": "Claw",
             "expression": "{d20}",
-            "damage": {
-                "type": "Bludgeoning",
-                "count": 0,
-                "sides": 0,
-                "modifier": 1
-            }
+            "damage": [
+                {
+                    "type": "Bludgeoning",
+                    "count": 0,
+                    "sides": 0,
+                    "modifier": 1
+                }
+            ]
         }
     ],
     "actions": [
@@ -78,6 +72,14 @@
                     }
                 ],
                 "roll": "Claw"
+            }
+        }
+    ],
+    "features": [
+        {
+            "name": "Amphibious",
+            "extras": {
+                "description": "The crab can breathe air and water"
             }
         }
     ],

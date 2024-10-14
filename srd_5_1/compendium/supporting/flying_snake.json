@@ -1,17 +1,17 @@
 {
-    "name": "Badger",
-    "id": "4TkbnbmJrTKM",
+    "name": "Flying Snake",
+    "id": "znFyN1SzV3vM",
     "size": "Tiny",
     "type": "beast",
     "alignment": "Unaligned",
     "headline": "Tiny beast, unaligned",
     "armor": [],
-    "hp": "1d4 + 1",
-    "speed": "20 ft, burrow 5 ft",
+    "hp": "2d4",
+    "speed": "30 ft, fly 60 ft, swim 30 ft",
     "abilityScores": [
         4,
+        18,
         11,
-        12,
         2,
         12,
         5
@@ -23,8 +23,8 @@
     "condition_immunities": [],
     "senses": [
         {
-            "type": "darkvision",
-            "value": 30
+            "type": "blindsight",
+            "value": 10
         },
         {
             "type": "passive_perception",
@@ -32,25 +32,31 @@
         }
     ],
     "languages": [],
-    "challenge": "0 (10 XP)",
+    "challenge": "1/8 (25 XP)",
     "features": [
         {
-            "name": "Keen Smell",
+            "name": "Flyby",
             "extras": {
-                "description": "The badger has advantage on Wisdom (Perception) checks that rely on smell"
+                "description": "The snake doesn't provoke opportunity attacks when it flies out of an enemy's reach"
             }
         }
     ],
     "rolls": [
         {
             "name": "Bite",
-            "expression": "{d20} + 2",
+            "expression": "{d20} + 6",
             "damage": [
                 {
                     "type": "Piercing",
                     "count": 0,
                     "sides": 0,
                     "modifier": 1
+                },
+                {
+                    "type": "Poison",
+                    "count": 3,
+                    "sides": 4,
+                    "modifier": 0
                 }
             ]
         }
@@ -59,21 +65,26 @@
         {
             "name": "Bite",
             "extras": {
+                "roll": "Bite",
                 "attributes": [
                     {
                         "type": "melee_weapon"
                     },
                     {
                         "type": "to_hit",
-                        "value": "+2"
+                        "value": "+6"
                     },
                     {
                         "type": "piercing_attack",
                         "value": "1"
+                    },
+                    {
+                        "type": "poison_attack",
+                        "value": "3d4"
                     }
-                ],
-                "roll": "Bite"
+                ]
             }
         }
-    ]
+    ],
+    "description": "A **flying snake** is a brightly colored, winged serpent found in remote jungles. Tribespeople and cultists sometimes domesticate flying snakes to serve as messengers that deliver scrolls wrapped in their coils."
 }

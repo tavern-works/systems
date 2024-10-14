@@ -44,31 +44,24 @@
         }
     ],
     "challenge": "1/8 (25 XP)",
-    "features": [
-        {
-            "name": "Dark Devotion",
-            "extras": {
-                "description": "The cultist has advantage on saving throws against being charmed or frightened"
-            }
-        }
-    ],
     "rolls": [
         {
             "name": "Scimitar",
             "expression": "{d20} + 3",
-            "damage": {
-                "type": "Slashing",
-                "count": 1,
-                "sides": 6,
-                "modifier": 1
-            }
+            "damage": [
+                {
+                    "type": "Slashing",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 1
+                }
+            ]
         }
     ],
     "actions": [
         {
             "name": "Scimitar",
             "extras": {
-                "roll": "Scimitar",
                 "attributes": [
                     {
                         "type": "melee_weapon"
@@ -81,7 +74,16 @@
                         "type": "slashing_attack",
                         "value": "1d6 + 1"
                     }
-                ]
+                ],
+                "roll": "Scimitar"
+            }
+        }
+    ],
+    "features": [
+        {
+            "name": "Dark Devotion",
+            "extras": {
+                "description": "The cultist has advantage on saving throws against being charmed or frightened"
             }
         }
     ],

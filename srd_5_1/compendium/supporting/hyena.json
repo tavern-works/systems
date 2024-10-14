@@ -34,12 +34,18 @@
     ],
     "languages": [],
     "challenge": "0 (10 XP)",
-    "features": [
+    "rolls": [
         {
-            "name": "Pack Tactics",
-            "extras": {
-                "description": "The hyena has advantage on an attack roll against a creature if at least one of the hyena's allies is within 5 feet of the creature and the ally isn't incapacitated"
-            }
+            "name": "Bite",
+            "expression": "{d20} + 2",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 0
+                }
+            ]
         }
     ],
     "actions": [
@@ -63,15 +69,11 @@
             }
         }
     ],
-    "rolls": [
+    "features": [
         {
-            "name": "Bite",
-            "expression": "{d20} + 2",
-            "damage": {
-                "type": "Piercing",
-                "count": 1,
-                "sides": 6,
-                "modifier": 0
+            "name": "Pack Tactics",
+            "extras": {
+                "description": "The hyena has advantage on an attack roll against a creature if at least one of the hyena's allies is within 5 feet of the creature and the ally isn't incapacitated"
             }
         }
     ]

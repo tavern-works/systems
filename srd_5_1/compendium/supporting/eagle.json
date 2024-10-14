@@ -34,12 +34,18 @@
     ],
     "languages": [],
     "challenge": "0 (10 XP)",
-    "features": [
+    "rolls": [
         {
-            "name": "Keen Sight",
-            "extras": {
-                "description": "The eagle has advantage on Wisdom (Perception) checks that rely on sight"
-            }
+            "name": "Talons",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Slashing",
+                    "count": 1,
+                    "sides": 4,
+                    "modifier": 2
+                }
+            ]
         }
     ],
     "actions": [
@@ -63,15 +69,11 @@
             }
         }
     ],
-    "rolls": [
+    "features": [
         {
-            "name": "Talons",
-            "expression": "{d20} + 4",
-            "damage": {
-                "type": "Slashing",
-                "count": 1,
-                "sides": 4,
-                "modifier": 2
+            "name": "Keen Sight",
+            "extras": {
+                "description": "The eagle has advantage on Wisdom (Perception) checks that rely on sight"
             }
         }
     ]

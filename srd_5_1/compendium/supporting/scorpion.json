@@ -35,17 +35,18 @@
     ],
     "languages": [],
     "challenge": "0 (10 XP)",
-    "actions_height": 6,
     "rolls": [
         {
             "name": "Sting",
             "expression": "{d20} + 2",
-            "damage": {
-                "type": "Piercing",
-                "count": 0,
-                "sides": 0,
-                "modifier": 1
-            }
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 0,
+                    "sides": 0,
+                    "modifier": 1
+                }
+            ]
         }
     ],
     "actions": [
@@ -69,5 +70,6 @@
                 "description": "On a hit, the target must make a DC 9 Constitution saving throw, taking 1d8 poison damage on a failed save, or half as much damage on a successful one"
             }
         }
-    ]
+    ],
+    "actions_height": 6
 }

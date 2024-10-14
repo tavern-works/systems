@@ -37,12 +37,14 @@
         {
             "name": "Club",
             "expression": "{d20} + 2",
-            "damage": {
-                "type": "Bludgeoning",
-                "count": 1,
-                "sides": 4,
-                "modifier": 0
-            }
+            "damage": [
+                {
+                    "type": "Bludgeoning",
+                    "count": 1,
+                    "sides": 4,
+                    "modifier": 0
+                }
+            ]
         }
     ],
     "actions": [

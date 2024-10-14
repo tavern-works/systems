@@ -56,16 +56,19 @@
             }
         }
     ],
+    "features_height": 6,
     "rolls": [
         {
             "name": "Talons",
             "expression": "{d20} + 3",
-            "damage": {
-                "type": "Slashing",
-                "count": 0,
-                "sides": 0,
-                "modifier": 1
-            }
+            "damage": [
+                {
+                    "type": "Slashing",
+                    "count": 0,
+                    "sides": 0,
+                    "modifier": 1
+                }
+            ]
         }
     ],
     "actions": [
@@ -88,6 +91,5 @@
                 ]
             }
         }
-    ],
-    "features_height": 6
+    ]
 }

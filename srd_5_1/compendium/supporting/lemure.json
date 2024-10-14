@@ -58,7 +58,41 @@
         }
     ],
     "challenge": "0 (10 XP)",
-    "features_height": 7,
+    "rolls": [
+        {
+            "name": "Fist",
+            "expression": "{d20} + 3",
+            "damage": [
+                {
+                    "type": "Bludgeoning",
+                    "count": 1,
+                    "sides": 4,
+                    "modifier": 0
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Fist",
+            "extras": {
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "bludgeoning_attack",
+                        "value": "1d4"
+                    }
+                ],
+                "roll": "Fist"
+            }
+        }
+    ],
     "features": [
         {
             "name": "Devil's Sight",
@@ -73,37 +107,5 @@
             }
         }
     ],
-    "rolls": [
-        {
-            "name": "Fist",
-            "expression": "{d20} + 3",
-            "damage": {
-                "type": "Bludgeoning",
-                "count": 1,
-                "sides": 4,
-                "modifier": 0
-            }
-        }
-    ],
-    "actions": [
-        {
-            "name": "Fist",
-            "extras": {
-                "roll": "Fist",
-                "attributes": [
-                    {
-                        "type": "melee_weapon"
-                    },
-                    {
-                        "type": "to_hit",
-                        "value": "+3"
-                    },
-                    {
-                        "type": "bludgeoning_attack",
-                        "value": "1d4"
-                    }
-                ]
-            }
-        }
-    ]
+    "features_height": 7
 }

@@ -37,6 +37,20 @@
             }
         }
     ],
+    "rolls": [
+        {
+            "name": "Bite",
+            "expression": "{d20} + 1",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 4,
+                    "modifier": -1
+                }
+            ]
+        }
+    ],
     "actions": [
         {
             "name": "Bite",
@@ -55,18 +69,6 @@
                     }
                 ],
                 "roll": "Bite"
-            }
-        }
-    ],
-    "rolls": [
-        {
-            "name": "Bite",
-            "expression": "{d20} + 1",
-            "damage": {
-                "type": "Piercing",
-                "count": 1,
-                "sides": 4,
-                "modifier": -1
             }
         }
     ]

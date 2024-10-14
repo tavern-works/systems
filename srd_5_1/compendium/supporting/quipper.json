@@ -33,7 +33,6 @@
     ],
     "languages": [],
     "challenge": "0 (10 XP)",
-    "features_height": 6,
     "features": [
         {
             "name": "Blood Frenzy",
@@ -48,7 +47,21 @@
             }
         }
     ],
-    "actions_height": 5,
+    "features_height": 6,
+    "rolls": [
+        {
+            "name": "Bite",
+            "expression": "{d20} + 5",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 0,
+                    "sides": 0,
+                    "modifier": 1
+                }
+            ]
+        }
+    ],
     "actions": [
         {
             "name": "Bite",
@@ -70,17 +83,6 @@
             }
         }
     ],
-    "rolls": [
-        {
-            "name": "Bite",
-            "expression": "{d20} + 5",
-            "damage": {
-                "type": "Piercing",
-                "count": 0,
-                "sides": 0,
-                "modifier": 1
-            }
-        }
-    ],
+    "actions_height": 5,
     "description": "A **quipper** is a carnivorous fish with sharp teeth. Quippers can adapt to any aquatic environment, including cold subterranean lakes. They frequently gather in swarms; the statistics for a *swarm of quippers* appear in a separate entry."
 }

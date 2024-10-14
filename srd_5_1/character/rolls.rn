@@ -47,7 +47,7 @@ impl super::Character {
         let damage_expression = format!("if (@critical, {}, {damage})", Roll::doubled(damage)?);
         let damage_roll = Roll::try_new(damage_type[..1].to_uppercase() + damage_type[1..] + " Damage", configs, damage_expression)?;
 
-        roll.set_next(damage_roll);
+        roll.add_next(damage_roll);
         Ok(roll)
     }
 

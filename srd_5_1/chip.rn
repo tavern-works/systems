@@ -77,6 +77,8 @@ pub fn get_for_attribute(attribute) {
             .tooltip("This weapon does {} piercing damage"),
         "piercing_attack" => Chip::new([ChipField::Value, ChipField::Divider, ChipField::Text("Piercing")])
             .tooltip("This attack does {} piercing damage"),
+        "poison_attack" => Chip::new([ChipField::Value, ChipField::Divider, ChipField::Text("Poison")])
+            .tooltip("This attack does {} poison damage"),
         "radiant" => Chip::new([ChipField::Value, ChipField::Divider, ChipField::Text("Radiant")])
             .tooltip("This weapon does {} radiant damage"),
         "range" => Chip::new([ChipField::Text("Range"), ChipField::Divider, ChipField::Value])

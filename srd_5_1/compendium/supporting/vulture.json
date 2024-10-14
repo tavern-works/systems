@@ -34,7 +34,6 @@
     ],
     "languages": [],
     "challenge": "0 (10 XP)",
-    "features_height": 7,
     "features": [
         {
             "name": "Keen Sight and Smell",
@@ -49,16 +48,19 @@
             }
         }
     ],
+    "features_height": 7,
     "rolls": [
         {
             "name": "Beak",
             "expression": "{d20} + 2",
-            "damage": {
-                "type": "Piercing",
-                "count": 1,
-                "sides": 4,
-                "modifier": 0
-            }
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 4,
+                    "modifier": 0
+                }
+            ]
         }
     ],
     "actions": [

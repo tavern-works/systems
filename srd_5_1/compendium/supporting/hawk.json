@@ -34,12 +34,18 @@
     ],
     "languages": [],
     "challenge": "0 (10 XP)",
-    "features": [
+    "rolls": [
         {
-            "name": "Keen Sight",
-            "extras": {
-                "description": "The hawk has advantage on Wisdom (Perception) checks that rely on sight"
-            }
+            "name": "Talons",
+            "expression": "{d20} + 5",
+            "damage": [
+                {
+                    "type": "Slashing",
+                    "count": 0,
+                    "sides": 0,
+                    "modifier": 1
+                }
+            ]
         }
     ],
     "actions": [
@@ -63,15 +69,11 @@
             }
         }
     ],
-    "rolls": [
+    "features": [
         {
-            "name": "Talons",
-            "expression": "{d20} + 5",
-            "damage": {
-                "type": "Slashing",
-                "count": 0,
-                "sides": 0,
-                "modifier": 1
+            "name": "Keen Sight",
+            "extras": {
+                "description": "The hawk has advantage on Wisdom (Perception) checks that rely on sight"
             }
         }
     ]

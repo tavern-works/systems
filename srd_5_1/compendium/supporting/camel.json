@@ -33,19 +33,20 @@
         {
             "name": "Bite",
             "expression": "{d20} + 5",
-            "damage": {
-                "type": "Bludgeoning",
-                "count": 1,
-                "sides": 4,
-                "modifier": 0
-            }
+            "damage": [
+                {
+                    "type": "Bludgeoning",
+                    "count": 1,
+                    "sides": 4,
+                    "modifier": 0
+                }
+            ]
         }
     ],
     "actions": [
         {
             "name": "Bite",
             "extras": {
-                "roll": "Bite",
                 "attributes": [
                     {
                         "type": "melee_weapon"
@@ -58,7 +59,8 @@
                         "type": "bludgeoning_attack",
                         "value": "1d4"
                     }
-                ]
+                ],
+                "roll": "Bite"
             }
         }
     ]

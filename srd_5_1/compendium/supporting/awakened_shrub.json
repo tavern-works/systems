@@ -49,6 +49,20 @@
             }
         }
     ],
+    "rolls": [
+        {
+            "name": "Rake",
+            "expression": "{d20} + 1",
+            "damage": [
+                {
+                    "type": "Slashing",
+                    "count": 1,
+                    "sides": 4,
+                    "modifier": -1
+                }
+            ]
+        }
+    ],
     "actions": [
         {
             "name": "Rake",
@@ -67,18 +81,6 @@
                     }
                 ],
                 "roll": "Rake"
-            }
-        }
-    ],
-    "rolls": [
-        {
-            "name": "Rake",
-            "expression": "{d20} + 1",
-            "damage": {
-                "type": "Slashing",
-                "count": 1,
-                "sides": 4,
-                "modifier": -1
             }
         }
     ],

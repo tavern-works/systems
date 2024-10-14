@@ -210,26 +210,26 @@ impl Supporting {
             let pending = Roll::try_new(roll["name"], configs, expression)?;
 
             if roll.contains_key("damage") {
-                let damage = roll["damage"];
+                for damage in roll["damage"] {
+                    let name = format!("{} Damage", damage["type"]);
 
-                let name = format!("{} Damage", damage["type"]);
-
-                let count = damage["count"];
-                let sides = damage["sides"];
-                let modifier = damage["modifier"];
-
-                let configs = [];
-                if count > 0 {
-                    configs.push(RollConfig::new("Critical Hit", "@critical", 'C', [], "false"));
+                    let count = damage["count"];
+                    let sides = damage["sides"];
+                    let modifier = damage["modifier"];
+    
+                    let configs = [];
+                    if count > 0 {
+                        configs.push(RollConfig::new("Critical Hit", "@critical", 'C', [], "false"));
+                    }
+    
+                    let expression = if count == 0 {
+                        format!("{modifier}")
+                    } else {
+                        format!("if (@critical, {}d{sides}, {count}d{sides}) + {modifier}", 2 * count)
+                    };
+                    let damage_roll = Roll::try_new(name, configs, expression)?;
+                    pending.add_next(damage_roll);
                 }
-
-                let expression = if count == 0 {
-                    format!("{modifier}")
-                } else {
-                    format!("if (@critical, {}d{sides}, {count}d{sides}) + {modifier}", 2 * count)
-                };
-                let damage_roll = Roll::try_new(name, configs, expression)?;
-                pending.set_next(damage_roll);
             }
 
             rolls.push(pending);

@@ -33,12 +33,14 @@
         {
             "name": "Bite",
             "expression": "{d20} + 2",
-            "damage": {
-                "type": "Piercing",
-                "count": 1,
-                "sides": 4,
-                "modifier": 0
-            }
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 4,
+                    "modifier": 0
+                }
+            ]
         }
     ],
     "actions": [

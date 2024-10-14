@@ -38,12 +38,18 @@
     ],
     "languages": [],
     "challenge": "0 (10 XP)",
-    "features": [
+    "rolls": [
         {
-            "name": "Keen Smell",
-            "extras": {
-                "description": "The cat has advantage on Wisdom (Perception) checks that rely on smell"
-            }
+            "name": "Claws",
+            "expression": "{d20}",
+            "damage": [
+                {
+                    "type": "Slashing",
+                    "count": 0,
+                    "sides": 0,
+                    "modifier": 1
+                }
+            ]
         }
     ],
     "actions": [
@@ -67,15 +73,11 @@
             }
         }
     ],
-    "rolls": [
+    "features": [
         {
-            "name": "Claws",
-            "expression": "{d20}",
-            "damage": {
-                "type": "Slashing",
-                "count": 0,
-                "sides": 0,
-                "modifier": 1
+            "name": "Keen Smell",
+            "extras": {
+                "description": "The cat has advantage on Wisdom (Perception) checks that rely on smell"
             }
         }
     ]

@@ -34,7 +34,6 @@
     ],
     "languages": [],
     "challenge": "0 (10 XP)",
-    "features_height": 5,
     "features": [
         {
             "name": "Mimicry",
@@ -47,12 +46,14 @@
         {
             "name": "Beak",
             "expression": "{d20} + 4",
-            "damage": {
-                "type": "Piercing",
-                "count": 0,
-                "sides": 0,
-                "modifier": 1
-            }
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 0,
+                    "sides": 0,
+                    "modifier": 1
+                }
+            ]
         }
     ],
     "actions": [
@@ -75,5 +76,6 @@
                 ]
             }
         }
-    ]
+    ],
+    "features_height": 5
 }

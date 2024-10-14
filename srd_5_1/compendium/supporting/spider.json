@@ -38,7 +38,6 @@
     ],
     "languages": [],
     "challenge": "0 (10 XP)",
-    "features_height": 8,
     "features": [
         {
             "name": "Spider Climb",
@@ -63,12 +62,20 @@
         {
             "name": "Bite",
             "expression": "{d20} + 4",
-            "damage": {
-                "type": "Piercing",
-                "count": 0,
-                "sides": 0,
-                "modifier": 1
-            }
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 0,
+                    "sides": 0,
+                    "modifier": 1
+                },
+                {
+                    "type": "Poison",
+                    "count": 1,
+                    "sides": 4,
+                    "modifier": 0
+                }
+            ]
         }
     ],
     "actions": [
@@ -93,5 +100,6 @@
             }
         }
     ],
+    "features_height": 8,
     "actions_height": 6
 }

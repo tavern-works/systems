@@ -1,0 +1,88 @@
+{
+    "name": "Giant Weasel",
+    "id": "BjJDl9tQwPZ6",
+    "size": "Medium",
+    "type": "beast",
+    "alignment": "Unaligned",
+    "headline": "Medium beast, unaligned",
+    "armor": [],
+    "hp": "2d8",
+    "speed": "40 ft",
+    "abilityScores": [
+        11,
+        16,
+        10,
+        4,
+        12,
+        5
+    ],
+    "skills": [
+        {
+            "type": "Perception",
+            "value": "+3"
+        },
+        {
+            "type": "Stealth",
+            "value": "+5"
+        }
+    ],
+    "damage_vulnerabilities": [],
+    "damage_resistances": [],
+    "damage_immunities": [],
+    "condition_immunities": [],
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 60
+        },
+        {
+            "type": "passive_perception",
+            "value": 13
+        }
+    ],
+    "languages": [],
+    "challenge": "1/8 (25 XP)",
+    "features": [
+        {
+            "name": "Keen Hearing and Smell",
+            "extras": {
+                "description": "The weasel has advantage on Wisdom (Perception) checks that rely on hearing or smell"
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Bite",
+            "expression": "{d20} + 5",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 4,
+                    "modifier": 3
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Bite",
+            "extras": {
+                "roll": "Bite",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+5"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d4 + 3"
+                    }
+                ]
+            }
+        }
+    ]
+}

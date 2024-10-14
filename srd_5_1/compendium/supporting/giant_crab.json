@@ -1,0 +1,88 @@
+{
+    "name": "Giant Crab",
+    "id": "tBKZpk0mZ0hc",
+    "size": "Medium",
+    "type": "beast",
+    "alignment": "Unaligned",
+    "headline": "Medium beast, unaligned",
+    "armor": [
+        "KhZCsRJVgGRP"
+    ],
+    "hp": "3d8",
+    "speed": "30 ft, swim 30 ft",
+    "abilityScores": [
+        13,
+        15,
+        11,
+        1,
+        9,
+        3
+    ],
+    "skills": [
+        {
+            "type": "Stealth",
+            "value": "+4"
+        }
+    ],
+    "damage_vulnerabilities": [],
+    "damage_resistances": [],
+    "damage_immunities": [],
+    "condition_immunities": [],
+    "senses": [
+        {
+            "type": "blindsight",
+            "value": 30
+        },
+        {
+            "type": "passive_perception",
+            "value": 9
+        }
+    ],
+    "languages": [],
+    "challenge": "1/8 (25 XP)",
+    "features": [
+        {
+            "name": "Amphibious",
+            "extras": {
+                "description": "The crab can breathe air and water"
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Claw",
+            "expression": "{d20} + 3",
+            "damage": [
+                {
+                    "type": "Bludgeoning",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 1
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Claw",
+            "extras": {
+                "roll": "Claw",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "bludgeoning_attack",
+                        "value": "1d6 + 1"
+                    }
+                ],
+                "description": "On a hit, the target is grappled (escape DC 11). The crab has two claws, each of which can grapple only one target."
+            }
+        }
+    ],
+    "actions_height": 6
+}

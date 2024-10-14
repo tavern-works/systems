@@ -28,6 +28,9 @@ pub fn get_for_attribute(attribute) {
             .tooltip("Emits bright light in a {}-foot radius"),
         "darkvision" => Chip::new([ChipField::Text("Darkvision"), ChipField::Divider, ChipField::Value])
             .tooltip("This creature can see in dim light within {} feet as if it were bright light and in darkness as if it were dim light. It can't discern color in darkness, only shades of gray."),
+        "Deception" => Chip::new([ChipField::Text("Deception"), ChipField::Divider, ChipField::Value])
+            .tooltip("Roll Deception Check")
+            .roll(PrepareOptions::by_name("Deception Check")),
         "dim_light" => Chip::new([ChipField::Text("Dim Light"), ChipField::Divider, ChipField::Value])
             .tooltip("Emits dim light in a {}-foot radius"),
         "disadvantage" => Chip::new([ChipField::Text("Disadvantage"), ChipField::Divider, ChipField::Value])
@@ -82,6 +85,9 @@ pub fn get_for_attribute(attribute) {
             .tooltip("A ranged weapon is used to attack a target at a distance"),
         "reach" => Chip::new([ChipField::Text("Reach")])
             .tooltip("This weapon adds 5 feet to your reach when you attack with it, as well as when determining your reach for opportunity attacks with it"),
+        "Religion" => Chip::new([ChipField::Text("Religion"), ChipField::Divider, ChipField::Value])
+            .tooltip("Roll Religion Check")
+            .roll(PrepareOptions::by_name("Religion Check")),
         "requires_ammunition" => Chip::new([ChipField::Text("Requires"), ChipField::Divider, ChipField::Value])
             .tooltip("You can only use this weapon to make a ranged attack if you have {} to fire from it. Each time you attack, you expend one piece of ammunition. Drawing the ammunition from a container is part of the attack."),
         "shield" => Chip::new([ChipField::Text("Shield")])

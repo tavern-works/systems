@@ -366,6 +366,8 @@ impl Supporting {
         if extended {
             if template["alignment"] == "Any" {
                 headline += ", any alignment";    
+            } else if template["alignment"] == "Any Non-Good" {
+                headline += ", any non-good alignment";
             } else {
                 headline += format!(", {}", template["alignment"].to_lowercase());
             }

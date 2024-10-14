@@ -1,0 +1,89 @@
+{
+    "name": "Cultist",
+    "id": "xQFd7hBXFYvk",
+    "size": "Medium",
+    "type": "humanoid (any race)",
+    "alignment": "Any Non-Good",
+    "headline": "Medium humanoid (any race), any non-good alignment",
+    "armor": [
+        "mVvkHTZh19NX"
+    ],
+    "hp": "2d8",
+    "speed": "30 ft",
+    "abilityScores": [
+        11,
+        12,
+        10,
+        10,
+        11,
+        10
+    ],
+    "skills": [
+        {
+            "type": "Deception",
+            "value": "+2"
+        },
+        {
+            "type": "Religion",
+            "value": "+2"
+        }
+    ],
+    "damage_vulnerabilities": [],
+    "damage_resistances": [],
+    "damage_immunities": [],
+    "condition_immunities": [],
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 10
+        }
+    ],
+    "languages": [
+        {
+            "value": "Any one"
+        }
+    ],
+    "challenge": "1/8 (25 XP)",
+    "features": [
+        {
+            "name": "Dark Devotion",
+            "extras": {
+                "description": "The cultist has advantage on saving throws against being charmed or frightened"
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Scimitar",
+            "expression": "{d20} + 3",
+            "damage": {
+                "type": "Slashing",
+                "count": 1,
+                "sides": 6,
+                "modifier": 1
+            }
+        }
+    ],
+    "actions": [
+        {
+            "name": "Scimitar",
+            "extras": {
+                "roll": "Scimitar",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "slashing_attack",
+                        "value": "1d6 + 1"
+                    }
+                ]
+            }
+        }
+    ],
+    "description": "**Cultists** swear allegiance to dark powers such as elemental princes, demon lords, or archdevils. Most conceal their loyalties to avoid being ostracized, imprisoned, or executed for their beliefs. Unlike evil acolytes, cultists often show signs of insanity in their beliefs and practices."
+}

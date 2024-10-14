@@ -473,7 +473,7 @@
         "challenge": {
             "title": "Challenge",
             "type": "string",
-            "enum": ["0 (0 XP)", "0 (10 XP)", "1/4 (50 XP)"]
+            "enum": ["0 (0 XP)", "0 (10 XP)", "1/8 (25 XP)", "1/4 (50 XP)"]
         },
         "features": {
             "title": "Features",

@@ -336,7 +336,7 @@
         "size": {
             "title": "Size",
             "type": "string",
-            "enum": ["Medium", "Small", "Tiny"]
+            "enum": ["Tiny", "Small", "Medium", "Large"]
         },
         "type": {
             "title": "Type",

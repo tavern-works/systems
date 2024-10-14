@@ -1,0 +1,65 @@
+{
+    "name": "Camel",
+    "id": "n6jTftYpgRFX",
+    "size": "Large",
+    "type": "beast",
+    "alignment": "Unaligned",
+    "headline": "Large beast, unaligned",
+    "armor": [],
+    "hp": "2d10 + 4",
+    "speed": "50 ft",
+    "abilityScores": [
+        16,
+        8,
+        14,
+        2,
+        8,
+        5
+    ],
+    "skills": [],
+    "damage_vulnerabilities": [],
+    "damage_resistances": [],
+    "damage_immunities": [],
+    "condition_immunities": [],
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 9
+        }
+    ],
+    "languages": [],
+    "challenge": "1/8 (25 XP)",
+    "rolls": [
+        {
+            "name": "Bite",
+            "expression": "{d20} + 5",
+            "damage": {
+                "type": "Bludgeoning",
+                "count": 1,
+                "sides": 4,
+                "modifier": 0
+            }
+        }
+    ],
+    "actions": [
+        {
+            "name": "Bite",
+            "extras": {
+                "roll": "Bite",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+5"
+                    },
+                    {
+                        "type": "bludgeoning_attack",
+                        "value": "1d4"
+                    }
+                ]
+            }
+        }
+    ]
+}

@@ -1,0 +1,88 @@
+{
+    "name": "Diseased Giant Rat",
+    "id": "pnlsxpw5b9pF",
+    "size": "Small",
+    "type": "beast",
+    "alignment": "Unaligned",
+    "headline": "Small beast, unaligned",
+    "armor": [],
+    "hp": "2d6",
+    "speed": "30 ft",
+    "abilityScores": [
+        7,
+        15,
+        11,
+        2,
+        10,
+        4
+    ],
+    "skills": [],
+    "damage_vulnerabilities": [],
+    "damage_resistances": [],
+    "damage_immunities": [],
+    "condition_immunities": [],
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 60
+        },
+        {
+            "type": "passive_perception",
+            "value": 10
+        }
+    ],
+    "languages": [],
+    "challenge": "1/8 (25 XP)",
+    "features_height": 6,
+    "features": [
+        {
+            "name": "Keen Smell",
+            "extras": {
+                "description": "The rat has advantage on Wisdom (Perception) checks that rely on smell"
+            }
+        },
+        {
+            "name": "Pack Tactics",
+            "extras": {
+                "description": "The rat has advantage on an attack roll against a creature if at least one of the rat's allies is within 5 feet of the creature and the ally isn't incapacitated"
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Bite",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 4,
+                    "modifier": 2
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Bite",
+            "extras": {
+                "roll": "Bite",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d4 + 2"
+                    }
+                ],
+                "description": "On a hit, a target creature must succeed on a DC 10 Constitution saving throw or contract a disease. Until the disease is cured, the target can't regain hit points except by magical means, and the target's hit point maximum decreases by 1d6 every 24 hours. If the target's hit point maximum drops to 0 as a result of this disease, the target dies."
+            }
+        }
+    ],
+    "actions_height": 7
+}

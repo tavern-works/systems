@@ -1,0 +1,146 @@
+{
+    "name": "Guard",
+    "id": "0f89f6Ynr57f",
+    "size": "Medium",
+    "type": "humanoid (any race)",
+    "alignment": "Any",
+    "headline": "Medium humanoid (any race), any alignment",
+    "armor": [
+        "GyBNs52x7QkZ",
+        "nY7KF1CqTVKG"
+    ],
+    "hp": "2d8 + 2",
+    "speed": "30 ft",
+    "abilityScores": [
+        13,
+        12,
+        12,
+        10,
+        11,
+        10
+    ],
+    "skills": [
+        {
+            "type": "Perception",
+            "value": "+2"
+        }
+    ],
+    "damage_vulnerabilities": [],
+    "damage_resistances": [],
+    "damage_immunities": [],
+    "condition_immunities": [],
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 12
+        }
+    ],
+    "languages": [
+        {
+            "value": "Any one"
+        }
+    ],
+    "challenge": "1/8 (25 XP)",
+    "rolls": [
+        {
+            "name": "Spear",
+            "expression": "{d20} + 3",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 1
+                }
+            ]
+        },
+        {
+            "name": "Spear (Thrown)",
+            "expression": "{d20} + 3",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 1
+                }
+            ]
+        },
+        {
+            "name": "Spear (Two-Handed)",
+            "expression": "{d20} + 3",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 8,
+                    "modifier": 1
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Spear",
+            "extras": {
+                "roll": "Spear",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d6 + 1"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Spear (Thrown)",
+            "extras": {
+                "roll": "Spear (Thrown)",
+                "attributes": [
+                    {
+                        "type": "thrown"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "range",
+                        "value": "20/60"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d6 + 1"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Spear (Two-Handed)",
+            "extras": {
+                "roll": "Spear (Two-Handed)",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d8 + 1"
+                    }
+                ]
+            }
+        }
+    ],
+    "description": "**Guards** include members of a city watch, sentries in a citadel or fortified town, and the bodyguards of merchants and nobles"
+}

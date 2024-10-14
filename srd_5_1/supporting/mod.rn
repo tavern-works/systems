@@ -326,7 +326,7 @@ impl Supporting {
                     },
                     "ac_plus_capped_dex_mod" => {
                         has_armor = true;
-                        ac += attribute["value"] + dex_mod.max(2)
+                        ac += attribute["value"] + dex_mod.min(2)
                     }
                     "ac" => {
                         has_armor = true;

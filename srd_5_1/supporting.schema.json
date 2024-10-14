@@ -5,6 +5,11 @@
             "title": "Armor",
             "oneOf": [
                 {
+                    "title": "Chain Shirt",
+                    "type": "string",
+                    "const": "GyBNs52x7QkZ"
+                },
+                {
                     "title": "Leather Armor",
                     "type": "string",
                     "const": "mVvkHTZh19NX"
@@ -125,6 +130,17 @@
                         "type": {
                             "type": "string",
                             "const": "ranged_weapon"
+                        }
+                    },
+                    "required": ["type"]
+                },
+                {
+                    "title": "Thrown",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "const": "thrown"
                         }
                     },
                     "required": ["type"]

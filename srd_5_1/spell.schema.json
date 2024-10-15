@@ -1,0 +1,101 @@
+{
+    "type": "object",
+    "properties": {
+        "name": {
+            "title": "Name",
+            "type": "string"
+        },
+        "level": {
+            "title": "Level",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9
+        },
+        "school": {
+            "title": "School",
+            "type": "string",
+            "enum": [
+                "Abjuration",
+                "Conjuration",
+                "Divination",
+                "Enchantment",
+                "Evocation",
+                "Illusion"
+            ]
+        },
+        "ritual": {
+            "title": "Ritual",
+            "type": "boolean",
+            "format": "checkbox"
+        },
+        "casting_time": {
+            "title": "Casting Time",
+            "type": "string",
+            "enum": ["1 action", "1 minute"]
+        },
+        "range": {
+            "title": "Range",
+            "type": "string",
+            "enum": ["Self", "Touch"]
+        },
+        "components": {
+            "title": "Components",
+            "type": "object",
+            "properties": {
+                "verbal": {
+                    "title": "Verbal",
+                    "type": "boolean",
+                    "format": "checkbox"
+                },
+                "somatic": {
+                    "title": "Somatic",
+                    "type": "boolean",
+                    "format": "checkbox"
+                },
+                "material": {
+                    "title": "Material",
+                    "type": "string"
+                }
+            },
+            "required": ["verbal", "somatic"]
+        },
+        "concentration": {
+            "title": "Concentration",
+            "type": "boolean",
+            "format": "checkbox"
+        },
+        "duration": {
+            "title": "Duration",
+            "type": "string",
+            "enum": ["Instantaneous", "1 hour"]
+        },
+        "description": {
+            "title": "Description",
+            "type": "string",
+            "format": "textarea"
+        },
+        "spell_lists": {
+            "title": "Spell Lists",
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+                "title": "Class",
+                "type": "string",
+                "enum": ["Bard", "Cleric", "Sorcerer", "Wizard"]
+            }
+        }
+    },
+    "required": [
+        "name",
+        "level",
+        "school",
+        "ritual",
+        "casting_time",
+        "range",
+        "components",
+        "concentration",
+        "duration",
+        "description",
+        "spell_lists"
+    ]
+}

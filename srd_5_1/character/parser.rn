@@ -52,10 +52,10 @@ pub fn parse_lead(parsed, tables) {
     let avatar = parse_string(parsed, "avatar")?;
     let name = parse_string(parsed, "name")?;
 
-    if !parsed.contains_key("baseAbilityScores") {
-        ::tavern::bail!("couldn't find baseAbilityScores");
+    if !parsed.contains_key("base_ability_scores") {
+        ::tavern::bail!("couldn't find base_ability_scores");
     }
-    let parsed_ability_scores = parsed["baseAbilityScores"];
+    let parsed_ability_scores = parsed["base_ability_scores"];
 
     let base_ability_scores = #{};
     for ability in Ability::all() {
@@ -82,14 +82,14 @@ pub fn parse_lead(parsed, tables) {
 
     let experience = parse_i64(parsed, "experience")?;
 
-    let hp_rolled = parse_vec(parsed, "hpRolled")?;
+    let hp_rolled = parse_vec(parsed, "hp_rolled")?;
     if hp_rolled.len() != classes.len() {
-        ::tavern::bail!("Expected to find {} hpRolled, found {}", classes.len(), hp_rolled.len());
+        ::tavern::bail!("Expected to find {} hp_rolled, found {}", classes.len(), hp_rolled.len());
     }
     for element in hp_rolled.iter().enumerate() {
         if let (index, roll) = element {
             if roll is not i64 {
-                ::tavern::bail!("Expected hpRolled to be integers, found {roll}");
+                ::tavern::bail!("Expected hp_rolled to be integers, found {roll}");
             }
             if roll > classes[index].hit_die() {
                 ::tavern::bail!("Expected roll {index} to be <= {}, found {roll}", classes[index].hit_die());
@@ -97,21 +97,21 @@ pub fn parse_lead(parsed, tables) {
         }
     }
 
-    let hit_die_used = parse_vec(parsed, "hitDieUsed")?;
+    let hit_die_used = parse_vec(parsed, "hit_die_used")?;
     if hit_die_used.len() != classes.len() {
-        ::tavern::bail!("Expected to find {} hitDieUsed, found {}", classes.len(), hit_die_used.len());
+        ::tavern::bail!("Expected to find {} hit_die_used, found {}", classes.len(), hit_die_used.len());
     }
     for die in hit_die_used {
         if die is not bool {
-            ::tavern::bail!("Expected hitDieUsed to be boolean, found {die}");
+            ::tavern::bail!("Expected hit_die_used to be boolean, found {die}");
         }
     }
 
     let hp = parse_i64(parsed, "hp")?;
-    let temp_hp = parse_i64(parsed, "tempHp")?;
+    let temp_hp = parse_i64(parsed, "temp_hp")?;
 
-    let death_successes = parse_i64(parsed, "deathSuccesses")?;
-    let death_failures = parse_i64(parsed, "deathFailures")?;
+    let death_successes = parse_i64(parsed, "death_successes")?;
+    let death_failures = parse_i64(parsed, "death_failures")?;
 
     let inspiration = parse_bool(parsed, "inspiration")?;
 

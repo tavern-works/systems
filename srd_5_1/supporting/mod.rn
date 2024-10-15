@@ -308,7 +308,7 @@ impl Supporting {
     }
 
     fn ability_score(self, template, ability) {
-        template["abilityScores"][ability.index()]
+        template["ability_scores"][ability.index()]
     }
 
     fn armor_class(self, tables, template) {

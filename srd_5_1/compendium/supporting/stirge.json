@@ -10,7 +10,7 @@
     ],
     "hp": "1d4",
     "speed": "10 ft, fly 40 ft",
-    "abilityScores": [
+    "ability_scores": [
         4,
         16,
         11,

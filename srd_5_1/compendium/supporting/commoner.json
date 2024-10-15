@@ -8,7 +8,7 @@
     "armor": [],
     "hp": "1d8",
     "speed": "30 ft",
-    "abilityScores": [
+    "ability_scores": [
         10,
         10,
         10,

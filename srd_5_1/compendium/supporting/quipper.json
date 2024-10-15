@@ -8,7 +8,7 @@
     "armor": [],
     "hp": "1d4 - 1",
     "speed": "0 ft, swim 40 ft",
-    "abilityScores": [
+    "ability_scores": [
         2,
         16,
         9,

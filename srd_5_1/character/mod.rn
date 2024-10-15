@@ -102,12 +102,12 @@ impl Character {
             "alignment": self.alignment.name(),
             "experience": self.experience,
             "inspiration": self.inspiration,
-            "profBonus": proficiency_bonus,
+            "prof_bonus": proficiency_bonus,
             "ac": self.armor_class(tables)?,
             "init": self.initiative(),
             "hp": self.hp,
-            "tempHp": self.temp_hp,
-            "maxHp": self.max_hp(),
+            "temp_hp": self.temp_hp,
+            "max_hp": self.max_hp(),
             "platinum": self.coins[0],
             "gold": self.coins[1],
             "electrum": self.coins[2],
@@ -145,7 +145,7 @@ impl Character {
             data[skill.bonus_name()] = data[relevant_ability.modifier_variable()] + skill.unconditional_factor(proficiencies) * proficiency_bonus;
         }
 
-        data["passivePerception"] = 10 + data[Skill::Perception.bonus_name()];
+        data["passive_perception"] = 10 + data[Skill::Perception.bonus_name()];
 
         let available_hit_dice = HashMap::new();
         let used_hit_dice = HashMap::new();
@@ -161,7 +161,7 @@ impl Character {
             }
         }
         for die in [6, 8, 10, 12] {
-            data[format!("hitDice{die}")] = available_hit_dice[die];
+            data[format!("hit_dice_{die}")] = available_hit_dice[die];
             data[format!("hasAvailableHitDie{die}")] = if available_hit_dice[die] > 0 { true } else { () };
             data[format!("hasUsedHitDie{die}")] = if used_hit_dice[die] > 0 { true } else { () };
         }

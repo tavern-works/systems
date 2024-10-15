@@ -8,7 +8,7 @@
     "armor": [],
     "hp": "2d6",
     "speed": "10 ft, fly 60 ft",
-    "abilityScores": [
+    "ability_scores": [
         6,
         14,
         10,

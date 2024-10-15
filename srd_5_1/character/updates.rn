@@ -244,7 +244,7 @@ impl super::Character {
                     self.coins[3] = value.max(0);
                     notify_sheet = true;
                 }
-                "tempHp" => {
+                "temp_hp" => {
                     self.temp_hp = value.max(0);
                     notify_card = true;
                     notify_sheet = true;

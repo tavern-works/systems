@@ -1,0 +1,104 @@
+{
+    "name": "Acolyte",
+    "id": "G1wM6W45t62Y",
+    "size": "Medium",
+    "type": "humanoid (any race)",
+    "alignment": "Any",
+    "headline": "Medium humanoid (any race), any alignment",
+    "armor": [],
+    "hp": "2d8",
+    "speed": "30 ft",
+    "ability_scores": [
+        10,
+        10,
+        10,
+        10,
+        14,
+        11
+    ],
+    "skills": [
+        {
+            "type": "Medicine",
+            "value": "+4"
+        },
+        {
+            "type": "Religion",
+            "value": "+2"
+        }
+    ],
+    "damage_vulnerabilities": [],
+    "damage_resistances": [],
+    "damage_immunities": [],
+    "condition_immunities": [],
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 12
+        }
+    ],
+    "languages": [
+        {
+            "value": "Any one"
+        }
+    ],
+    "challenge": "1/4 (50 XP)",
+    "features": [
+        {
+            "name": "Spellcasting",
+            "extras": {
+                "attributes": [
+                    {
+                        "type": "spellcaster_level",
+                        "value": 1
+                    },
+                    {
+                        "type": "spellcasting_ability",
+                        "value": "Wisdom"
+                    },
+                    {
+                        "type": "spell_save_dc",
+                        "value": 12
+                    },
+                    {
+                        "type": "spell_attack",
+                        "value": "+4"
+                    }
+                ],
+                "compendium_uses": {
+                    "section": "spell",
+                    "categories": [
+                        {
+                            "name": "Cantrips (at will)",
+                            "entries": [
+                                "Light",
+                                "Sacred Flame",
+                                "Thaumaturgy"
+                            ],
+                            "used": []
+                        },
+                        {
+                            "name": "1st Level",
+                            "entries": [
+                                "Bless",
+                                "Cure Wounds",
+                                "Sanctuary"
+                            ],
+                            "used": [
+                                false,
+                                false,
+                                false
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Spell Attack",
+            "expression": "{d20} + 4"
+        }
+    ],
+    "actions": []
+}

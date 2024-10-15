@@ -145,6 +145,69 @@
                     "required": ["type"]
                 },
                 {
+                    "title": "Spell Attack",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "const": "spell_attack"
+                        },
+                        "value": {
+                            "title": "To Hit",
+                            "type": "string",
+                            "default": "+0"
+                        }
+                    },
+                    "required": ["type", "value"]
+                },
+                {
+                    "title": "Spell Save DC",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "const": "spell_save_dc"
+                        },
+                        "value": {
+                            "title": "DC",
+                            "type": "integer",
+                            "default": 10
+                        }
+                    },
+                    "required": ["type", "value"]
+                },
+                {
+                    "title": "Spellcaster Level",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "const": "spellcaster_level"
+                        },
+                        "value": {
+                            "title": "Level",
+                            "type": "integer"
+                        }
+                    },
+                    "required": ["type", "value"]
+                },
+                {
+                    "title": "Spellcasting Ability",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "const": "spellcasting_ability"
+                        },
+                        "value": {
+                            "title": "Ability",
+                            "type": "string",
+                            "enum": ["Wisdom"]
+                        }
+                    },
+                    "required": ["type", "value"]
+                },
+                {
                     "title": "Thrown",
                     "type": "object",
                     "properties": {
@@ -258,6 +321,50 @@
                         "title": "Use",
                         "type": "boolean"
                     }
+                },
+                "compendium_uses": {
+                    "title": "Compendium Uses",
+                    "type": "object",
+                    "properties": {
+                        "section": {
+                            "title": "Section",
+                            "description": "Section of the compendium to pull entries from",
+                            "type": "string"
+                        },
+                        "categories": {
+                            "title": "Categories",
+                            "type": "array",
+                            "items": {
+                                "title": "Category",
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "title": "Name",
+                                        "type": "string"
+                                    },
+                                    "entries": {
+                                        "title": "Entries",
+                                        "type": "array",
+                                        "items": {
+                                            "title": "Entry Name",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "used": {
+                                        "title": "Used",
+                                        "type": "array",
+                                        "items": {
+                                            "title": "Used",
+                                            "type": "boolean",
+                                            "format": "checkbox"
+                                        }
+                                    }
+                                },
+                                "required": ["name", "entries", "used"]
+                            }
+                        }
+                    },
+                    "required": ["section", "categories"]
                 }
             }
         },
@@ -274,7 +381,7 @@
                     "type": "string"
                 },
                 "extras": {
-                    "title": "Extras (attributes, description, roll, uses)",
+                    "title": "Extras",
                     "$ref": "#/definitions/extras"
                 }
             },
@@ -421,7 +528,7 @@
             "title": "Speed",
             "type": "string"
         },
-        "abilityScores": {
+        "ability_scores": {
             "title": "Ability Scores",
             "description": "STR DEX CON INT WIS CHA",
             "type": "array",
@@ -443,10 +550,12 @@
                 "type": "object",
                 "properties": {
                     "type": {
+                        "title": "Skill",
                         "type": "string",
                         "enum": [
                             "Deception",
                             "Insight",
+                            "Medicine",
                             "Perception",
                             "Persuasion",
                             "Religion",
@@ -454,7 +563,9 @@
                         ]
                     },
                     "value": {
-                        "type": "string"
+                        "title": "Modifier",
+                        "type": "string",
+                        "default": "+0"
                     }
                 },
                 "required": ["type", "value"]
@@ -596,7 +707,7 @@
         "armor",
         "hp",
         "speed",
-        "abilityScores",
+        "ability_scores",
         "skills",
         "damage_vulnerabilities",
         "damage_resistances",

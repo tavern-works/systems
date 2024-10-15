@@ -11,7 +11,7 @@
     ],
     "hp": "2d6",
     "speed": "30 ft",
-    "abilityScores": [
+    "ability_scores": [
         8,
         14,
         10,

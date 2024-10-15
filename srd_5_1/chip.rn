@@ -65,6 +65,9 @@ pub fn get_for_attribute(attribute) {
             .tooltip("Attacks a target within 5 feet of you"),
         "melee_weapon" => Chip::new([ChipField::Text("Melee")])
             .tooltip("A melee weapon is used to attack a target within 5 feet of you"),
+        "Medicine" => Chip::new([ChipField::Text("Medicine"), ChipField::Divider, ChipField::Value])
+            .tooltip("Roll Medicine Check")
+            .roll(PrepareOptions::by_name("Medicine Check")),
         "medium_armor" => Chip::new([ChipField::Text("Armor"), ChipField::Divider, ChipField::Value])
             .tooltip("Medium armor offers more protection than light armor, but impairs movement more, so you can only add a maximum of +2 when applying your Dexterity modifier"),
         "musical_instrument" => Chip::new([ChipField::Text("Musical Instrument")])
@@ -101,6 +104,15 @@ pub fn get_for_attribute(attribute) {
         "shield" => Chip::new([ChipField::Text("Shield")])
             .tooltip("Wielding a shield increases your Armor Class by 2. You can only benefit from one shield at a time."),
         "short_rest" => Chip::new([ChipField::Text("Short Rest")]),
+        "spell_attack" => Chip::new([ChipField::Text("Attack"), ChipField::Divider, ChipField::Value])
+            .tooltip("This character has {} to hit with spell attacks. Click to roll.")
+            .roll(PrepareOptions::by_name("Spell Attack")),
+        "spell_save_dc" => Chip::new([ChipField::Text("Save DC"), ChipField::Divider, ChipField::Value])
+            .tooltip("The difficulty class to save against this character's spells is {}"),
+        "spellcaster_level" => Chip::new([ChipField::Text("Level"), ChipField::Divider, ChipField::Value])
+            .tooltip("This character is a level {} spellcaster"),
+        "spellcasting_ability" => Chip::new([ChipField::Text("Ability"), ChipField::Divider, ChipField::Value])
+            .tooltip("This spellcaster's spellcasting ability is {}"),
         "simple_weapon" => Chip::new([ChipField::Text("Weapon"), ChipField::Divider, ChipField::Value])
             .tooltip("Most people can use simple weapons with proficiency"),
         "slashing" => Chip::new([ChipField::Value, ChipField::Divider, ChipField::Text("Slashing")])

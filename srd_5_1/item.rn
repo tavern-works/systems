@@ -1,4 +1,4 @@
-use tavern::{Cell, Contents, Font, Grid, Section};
+use tavern::{Alignment, Cell, Contents, Font, Grid, Section};
 
 fn headline(level, school) {
     let lowercase = school.to_lowercase();
@@ -20,13 +20,45 @@ fn headline(level, school) {
     Ok(headline)
 }
 
-pub fn get_data(compendium, section, name) {
-    let entry = compendium.get_by_name(section, name)?;
+fn component_string(components) {
+    let string = "";
 
-    let data = #{
-        name: entry["name"],
-        headline: headline(entry["level"], entry["school"])?
-    };
+    if components["verbal"] {
+        string.push('V');
+    }
+
+    if components["somatic"] {
+        if string.is_empty() {
+            string.push('S')
+        } else {
+            string.push_str(", S")
+        }
+    }
+
+    if components.contains_key("material") {
+        if !string.is_empty() {
+            string.push_str(", ")
+        }
+        string.push_str(format!("M ({})", components["material"]))
+    }
+
+    string
+}
+
+fn duration_string(concentration, duration) {
+    if !concentration {
+        return duration;
+    }
+
+    format!("Concentration, up to {duration}")
+}
+
+pub fn get_data(compendium, section, name) {
+    let data = compendium.get_by_name(section, name)?;
+
+    data["headline"] = headline(data["level"], data["school"])?;
+    data["component_string"] = component_string(data["components"]);
+    data["duration_string"] = duration_string(data["concentration"], data["duration"]);
 
     Ok(data)
 }
@@ -44,6 +76,35 @@ pub fn get_layout(section) {
     ];
 
     layout.push(Section::Grid(Grid::new(title, false)));
+
+    let header_top = [
+        Cell::try_new(0..3, 0..1, Contents::new_label().label("Casting Time")?.align(Alignment::Right)?)?,
+        Cell::try_new(3..12, 0..1, Contents::new_text("casting_time").read_only()?)?,
+        Cell::try_new(0..3, 1..2, Contents::new_label().label("Range")?.align(Alignment::Right)?)?,
+        Cell::try_new(3..12, 1..2, Contents::new_text("range").read_only()?)?,
+    ];
+
+    layout.push(Section::Grid(Grid::new(header_top, false)));
+
+    let components = [
+        Cell::try_new(0..3, 0..1, Contents::new_label().label("Components")?.align(Alignment::Right)?)?,
+        Cell::try_new(3..12, 0..1, Contents::new_text_area("component_string"))?,
+    ];
+
+    layout.push(Section::Grid(Grid::new(components, false)));
+
+    let duration = [
+        Cell::try_new(0..3, 0..1, Contents::new_label().label("Duration")?.align(Alignment::Right)?)?,
+        Cell::try_new(3..12, 0..1, Contents::new_text("duration_string").read_only()?)?,
+    ];
+
+    layout.push(Section::Grid(Grid::new(duration, false)));
+
+    let description = [
+        Cell::try_new(0..12, 0..1, Contents::new_text_area("description").use_markdown()?)?
+    ];
+
+    layout.push(Section::Grid(Grid::new(description, false)));
 
     Ok(layout)
 }

@@ -1,0 +1,49 @@
+use tavern::{Cell, Contents, Font, Grid, Section};
+
+fn headline(level, school) {
+    let lowercase = school.to_lowercase();
+
+    let headline = match level {
+        0 => format!("{school} cantrip"),
+        1 => format!("1st-level {lowercase}"),
+        2 => format!("2nd-level {lowercase}"),
+        3 => format!("3rd-level {lowercase}"),
+        _ => {
+            if (4..=9).contains(level) {
+                format!("{level}th-level {lowercase}")
+            } else {
+                tavern::bail!("unsupported level {level}")
+            }
+        }
+    };
+
+    Ok(headline)
+}
+
+pub fn get_data(compendium, section, name) {
+    let entry = compendium.get_by_name(section, name)?;
+
+    let data = #{
+        name: entry["name"],
+        headline: headline(entry["level"], entry["school"])?
+    };
+
+    Ok(data)
+}
+
+pub fn get_layout(section) {
+    if section != "spell" {
+        tavern::bail!("unknown section {section}");
+    }
+
+    let layout = [];
+    
+    let title = [
+        Cell::try_new(0..12, 0..2, Contents::new_text("name").read_only()?)?,
+        Cell::try_new(0..12, 2..3, Contents::new_text("headline").read_only()?.font(Font::Italic)?)?,
+    ];
+
+    layout.push(Section::Grid(Grid::new(title, false)));
+
+    Ok(layout)
+}

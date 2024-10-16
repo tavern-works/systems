@@ -5,6 +5,7 @@ pub mod chip;
 pub mod class;
 use class::Class;
 pub mod compendium;
+pub mod item;
 pub mod page;
 pub mod race;
 use race::Race;
@@ -379,4 +380,12 @@ impl Alignment {
 
 pub fn get_chip_for_attribute(attribute) {
     chip::get_for_attribute(attribute)
+}
+
+pub fn get_item_data(compendium, section, name) {
+    item::get_data(compendium, section, name)
+}
+
+pub fn get_item_layout(section) {
+    item::get_layout(section)
 }

@@ -1,5 +1,6 @@
 {
     "languages": "inline",
     "equipment": "inline",
+    "spell": "fragments",
     "supporting": "fragments"
 }

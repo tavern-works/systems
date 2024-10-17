@@ -90,7 +90,21 @@ impl Supporting {
             return Ok([]);
         }
 
-        Ok([])
+        if key.name.starts_with("compendium-use-") {
+            let split = key.name.split("-");
+            let category_index = split.skip(2).next().ok_or_else(|| anyhow!("failed to find category index"))?;
+            let category_index = category_index.parse::<i64>()?;
+            let use_index = split.next().ok_or_else(|| anyhow!("failed to find use index"))?;
+            let use_index = use_index.parse::<i64>()?;
+            log::info!("about to handle {category_index} {use_index}");
+            let extras = entry.get_value("extras")?;
+            extras["compendium_uses"].categories[category_index].used[use_index] = value;
+            entry.set_value("extras", extras)?;
+            tables.save_entry(entry)?;
+            return Ok([]);
+        }
+
+        Err(anyhow!("unhandled key {key}"))
     }
 
     fn apply_update(self, tables, key, value) {

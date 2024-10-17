@@ -48,7 +48,7 @@ fn component_string(components) {
 fn duration_string(concentration, duration) {
     if !concentration {
         return duration;
-    }
+}
 
     format!("Concentration, {}", duration.to_lowercase())
 }

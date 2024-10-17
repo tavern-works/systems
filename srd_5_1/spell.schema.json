@@ -32,7 +32,7 @@
         "casting_time": {
             "title": "Casting Time",
             "type": "string",
-            "enum": ["1 action", "1 minute"]
+            "enum": ["1 action", "1 bonus action", "1 minute"]
         },
         "range": {
             "title": "Range",
@@ -68,7 +68,7 @@
         "duration": {
             "title": "Duration",
             "type": "string",
-            "enum": ["Instantaneous", "Up to 1 minute", "1 hour"]
+            "enum": ["Instantaneous", "Up to 1 minute", "1 minute", "1 hour"]
         },
         "description": {
             "title": "Description",

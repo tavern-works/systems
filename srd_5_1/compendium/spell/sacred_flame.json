@@ -12,5 +12,7 @@
     "concentration": false,
     "duration": "Instantaneous",
     "description": "Flame-like radiance descends on a creature that you can see within range. The target must succeed on a Dexterity saving throw or take <button class=\"roll\" onclick=\"itemRoll(event, 'Radiant Damage', '1d8')\">1d8 radiant damage</button>.\n\nThe spell's damage increases by 1d8 when you reach 5th level (<button class=\"roll\" onclick=\"itemRoll(event, 'Radiant Damage', '2d8')\">2d8</button>), 11th level (<button class=\"roll\" onclick=\"itemRoll(event, 'Radiant Damage', '3d8')\">3d8</button>), and 17th level (<button class=\"roll\" onclick=\"itemRoll(event, 'Radiant Damage', '4d8')\">4d8</button>).",
-    "spell_lists": []
+    "spell_lists": [
+        "Cleric"
+    ]
 }

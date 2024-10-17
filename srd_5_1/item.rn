@@ -50,7 +50,7 @@ fn duration_string(concentration, duration) {
         return duration;
     }
 
-    format!("Concentration, up to {duration}")
+    format!("Concentration, {}", duration.to_lowercase())
 }
 
 pub fn get_data(compendium, section, name) {

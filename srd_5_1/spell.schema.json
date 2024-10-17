@@ -82,7 +82,7 @@
             "items": {
                 "title": "Class",
                 "type": "string",
-                "enum": ["Bard", "Cleric", "Sorcerer", "Wizard"]
+                "enum": ["Bard", "Cleric", "Paladin", "Sorcerer", "Wizard"]
             }
         }
     },

@@ -36,7 +36,7 @@
         "range": {
             "title": "Range",
             "type": "string",
-            "enum": ["Self", "Touch"]
+            "enum": ["Self", "Touch", "60 feet"]
         },
         "components": {
             "title": "Components",

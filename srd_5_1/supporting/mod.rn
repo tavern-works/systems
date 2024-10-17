@@ -96,7 +96,6 @@ impl Supporting {
             let category_index = category_index.parse::<i64>()?;
             let use_index = split.next().ok_or_else(|| anyhow!("failed to find use index"))?;
             let use_index = use_index.parse::<i64>()?;
-            log::info!("about to handle {category_index} {use_index}");
             let extras = entry.get_value("extras")?;
             extras["compendium_uses"].categories[category_index].used[use_index] = value;
             entry.set_value("extras", extras)?;

@@ -278,6 +278,10 @@ impl Supporting {
             data[ability.modifier_variable()] = self.ability_modifier(self.template, ability);
         }
 
+        if self.template.contains_key("description") {
+            data["description"] = self.template["description"];
+        }
+
         Ok(data)
     }
 

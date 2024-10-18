@@ -169,6 +169,14 @@ impl super::Supporting {
             layout.push(Section::Grid(Grid::new(reactions, false)));
         }
 
+        if self.template.contains_key("description") {
+            let description = [
+                Cell::try_new(0..12, 0..1, Contents::new_text_area("description").use_markdown()?)?
+            ];
+
+            layout.push(Section::Grid(Grid::new(description, false)));
+        }
+
         Ok(layout)
     }
 }

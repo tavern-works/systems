@@ -1,0 +1,68 @@
+{
+    "name": "Axe Beak",
+    "id": "sKNh31DqRLtS",
+    "size": "Large",
+    "type": "beast",
+    "alignment": "Unaligned",
+    "headline": "Large beast, unaligned",
+    "armor": [],
+    "hp": "3d10 + 3",
+    "speed": "50 ft",
+    "ability_scores": [
+        14,
+        12,
+        12,
+        2,
+        10,
+        5
+    ],
+    "skills": [],
+    "damage_vulnerabilities": [],
+    "damage_resistances": [],
+    "damage_immunities": [],
+    "condition_immunities": [],
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 10
+        }
+    ],
+    "languages": [],
+    "challenge": "1/4 (50 XP)",
+    "rolls": [
+        {
+            "name": "Beak",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Slashing",
+                    "count": 1,
+                    "sides": 8,
+                    "modifier": 2
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Beak",
+            "extras": {
+                "roll": "Beak",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "slashing_attack",
+                        "value": "1d8 + 2"
+                    }
+                ]
+            }
+        }
+    ],
+    "description": "An **axe beak** is a tall flightless bird with strong legs and a heavy, wedge-shaped beak. It has a nasty disposition and tends to attack any unfamiliar creature that wanders too close."
+}

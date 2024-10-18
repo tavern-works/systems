@@ -1,10 +1,12 @@
-use tavern::{Alignment, Cell, Column, Columns, Contents, Font, Grid, PrepareOptions, Size, Table};
+use tavern::{Alignment, Cell, Column, Columns, Contents, Font, Grid, PrepareOptions, Section, Size, Table};
 
 use crate::Ability;
 
 impl super::Supporting {
     fn get_layout(self) {
-        let cells = [
+        let layout = [];
+
+        let header = [
             Cell::try_new(0..10, 0..2, Contents::new_text("name"))?,
             Cell::try_new(0..12, 2..3, Contents::new_text("headline").read_only()?.font(Font::Italic)?)?,
             
@@ -24,13 +26,13 @@ impl super::Supporting {
 
         let start = 0;
         for ability in Ability::all() {
-            cells.push(Cell::try_new(start..start + 2, 6..7, Contents::new_label().label(ability.name()[0..3].to_uppercase())?.align(Alignment::Center)?)?);
+            header.push(Cell::try_new(start..start + 2, 6..7, Contents::new_label().label(ability.name()[0..3].to_uppercase())?.align(Alignment::Center)?)?);
             start += 2;
         }
 
         let start = 0;
         for ability in Ability::all() {
-            cells.push(Cell::try_new(start..start + 1, 7..8, Contents::new_number(ability.variable_name()).align(Alignment::Center)?.read_only()?)?);
+            header.push(Cell::try_new(start..start + 1, 7..8, Contents::new_number(ability.variable_name()).align(Alignment::Center)?.read_only()?)?);
             
             let check_roll = PrepareOptions::by_name(format!("{} Check", ability.name())).for_character(self.id);
             let modifier = Contents::new_number(ability.modifier_variable())
@@ -39,102 +41,84 @@ impl super::Supporting {
                 .with_sign()?
                 .roll(check_roll)?;
             
-            cells.push(Cell::try_new(start + 1..start + 2, 7..8, modifier)?);
+            header.push(Cell::try_new(start + 1..start + 2, 7..8, modifier)?);
             start += 2;
         }
 
-        let row = 8;
+        layout.push(Section::Grid(Grid::new(header, false)));
 
         if !self.template["skills"].is_empty() {
             let skills = [
-                Cell::try_new(0..2, row..row + 1, Contents::new_label().label("Skills")?.align(Alignment::Right)?)?,
-                Cell::try_new(2..12, row..row + 1, Contents::ChipList("skills"))?,
+                Cell::try_new(0..2, 0..1, Contents::new_label().label("Skills")?.align(Alignment::Right)?)?,
+                Cell::try_new(2..12, 0..1, Contents::ChipList("skills"))?,
             ];
 
-            cells.extend(skills);
-
-            row += 1;
+            layout.push(Section::Grid(Grid::new(skills, false)));
         }
 
         if !self.template["damage_vulnerabilities"].is_empty() {
             let damage_vulnerabilities = [
-                Cell::try_new(0..12, row..row + 1, Contents::new_label().label("Damage Vulnerabilites")?.align(Alignment::Left)?)?,
-                Cell::try_new(0..12, row + 1..row + 2, Contents::ChipList("damage_vulnerabilities"))?,
+                Cell::try_new(0..12, 0..1, Contents::new_label().label("Damage Vulnerabilites")?.align(Alignment::Left)?)?,
+                Cell::try_new(0..12, 1..2, Contents::ChipList("damage_vulnerabilities"))?,
             ];
 
-            cells.extend(damage_vulnerabilities);
-
-            row += 2;
+            layout.push(Section::Grid(Grid::new(damage_vulnerabilities, false)));
         }
 
         if !self.template["damage_resistances"].is_empty() {
             let damage_resistances = [
-                Cell::try_new(0..12, row..row + 1, Contents::new_label().label("Damage Resistances")?.align(Alignment::Left)?)?,
-                Cell::try_new(0..12, row + 1..row + 2, Contents::ChipList("damage_resistances"))?,
+                Cell::try_new(0..12, 0..1, Contents::new_label().label("Damage Resistances")?.align(Alignment::Left)?)?,
+                Cell::try_new(0..12, 1..2, Contents::ChipList("damage_resistances"))?,
             ];
 
-            cells.extend(damage_resistances);
-
-            row += 2;
+            layout.push(Section::Grid(Grid::new(damage_resistances, false)));
         }
 
         if !self.template["damage_immunities"].is_empty() {
             let damage_immunities = [
-                Cell::try_new(0..12, row..row + 1, Contents::new_label().label("Damage Immunities")?.align(Alignment::Left)?)?,
-                Cell::try_new(0..12, row + 1..row + 2, Contents::ChipList("damage_immunities"))?,
+                Cell::try_new(0..12, 0..1, Contents::new_label().label("Damage Immunities")?.align(Alignment::Left)?)?,
+                Cell::try_new(0..12, 1..2, Contents::ChipList("damage_immunities"))?,
             ];
 
-            cells.extend(damage_immunities);
-
-            row += 2;
+            layout.push(Section::Grid(Grid::new(damage_immunities, false)));
         }
 
         if !self.template["condition_immunities"].is_empty() {
             let condition_immunities = [
-                Cell::try_new(0..12, row..row + 1, Contents::new_label().label("Condition Immunities")?.align(Alignment::Left)?)?,
-                Cell::try_new(0..12, row + 1..row + 2, Contents::ChipList("condition_immunities"))?,
+                Cell::try_new(0..12, 0..1, Contents::new_label().label("Condition Immunities")?.align(Alignment::Left)?)?,
+                Cell::try_new(0..12, 1..2, Contents::ChipList("condition_immunities"))?,
             ];
 
-            cells.extend(condition_immunities);
-
-            row += 2;
+            layout.push(Section::Grid(Grid::new(condition_immunities, false)));
         }
 
         if !self.template["senses"].is_empty() {
             let senses = [
-                Cell::try_new(0..2, row..row + 1, Contents::new_label().label("Senses")?.align(Alignment::Right)?)?,
-                Cell::try_new(2..12, row..row + 1, Contents::ChipList("senses"))?,
+                Cell::try_new(0..2, 0..1, Contents::new_label().label("Senses")?.align(Alignment::Right)?)?,
+                Cell::try_new(2..12, 0..1, Contents::ChipList("senses"))?,
             ];
 
-            cells.extend(senses);
-
-            row += 1;
+            layout.push(Section::Grid(Grid::new(senses, false)));
         }
 
         if !self.template["languages"].is_empty() {
             let languages = [
-                Cell::try_new(0..3, row..row + 1, Contents::new_label().label("Languages")?.align(Alignment::Right)?)?,
-                Cell::try_new(3..12, row..row + 1, Contents::ChipList("languages"))?,
+                Cell::try_new(0..3, 0..1, Contents::new_label().label("Languages")?.align(Alignment::Right)?)?,
+                Cell::try_new(3..12, 0..1, Contents::ChipList("languages"))?,
             ];
 
-            cells.extend(languages);
-
-            row += 1;
+            layout.push(Section::Grid(Grid::new(languages, false)));
         }
 
 
         let challenge = [
-            Cell::try_new(0..3, row..row + 1, Contents::new_label().label("Challenge")?.align(Alignment::Right)?)?,
-            Cell::try_new(3..12, row..row + 1, Contents::new_text("challenge").read_only()?)?,
+            Cell::try_new(0..3, 0..1, Contents::new_label().label("Challenge")?.align(Alignment::Right)?)?,
+            Cell::try_new(3..12, 0..1, Contents::new_text("challenge").read_only()?)?,
         ];
 
-        cells.extend(challenge);
-
-        row += 1;
+        layout.push(Section::Grid(Grid::new(challenge, false)));
 
         if self.features.is_some() {
-            let features_height = self.template.get("features_height").unwrap_or(4);
-
             let left_cells = [
                 Cell::try_new(0..12, 0..1, Contents::new_label().label("Features")?.size(Size::Large)?.align(Alignment::Center)?)?,
             ];
@@ -145,17 +129,13 @@ impl super::Supporting {
             ];
             let feature_table = Table::new("features", feature_controls, [], feature_columns, "order");
             let features = [
-                Cell::try_new(0..12, row..row + features_height, Contents::Table(feature_table))?
+                Cell::try_new(0..12, 0..1, Contents::Table(feature_table))?
             ];
     
-            cells.extend(features);
-    
-            row += features_height;
+            layout.push(Section::Grid(Grid::new(features, false)));
         }
 
         if self.actions.is_some() {
-            let actions_height = self.template.get("actions_height").unwrap_or(5);
-
             let left_cells = [
                 Cell::try_new(0..12, 0..1, Contents::new_label().label("Actions")?.size(Size::Large)?.align(Alignment::Center)?)?,
             ];
@@ -166,17 +146,13 @@ impl super::Supporting {
             ];
             let action_table = Table::new("actions", action_controls, [], action_columns, "order");
             let actions = [
-                Cell::try_new(0..12, row..row + actions_height, Contents::Table(action_table))?
+                Cell::try_new(0..12, 0..1, Contents::Table(action_table))?
             ];
     
-            cells.extend(actions);
-
-            row += actions_height;
+            layout.push(Section::Grid(Grid::new(actions, false)));
         }
 
         if self.reactions.is_some() {
-            let reactions_height = self.template.get("reactions_height").unwrap_or(5);
-
             let left_cells = [
                 Cell::try_new(0..12, 0..1, Contents::new_label().label("Reactions")?.size(Size::Large)?.align(Alignment::Center)?)?,
             ];
@@ -187,12 +163,12 @@ impl super::Supporting {
             ];
             let reaction_table = Table::new("reactions", reaction_controls, [], reaction_columns, "order");
             let reactions = [
-                Cell::try_new(0..12, row..row + reactions_height, Contents::Table(reaction_table))?
+                Cell::try_new(0..12, 0..1, Contents::Table(reaction_table))?
             ];
     
-            cells.extend(reactions);
+            layout.push(Section::Grid(Grid::new(reactions, false)));
         }
 
-        Ok(Grid::new(cells, false))
+        Ok(layout)
     }
 }

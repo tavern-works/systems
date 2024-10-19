@@ -501,6 +501,7 @@
             "enum": [
                 "Any",
                 "Any Non-Good",
+                "Lawful Good",
                 "Lawful Evil",
                 "Neutral",
                 "Neutral Evil",
@@ -627,6 +628,7 @@
                             "Goblin",
                             "One known by its creator",
                             "Understands Infernal, but can't speak",
+                            "Understands Sylvan, but can't speak",
                             "Understands its creator, but can't speak"
                         ]
                     }

@@ -1,0 +1,97 @@
+{
+    "name": "Blink Dog",
+    "id": "SCcBGkzF4YCs",
+    "size": "Medium",
+    "type": "Fey",
+    "alignment": "Lawful Good",
+    "armor": [],
+    "hp": "4d8 + 4",
+    "speed": "40 ft",
+    "ability_scores": [
+        12,
+        17,
+        12,
+        10,
+        13,
+        11
+    ],
+    "skills": [
+        {
+            "type": "Perception",
+            "value": "+3"
+        },
+        {
+            "type": "Stealth",
+            "value": "+5"
+        }
+    ],
+    "damage_vulnerabilities": [],
+    "damage_resistances": [],
+    "damage_immunities": [],
+    "condition_immunities": [],
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 13
+        }
+    ],
+    "languages": [
+        {
+            "value": "Understands Sylvan, but can't speak"
+        }
+    ],
+    "challenge": "1/4 (50 XP)",
+    "features": [
+        {
+            "name": "Keen Hearing and Smell",
+            "extras": {
+                "description": "The dog has advantage on Wisdom (Perception) checks that rely on hearing or smell"
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Bite",
+            "expression": "{d20} + 3",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 1
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Bite",
+            "extras": {
+                "roll": "Bite",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d6 + 1"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Teleport (Recharge 4-6)",
+            "extras": {
+                "description": "The dog magically teleports, along with any equipment it is wearing or carrying, up to 40 feet to an unoccupied space it can see. Before or after teleporting, the dog can make one bite attack.",
+                "used": [
+                    false
+                ]
+            }
+        }
+    ],
+    "description": "A **blink dog** takes its name from its ability to blink in and out of existence, a talent it uses to aid its attacks and to avoid harm"
+}

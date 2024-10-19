@@ -70,7 +70,7 @@
                         "value": "1"
                     }
                 ],
-                "description": "On a hit, the target must make a DC 10 Constitution saving throw, taking 2d4 poison damage on a failed save, or half as much damage on a successful one"
+                "description": "On a hit, the target must make a DC 10 Constitution saving throw, taking 2d4 poison damage on a failed save, or half as much damage on a successful one."
             }
         }
     ]

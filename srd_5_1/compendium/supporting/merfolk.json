@@ -145,7 +145,7 @@
         {
             "name": "Amphibious",
             "extras": {
-                "description": "The merfolk can breathe air and water"
+                "description": "The merfolk can breathe air and water."
             }
         }
     ]

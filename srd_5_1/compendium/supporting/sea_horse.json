@@ -32,7 +32,7 @@
         {
             "name": "Water Breathing",
             "extras": {
-                "description": "The sea horse can breathe only underwater"
+                "description": "The sea horse can breathe only underwater."
             }
         }
     ]

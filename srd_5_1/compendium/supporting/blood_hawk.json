@@ -72,13 +72,13 @@
         {
             "name": "Keen Sight",
             "extras": {
-                "description": "The hawk has advantage on Wisdom (Perception) checks that rely on sight"
+                "description": "The hawk has advantage on Wisdom (Perception) checks that rely on sight."
             }
         },
         {
             "name": "Pack Tactics",
             "extras": {
-                "description": "The hawk has advantage on an attack roll against a creature if at least one of the hawk's allies is within 5 feet of the creature and the ally isn't incapacitated"
+                "description": "The hawk has advantage on an attack roll against a creature if at least one of the hawk's allies is within 5 feet of the creature and the ally isn't incapacitated."
             }
         }
     ],

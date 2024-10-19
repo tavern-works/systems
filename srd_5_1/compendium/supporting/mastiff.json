@@ -65,7 +65,7 @@
                         "value": "1d6 + 1"
                     }
                 ],
-                "description": "On a hit, a creature must succeed on a DC 11 Strength saving throw or be knocked prone"
+                "description": "On a hit, a creature must succeed on a DC 11 Strength saving throw or be knocked prone."
             }
         }
     ],
@@ -73,7 +73,7 @@
         {
             "name": "Keen Hearing and Smell",
             "extras": {
-                "description": "The mastiff has advantage on Wisdom (Perception) checks that rely on hearing or smell"
+                "description": "The mastiff has advantage on Wisdom (Perception) checks that rely on hearing or smell."
             }
         }
     ],

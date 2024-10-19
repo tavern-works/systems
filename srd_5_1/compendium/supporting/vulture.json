@@ -33,6 +33,20 @@
     ],
     "languages": [],
     "challenge": "0 (10 XP)",
+    "features": [
+        {
+            "name": "Keen Sight and Smell",
+            "extras": {
+                "description": "The vulture has advantage on Wisdom (Perception) checks that rely on sight or smell."
+            }
+        },
+        {
+            "name": "Pack Tactics",
+            "extras": {
+                "description": "The vulture has advantage on an attack roll against a creature if at least one of the vulture's allies is within 5 feet of the creature and the ally isn't incapacitated."
+            }
+        }
+    ],
     "rolls": [
         {
             "name": "Beak",
@@ -65,20 +79,6 @@
                         "value": "1d4"
                     }
                 ]
-            }
-        }
-    ],
-    "features": [
-        {
-            "name": "Keen Sight and Smell",
-            "extras": {
-                "description": "The vulture has advantage on Wisdom (Perception) checks that rely on sight or smell"
-            }
-        },
-        {
-            "name": "Pack Tactics",
-            "extras": {
-                "description": "The vulture has advantage on an attack roll against a creature if at least one of the vulture's allies is within 5 feet of the creature and the ally isn't incapacitated"
             }
         }
     ]

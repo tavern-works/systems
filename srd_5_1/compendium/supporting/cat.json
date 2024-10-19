@@ -76,7 +76,7 @@
         {
             "name": "Keen Smell",
             "extras": {
-                "description": "The cat has advantage on Wisdom (Perception) checks that rely on smell"
+                "description": "The cat has advantage on Wisdom (Perception) checks that rely on smell."
             }
         }
     ]

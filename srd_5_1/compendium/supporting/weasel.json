@@ -37,6 +37,14 @@
     ],
     "languages": [],
     "challenge": "0 (10 XP)",
+    "features": [
+        {
+            "name": "Keen Hearing and Smelling",
+            "extras": {
+                "description": "The weasel has advantage on Wisdom (Perception) checks that rely on hearing or smell."
+            }
+        }
+    ],
     "rolls": [
         {
             "name": "Bite",
@@ -69,14 +77,6 @@
                         "value": "1"
                     }
                 ]
-            }
-        }
-    ],
-    "features": [
-        {
-            "name": "Keen Hearing and Smelling",
-            "extras": {
-                "description": "The weasel has advantage on Wisdom (Perception) checks that rely on hearing or smell"
             }
         }
     ]

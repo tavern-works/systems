@@ -75,13 +75,13 @@
             }
         }
     ],
-    "description": "An **awakened shrub** is an ordinary shrub given sentience and mobility by the *awaken* spell or similar magic",
     "features": [
         {
             "name": "False Appearance",
             "extras": {
-                "description": "While the shrub remains motionless, it is indistinguishable from a normal shrub"
+                "description": "While the shrub remains motionless, it is indistinguishable from a normal shrub."
             }
         }
-    ]
+    ],
+    "description": "An **awakened shrub** is an ordinary shrub given sentience and mobility by the *awaken* spell or similar magic."
 }

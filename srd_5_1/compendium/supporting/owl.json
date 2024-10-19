@@ -80,13 +80,13 @@
         {
             "name": "Flyby",
             "extras": {
-                "description": "The owl doesn't provoke opportunity attacks when it flies out of an enemy's reach"
+                "description": "The owl doesn't provoke opportunity attacks when it flies out of an enemy's reach."
             }
         },
         {
             "name": "Keen Hearing and Sight",
             "extras": {
-                "description": "The owl has advantage on Wisdom (Perception) checks that rely on hearing or sight"
+                "description": "The owl has advantage on Wisdom (Perception) checks that rely on hearing or sight."
             }
         }
     ]

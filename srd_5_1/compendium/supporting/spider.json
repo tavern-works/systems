@@ -41,19 +41,19 @@
         {
             "name": "Spider Climb",
             "extras": {
-                "description": "The spider can climb difficult surfaces, including upside down on ceilings, without needing to make an ability check"
+                "description": "The spider can climb difficult surfaces, including upside down on ceilings, without needing to make an ability check."
             }
         },
         {
             "name": "Web Sense",
             "extras": {
-                "description": "While in contact with a web, the spider knows the exact location of any other creature in contact with the same web"
+                "description": "While in contact with a web, the spider knows the exact location of any other creature in contact with the same web."
             }
         },
         {
             "name": "Web Walker",
             "extras": {
-                "description": "The spider ignores movement restrictions caused by webbing"
+                "description": "The spider ignores movement restrictions caused by webbing."
             }
         }
     ],
@@ -95,7 +95,7 @@
                         "value": "1"
                     }
                 ],
-                "description": "On a hit, the target must succeed on a DC 9 Constitution saving throw or take 1d4 poison damage"
+                "description": "On a hit, the target must succeed on a DC 9 Constitution saving throw or take 1d4 poison damage."
             }
         }
     ]

@@ -78,7 +78,7 @@
         {
             "name": "Amphibious",
             "extras": {
-                "description": "The crab can breathe air and water"
+                "description": "The crab can breathe air and water."
             }
         }
     ]

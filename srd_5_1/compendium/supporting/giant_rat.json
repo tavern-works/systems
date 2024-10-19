@@ -36,13 +36,13 @@
         {
             "name": "Keen Smell",
             "extras": {
-                "description": "The rat has advantage on Wisdom (Perception) checks that rely on smell"
+                "description": "The rat has advantage on Wisdom (Perception) checks that rely on smell."
             }
         },
         {
             "name": "Pack Tactics",
             "extras": {
-                "description": "The rat has advantage on an attack roll against a creature if at least one of the rat's allies is within 5 feet of the creature and the ally isn't incapacitated"
+                "description": "The rat has advantage on an attack roll against a creature if at least one of the rat's allies is within 5 feet of the creature and the ally isn't incapacitated."
             }
         }
     ],

@@ -90,19 +90,19 @@
         {
             "name": "Hold Breath",
             "extras": {
-                "description": "While out of water, the octopus can hold its breath for 30 minutes"
+                "description": "While out of water, the octopus can hold its breath for 30 minutes."
             }
         },
         {
             "name": "Underwater Camouflage",
             "extras": {
-                "description": "The octopus has advantage on Dexterity (Stealth) checks made while underwater"
+                "description": "The octopus has advantage on Dexterity (Stealth) checks made while underwater."
             }
         },
         {
             "name": "Water Breathing",
             "extras": {
-                "description": "The octopus can breathe only underwater"
+                "description": "The octopus can breathe only underwater."
             }
         }
     ]

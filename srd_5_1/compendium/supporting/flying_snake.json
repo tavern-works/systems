@@ -32,6 +32,15 @@
     ],
     "languages": [],
     "challenge": "1/8 (25 XP)",
+    "features": [
+        {
+            "name": "Flyby",
+            "extras": {
+                "description": "The snake doesn't provoke opportunity attacks when it flies out of an enemy's reach."
+            }
+        }
+    ],
+    "description": "A **flying snake** is a brightly colored, winged serpent found in remote jungles. Tribespeople and cultists sometimes domesticate flying snakes to serve as messengers that deliver scrolls wrapped in their coils.",
     "rolls": [
         {
             "name": "Bite",
@@ -76,14 +85,5 @@
                 ]
             }
         }
-    ],
-    "features": [
-        {
-            "name": "Flyby",
-            "extras": {
-                "description": "The snake doesn't provoke opportunity attacks when it flies out of an enemy's reach"
-            }
-        }
-    ],
-    "description": "A **flying snake** is a brightly colored, winged serpent found in remote jungles. Tribespeople and cultists sometimes domesticate flying snakes to serve as messengers that deliver scrolls wrapped in their coils."
+    ]
 }

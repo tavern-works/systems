@@ -71,13 +71,13 @@
         {
             "name": "Blood Frenzy",
             "extras": {
-                "description": "The quipper has advantage on melee attack rolls against any creature that doesn't have all its hit points"
+                "description": "The quipper has advantage on melee attack rolls against any creature that doesn't have all its hit points."
             }
         },
         {
             "name": "Water Breathing",
             "extras": {
-                "description": "The quipper can breathe only underwater"
+                "description": "The quipper can breathe only underwater."
             }
         }
     ],

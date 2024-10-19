@@ -32,6 +32,14 @@
     ],
     "languages": [],
     "challenge": "0 (10 XP)",
+    "features": [
+        {
+            "name": "Keen Smell",
+            "extras": {
+                "description": "The rat has advantage on Wisdom (Perception) checks that rely on smell."
+            }
+        }
+    ],
     "rolls": [
         {
             "name": "Bite",
@@ -64,14 +72,6 @@
                         "value": "1"
                     }
                 ]
-            }
-        }
-    ],
-    "features": [
-        {
-            "name": "Keen Smell",
-            "extras": {
-                "description": "The rat has advantage on Wisdom (Perception) checks that rely on smell"
             }
         }
     ]

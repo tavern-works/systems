@@ -41,14 +41,6 @@
         }
     ],
     "challenge": "1/4 (50 XP)",
-    "features": [
-        {
-            "name": "Keen Hearing and Smell",
-            "extras": {
-                "description": "The dog has advantage on Wisdom (Perception) checks that rely on hearing or smell"
-            }
-        }
-    ],
     "rolls": [
         {
             "name": "Bite",
@@ -93,5 +85,13 @@
             }
         }
     ],
-    "description": "A **blink dog** takes its name from its ability to blink in and out of existence, a talent it uses to aid its attacks and to avoid harm"
+    "features": [
+        {
+            "name": "Keen Hearing and Smell",
+            "extras": {
+                "description": "The dog has advantage on Wisdom (Perception) checks that rely on hearing or smell."
+            }
+        }
+    ],
+    "description": "A **blink dog** takes its name from its ability to blink in and out of existence, a talent it uses to aid its attacks and to avoid harm."
 }

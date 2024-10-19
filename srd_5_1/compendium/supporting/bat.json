@@ -71,13 +71,13 @@
         {
             "name": "Echolocation",
             "extras": {
-                "description": "The bat can't use its blindsight while deafened"
+                "description": "The bat can't use its blindsight while deafened."
             }
         },
         {
             "name": "Keen Hearing",
             "extras": {
-                "description": "The bat has advantage on Wisdom (Perception) checks that rely on hearing"
+                "description": "The bat has advantage on Wisdom (Perception) checks that rely on hearing."
             }
         }
     ]

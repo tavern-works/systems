@@ -39,20 +39,6 @@
         }
     ],
     "challenge": "1/8 (25 XP)",
-    "features": [
-        {
-            "name": "Sunlight Sensitivity",
-            "extras": {
-                "description": "While in sunlight, the kobold has disadvantage on attack rolls, as well as on Wisdom (Perception) checks that rely on sight"
-            }
-        },
-        {
-            "name": "Pack Tactics",
-            "extras": {
-                "description": "The kobold has advantage on an attack roll against a creature if at least one of the kobold's allies is within 5 feet of the creature and the ally isn't incapacitated"
-            }
-        }
-    ],
     "rolls": [
         {
             "name": "Dagger",
@@ -120,6 +106,20 @@
                         "value": "1d4 + 2"
                     }
                 ]
+            }
+        }
+    ],
+    "features": [
+        {
+            "name": "Sunlight Sensitivity",
+            "extras": {
+                "description": "While in sunlight, the kobold has disadvantage on attack rolls, as well as on Wisdom (Perception) checks that rely on sight."
+            }
+        },
+        {
+            "name": "Pack Tactics",
+            "extras": {
+                "description": "The kobold has advantage on an attack roll against a creature if at least one of the kobold's allies is within 5 feet of the creature and the ally isn't incapacitated."
             }
         }
     ]

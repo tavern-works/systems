@@ -382,8 +382,8 @@ pub fn get_chip_for_attribute(attribute) {
     chip::get_for_attribute(attribute)
 }
 
-pub fn get_item_data(compendium, section, name) {
-    item::get_data(compendium, section, name)
+pub fn get_item_data(section, entry) {
+    item::get_data(section, entry)
 }
 
 pub fn get_item_layout(section) {

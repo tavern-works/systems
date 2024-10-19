@@ -2,9 +2,8 @@
     "name": "Raven",
     "id": "VNKkqmDs2RML",
     "size": "Tiny",
-    "type": "beast",
+    "type": "Beast",
     "alignment": "Unaligned",
-    "headline": "Tiny beast, unaligned",
     "armor": [],
     "hp": "1d4 - 1",
     "speed": "10 ft, fly 50 ft",
@@ -34,14 +33,6 @@
     ],
     "languages": [],
     "challenge": "0 (10 XP)",
-    "features": [
-        {
-            "name": "Mimicry",
-            "extras": {
-                "description": "The raven can mimic simple sounds it has heard, such as a person whispering, a baby crying, or an animal chittering. A creature that hears the sounds can tell they are imitations with a successful DC 10 Wisdom (Insight) check."
-            }
-        }
-    ],
     "rolls": [
         {
             "name": "Beak",
@@ -77,5 +68,12 @@
             }
         }
     ],
-    "features_height": 5
+    "features": [
+        {
+            "name": "Mimicry",
+            "extras": {
+                "description": "The raven can mimic simple sounds it has heard, such as a person whispering, a baby crying, or an animal chittering. A creature that hears the sounds can tell they are imitations with a successful DC 10 Wisdom (Insight) check."
+            }
+        }
+    ]
 }

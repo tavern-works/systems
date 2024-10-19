@@ -2,9 +2,8 @@
     "name": "Acolyte",
     "id": "G1wM6W45t62Y",
     "size": "Medium",
-    "type": "humanoid (any race)",
+    "type": "Humanoid (any race)",
     "alignment": "Any",
-    "headline": "Medium humanoid (any race), any alignment",
     "armor": [],
     "hp": "2d8",
     "speed": "30 ft",
@@ -42,6 +41,46 @@
         }
     ],
     "challenge": "1/4 (50 XP)",
+    "rolls": [
+        {
+            "name": "Spell Attack",
+            "expression": "{d20} + 4"
+        },
+        {
+            "name": "Club",
+            "expression": "{d20} + 2",
+            "damage": [
+                {
+                    "type": "Bludgeoning",
+                    "count": 1,
+                    "sides": 4,
+                    "modifier": 0
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Club",
+            "extras": {
+                "roll": "Club",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+2"
+                    },
+                    {
+                        "type": "bludgeoning_attack",
+                        "value": "1d4"
+                    }
+                ]
+            }
+        }
+    ],
+    "description": "**Acolytes** are junior members of a clergy, usually answerable to a priest. They perform a variety of functions in a temple and are granted minor spellcasting power by their deities",
     "features": [
         {
             "name": "Spellcasting",
@@ -93,45 +132,5 @@
                 }
             }
         }
-    ],
-    "rolls": [
-        {
-            "name": "Spell Attack",
-            "expression": "{d20} + 4"
-        },
-        {
-            "name": "Club",
-            "expression": "{d20} + 2",
-            "damage": [
-                {
-                    "type": "Bludgeoning",
-                    "count": 1,
-                    "sides": 4,
-                    "modifier": 0
-                }
-            ]
-        }
-    ],
-    "actions": [
-        {
-            "name": "Club",
-            "extras": {
-                "roll": "Club",
-                "attributes": [
-                    {
-                        "type": "melee_weapon"
-                    },
-                    {
-                        "type": "to_hit",
-                        "value": "+2"
-                    },
-                    {
-                        "type": "bludgeoning_attack",
-                        "value": "1d4"
-                    }
-                ]
-            }
-        }
-    ],
-    "description": "**Acolytes** are junior members of a clergy, usually answerable to a priest. They perform a variety of functions in a temple and are granted minor spellcasting power by their deities"
+    ]
 }

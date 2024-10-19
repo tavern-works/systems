@@ -2,9 +2,8 @@
     "name": "Stirge",
     "id": "2v4B9FVcxtgK",
     "size": "Tiny",
-    "type": "beast",
+    "type": "Beast",
     "alignment": "Unaligned",
-    "headline": "Tiny beast, unaligned",
     "armor": [
         "XSyXthp8xVjL"
     ],
@@ -49,7 +48,6 @@
             ]
         }
     ],
-    "actions_height": 8,
     "actions": [
         {
             "name": "Blood Drain",

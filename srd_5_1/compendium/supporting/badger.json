@@ -2,9 +2,8 @@
     "name": "Badger",
     "id": "4TkbnbmJrTKM",
     "size": "Tiny",
-    "type": "beast",
+    "type": "Beast",
     "alignment": "Unaligned",
-    "headline": "Tiny beast, unaligned",
     "armor": [],
     "hp": "1d4 + 1",
     "speed": "20 ft, burrow 5 ft",
@@ -33,14 +32,6 @@
     ],
     "languages": [],
     "challenge": "0 (10 XP)",
-    "features": [
-        {
-            "name": "Keen Smell",
-            "extras": {
-                "description": "The badger has advantage on Wisdom (Perception) checks that rely on smell"
-            }
-        }
-    ],
     "rolls": [
         {
             "name": "Bite",
@@ -59,6 +50,7 @@
         {
             "name": "Bite",
             "extras": {
+                "roll": "Bite",
                 "attributes": [
                     {
                         "type": "melee_weapon"
@@ -71,8 +63,15 @@
                         "type": "piercing_attack",
                         "value": "1"
                     }
-                ],
-                "roll": "Bite"
+                ]
+            }
+        }
+    ],
+    "features": [
+        {
+            "name": "Keen Smell",
+            "extras": {
+                "description": "The badger has advantage on Wisdom (Perception) checks that rely on smell"
             }
         }
     ]

@@ -2,9 +2,8 @@
     "name": "Goat",
     "id": "mJ1sKq2kJw31",
     "size": "Medium",
-    "type": "beast",
+    "type": "Beast",
     "alignment": "Unaligned",
-    "headline": "Medium beast, unaligned",
     "armor": [],
     "hp": "1d8",
     "speed": "40 ft",
@@ -29,6 +28,21 @@
     ],
     "languages": [],
     "challenge": "0 (10 XP)",
+    "features": [
+        {
+            "name": "Charge",
+            "extras": {
+                "description": "If the goat moves at least 20 feet straight toward a target and then hits it with a ram attack on the same turn, the target takes an additional 1d4 bludgeoning damage. If the target is a creature, it must succeed on a DC 10 Strength saving throw or be knocked prone.",
+                "roll": "Charge Damage"
+            }
+        },
+        {
+            "name": "Sure-Footed",
+            "extras": {
+                "description": "The goat has advantage on Strength and Dexterity saving throws made against effects that would knock it prone"
+            }
+        }
+    ],
     "rolls": [
         {
             "name": "Charge Damage",
@@ -51,6 +65,7 @@
         {
             "name": "Ram",
             "extras": {
+                "roll": "Ram",
                 "attributes": [
                     {
                         "type": "melee_weapon"
@@ -63,25 +78,8 @@
                         "type": "bludgeoning_attack",
                         "value": "1d4 + 1"
                     }
-                ],
-                "roll": "Ram"
+                ]
             }
         }
-    ],
-    "features": [
-        {
-            "name": "Charge",
-            "extras": {
-                "description": "If the goat moves at least 20 feet straight toward a target and then hits it with a ram attack on the same turn, the target takes an additional 1d4 bludgeoning damage. If the target is a creature, it must succeed on a DC 10 Strength saving throw or be knocked prone.",
-                "roll": "Charge Damage"
-            }
-        },
-        {
-            "name": "Sure-Footed",
-            "extras": {
-                "description": "The goat has advantage on Strength and Dexterity saving throws made against effects that would knock it prone"
-            }
-        }
-    ],
-    "features_height": 9
+    ]
 }

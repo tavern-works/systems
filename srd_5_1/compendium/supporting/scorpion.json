@@ -2,9 +2,8 @@
     "name": "Scorpion",
     "id": "8wNMXdLngMYW",
     "size": "Tiny",
-    "type": "beast",
+    "type": "Beast",
     "alignment": "Unaligned",
-    "headline": "Tiny beast, unaligned",
     "armor": [
         "XSyXthp8xVjL"
     ],
@@ -70,6 +69,5 @@
                 "description": "On a hit, the target must make a DC 9 Constitution saving throw, taking 1d8 poison damage on a failed save, or half as much damage on a successful one"
             }
         }
-    ],
-    "actions_height": 6
+    ]
 }

@@ -2,9 +2,8 @@
     "name": "Lizard",
     "id": "VTGwCyNTLZWC",
     "size": "Tiny",
-    "type": "beast",
+    "type": "Beast",
     "alignment": "Unaligned",
-    "headline": "Tiny beast, unaligned",
     "armor": [],
     "hp": "1d4",
     "speed": "20 ft, climb 20 ft",
@@ -51,6 +50,7 @@
         {
             "name": "Bite",
             "extras": {
+                "roll": "Bite",
                 "attributes": [
                     {
                         "type": "melee_weapon"
@@ -63,8 +63,7 @@
                         "type": "piercing_attack",
                         "value": "1"
                     }
-                ],
-                "roll": "Bite"
+                ]
             }
         }
     ]

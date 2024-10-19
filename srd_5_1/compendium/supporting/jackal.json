@@ -2,9 +2,8 @@
     "name": "Jackal",
     "id": "NplHRdFBMWrw",
     "size": "Small",
-    "type": "beast",
+    "type": "Beast",
     "alignment": "Unaligned",
-    "headline": "Small beast, unaligned",
     "armor": [],
     "hp": "1d6",
     "speed": "40 ft",
@@ -34,6 +33,20 @@
     ],
     "languages": [],
     "challenge": "0 (10 XP)",
+    "features": [
+        {
+            "name": "Keen Hearing and Smell",
+            "extras": {
+                "description": "The jackal has advantage on Wisdom (Perception) checks that rely on hearing or smell"
+            }
+        },
+        {
+            "name": "Pack Tactics",
+            "extras": {
+                "description": "The jackal has advantage on an attack roll against a creature if at least one of the jackal's allies is within 5 feet of the creature and the ally isn't incapacitated"
+            }
+        }
+    ],
     "rolls": [
         {
             "name": "Bite",
@@ -52,6 +65,7 @@
         {
             "name": "Bite",
             "extras": {
+                "roll": "Bite",
                 "attributes": [
                     {
                         "type": "melee_weapon"
@@ -64,24 +78,8 @@
                         "type": "piercing_attack",
                         "value": "1d4 - 1"
                     }
-                ],
-                "roll": "Bite"
+                ]
             }
         }
-    ],
-    "features": [
-        {
-            "name": "Keen Hearing and Smell",
-            "extras": {
-                "description": "The jackal has advantage on Wisdom (Perception) checks that rely on hearing or smell"
-            }
-        },
-        {
-            "name": "Pack Tactics",
-            "extras": {
-                "description": "The jackal has advantage on an attack roll against a creature if at least one of the jackal's allies is within 5 feet of the creature and the ally isn't incapacitated"
-            }
-        }
-    ],
-    "features_height": 7
+    ]
 }

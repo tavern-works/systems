@@ -2,9 +2,8 @@
     "name": "Guard",
     "id": "0f89f6Ynr57f",
     "size": "Medium",
-    "type": "humanoid (any race)",
+    "type": "Humanoid (any race)",
     "alignment": "Any",
-    "headline": "Medium humanoid (any race), any alignment",
     "armor": [
         "GyBNs52x7QkZ",
         "nY7KF1CqTVKG"
@@ -142,6 +141,5 @@
             }
         }
     ],
-    "description": "**Guards** include members of a city watch, sentries in a citadel or fortified town, and the bodyguards of merchants and nobles",
-    "actions_height": 11
+    "description": "**Guards** include members of a city watch, sentries in a citadel or fortified town, and the bodyguards of merchants and nobles"
 }

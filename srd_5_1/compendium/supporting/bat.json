@@ -2,9 +2,8 @@
     "name": "Bat",
     "id": "n84Gj1LPCwl7",
     "size": "Tiny",
-    "type": "beast",
+    "type": "Beast",
     "alignment": "Unaligned",
-    "headline": "Tiny beast, unaligned",
     "armor": [],
     "hp": "1d4 - 1",
     "speed": "5 ft, fly 30 ft",
@@ -33,20 +32,6 @@
     ],
     "languages": [],
     "challenge": "0 (10 XP)",
-    "features": [
-        {
-            "name": "Echolocation",
-            "extras": {
-                "description": "The bat can't use its blindsight while deafened"
-            }
-        },
-        {
-            "name": "Keen Hearing",
-            "extras": {
-                "description": "The bat has advantage on Wisdom (Perception) checks that rely on hearing"
-            }
-        }
-    ],
     "rolls": [
         {
             "name": "Bite",
@@ -65,6 +50,7 @@
         {
             "name": "Bite",
             "extras": {
+                "roll": "Bite",
                 "attributes": [
                     {
                         "type": "melee_weapon"
@@ -77,10 +63,22 @@
                         "type": "piercing_attack",
                         "value": "1"
                     }
-                ],
-                "roll": "Bite"
+                ]
             }
         }
     ],
-    "features_height": 6
+    "features": [
+        {
+            "name": "Echolocation",
+            "extras": {
+                "description": "The bat can't use its blindsight while deafened"
+            }
+        },
+        {
+            "name": "Keen Hearing",
+            "extras": {
+                "description": "The bat has advantage on Wisdom (Perception) checks that rely on hearing"
+            }
+        }
+    ]
 }

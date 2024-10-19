@@ -2,9 +2,8 @@
     "name": "Homunculus",
     "id": "Jx27mxmsK3cW",
     "size": "Tiny",
-    "type": "construct",
+    "type": "Construct",
     "alignment": "Neutral",
-    "headline": "Tiny construct, neutral",
     "armor": [
         "XSyXthp8xVjL"
     ],
@@ -50,6 +49,14 @@
         }
     ],
     "challenge": "0 (10 XP)",
+    "features": [
+        {
+            "name": "Telepathic Bond",
+            "extras": {
+                "description": "While the homunculus is on the same plane as existence as its master, it can magically convey what it senses to its master, and the two can communicate telepathically"
+            }
+        }
+    ],
     "rolls": [
         {
             "name": "Bite",
@@ -68,6 +75,7 @@
         {
             "name": "Bite",
             "extras": {
+                "roll": "Bite",
                 "attributes": [
                     {
                         "type": "melee_weapon"
@@ -81,18 +89,8 @@
                         "value": "1"
                     }
                 ],
-                "roll": "Bite",
                 "description": "On a hit, the target must succeed on a DC 10 Constitution saving throw or be poisoned for 1 minute. If the saving throw fails by 5 or more, the target is instead poisoned for 1d10 minutes and is unconscious while poisoned in this way."
             }
         }
-    ],
-    "features": [
-        {
-            "name": "Telepathic Bond",
-            "extras": {
-                "description": "While the homunculus is on the same plane as existence as its master, it can magically convey what it senses to its master, and the two can communicate telepathically"
-            }
-        }
-    ],
-    "actions_height": 7
+    ]
 }

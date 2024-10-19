@@ -2,9 +2,8 @@
     "name": "Diseased Giant Rat",
     "id": "pnlsxpw5b9pF",
     "size": "Small",
-    "type": "beast",
+    "type": "Beast",
     "alignment": "Unaligned",
-    "headline": "Small beast, unaligned",
     "armor": [],
     "hp": "2d6",
     "speed": "30 ft",
@@ -33,21 +32,6 @@
     ],
     "languages": [],
     "challenge": "1/8 (25 XP)",
-    "features_height": 6,
-    "features": [
-        {
-            "name": "Keen Smell",
-            "extras": {
-                "description": "The rat has advantage on Wisdom (Perception) checks that rely on smell"
-            }
-        },
-        {
-            "name": "Pack Tactics",
-            "extras": {
-                "description": "The rat has advantage on an attack roll against a creature if at least one of the rat's allies is within 5 feet of the creature and the ally isn't incapacitated"
-            }
-        }
-    ],
     "rolls": [
         {
             "name": "Bite",
@@ -84,5 +68,18 @@
             }
         }
     ],
-    "actions_height": 7
+    "features": [
+        {
+            "name": "Keen Smell",
+            "extras": {
+                "description": "The rat has advantage on Wisdom (Perception) checks that rely on smell"
+            }
+        },
+        {
+            "name": "Pack Tactics",
+            "extras": {
+                "description": "The rat has advantage on an attack roll against a creature if at least one of the rat's allies is within 5 feet of the creature and the ally isn't incapacitated"
+            }
+        }
+    ]
 }

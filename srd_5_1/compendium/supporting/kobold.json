@@ -2,9 +2,8 @@
     "name": "Kobold",
     "id": "hJkG9VbkZGcx",
     "size": "Small",
-    "type": "humanoid (kobold)",
+    "type": "Humanoid (kobold)",
     "alignment": "Lawful Evil",
-    "headline": "Small humanoid (kobold), lawful evil",
     "armor": [],
     "hp": "2d6 - 2",
     "speed": "30 ft",
@@ -40,7 +39,46 @@
         }
     ],
     "challenge": "1/8 (25 XP)",
-    "actions_height": 8,
+    "features": [
+        {
+            "name": "Sunlight Sensitivity",
+            "extras": {
+                "description": "While in sunlight, the kobold has disadvantage on attack rolls, as well as on Wisdom (Perception) checks that rely on sight"
+            }
+        },
+        {
+            "name": "Pack Tactics",
+            "extras": {
+                "description": "The kobold has advantage on an attack roll against a creature if at least one of the kobold's allies is within 5 feet of the creature and the ally isn't incapacitated"
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Dagger",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 4,
+                    "modifier": 2
+                }
+            ]
+        },
+        {
+            "name": "Sling",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Bludgeoning",
+                    "count": 1,
+                    "sides": 4,
+                    "modifier": 2
+                }
+            ]
+        }
+    ],
     "actions": [
         {
             "name": "Dagger",
@@ -83,47 +121,6 @@
                     }
                 ]
             }
-        }
-    ],
-    "features_height": 7,
-    "features": [
-        {
-            "name": "Sunlight Sensitivity",
-            "extras": {
-                "description": "While in sunlight, the kobold has disadvantage on attack rolls, as well as on Wisdom (Perception) checks that rely on sight"
-            }
-        },
-        {
-            "name": "Pack Tactics",
-            "extras": {
-                "description": "The kobold has advantage on an attack roll against a creature if at least one of the kobold's allies is within 5 feet of the creature and the ally isn't incapacitated"
-            }
-        }
-    ],
-    "rolls": [
-        {
-            "name": "Dagger",
-            "expression": "{d20} + 4",
-            "damage": [
-                {
-                    "type": "Piercing",
-                    "count": 1,
-                    "sides": 4,
-                    "modifier": 2
-                }
-            ]
-        },
-        {
-            "name": "Sling",
-            "expression": "{d20} + 4",
-            "damage": [
-                {
-                    "type": "Bludgeoning",
-                    "count": 1,
-                    "sides": 4,
-                    "modifier": 2
-                }
-            ]
         }
     ]
 }

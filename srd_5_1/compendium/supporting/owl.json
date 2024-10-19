@@ -2,9 +2,8 @@
     "name": "Owl",
     "id": "5hjr8XpX42rM",
     "size": "Tiny",
-    "type": "beast",
+    "type": "Beast",
     "alignment": "Unaligned",
-    "headline": "Tiny beast, unaligned",
     "armor": [],
     "hp": "1d4 - 1",
     "speed": "5 ft, fly 60 ft",
@@ -42,21 +41,6 @@
     ],
     "languages": [],
     "challenge": "0 (10 XP)",
-    "features": [
-        {
-            "name": "Flyby",
-            "extras": {
-                "description": "The owl doesn't provoke opportunity attacks when it flies out of an enemy's reach"
-            }
-        },
-        {
-            "name": "Keen Hearing and Sight",
-            "extras": {
-                "description": "The owl has advantage on Wisdom (Perception) checks that rely on hearing or sight"
-            }
-        }
-    ],
-    "features_height": 6,
     "rolls": [
         {
             "name": "Talons",
@@ -89,6 +73,20 @@
                         "value": "1"
                     }
                 ]
+            }
+        }
+    ],
+    "features": [
+        {
+            "name": "Flyby",
+            "extras": {
+                "description": "The owl doesn't provoke opportunity attacks when it flies out of an enemy's reach"
+            }
+        },
+        {
+            "name": "Keen Hearing and Sight",
+            "extras": {
+                "description": "The owl has advantage on Wisdom (Perception) checks that rely on hearing or sight"
             }
         }
     ]

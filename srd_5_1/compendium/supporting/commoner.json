@@ -2,9 +2,8 @@
     "name": "Commoner",
     "id": "Cw1rSWNrpqzj",
     "size": "Medium",
-    "type": "humanoid (any race)",
+    "type": "Humanoid (any race)",
     "alignment": "Any",
-    "headline": "Medium humanoid (any race), any alignment",
     "armor": [],
     "hp": "1d8",
     "speed": "30 ft",
@@ -51,6 +50,7 @@
         {
             "name": "Club",
             "extras": {
+                "roll": "Club",
                 "attributes": [
                     {
                         "type": "melee_weapon"
@@ -63,8 +63,7 @@
                         "type": "bludgeoning_attack",
                         "value": "1d4"
                     }
-                ],
-                "roll": "Club"
+                ]
             }
         }
     ],

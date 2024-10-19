@@ -2,9 +2,8 @@
     "name": "Spider",
     "id": "W47bhGXLRD4V",
     "size": "Tiny",
-    "type": "beast",
+    "type": "Beast",
     "alignment": "Unaligned",
-    "headline": "Tiny beast, unaligned",
     "armor": [],
     "hp": "1d4 - 1",
     "speed": "20 ft, climb 20 ft",
@@ -99,7 +98,5 @@
                 "description": "On a hit, the target must succeed on a DC 9 Constitution saving throw or take 1d4 poison damage"
             }
         }
-    ],
-    "features_height": 8,
-    "actions_height": 6
+    ]
 }

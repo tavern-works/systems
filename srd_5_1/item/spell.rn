@@ -1,0 +1,52 @@
+pub fn headline(level, school) {
+    let lowercase = school.to_lowercase();
+
+    let headline = match level {
+        0 => format!("{school} cantrip"),
+        1 => format!("1st-level {lowercase}"),
+        2 => format!("2nd-level {lowercase}"),
+        3 => format!("3rd-level {lowercase}"),
+        _ => {
+            if (4..=9).contains(level) {
+                format!("{level}th-level {lowercase}")
+            } else {
+                tavern::bail!("unsupported level {level}")
+            }
+        }
+    };
+
+    Ok(headline)
+}
+
+pub fn component_string(components) {
+    let string = "";
+
+    if components["verbal"] {
+        string.push('V');
+    }
+
+    if components["somatic"] {
+        if string.is_empty() {
+            string.push('S')
+        } else {
+            string.push_str(", S")
+        }
+    }
+
+    if components.contains_key("material") {
+        if !string.is_empty() {
+            string.push_str(", ")
+        }
+        string.push_str(format!("M ({})", components["material"]))
+    }
+
+    string
+}
+
+pub fn duration_string(concentration, duration) {
+    if !concentration {
+        return duration;
+    }
+
+    format!("Concentration, {}", duration.to_lowercase())
+}

@@ -2,9 +2,8 @@
     "name": "Giant Crab",
     "id": "tBKZpk0mZ0hc",
     "size": "Medium",
-    "type": "beast",
+    "type": "Beast",
     "alignment": "Unaligned",
-    "headline": "Medium beast, unaligned",
     "armor": [
         "KhZCsRJVgGRP"
     ],
@@ -83,6 +82,5 @@
                 "description": "On a hit, the target is grappled (escape DC 11). The crab has two claws, each of which can grapple only one target."
             }
         }
-    ],
-    "actions_height": 6
+    ]
 }

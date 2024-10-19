@@ -2,9 +2,8 @@
     "name": "Cat",
     "id": "LSV6LtcbMfd2",
     "size": "Tiny",
-    "type": "beast",
+    "type": "Beast",
     "alignment": "Unaligned",
-    "headline": "Tiny beast, unaligned",
     "armor": [],
     "hp": "1d4",
     "speed": "40 ft, climb 30 ft",
@@ -56,6 +55,7 @@
         {
             "name": "Claws",
             "extras": {
+                "roll": "Claws",
                 "attributes": [
                     {
                         "type": "melee_weapon"
@@ -68,8 +68,7 @@
                         "type": "slashing_attack",
                         "value": "1"
                     }
-                ],
-                "roll": "Claws"
+                ]
             }
         }
     ],

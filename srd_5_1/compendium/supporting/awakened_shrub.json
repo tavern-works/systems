@@ -2,9 +2,8 @@
     "name": "Awakened Shrub",
     "id": "Vn8pmt0cwpqy",
     "size": "Small",
-    "type": "plant",
+    "type": "Plant",
     "alignment": "Unaligned",
-    "headline": "Small plant, unaligned",
     "armor": [],
     "hp": "3d6",
     "speed": "20 ft",
@@ -41,14 +40,6 @@
         }
     ],
     "challenge": "0 (10 XP)",
-    "features": [
-        {
-            "name": "False Appearance",
-            "extras": {
-                "description": "While the shrub remains motionless, it is indistinguishable from a normal shrub"
-            }
-        }
-    ],
     "rolls": [
         {
             "name": "Rake",
@@ -67,6 +58,7 @@
         {
             "name": "Rake",
             "extras": {
+                "roll": "Rake",
                 "attributes": [
                     {
                         "type": "melee_weapon"
@@ -79,10 +71,17 @@
                         "type": "slashing_attack",
                         "value": "1d4 - 1"
                     }
-                ],
-                "roll": "Rake"
+                ]
             }
         }
     ],
-    "description": "An **awakened shrub** is an ordinary shrub given sentience and mobility by the *awaken* spell or similar magic"
+    "description": "An **awakened shrub** is an ordinary shrub given sentience and mobility by the *awaken* spell or similar magic",
+    "features": [
+        {
+            "name": "False Appearance",
+            "extras": {
+                "description": "While the shrub remains motionless, it is indistinguishable from a normal shrub"
+            }
+        }
+    ]
 }

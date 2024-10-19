@@ -2,9 +2,8 @@
     "name": "Poisonous Snake",
     "id": "zVHDg4qvCp59",
     "size": "Tiny",
-    "type": "beast",
+    "type": "Beast",
     "alignment": "Unaligned",
-    "headline": "Tiny beast, unaligned",
     "armor": [],
     "hp": "1d4",
     "speed": "30 ft, swim 30 ft",
@@ -74,6 +73,5 @@
                 "description": "On a hit, the target must make a DC 10 Constitution saving throw, taking 2d4 poison damage on a failed save, or half as much damage on a successful one"
             }
         }
-    ],
-    "actions_height": 7
+    ]
 }

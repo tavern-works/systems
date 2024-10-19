@@ -2,9 +2,8 @@
     "name": "Mule",
     "id": "PWKsJnZ5KwJ0",
     "size": "Medium",
-    "type": "beast",
+    "type": "Beast",
     "alignment": "Unaligned",
-    "headline": "Medium beast, unaligned",
     "armor": [],
     "hp": "2d8 + 2",
     "speed": "40 ft",
@@ -29,21 +28,6 @@
     ],
     "languages": [],
     "challenge": "1/8 (25 XP)",
-    "features_height": 6,
-    "features": [
-        {
-            "name": "Beast of Burden",
-            "extras": {
-                "description": "The mule is considered to be a Large animal for the purpose of determining its carrying capacity"
-            }
-        },
-        {
-            "name": "Sure-Footed",
-            "extras": {
-                "description": "The mule has advantage on Strength and Dexterity saving throws made against effects that would knock it prone"
-            }
-        }
-    ],
     "rolls": [
         {
             "name": "Hooves",
@@ -76,6 +60,20 @@
                         "value": "1d4 + 2"
                     }
                 ]
+            }
+        }
+    ],
+    "features": [
+        {
+            "name": "Beast of Burden",
+            "extras": {
+                "description": "The mule is considered to be a Large animal for the purpose of determining its carrying capacity"
+            }
+        },
+        {
+            "name": "Sure-Footed",
+            "extras": {
+                "description": "The mule has advantage on Strength and Dexterity saving throws made against effects that would knock it prone"
             }
         }
     ]

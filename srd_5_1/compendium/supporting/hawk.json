@@ -2,9 +2,8 @@
     "name": "Hawk",
     "id": "VJ8fLCr4S8V1",
     "size": "Tiny",
-    "type": "beast",
+    "type": "Beast",
     "alignment": "Unaligned",
-    "headline": "Tiny beast, unaligned",
     "armor": [],
     "hp": "1d4 - 1",
     "speed": "10 ft, fly 60 ft",
@@ -34,6 +33,14 @@
     ],
     "languages": [],
     "challenge": "0 (10 XP)",
+    "features": [
+        {
+            "name": "Keen Sight",
+            "extras": {
+                "description": "The hawk has advantage on Wisdom (Perception) checks that rely on sight"
+            }
+        }
+    ],
     "rolls": [
         {
             "name": "Talons",
@@ -52,6 +59,7 @@
         {
             "name": "Talons",
             "extras": {
+                "roll": "Talons",
                 "attributes": [
                     {
                         "type": "melee_weapon"
@@ -64,16 +72,7 @@
                         "type": "slashing_attack",
                         "value": "1"
                     }
-                ],
-                "roll": "Talons"
-            }
-        }
-    ],
-    "features": [
-        {
-            "name": "Keen Sight",
-            "extras": {
-                "description": "The hawk has advantage on Wisdom (Perception) checks that rely on sight"
+                ]
             }
         }
     ]

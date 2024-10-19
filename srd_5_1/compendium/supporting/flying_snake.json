@@ -2,9 +2,8 @@
     "name": "Flying Snake",
     "id": "znFyN1SzV3vM",
     "size": "Tiny",
-    "type": "beast",
+    "type": "Beast",
     "alignment": "Unaligned",
-    "headline": "Tiny beast, unaligned",
     "armor": [],
     "hp": "2d4",
     "speed": "30 ft, fly 60 ft, swim 30 ft",
@@ -33,14 +32,6 @@
     ],
     "languages": [],
     "challenge": "1/8 (25 XP)",
-    "features": [
-        {
-            "name": "Flyby",
-            "extras": {
-                "description": "The snake doesn't provoke opportunity attacks when it flies out of an enemy's reach"
-            }
-        }
-    ],
     "rolls": [
         {
             "name": "Bite",
@@ -83,6 +74,14 @@
                         "value": "3d4"
                     }
                 ]
+            }
+        }
+    ],
+    "features": [
+        {
+            "name": "Flyby",
+            "extras": {
+                "description": "The snake doesn't provoke opportunity attacks when it flies out of an enemy's reach"
             }
         }
     ],

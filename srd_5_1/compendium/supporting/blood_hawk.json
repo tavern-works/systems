@@ -2,9 +2,8 @@
     "name": "Blood Hawk",
     "id": "cqJXpkKWMxS5",
     "size": "Small",
-    "type": "beast",
+    "type": "Beast",
     "alignment": "Unaligned",
-    "headline": "Small beast, unaligned",
     "armor": [],
     "hp": "2d6",
     "speed": "10 ft, fly 60 ft",
@@ -34,20 +33,6 @@
     ],
     "languages": [],
     "challenge": "1/8 (25 XP)",
-    "features": [
-        {
-            "name": "Keen Sight",
-            "extras": {
-                "description": "The hawk has advantage on Wisdom (Perception) checks that rely on sight"
-            }
-        },
-        {
-            "name": "Pack Tactics",
-            "extras": {
-                "description": "The hawk has advantage on an attack roll against a creature if at least one of the hawk's allies is within 5 feet of the creature and the ally isn't incapacitated"
-            }
-        }
-    ],
     "rolls": [
         {
             "name": "Beak",
@@ -66,6 +51,7 @@
         {
             "name": "Beak",
             "extras": {
+                "roll": "Beak",
                 "attributes": [
                     {
                         "type": "melee_weapon"
@@ -78,11 +64,23 @@
                         "type": "piercing_attack",
                         "value": "1d4 + 2"
                     }
-                ],
-                "roll": "Beak"
+                ]
             }
         }
     ],
-    "features_height": 6,
+    "features": [
+        {
+            "name": "Keen Sight",
+            "extras": {
+                "description": "The hawk has advantage on Wisdom (Perception) checks that rely on sight"
+            }
+        },
+        {
+            "name": "Pack Tactics",
+            "extras": {
+                "description": "The hawk has advantage on an attack roll against a creature if at least one of the hawk's allies is within 5 feet of the creature and the ally isn't incapacitated"
+            }
+        }
+    ],
     "description": "Taking its name from its crimson feathers and aggressive nature, the **blood hawk** fearlessly attacks almost any animal, stabbing it with its daggerlike beak. Blood hawks flock together in large numbers, attacking as a pack to take down prey."
 }

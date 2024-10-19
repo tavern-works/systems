@@ -2,9 +2,8 @@
     "name": "Mastiff",
     "id": "CxSbH9Ztg7c3",
     "size": "Medium",
-    "type": "beast",
+    "type": "Beast",
     "alignment": "Unaligned",
-    "headline": "Medium beast, unaligned",
     "armor": [],
     "hp": "1d8 + 1",
     "speed": "40 ft",
@@ -34,14 +33,6 @@
     ],
     "languages": [],
     "challenge": "1/8 (25 XP)",
-    "features": [
-        {
-            "name": "Keen Hearing and Smell",
-            "extras": {
-                "description": "The mastiff has advantage on Wisdom (Perception) checks that rely on hearing or smell"
-            }
-        }
-    ],
     "rolls": [
         {
             "name": "Bite",
@@ -78,6 +69,13 @@
             }
         }
     ],
-    "description": "**Mastiffs** are impressive hounds prized by humanoids for their loyalty and keen senses. Mastiffs can be trained as guard dogs, hunting dogs, and war dogs. Halflings and other Small humanoids ride them as mounts.",
-    "actions_height": 6
+    "features": [
+        {
+            "name": "Keen Hearing and Smell",
+            "extras": {
+                "description": "The mastiff has advantage on Wisdom (Perception) checks that rely on hearing or smell"
+            }
+        }
+    ],
+    "description": "**Mastiffs** are impressive hounds prized by humanoids for their loyalty and keen senses. Mastiffs can be trained as guard dogs, hunting dogs, and war dogs. Halflings and other Small humanoids ride them as mounts."
 }

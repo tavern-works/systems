@@ -2,9 +2,8 @@
     "name": "Crab",
     "id": "r88QYnYXfGgr",
     "size": "Tiny",
-    "type": "beast",
+    "type": "Beast",
     "alignment": "Unaligned",
-    "headline": "Tiny beast, unaligned",
     "armor": [
         "XSyXthp8xVjL"
     ],
@@ -58,6 +57,7 @@
         {
             "name": "Claw",
             "extras": {
+                "roll": "Claw",
                 "attributes": [
                     {
                         "type": "melee_weapon"
@@ -70,8 +70,7 @@
                         "type": "bludgeoning_attack",
                         "value": "1"
                     }
-                ],
-                "roll": "Claw"
+                ]
             }
         }
     ],
@@ -82,6 +81,5 @@
                 "description": "The crab can breathe air and water"
             }
         }
-    ],
-    "features_height": 3
+    ]
 }

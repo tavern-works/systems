@@ -2,9 +2,8 @@
     "name": "Baboon",
     "id": "N3Kt4Pq9vQqX",
     "size": "Small",
-    "type": "beast",
+    "type": "Beast",
     "alignment": "Unaligned",
-    "headline": "Small beast, unaligned",
     "armor": [],
     "hp": "1d6",
     "speed": "30 ft, climb 30 ft",
@@ -29,14 +28,6 @@
     ],
     "languages": [],
     "challenge": "0 (10 XP)",
-    "features": [
-        {
-            "name": "Pack Tactics",
-            "extras": {
-                "description": "The baboon has advantage on an attack roll against a creature if at least one of the baboon's allies is within 5 feet of the creature and the ally isn't incapacitated"
-            }
-        }
-    ],
     "rolls": [
         {
             "name": "Bite",
@@ -55,6 +46,7 @@
         {
             "name": "Bite",
             "extras": {
+                "roll": "Bite",
                 "attributes": [
                     {
                         "type": "melee_weapon"
@@ -67,8 +59,15 @@
                         "type": "piercing_attack",
                         "value": "1d4 - 1"
                     }
-                ],
-                "roll": "Bite"
+                ]
+            }
+        }
+    ],
+    "features": [
+        {
+            "name": "Pack Tactics",
+            "extras": {
+                "description": "The baboon has advantage on an attack roll against a creature if at least one of the baboon's allies is within 5 feet of the creature and the ally isn't incapacitated"
             }
         }
     ]

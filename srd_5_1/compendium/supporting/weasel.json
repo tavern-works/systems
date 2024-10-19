@@ -2,9 +2,8 @@
     "name": "Weasel",
     "id": "VXRLKh5GxfCp",
     "size": "Tiny",
-    "type": "beast",
+    "type": "Beast",
     "alignment": "Unaligned",
-    "headline": "Tiny beast, unaligned",
     "armor": [],
     "hp": "1d4 - 1",
     "speed": "30 ft",
@@ -38,14 +37,6 @@
     ],
     "languages": [],
     "challenge": "0 (10 XP)",
-    "features": [
-        {
-            "name": "Keen Hearing and Smelling",
-            "extras": {
-                "description": "The weasel has advantage on Wisdom (Perception) checks that rely on hearing or smell"
-            }
-        }
-    ],
     "rolls": [
         {
             "name": "Bite",
@@ -78,6 +69,14 @@
                         "value": "1"
                     }
                 ]
+            }
+        }
+    ],
+    "features": [
+        {
+            "name": "Keen Hearing and Smelling",
+            "extras": {
+                "description": "The weasel has advantage on Wisdom (Perception) checks that rely on hearing or smell"
             }
         }
     ]

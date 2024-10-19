@@ -2,9 +2,8 @@
     "name": "Giant Rat",
     "id": "nCW9hZCSkrj9",
     "size": "Small",
-    "type": "beast",
+    "type": "Beast",
     "alignment": "Unaligned",
-    "headline": "Small beast, unaligned",
     "armor": [],
     "hp": "2d6",
     "speed": "30 ft",
@@ -33,7 +32,6 @@
     ],
     "languages": [],
     "challenge": "1/8 (25 XP)",
-    "features_height": 6,
     "features": [
         {
             "name": "Keen Smell",

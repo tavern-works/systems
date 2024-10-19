@@ -2,9 +2,8 @@
     "name": "Lemure",
     "id": "KztjWZFDGVBb",
     "size": "Medium",
-    "type": "fiend (devil)",
+    "type": "Fiend (devil)",
     "alignment": "Lawful Evil",
-    "headline": "Medium fiend (devil), lawful evil",
     "armor": [],
     "hp": "3d8",
     "speed": "15 ft",
@@ -58,6 +57,20 @@
         }
     ],
     "challenge": "0 (10 XP)",
+    "features": [
+        {
+            "name": "Devil's Sight",
+            "extras": {
+                "description": "Magical darkness doesn't impede the lemure's darkvision"
+            }
+        },
+        {
+            "name": "Hellish Rejuvenation",
+            "extras": {
+                "description": "A lemure that dies in the Nine Hells comes back to life with all its hit points in 1d10 days unless it is killed by a good-aligned creature with a *bless* spell cast on that creature or its remains are sprinkled with holy water"
+            }
+        }
+    ],
     "rolls": [
         {
             "name": "Fist",
@@ -76,6 +89,7 @@
         {
             "name": "Fist",
             "extras": {
+                "roll": "Fist",
                 "attributes": [
                     {
                         "type": "melee_weapon"
@@ -88,24 +102,8 @@
                         "type": "bludgeoning_attack",
                         "value": "1d4"
                     }
-                ],
-                "roll": "Fist"
+                ]
             }
         }
-    ],
-    "features": [
-        {
-            "name": "Devil's Sight",
-            "extras": {
-                "description": "Magical darkness doesn't impede the lemure's darkvision"
-            }
-        },
-        {
-            "name": "Hellish Rejuvenation",
-            "extras": {
-                "description": "A lemure that dies in the Nine Hells comes back to life with all its hit points in 1d10 days unless it is killed by a good-aligned creature with a *bless* spell cast on that creature or its remains are sprinkled with holy water"
-            }
-        }
-    ],
-    "features_height": 7
+    ]
 }

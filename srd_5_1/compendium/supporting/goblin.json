@@ -2,9 +2,8 @@
     "name": "Goblin",
     "id": "2WPKKN9VN0H7",
     "size": "Small",
-    "type": "humanoid (goblinoid)",
+    "type": "Humanoid (goblinoid)",
     "alignment": "Neutral Evil",
-    "headline": "Small humanoid (goblinoid), neutral evil",
     "armor": [
         "mVvkHTZh19NX",
         "nY7KF1CqTVKG"
@@ -48,6 +47,14 @@
         }
     ],
     "challenge": "1/4 (50 XP)",
+    "features": [
+        {
+            "name": "Nimble Escape",
+            "extras": {
+                "description": "The goblin can take the Disengage or Hide action as a bonus action on each of its turns"
+            }
+        }
+    ],
     "rolls": [
         {
             "name": "Scimitar",
@@ -78,6 +85,7 @@
         {
             "name": "Scimitar",
             "extras": {
+                "roll": "Scimitar",
                 "attributes": [
                     {
                         "type": "melee_weapon"
@@ -90,8 +98,7 @@
                         "type": "slashing_attack",
                         "value": "1d6 + 2"
                     }
-                ],
-                "roll": "Scimitar"
+                ]
             }
         },
         {
@@ -115,14 +122,6 @@
                     }
                 ],
                 "roll": "Shortbow"
-            }
-        }
-    ],
-    "features": [
-        {
-            "name": "Nimble Escape",
-            "extras": {
-                "description": "The goblin can take the Disengage or Hide action as a bonus action on each of its turns"
             }
         }
     ]

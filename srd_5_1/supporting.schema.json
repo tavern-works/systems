@@ -507,10 +507,6 @@
                 "Unaligned"
             ]
         },
-        "headline": {
-            "title": "Headline",
-            "type": "string"
-        },
         "armor": {
             "title": "Armor",
             "type": "array",
@@ -651,12 +647,6 @@
                 "$ref": "#/definitions/feature"
             }
         },
-        "features_height": {
-            "title": "Features Height",
-            "description": "Height of the features section of the brief",
-            "type": "integer",
-            "default": 4
-        },
         "actions": {
             "title": "Actions",
             "type": "array",
@@ -665,12 +655,6 @@
                 "$ref": "#/definitions/feature"
             }
         },
-        "actions_height": {
-            "title": "Actions Height",
-            "description": "Height of the actions section of the brief",
-            "type": "integer",
-            "default": 5
-        },
         "reactions": {
             "title": "Reactions",
             "type": "array",
@@ -678,12 +662,6 @@
                 "title": "Reaction",
                 "$ref": "#/definitions/feature"
             }
-        },
-        "reactions_height": {
-            "title": "Reactions Height",
-            "description": "Height of the reactions section of the brief",
-            "type": "integer",
-            "default": 5
         },
         "rolls": {
             "title": "Rolls",
@@ -703,7 +681,6 @@
         "size",
         "type",
         "alignment",
-        "headline",
         "armor",
         "hp",
         "speed",

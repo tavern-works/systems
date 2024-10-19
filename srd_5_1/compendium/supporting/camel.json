@@ -2,9 +2,8 @@
     "name": "Camel",
     "id": "n6jTftYpgRFX",
     "size": "Large",
-    "type": "beast",
+    "type": "Beast",
     "alignment": "Unaligned",
-    "headline": "Large beast, unaligned",
     "armor": [],
     "hp": "2d10 + 4",
     "speed": "50 ft",
@@ -47,6 +46,7 @@
         {
             "name": "Bite",
             "extras": {
+                "roll": "Bite",
                 "attributes": [
                     {
                         "type": "melee_weapon"
@@ -59,8 +59,7 @@
                         "type": "bludgeoning_attack",
                         "value": "1d4"
                     }
-                ],
-                "roll": "Bite"
+                ]
             }
         }
     ]

@@ -379,7 +379,7 @@ impl Supporting {
     }
 
     fn headline(self, template, extended) {
-        let headline = format!("{} {}", template["size"], template["type"]);
+        let headline = format!("{} {}", template["size"], template["type"].to_lowercase());
         if extended {
             if template["alignment"] == "Any" {
                 headline += ", any alignment";    

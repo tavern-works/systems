@@ -2,9 +2,8 @@
     "name": "Eagle",
     "id": "MDv7mJDm4wSP",
     "size": "Small",
-    "type": "beast",
+    "type": "Beast",
     "alignment": "Unaligned",
-    "headline": "Small beast, unaligned",
     "armor": [],
     "hp": "1d6",
     "speed": "10 ft, fly 60 ft",
@@ -52,6 +51,7 @@
         {
             "name": "Talons",
             "extras": {
+                "roll": "Talons",
                 "attributes": [
                     {
                         "type": "melee_weapon"
@@ -64,8 +64,7 @@
                         "type": "slashing_attack",
                         "value": "1d4 + 2"
                     }
-                ],
-                "roll": "Talons"
+                ]
             }
         }
     ],

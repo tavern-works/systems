@@ -2,9 +2,8 @@
     "name": "Octopus",
     "id": "41GMjdQy6Y9y",
     "size": "Small",
-    "type": "beast",
+    "type": "Beast",
     "alignment": "Unaligned",
-    "headline": "Small beast, unaligned",
     "armor": [],
     "hp": "1d6",
     "speed": "5 ft, swim 30 ft",
@@ -42,27 +41,6 @@
     ],
     "languages": [],
     "challenge": "0 (10 XP)",
-    "features": [
-        {
-            "name": "Hold Breath",
-            "extras": {
-                "description": "While out of water, the octopus can hold its breath for 30 minutes"
-            }
-        },
-        {
-            "name": "Underwater Camouflage",
-            "extras": {
-                "description": "The octopus has advantage on Dexterity (Stealth) checks made while underwater"
-            }
-        },
-        {
-            "name": "Water Breathing",
-            "extras": {
-                "description": "The octopus can breathe only underwater"
-            }
-        }
-    ],
-    "features_height": 8,
     "rolls": [
         {
             "name": "Tentacles",
@@ -77,7 +55,6 @@
             ]
         }
     ],
-    "actions_height": 11,
     "actions": [
         {
             "name": "Tentacles",
@@ -106,6 +83,26 @@
                 "used": [
                     false
                 ]
+            }
+        }
+    ],
+    "features": [
+        {
+            "name": "Hold Breath",
+            "extras": {
+                "description": "While out of water, the octopus can hold its breath for 30 minutes"
+            }
+        },
+        {
+            "name": "Underwater Camouflage",
+            "extras": {
+                "description": "The octopus has advantage on Dexterity (Stealth) checks made while underwater"
+            }
+        },
+        {
+            "name": "Water Breathing",
+            "extras": {
+                "description": "The octopus can breathe only underwater"
             }
         }
     ]

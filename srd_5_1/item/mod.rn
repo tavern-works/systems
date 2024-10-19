@@ -1,66 +1,22 @@
 use tavern::{Alignment, Cell, Contents, Font, Grid, Section};
 
-fn headline(level, school) {
-    let lowercase = school.to_lowercase();
+mod spell;
+mod supporting;
 
-    let headline = match level {
-        0 => format!("{school} cantrip"),
-        1 => format!("1st-level {lowercase}"),
-        2 => format!("2nd-level {lowercase}"),
-        3 => format!("3rd-level {lowercase}"),
-        _ => {
-            if (4..=9).contains(level) {
-                format!("{level}th-level {lowercase}")
-            } else {
-                tavern::bail!("unsupported level {level}")
-            }
+pub fn get_data(section, entry) {
+    match section {
+        "spell" => {
+            entry["headline"] = spell::headline(entry["level"], entry["school"])?;
+            entry["component_string"] = spell::component_string(entry["components"]);
+            entry["duration_string"] = spell::duration_string(entry["concentration"], entry["duration"]);
+        },
+        "supporting" => {
+            entry["headline"] = supporting::headline(entry["size"], entry["type"], entry["alignment"])
         }
-    };
+        _ => log::warn!("unhandled section {section} in get_data"),
+    }    
 
-    Ok(headline)
-}
-
-fn component_string(components) {
-    let string = "";
-
-    if components["verbal"] {
-        string.push('V');
-    }
-
-    if components["somatic"] {
-        if string.is_empty() {
-            string.push('S')
-        } else {
-            string.push_str(", S")
-        }
-    }
-
-    if components.contains_key("material") {
-        if !string.is_empty() {
-            string.push_str(", ")
-        }
-        string.push_str(format!("M ({})", components["material"]))
-    }
-
-    string
-}
-
-fn duration_string(concentration, duration) {
-    if !concentration {
-        return duration;
-}
-
-    format!("Concentration, {}", duration.to_lowercase())
-}
-
-pub fn get_data(compendium, section, name) {
-    let data = compendium.get_by_name(section, name)?;
-
-    data["headline"] = headline(data["level"], data["school"])?;
-    data["component_string"] = component_string(data["components"]);
-    data["duration_string"] = duration_string(data["concentration"], data["duration"]);
-
-    Ok(data)
+    Ok(entry)
 }
 
 pub fn get_layout(section) {

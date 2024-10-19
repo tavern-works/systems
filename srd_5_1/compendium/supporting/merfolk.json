@@ -2,9 +2,8 @@
     "name": "Merfolk",
     "id": "LZDFhGP59DBH",
     "size": "Medium",
-    "type": "humanoid (merfolk)",
+    "type": "Humanoid (merfolk)",
     "alignment": "Neutral",
-    "headline": "Medium humanoid (merfolk), neutral",
     "armor": [],
     "hp": "2d8 + 2",
     "speed": "10 ft, swim 40 ft",
@@ -41,14 +40,6 @@
         }
     ],
     "challenge": "1/8 (25 XP)",
-    "features": [
-        {
-            "name": "Amphibious",
-            "extras": {
-                "description": "The merfolk can breathe air and water"
-            }
-        }
-    ],
     "rolls": [
         {
             "name": "Spear",
@@ -87,7 +78,6 @@
             ]
         }
     ],
-    "actions_height": 11,
     "actions": [
         {
             "name": "Spear",
@@ -148,6 +138,14 @@
                         "value": "1d8"
                     }
                 ]
+            }
+        }
+    ],
+    "features": [
+        {
+            "name": "Amphibious",
+            "extras": {
+                "description": "The merfolk can breathe air and water"
             }
         }
     ]

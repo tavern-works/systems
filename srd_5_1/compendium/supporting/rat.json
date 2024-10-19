@@ -2,9 +2,8 @@
     "name": "Rat",
     "id": "sCtcJny87TTJ",
     "size": "Tiny",
-    "type": "beast",
+    "type": "Beast",
     "alignment": "Unaligned",
-    "headline": "Tiny beast, unaligned",
     "armor": [],
     "hp": "1d4 - 1",
     "speed": "20 ft",
@@ -33,14 +32,6 @@
     ],
     "languages": [],
     "challenge": "0 (10 XP)",
-    "features": [
-        {
-            "name": "Keen Smell",
-            "extras": {
-                "description": "The rat has advantage on Wisdom (Perception) checks that rely on smell"
-            }
-        }
-    ],
     "rolls": [
         {
             "name": "Bite",
@@ -73,6 +64,14 @@
                         "value": "1"
                     }
                 ]
+            }
+        }
+    ],
+    "features": [
+        {
+            "name": "Keen Smell",
+            "extras": {
+                "description": "The rat has advantage on Wisdom (Perception) checks that rely on smell"
             }
         }
     ]

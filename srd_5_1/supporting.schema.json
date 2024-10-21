@@ -661,15 +661,18 @@
                             "Any one",
                             "Any two",
                             "Aquan",
+                            "Can't Speak",
                             "Common",
                             "Draconic",
                             "Elvish",
                             "Goblin",
                             "One known by its creator",
-                            "Telepathft (Abyssal only)",
+                            "Telepathy 60 ft (Abyssal only)",
                             "Undercommon",
-                            "Understands Infernal, but can't speak",
-                            "Understands Sylvan, but can't speak",
+                            "Understands Common",
+                            "Understands Elvish",
+                            "Understands Infernal",
+                            "Understands Sylvan",
                             "Understands its creator, but can't speak"
                         ]
                     }

@@ -1,0 +1,102 @@
+{
+    "name": "Giant Owl",
+    "id": "7tNwTcf1QHBp",
+    "size": "Large",
+    "type": "Beast",
+    "alignment": "Neutral",
+    "hp": "3d10 + 3",
+    "speed": "5 ft, fly 60 ft",
+    "ability_scores": [
+        13,
+        15,
+        12,
+        8,
+        13,
+        10
+    ],
+    "challenge": "1/4 (50 XP)",
+    "skills": [
+        {
+            "type": "Perception",
+            "value": "+5"
+        },
+        {
+            "type": "Stealth",
+            "value": "+4"
+        }
+    ],
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 120
+        },
+        {
+            "type": "passive_perception",
+            "value": 15
+        }
+    ],
+    "languages": [
+        {
+            "value": "Can't Speak"
+        },
+        {
+            "value": "Understands Common"
+        },
+        {
+            "value": "Understands Elvish"
+        },
+        {
+            "value": "Understands Sylvan"
+        }
+    ],
+    "features": [
+        {
+            "name": "Flyby",
+            "extras": {
+                "description": "The owl doesn't provoke opportunity attacks when it files out of an enemy's reach."
+            }
+        },
+        {
+            "name": "Keen Hearing and Sight",
+            "extras": {
+                "description": "The owl has advantage on Wisdom (Perception) checks that rely on hearing or sight."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Talons",
+            "expression": "{d20} + 3",
+            "damage": [
+                {
+                    "type": "Slashing",
+                    "count": 2,
+                    "sides": 6,
+                    "modifier": 1
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Talons",
+            "extras": {
+                "roll": "Talons",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "slashing_attack",
+                        "value": "2d6 + 1"
+                    }
+                ]
+            }
+        }
+    ],
+    "description": "**Giant owls** often befriend fey and other sylvan creatures and are guardians of their woodland realms."
+}

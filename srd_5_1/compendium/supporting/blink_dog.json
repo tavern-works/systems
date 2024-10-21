@@ -4,7 +4,6 @@
     "size": "Medium",
     "type": "Fey",
     "alignment": "Lawful Good",
-    "armor": [],
     "hp": "4d8 + 4",
     "speed": "40 ft",
     "ability_scores": [
@@ -15,6 +14,7 @@
         13,
         11
     ],
+    "challenge": "1/4 (50 XP)",
     "skills": [
         {
             "type": "Perception",
@@ -25,10 +25,6 @@
             "value": "+5"
         }
     ],
-    "damage_vulnerabilities": [],
-    "damage_resistances": [],
-    "damage_immunities": [],
-    "condition_immunities": [],
     "senses": [
         {
             "type": "passive_perception",
@@ -37,10 +33,20 @@
     ],
     "languages": [
         {
-            "value": "Understands Sylvan, but can't speak"
+            "value": "Can't Speak"
+        },
+        {
+            "value": "Understands Sylvan"
         }
     ],
-    "challenge": "1/4 (50 XP)",
+    "features": [
+        {
+            "name": "Keen Hearing and Smell",
+            "extras": {
+                "description": "The dog has advantage on Wisdom (Perception) checks that rely on hearing or smell."
+            }
+        }
+    ],
     "rolls": [
         {
             "name": "Bite",
@@ -85,13 +91,10 @@
             }
         }
     ],
-    "features": [
-        {
-            "name": "Keen Hearing and Smell",
-            "extras": {
-                "description": "The dog has advantage on Wisdom (Perception) checks that rely on hearing or smell."
-            }
-        }
-    ],
+    "armor": [],
+    "damage_vulnerabilities": [],
+    "damage_resistances": [],
+    "damage_immunities": [],
+    "condition_immunities": [],
     "description": "A **blink dog** takes its name from its ability to blink in and out of existence, a talent it uses to aid its attacks and to avoid harm."
 }

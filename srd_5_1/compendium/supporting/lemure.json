@@ -4,7 +4,6 @@
     "size": "Medium",
     "type": "Fiend (devil)",
     "alignment": "Lawful Evil",
-    "armor": [],
     "hp": "3d8",
     "speed": "15 ft",
     "ability_scores": [
@@ -15,32 +14,8 @@
         11,
         3
     ],
+    "challenge": "0 (10 XP)",
     "skills": [],
-    "damage_vulnerabilities": [],
-    "damage_resistances": [
-        {
-            "value": "Cold"
-        }
-    ],
-    "damage_immunities": [
-        {
-            "value": "Fire"
-        },
-        {
-            "value": "Poison"
-        }
-    ],
-    "condition_immunities": [
-        {
-            "value": "Charmed"
-        },
-        {
-            "value": "Frightened"
-        },
-        {
-            "value": "Poisoned"
-        }
-    ],
     "senses": [
         {
             "type": "darkvision",
@@ -53,10 +28,26 @@
     ],
     "languages": [
         {
-            "value": "Understands Infernal, but can't speak"
+            "value": "Can't Speak"
+        },
+        {
+            "value": "Understands Infernal"
         }
     ],
-    "challenge": "0 (10 XP)",
+    "features": [
+        {
+            "name": "Devil's Sight",
+            "extras": {
+                "description": "Magical darkness doesn't impede the lemure's darkvision."
+            }
+        },
+        {
+            "name": "Hellish Rejuvenation",
+            "extras": {
+                "description": "A lemure that dies in the Nine Hells comes back to life with all its hit points in 1d10 days unless it is killed by a good-aligned creature with a *bless* spell cast on that creature or its remains are sprinkled with holy water."
+            }
+        }
+    ],
     "rolls": [
         {
             "name": "Fist",
@@ -92,18 +83,30 @@
             }
         }
     ],
-    "features": [
+    "armor": [],
+    "damage_vulnerabilities": [],
+    "damage_resistances": [
         {
-            "name": "Devil's Sight",
-            "extras": {
-                "description": "Magical darkness doesn't impede the lemure's darkvision."
-            }
+            "value": "Cold"
+        }
+    ],
+    "damage_immunities": [
+        {
+            "value": "Fire"
         },
         {
-            "name": "Hellish Rejuvenation",
-            "extras": {
-                "description": "A lemure that dies in the Nine Hells comes back to life with all its hit points in 1d10 days unless it is killed by a good-aligned creature with a *bless* spell cast on that creature or its remains are sprinkled with holy water."
-            }
+            "value": "Poison"
+        }
+    ],
+    "condition_immunities": [
+        {
+            "value": "Charmed"
+        },
+        {
+            "value": "Frightened"
+        },
+        {
+            "value": "Poisoned"
         }
     ]
 }

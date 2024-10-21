@@ -1,0 +1,141 @@
+{
+    "name": "Dretch",
+    "id": "wtjfCYKYJJ5r",
+    "size": "Small",
+    "type": "Fiend (demon)",
+    "alignment": "Chaotic Evil",
+    "armor": [
+        "XSyXthp8xVjL"
+    ],
+    "hp": "4d6 + 4",
+    "speed": "20 ft",
+    "ability_scores": [
+        11,
+        11,
+        12,
+        5,
+        8,
+        3
+    ],
+    "skills": [],
+    "damage_vulnerabilities": [],
+    "damage_resistances": [
+        {
+            "value": "Cold"
+        },
+        {
+            "value": "Fire"
+        },
+        {
+            "value": "Lightning"
+        }
+    ],
+    "damage_immunities": [
+        {
+            "value": "Poison"
+        }
+    ],
+    "condition_immunities": [
+        {
+            "value": "Poisoned"
+        }
+    ],
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 60
+        },
+        {
+            "type": "passive_perception",
+            "value": 9
+        }
+    ],
+    "languages": [
+        {
+            "value": "Abyssal"
+        },
+        {
+            "value": "Telepathy 60 ft (Abyssal only)"
+        }
+    ],
+    "challenge": "1/4 (50 XP)",
+    "rolls": [
+        {
+            "name": "Bite",
+            "expression": "{d20} + 2",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 0
+                }
+            ]
+        },
+        {
+            "name": "Claws",
+            "expression": "{d20} + 2",
+            "damage": [
+                {
+                    "type": "Slashing",
+                    "count": 2,
+                    "sides": 4,
+                    "modifier": 0
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Multiattack",
+            "extras": {
+                "description": "The dretch makes two attacks: one with its bite and one with its claws."
+            }
+        },
+        {
+            "name": "Bite",
+            "extras": {
+                "roll": "Bite",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+2"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d6"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Claws",
+            "extras": {
+                "roll": "Claws",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+2"
+                    },
+                    {
+                        "type": "slashing_attack",
+                        "value": "2d4"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Fetid Cloud (1/Day)",
+            "extras": {
+                "description": "A 10-foot radius of disgusting green gas extends out from the dretch. The gas spreads around corners, and its area is lightly obscured. It lasts for 1 minute or until a strong wind disperses it. Any creature that starts its turn in that area must succeed on a DC 11 Constitution saving throw or be poisoned until the start of its next turn. While poisoned in this way, the target can take either an action or a bonus action on its turn, not both, and can't take reactions.",
+                "used": []
+            }
+        }
+    ]
+}

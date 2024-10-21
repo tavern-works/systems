@@ -290,7 +290,7 @@
                 "value": {
                     "title": "Damage Type",
                     "type": "string",
-                    "enum": ["Cold", "Fire", "Piercing", "Poison"]
+                    "enum": ["Cold", "Fire", "Lightning", "Piercing", "Poison"]
                 }
             },
             "required": ["value"]
@@ -308,7 +308,8 @@
                 },
                 "description": {
                     "title": "Description",
-                    "type": "string"
+                    "type": "string",
+                    "format": "textarea"
                 },
                 "roll": {
                     "title": "Roll",
@@ -505,6 +506,7 @@
                 "Lawful Evil",
                 "Neutral",
                 "Neutral Evil",
+                "Chaotic Evil",
                 "Unaligned"
             ]
         },
@@ -620,6 +622,7 @@
                         "title": "Language",
                         "type": "string",
                         "enum": [
+                            "Abyssal",
                             "Any one",
                             "Any two",
                             "Aquan",
@@ -627,6 +630,7 @@
                             "Draconic",
                             "Goblin",
                             "One known by its creator",
+                            "Telepathy 60 ft (Abyssal only)",
                             "Understands Infernal, but can't speak",
                             "Understands Sylvan, but can't speak",
                             "Understands its creator, but can't speak"

@@ -1,0 +1,108 @@
+{
+    "name": "Giant Badger",
+    "id": "qcXyt8ylZZ7f",
+    "size": "Medium",
+    "type": "Beast",
+    "alignment": "Unaligned",
+    "hp": "2d8 + 4",
+    "speed": "30 ft, burrow 10 ft",
+    "ability_scores": [
+        13,
+        10,
+        15,
+        2,
+        12,
+        5
+    ],
+    "challenge": "1/4 (50 XP)",
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 30
+        },
+        {
+            "type": "passive_perception",
+            "value": 11
+        }
+    ],
+    "features": [
+        {
+            "name": "Keen Smell",
+            "extras": {
+                "description": "The badger has advantage on Wisdom (Perception) checks that rely on smell."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Bite",
+            "expression": "{d20} + 3",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 1
+                }
+            ]
+        },
+        {
+            "name": "Claws",
+            "expression": "{d20} + 3",
+            "damage": [
+                {
+                    "type": "Slashing",
+                    "count": 2,
+                    "sides": 4,
+                    "modifier": 1
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Multiattack",
+            "extras": {
+                "description": "The badger makes two attacks: one with its bite and one with its claws."
+            }
+        },
+        {
+            "name": "Bite",
+            "extras": {
+                "roll": "Bite",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d6 + 1"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Claws",
+            "extras": {
+                "roll": "Claws",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "slashing_attack",
+                        "value": "1d6 + 2"
+                    }
+                ]
+            }
+        }
+    ]
+}

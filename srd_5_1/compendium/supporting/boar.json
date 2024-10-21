@@ -1,0 +1,90 @@
+{
+    "name": "Boar",
+    "id": "y5DVswMyGVpt",
+    "size": "Medium",
+    "type": "Beast",
+    "alignment": "Unaligned",
+    "armor": [
+        "XSyXthp8xVjL"
+    ],
+    "hp": "2d8 + 2",
+    "speed": "40 ft",
+    "ability_scores": [
+        13,
+        11,
+        12,
+        2,
+        9,
+        5
+    ],
+    "skills": [],
+    "damage_vulnerabilities": [],
+    "damage_resistances": [],
+    "damage_immunities": [],
+    "condition_immunities": [],
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 9
+        }
+    ],
+    "languages": [],
+    "challenge": "1/4 (50 XP)",
+    "rolls": [
+        {
+            "name": "Charge Damage",
+            "expression": "1d6"
+        },
+        {
+            "name": "Tusk",
+            "expression": "{d20} + 3",
+            "damage": [
+                {
+                    "type": "Slashing",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 1
+                }
+            ]
+        }
+    ],
+    "features": [
+        {
+            "name": "Charge",
+            "extras": {
+                "description": "If the boar moves at least 20 feet straight toward a target and then hits it with a tusk attack on the same turn, the target takes an extra 1d6 slashing damage. If the target is a creature, it must succeed on a DC 11 Strength saving throw or be knocked prone.",
+                "roll": "Charge Damage"
+            }
+        },
+        {
+            "name": "Relentless",
+            "extras": {
+                "description": "If the boar takes 7 damage or less that would reduce it to 0 hit points, it is reduced to 1 hit point instead. Recharges after a Short or Long Rest.",
+                "used": [
+                    false
+                ]
+            }
+        }
+    ],
+    "actions": [
+        {
+            "name": "Tusk",
+            "extras": {
+                "roll": "Tusk",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "slashing_attack",
+                        "value": "1d6 + 1"
+                    }
+                ]
+            }
+        }
+    ]
+}

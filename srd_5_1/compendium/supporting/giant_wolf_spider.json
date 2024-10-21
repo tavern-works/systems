@@ -1,0 +1,105 @@
+{
+    "name": "Giant Wolf Spider",
+    "id": "VY7Nl88z5JsF",
+    "size": "Medium",
+    "type": "Beast",
+    "alignment": "Unaligned",
+    "hp": "2d8 + 2",
+    "speed": "40 ft, climb 40 ft",
+    "ability_scores": [
+        12,
+        16,
+        13,
+        3,
+        12,
+        4
+    ],
+    "challenge": "1/4 (50 XP)",
+    "skills": [
+        {
+            "type": "Perception",
+            "value": "+3"
+        },
+        {
+            "type": "Stealth",
+            "value": "+7"
+        }
+    ],
+    "senses": [
+        {
+            "type": "blindsight",
+            "value": 10
+        },
+        {
+            "type": "darkvision",
+            "value": 60
+        },
+        {
+            "type": "passive_perception",
+            "value": 13
+        }
+    ],
+    "features": [
+        {
+            "name": "Spider Climb",
+            "extras": {
+                "description": "The spider can climb difficult surfaces, including upside down on ceilings, without needing to make an ability check."
+            }
+        },
+        {
+            "name": "Web Sense",
+            "extras": {
+                "description": "While in contact with a web, the spider knows the exact location of any other creature in contact with the same web."
+            }
+        },
+        {
+            "name": "Web Walker",
+            "extras": {
+                "description": "The spider ignores movement restrictions caused by webbing."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Bite",
+            "expression": "{d20} + 3",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 1
+                },
+                {
+                    "type": "Poison",
+                    "count": 2,
+                    "sides": 6,
+                    "modifier": 0
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Bite",
+            "extras": {
+                "roll": "Bite",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d6 + 1"
+                    }
+                ],
+                "description": "On a hit, the target must make a DC 11 Constitution saving throw, taking 2d6 poison damage on a failed save, or half as much damage on a successful one. If the poison damage reduces the target to 0 hit points, the target is stable but poisoned for 1 hour, even after regaining hit points, and is paralyzed while poisoned in this way."
+            }
+        }
+    ],
+    "description": "Smaller than a giant spider, a **giant wolf spider** hunts prey across open ground or hides in a burrow or crevice, or in a hidden cavity beneath debris."
+}

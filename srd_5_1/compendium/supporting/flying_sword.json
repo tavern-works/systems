@@ -1,0 +1,117 @@
+{
+    "name": "Flying Sword",
+    "id": "77MXYxztqP2K",
+    "size": "Small",
+    "type": "Construct",
+    "alignment": "Unaligned",
+    "hp": "5d6",
+    "speed": "0 ft, fly 50 ft (hover)",
+    "ability_scores": [
+        12,
+        15,
+        11,
+        1,
+        5,
+        1
+    ],
+    "challenge": "1/4 (50 XP)",
+    "armor": [
+        "mrjDrvy7Cfy7"
+    ],
+    "saving_throws": [
+        {
+            "type": "Dexterity",
+            "value": "+4"
+        }
+    ],
+    "damage_immunities": [
+        {
+            "value": "Poison"
+        },
+        {
+            "value": "Psychic"
+        }
+    ],
+    "condition_immunities": [
+        {
+            "value": "Blinded"
+        },
+        {
+            "value": "Charmed"
+        },
+        {
+            "value": "Deafened"
+        },
+        {
+            "value": "Frightened"
+        },
+        {
+            "value": "Paralyzed"
+        },
+        {
+            "value": "Petrified"
+        },
+        {
+            "value": "Poisoned"
+        }
+    ],
+    "senses": [
+        {
+            "type": "blindsight_only",
+            "value": 60
+        },
+        {
+            "type": "passive_perception",
+            "value": 7
+        }
+    ],
+    "features": [
+        {
+            "name": "Antimagic Susceptibility",
+            "extras": {
+                "description": "The sword is incapacitated while in the area of an *antimagic field*. If targeted by *dispel magic*, the sword must succeed on a Constitution saving throw against the caster's spell save DC or fall unconscious for 1 minute."
+            }
+        },
+        {
+            "name": "False Appearance",
+            "extras": {
+                "description": "While the sword remains motionless and isn't flying, it is indistinguishable from a normal sword."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Longsword",
+            "expression": "{d20} + 3",
+            "damage": [
+                {
+                    "type": "Slashing",
+                    "count": 1,
+                    "sides": 8,
+                    "modifier": 1
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Longsword",
+            "extras": {
+                "roll": "Longsword",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "slashing_attack",
+                        "value": "1d8 + 1"
+                    }
+                ]
+            }
+        }
+    ]
+}

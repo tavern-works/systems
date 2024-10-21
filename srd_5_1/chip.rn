@@ -31,6 +31,9 @@ pub fn get_for_attribute(attribute) {
         "Deception" => Chip::new([ChipField::Text("Deception"), ChipField::Divider, ChipField::Value])
             .tooltip("Roll Deception Check")
             .roll(PrepareOptions::by_name("Deception Check")),
+        "Dexterity" => Chip::new([ChipField::Text("Dexterity"), ChipField::Divider, ChipField::Value])
+            .tooltip("Roll Dexterity Saving Throw")
+            .roll(PrepareOptions::by_name("Dexterity Saving Throw")),
         "dim_light" => Chip::new([ChipField::Text("Dim Light"), ChipField::Divider, ChipField::Value])
             .tooltip("Emits dim light in a {}-foot radius"),
         "disadvantage" => Chip::new([ChipField::Text("Disadvantage"), ChipField::Divider, ChipField::Value])

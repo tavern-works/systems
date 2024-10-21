@@ -47,7 +47,16 @@ impl super::Supporting {
 
         layout.push(Section::Grid(Grid::new(header, false)));
 
-        if !self.template["skills"].is_empty() {
+        if self.template.contains_key("saving_throws") && !self.template["saving_throws"].is_empty() {
+            let saving_throws = [
+                Cell::try_new(0..3, 0..1, Contents::new_label().label("Saving Throws")?.align(Alignment::Right)?)?,
+                Cell::try_new(3..12, 0..1, Contents::ChipList("saving_throws"))?
+            ];
+
+            layout.push(Section::Grid(Grid::new(saving_throws, false)));
+        }
+
+        if self.template.contains_key("skills") && !self.template["skills"].is_empty() {
             let skills = [
                 Cell::try_new(0..2, 0..1, Contents::new_label().label("Skills")?.align(Alignment::Right)?)?,
                 Cell::try_new(2..12, 0..1, Contents::ChipList("skills"))?,
@@ -56,7 +65,7 @@ impl super::Supporting {
             layout.push(Section::Grid(Grid::new(skills, false)));
         }
 
-        if !self.template["damage_vulnerabilities"].is_empty() {
+        if self.template.contains_key("damage_vulnerabilities") && !self.template["damage_vulnerabilities"].is_empty() {
             let damage_vulnerabilities = [
                 Cell::try_new(0..12, 0..1, Contents::new_label().label("Damage Vulnerabilites")?.align(Alignment::Left)?)?,
                 Cell::try_new(0..12, 1..2, Contents::ChipList("damage_vulnerabilities"))?,
@@ -65,7 +74,7 @@ impl super::Supporting {
             layout.push(Section::Grid(Grid::new(damage_vulnerabilities, false)));
         }
 
-        if !self.template["damage_resistances"].is_empty() {
+        if self.template.contains_key("damage_resistances") && !self.template["damage_resistances"].is_empty() {
             let damage_resistances = [
                 Cell::try_new(0..12, 0..1, Contents::new_label().label("Damage Resistances")?.align(Alignment::Left)?)?,
                 Cell::try_new(0..12, 1..2, Contents::ChipList("damage_resistances"))?,
@@ -74,7 +83,7 @@ impl super::Supporting {
             layout.push(Section::Grid(Grid::new(damage_resistances, false)));
         }
 
-        if !self.template["damage_immunities"].is_empty() {
+        if self.template.contains_key("damage_immunities") && !self.template["damage_immunities"].is_empty() {
             let damage_immunities = [
                 Cell::try_new(0..12, 0..1, Contents::new_label().label("Damage Immunities")?.align(Alignment::Left)?)?,
                 Cell::try_new(0..12, 1..2, Contents::ChipList("damage_immunities"))?,
@@ -83,7 +92,7 @@ impl super::Supporting {
             layout.push(Section::Grid(Grid::new(damage_immunities, false)));
         }
 
-        if !self.template["condition_immunities"].is_empty() {
+        if self.template.contains_key("condition_immunities") && !self.template["condition_immunities"].is_empty() {
             let condition_immunities = [
                 Cell::try_new(0..12, 0..1, Contents::new_label().label("Condition Immunities")?.align(Alignment::Left)?)?,
                 Cell::try_new(0..12, 1..2, Contents::ChipList("condition_immunities"))?,
@@ -92,7 +101,7 @@ impl super::Supporting {
             layout.push(Section::Grid(Grid::new(condition_immunities, false)));
         }
 
-        if !self.template["senses"].is_empty() {
+        if self.template.contains_key("senses") && !self.template["senses"].is_empty() {
             let senses = [
                 Cell::try_new(0..2, 0..1, Contents::new_label().label("Senses")?.align(Alignment::Right)?)?,
                 Cell::try_new(2..12, 0..1, Contents::ChipList("senses"))?,
@@ -101,7 +110,7 @@ impl super::Supporting {
             layout.push(Section::Grid(Grid::new(senses, false)));
         }
 
-        if !self.template["languages"].is_empty() {
+        if self.template.contains_key("languages") && !self.template["languages"].is_empty() {
             let languages = [
                 Cell::try_new(0..3, 0..1, Contents::new_label().label("Languages")?.align(Alignment::Right)?)?,
                 Cell::try_new(3..12, 0..1, Contents::ChipList("languages"))?,

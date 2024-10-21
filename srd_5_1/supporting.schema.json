@@ -35,6 +35,11 @@
                     "const": "KhZCsRJVgGRP"
                 },
                 {
+                    "title": "Natural Armor (+5)",
+                    "type": "string",
+                    "const": "mrjDrvy7Cfy7"
+                },
+                {
                     "title": "Shield",
                     "type": "string",
                     "const": "nY7KF1CqTVKG"
@@ -290,7 +295,14 @@
                 "value": {
                     "title": "Damage Type",
                     "type": "string",
-                    "enum": ["Cold", "Fire", "Lightning", "Piercing", "Poison"]
+                    "enum": [
+                        "Cold",
+                        "Fire",
+                        "Lightning",
+                        "Piercing",
+                        "Poison",
+                        "Psychic"
+                    ]
                 }
             },
             "required": ["value"]
@@ -540,6 +552,28 @@
                 "maximum": 30
             }
         },
+        "saving_throws": {
+            "title": "Saving Throws",
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+                "title": "Saving Throw",
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "title": "Ability",
+                        "type": "string",
+                        "enum": ["Dexterity"]
+                    },
+                    "value": {
+                        "title": "Modifier",
+                        "type": "string",
+                        "default": "+0"
+                    }
+                },
+                "required": ["type", "value"]
+            }
+        },
         "skills": {
             "title": "Skills",
             "type": "array",
@@ -689,17 +723,9 @@
         "size",
         "type",
         "alignment",
-        "armor",
         "hp",
         "speed",
         "ability_scores",
-        "skills",
-        "damage_vulnerabilities",
-        "damage_resistances",
-        "damage_immunities",
-        "condition_immunities",
-        "senses",
-        "languages",
         "challenge"
     ]
 }

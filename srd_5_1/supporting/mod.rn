@@ -191,13 +191,32 @@ impl Supporting {
         let roll = Roll::try_new("Initiative", configs, expression)?;
         rolls.push(roll);
 
+        let saving_throws = self.template.get("saving_throws").unwrap_or([]);
+        for saving_throw in saving_throws {
+            log::info!("st {:?}", saving_throw);
+
+            let configs = [
+                RollConfig::new("Advantage", "@advantage", 'A', [], "false"),
+                RollConfig::new("Disadvantage", "@disadvantage", 'D', [], "false"),
+            ];
+            let expression = format!("{d20}{}", saving_throw["value"]);
+            let roll = Roll::try_new(format!("{} Saving Throw", saving_throw["type"]), configs, expression)?;
+            rolls.push(roll);
+        }
+
+        let skills = if self.template.contains_key("skills") {
+            self.template["skills"]
+        } else {
+            []
+        };
+
         for skill in Skill::all() {
             let configs = [
                 RollConfig::new("Advantage", "@advantage", 'A', [], "false"),
                 RollConfig::new("Disadvantage", "@disadvantage", 'D', [], "false"),
             ];
 
-            if let Some(proficiency) = self.template["skills"].iter().find(|s| s["type"] == skill.name()) {
+            if let Some(proficiency) = skills.iter().find(|s| s["type"] == skill.name()) {
                 let expression = format!("{d20} {}", proficiency["value"]);
                 let roll = Roll::try_new(skill.name() + " Check", configs, expression)?;
                 rolls.push(roll);
@@ -263,13 +282,6 @@ impl Supporting {
             "temp_hp": self.temp_hp,
             "speed": self.template["speed"],
 
-            "skills": self.template["skills"],
-            "damage_vulnerabilities": self.template["damage_vulnerabilities"],
-            "damage_resistances": self.template["damage_resistances"],
-            "damage_immunities": self.template["damage_immunities"],
-            "condition_immunities": self.template["condition_immunities"],
-            "senses": self.template["senses"],
-            "languages": self.template["languages"],
             "challenge": self.template["challenge"],
         };
 
@@ -278,8 +290,21 @@ impl Supporting {
             data[ability.modifier_variable()] = self.ability_modifier(self.template, ability);
         }
 
-        if self.template.contains_key("description") {
-            data["description"] = self.template["description"];
+        let sections = [
+            "saving_throws",
+            "skills",
+            "damage_vulnerabilities",
+            "damage_resistances",
+            "damage_immunities",
+            "condition_immunities",
+            "senses",
+            "languages",
+        ];
+
+        for section in sections {
+            if self.template.contains_key(section) {
+                data[section] = self.template[section]
+            }
         }
 
         Ok(data)
@@ -333,7 +358,13 @@ impl Supporting {
         let dex_mod = self.ability_modifier(template, Ability::Dexterity);
         let has_armor = false;
 
-        for item in template["armor"] {
+        let armor = if template.contains_key("armor") {
+            template["armor"]
+        } else {
+            []
+        };
+
+        for item in armor {
             let item = tables.get_compendium_entry_by_id(Uid::from_string(item))?;
             for attribute in item["attributes"] {
                 match attribute["type"] {
@@ -363,7 +394,13 @@ impl Supporting {
 
     fn armor_description(self, tables, template) {
         let names = "";
-        for item in template["armor"] {
+        let armor = if template.contains_key("armor") {
+            template["armor"]
+        } else {
+            []
+        };
+
+        for item in armor {
             let item = tables.get_compendium_entry_by_id(Uid::from_string(item))?;
             if !names.is_empty() {
                 names += ", ";

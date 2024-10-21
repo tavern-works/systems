@@ -4,7 +4,6 @@
     "size": "Large",
     "type": "Beast",
     "alignment": "Unaligned",
-    "armor": [],
     "hp": "2d10 + 2",
     "speed": "50 ft",
     "ability_scores": [
@@ -15,19 +14,13 @@
         10,
         6
     ],
-    "skills": [],
-    "damage_vulnerabilities": [],
-    "damage_resistances": [],
-    "damage_immunities": [],
-    "condition_immunities": [],
+    "challenge": "1/4 (50 XP)",
     "senses": [
         {
             "type": "passive_perception",
             "value": 10
         }
     ],
-    "languages": [],
-    "challenge": "1/4 (50 XP)",
     "features": [
         {
             "name": "Charge",

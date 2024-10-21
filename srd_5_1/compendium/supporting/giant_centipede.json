@@ -1,0 +1,73 @@
+{
+    "name": "Giant Centipede",
+    "id": "j4smrMp6b36z",
+    "size": "Small",
+    "type": "Beast",
+    "alignment": "Unaligned",
+    "hp": "1d6 + 1",
+    "speed": "30 ft, climb 30 ft",
+    "ability_scores": [
+        5,
+        14,
+        12,
+        1,
+        7,
+        3
+    ],
+    "challenge": "1/4 (50 XP)",
+    "senses": [
+        {
+            "type": "blindsight",
+            "value": 30
+        },
+        {
+            "type": "passive_perception",
+            "value": 8
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Bite",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 4,
+                    "modifier": 2
+                },
+                {
+                    "type": "Poison",
+                    "count": 3,
+                    "sides": 6,
+                    "modifier": 0
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Bite",
+            "extras": {
+                "roll": "Bite",
+                "description": "On a hit, the target must succeed on a DC 11 Constitution saving throw or take 3d6 poison damage. If the poison damage reduces the target to 0 hit points, the target is stable but poisoned for 1 hour, even after regaining hit points, and is paralyzed while poisoned in this way.",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d4 + 2"
+                    }
+                ]
+            }
+        }
+    ],
+    "armor": [
+        "XSyXthp8xVjL"
+    ]
+}

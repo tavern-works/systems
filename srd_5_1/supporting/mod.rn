@@ -299,6 +299,7 @@ impl Supporting {
             "condition_immunities",
             "senses",
             "languages",
+            "description"
         ];
 
         for section in sections {

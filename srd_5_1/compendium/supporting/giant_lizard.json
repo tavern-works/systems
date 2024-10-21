@@ -1,0 +1,67 @@
+{
+    "name": "Giant Lizard",
+    "id": "1fzR9600YckY",
+    "size": "Large",
+    "type": "Beast",
+    "alignment": "Unaligned",
+    "hp": "3d10 + 3",
+    "speed": "30 ft, climb 30 ft",
+    "ability_scores": [
+        15,
+        12,
+        13,
+        2,
+        10,
+        5
+    ],
+    "challenge": "1/4 (50 XP)",
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 30
+        },
+        {
+            "type": "passive_perception",
+            "value": 10
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Bite",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 8,
+                    "modifier": 2
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Bite",
+            "extras": {
+                "roll": "Bite",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d8 + 2"
+                    }
+                ]
+            }
+        }
+    ],
+    "description": "A **giant lizard** can be ridden or used as a draft animal. Lizardfolk also keep them as pets, and subterranean giant lizards are used as mounts and pack animals by drow, duergar, and others.",
+    "armor": [
+        "XSyXthp8xVjL"
+    ]
+}

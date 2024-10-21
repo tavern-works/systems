@@ -1,0 +1,177 @@
+{
+    "name": "Drow",
+    "id": "tSGkYyLbyzZh",
+    "size": "Medium",
+    "type": "Humanoid (elf)",
+    "alignment": "Neutral Evil",
+    "armor": [
+        "GyBNs52x7QkZ"
+    ],
+    "hp": "3d8",
+    "speed": "30 ft",
+    "ability_scores": [
+        10,
+        14,
+        10,
+        11,
+        11,
+        12
+    ],
+    "skills": [
+        {
+            "type": "Perception",
+            "value": "+2"
+        },
+        {
+            "type": "Stealth",
+            "value": "+4"
+        }
+    ],
+    "damage_vulnerabilities": [],
+    "damage_resistances": [],
+    "damage_immunities": [],
+    "condition_immunities": [],
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 120
+        },
+        {
+            "type": "passive_perception",
+            "value": 12
+        }
+    ],
+    "languages": [
+        {
+            "value": "Elvish"
+        },
+        {
+            "value": "Undercommon"
+        }
+    ],
+    "challenge": "1/4 (50 XP)",
+    "features": [
+        {
+            "name": "Fey Ancestry",
+            "extras": {
+                "description": "The drow has advantage on saving throws against being charmed, and magic can't put the drow to sleep."
+            }
+        },
+        {
+            "name": "Innate Spellcasting",
+            "extras": {
+                "attributes": [
+                    {
+                        "type": "spellcasting_ability",
+                        "value": "Charisma"
+                    },
+                    {
+                        "type": "spell_save_dc",
+                        "value": 11
+                    }
+                ],
+                "description": "The drow can innately cast the following spells, requiring no material components.",
+                "compendium_uses": {
+                    "section": "spell",
+                    "categories": [
+                        {
+                            "name": "At Will",
+                            "entries": [
+                                "Dancing Lights"
+                            ],
+                            "used": []
+                        },
+                        {
+                            "name": "1/Day Each",
+                            "entries": [
+                                "Darkness",
+                                "Faerie Fire"
+                            ],
+                            "used": [
+                                false,
+                                false
+                            ]
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Sunlight Sensitivity",
+            "extras": {
+                "description": "While in sunlight, the drow has disadvantage on attack rolls, as well as on Wisdom (Perception) checks that rely on sight."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Shortsword",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 2
+                }
+            ]
+        },
+        {
+            "name": "Hand Crossbow",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 2
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Shortsword",
+            "extras": {
+                "roll": "Shortsword",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d6 + 2"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Hand Crossbow",
+            "extras": {
+                "roll": "Hand Crossbow",
+                "attributes": [
+                    {
+                        "type": "ranged_weapon"
+                    },
+                    {
+                        "type": "range",
+                        "value": "30/120"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d6 + 2"
+                    }
+                ],
+                "description": "On a hit, the target must succeed on a DC 13 Constitution saving throw or be poisoned for 1 hour. If the saving throw fails by 5 or more, the target is also unconscious while poisoned in this way. The target wakes up if it takes damage or if another creature takes an action to shake it awake."
+            }
+        }
+    ]
+}

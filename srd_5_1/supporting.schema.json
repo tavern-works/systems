@@ -202,7 +202,7 @@
                         "value": {
                             "title": "Ability",
                             "type": "string",
-                            "enum": ["Wisdom"]
+                            "enum": ["Charisma", "Wisdom"]
                         }
                     },
                     "required": ["type", "value"]
@@ -628,9 +628,11 @@
                             "Aquan",
                             "Common",
                             "Draconic",
+                            "Elvish",
                             "Goblin",
                             "One known by its creator",
-                            "Telepathy 60 ft (Abyssal only)",
+                            "Telepathft (Abyssal only)",
+                            "Undercommon",
                             "Understands Infernal, but can't speak",
                             "Understands Sylvan, but can't speak",
                             "Understands its creator, but can't speak"

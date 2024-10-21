@@ -37,7 +37,7 @@
         "range": {
             "title": "Range",
             "type": "string",
-            "enum": ["Self", "Touch", "30 feet", "60 feet"]
+            "enum": ["Self", "Touch", "30 feet", "60 feet", "120 feet"]
         },
         "components": {
             "title": "Components",
@@ -68,7 +68,13 @@
         "duration": {
             "title": "Duration",
             "type": "string",
-            "enum": ["Instantaneous", "Up to 1 minute", "1 minute", "1 hour"]
+            "enum": [
+                "Instantaneous",
+                "Up to 1 minute",
+                "1 minute",
+                "Up to 10 minutes",
+                "1 hour"
+            ]
         },
         "description": {
             "title": "Description",
@@ -79,6 +85,7 @@
             "title": "Spell Lists",
             "type": "array",
             "uniqueItems": true,
+            "format": "checkbox",
             "items": {
                 "title": "Class",
                 "type": "string",
@@ -89,6 +96,7 @@
                     "Paladin",
                     "Ranger",
                     "Sorcerer",
+                    "Warlock",
                     "Wizard"
                 ]
             }

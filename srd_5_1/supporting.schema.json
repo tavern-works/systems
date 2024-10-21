@@ -587,6 +587,7 @@
                         "title": "Skill",
                         "type": "string",
                         "enum": [
+                            "Athletics",
                             "Deception",
                             "Insight",
                             "Medicine",

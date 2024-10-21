@@ -1,0 +1,117 @@
+{
+    "name": "Grimlock",
+    "id": "GbxzDSDy3gSz",
+    "size": "Medium",
+    "type": "Humanoid (grimlock)",
+    "alignment": "Neutral Evil",
+    "hp": "2d8 + 2",
+    "speed": "30 ft",
+    "ability_scores": [
+        16,
+        12,
+        12,
+        9,
+        8,
+        6
+    ],
+    "challenge": "1/4 (50 XP)",
+    "skills": [
+        {
+            "type": "Athletics",
+            "value": "+5"
+        },
+        {
+            "type": "Perception",
+            "value": "+3"
+        },
+        {
+            "type": "Stealth",
+            "value": "+3"
+        }
+    ],
+    "condition_immunities": [
+        {
+            "value": "Blinded"
+        }
+    ],
+    "senses": [
+        {
+            "type": "blindsight",
+            "value": 30
+        },
+        {
+            "type": "passive_perception",
+            "value": 13
+        }
+    ],
+    "languages": [
+        {
+            "value": "Undercommon"
+        }
+    ],
+    "features": [
+        {
+            "name": "Blind Senses",
+            "extras": {
+                "description": "The grimlock's blindsight is limited to a range of 10 feet while deafened, and it is blind beyond this radius.\n\nThe grimlock can't use its blindsight while deafened and unable to smell."
+            }
+        },
+        {
+            "name": "Keen Hearing and Smell",
+            "extras": {
+                "description": "The grimlock has advantage on Wisdom (Perception) checks that rely on hearing or smell."
+            }
+        },
+        {
+            "name": "Stone Camouflage",
+            "extras": {
+                "description": "The grimlock has advantage on Dexterity (Stealth) checks made to hide in rocky terrain."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Spiked Bone Club",
+            "expression": "{d20} + 5",
+            "damage": [
+                {
+                    "type": "Bludgeoning",
+                    "count": 1,
+                    "sides": 4,
+                    "modifier": 3
+                },
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 4,
+                    "modifier": 0
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Spiked Bone Club",
+            "extras": {
+                "roll": "Spiked Bone Club",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+5"
+                    },
+                    {
+                        "type": "bludgeoning_attack",
+                        "value": "1d4 + 3"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d4"
+                    }
+                ]
+            }
+        }
+    ]
+}

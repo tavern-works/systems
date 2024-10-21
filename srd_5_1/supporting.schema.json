@@ -332,7 +332,8 @@
                     "type": "array",
                     "items": {
                         "title": "Use",
-                        "type": "boolean"
+                        "type": "boolean",
+                        "format": "checkbox"
                     }
                 },
                 "compendium_uses": {

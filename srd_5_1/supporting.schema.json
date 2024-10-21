@@ -718,7 +718,8 @@
         },
         "description": {
             "title": "Description",
-            "type": "string"
+            "type": "string",
+            "format": "textarea"
         }
     },
     "required": [

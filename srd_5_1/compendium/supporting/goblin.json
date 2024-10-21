@@ -4,10 +4,6 @@
     "size": "Small",
     "type": "Humanoid (goblinoid)",
     "alignment": "Neutral Evil",
-    "armor": [
-        "mVvkHTZh19NX",
-        "nY7KF1CqTVKG"
-    ],
     "hp": "2d6",
     "speed": "30 ft",
     "ability_scores": [
@@ -18,16 +14,13 @@
         8,
         8
     ],
+    "challenge": "1/4 (50 XP)",
     "skills": [
         {
             "type": "Stealth",
             "value": "+6"
         }
     ],
-    "damage_vulnerabilities": [],
-    "damage_resistances": [],
-    "damage_immunities": [],
-    "condition_immunities": [],
     "senses": [
         {
             "type": "darkvision",
@@ -38,15 +31,6 @@
             "value": 9
         }
     ],
-    "languages": [
-        {
-            "value": "Common"
-        },
-        {
-            "value": "Goblin"
-        }
-    ],
-    "challenge": "1/4 (50 XP)",
     "features": [
         {
             "name": "Nimble Escape",
@@ -123,6 +107,18 @@
                 ],
                 "roll": "Shortbow"
             }
+        }
+    ],
+    "armor": [
+        "mVvkHTZh19NX",
+        "nY7KF1CqTVKG"
+    ],
+    "languages": [
+        {
+            "value": "Common"
+        },
+        {
+            "value": "Goblin"
         }
     ]
 }

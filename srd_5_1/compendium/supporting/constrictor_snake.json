@@ -1,0 +1,105 @@
+{
+    "name": "Constrictor Snake",
+    "id": "XQjkBf6mZJ5B",
+    "size": "Large",
+    "type": "Beast",
+    "alignment": "Unaligned",
+    "armor": [],
+    "hp": "2d10 + 2",
+    "speed": "30 ft, swim 30 ft",
+    "ability_scores": [
+        15,
+        14,
+        12,
+        1,
+        10,
+        3
+    ],
+    "skills": [],
+    "damage_vulnerabilities": [],
+    "damage_resistances": [],
+    "damage_immunities": [],
+    "condition_immunities": [],
+    "senses": [
+        {
+            "type": "blindsight",
+            "value": 10
+        },
+        {
+            "type": "passive_perception",
+            "value": 10
+        }
+    ],
+    "languages": [],
+    "challenge": "1/4 (50 XP)",
+    "rolls": [
+        {
+            "name": "Bite",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 2
+                }
+            ]
+        },
+        {
+            "name": "Constrict",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Bludgeoning",
+                    "count": 1,
+                    "sides": 8,
+                    "modifier": 2
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Bite",
+            "extras": {
+                "roll": "Bite",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d6 + 2"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Constrict",
+            "extras": {
+                "roll": "Constrict",
+                "description": "On a hit, the target is grappled (escape DC 14). Until this grapple ends, the creature is restrained, and the snake can't constrict another target.",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "bludgeoning_attack",
+                        "value": "1d8 + 2"
+                    }
+                ],
+                "used": [
+                    false
+                ]
+            }
+        }
+    ]
+}

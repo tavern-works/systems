@@ -5,6 +5,11 @@
             "title": "Armor",
             "oneOf": [
                 {
+                    "title": "Armor Scraps",
+                    "type": "string",
+                    "const": "BCLvsjWBrcH1"
+                },
+                {
                     "title": "Breastplate",
                     "type": "string",
                     "const": "D09JsNwQWVPN"
@@ -251,6 +256,7 @@
                         "Blinded",
                         "Charmed",
                         "Deafened",
+                        "Exhaustion",
                         "Frightened",
                         "Paralyzed",
                         "Petrified",
@@ -296,6 +302,7 @@
                     "title": "Damage Type",
                     "type": "string",
                     "enum": [
+                        "Bludgeoning",
                         "Cold",
                         "Fire",
                         "Lightning",
@@ -663,11 +670,12 @@
                             "Any one",
                             "Any two",
                             "Aquan",
-                            "Can't Speak",
+                            "Can't speak",
                             "Common",
                             "Draconic",
                             "Elvish",
                             "Goblin",
+                            "Understands languages known in life",
                             "One known by its creator",
                             "Telepathy 60 ft (Abyssal only)",
                             "Undercommon",

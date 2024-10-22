@@ -57,6 +57,12 @@
         "description": "A creature that drinks this vial of liquid gains advantage on saving throws against poison for 1 hour. It confers no benefit to undead or constructs."
     },
     {
+        "id": "BCLvsjWBrcH1",
+        "name": "Armor Scraps",
+        "attributes": [{ "type": "ac_plus_dex_mod", "value": 11 }],
+        "_invisible": true
+    },
+    {
         "id": "7PqK6TQKTLn6",
         "name": "Arrow",
         "cost": 0.05,

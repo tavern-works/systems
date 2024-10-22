@@ -1,0 +1,127 @@
+{
+    "name": "Skeleton",
+    "id": "2ZdqjW8lDC1b",
+    "size": "Medium",
+    "type": "Undead",
+    "alignment": "Lawful Evil",
+    "hp": "2d8 + 4",
+    "speed": "30 ft",
+    "ability_scores": [
+        10,
+        14,
+        15,
+        6,
+        8,
+        5
+    ],
+    "challenge": "1/4 (50 XP)",
+    "armor": [
+        "BCLvsjWBrcH1"
+    ],
+    "damage_vulnerabilities": [
+        {
+            "value": "Bludgeoning"
+        }
+    ],
+    "damage_immunities": [
+        {
+            "value": "Poison"
+        }
+    ],
+    "condition_immunities": [
+        {
+            "value": "Exhaustion"
+        },
+        {
+            "value": "Poisoned"
+        }
+    ],
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 60
+        },
+        {
+            "type": "passive_perception",
+            "value": 9
+        }
+    ],
+    "languages": [
+        {
+            "value": "Can't speak"
+        },
+        {
+            "value": "Understands languages known in life"
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Shortsword",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 2
+                }
+            ]
+        },
+        {
+            "name": "Shortbow",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 2
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Shortsword",
+            "extras": {
+                "roll": "Shortsword",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d6 + 2"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Shortbow",
+            "extras": {
+                "roll": "Shortbow",
+                "attributes": [
+                    {
+                        "type": "ranged_weapon"
+                    },
+                    {
+                        "type": "range",
+                        "value": "80/320"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d6 + 2"
+                    }
+                ]
+            }
+        }
+    ]
+}

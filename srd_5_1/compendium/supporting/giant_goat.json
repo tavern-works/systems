@@ -1,0 +1,81 @@
+{
+    "name": "Giant Goat",
+    "id": "Czg7BXc6NWxT",
+    "size": "Large",
+    "type": "Beast",
+    "alignment": "Unaligned",
+    "hp": "3d10 + 3",
+    "speed": "40 ft",
+    "ability_scores": [
+        17,
+        11,
+        12,
+        3,
+        12,
+        6
+    ],
+    "challenge": "1/2 (100 XP)",
+    "armor": [
+        "XSyXthp8xVjL"
+    ],
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 11
+        }
+    ],
+    "features": [
+        {
+            "name": "Charge",
+            "extras": {
+                "description": "If the goat moves at least 20 feet straight toward a target and then hits it with a ram attack on the same turn, the target takes an extra 2d4 bludgeoning damage. If the target is a creature, it must succeed on a DC 13 Strength saving throw or be knocked prone.",
+                "roll": "Charge Damage"
+            }
+        },
+        {
+            "name": "Sure-Footed",
+            "extras": {
+                "description": "The goat has advantage on Strength and Dexterity saving throws made against effects that would knock it prone."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Charge Damage",
+            "expression": "2d4"
+        },
+        {
+            "name": "Ram",
+            "expression": "{d20} + 5",
+            "damage": [
+                {
+                    "type": "Bludgeoning",
+                    "count": 2,
+                    "sides": 4,
+                    "modifier": 3
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Ram",
+            "extras": {
+                "roll": "Ram",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+5"
+                    },
+                    {
+                        "type": "bludgeoning_attack",
+                        "value": "2d4 + 3"
+                    }
+                ]
+            }
+        }
+    ]
+}

@@ -59,7 +59,7 @@
         {
             "name": "Relentless",
             "extras": {
-                "description": "If the boar takes 7 damage or less that would reduce it to 0 hit points, it is reduced to 1 hit point instead. Recharges after a Short or Long Rest.",
+                "description": "If the boar takes 7 damage or less that would reduce it to 0 hit points, it is reduced to 1 hit point instead. Recharges after a short or long rest.",
                 "used": [
                     false
                 ]

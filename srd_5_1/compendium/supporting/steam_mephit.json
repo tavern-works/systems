@@ -1,0 +1,147 @@
+{
+    "name": "Steam Mephit",
+    "id": "HWmD7K0PhM0f",
+    "size": "Small",
+    "type": "Elemental",
+    "alignment": "Neutral Evil",
+    "hp": "6d6",
+    "speed": "30 ft, fly 30 ft",
+    "ability_scores": [
+        5,
+        11,
+        10,
+        11,
+        10,
+        12
+    ],
+    "challenge": "1/4 (50 XP)",
+    "damage_immunities": [
+        {
+            "value": "Fire"
+        },
+        {
+            "value": "Poison"
+        }
+    ],
+    "condition_immunities": [
+        {
+            "value": "Poisoned"
+        }
+    ],
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 60
+        },
+        {
+            "type": "passive_perception",
+            "value": 10
+        }
+    ],
+    "languages": [
+        {
+            "value": "Aquan"
+        },
+        {
+            "value": "Ignan"
+        }
+    ],
+    "features": [
+        {
+            "name": "Death Burst",
+            "extras": {
+                "description": "When the mephit dies, it explodes in a cloud of steam. Each creature within 5 feet of the mephit must succeed on a DC 10 Dexterity saving throw or take 1d8 fire damage.",
+                "roll": "Death Burst Damage"
+            }
+        },
+        {
+            "name": "Innate Spellcasting",
+            "extras": {
+                "description": "The mephit can innately cast *blur*, requiring no material components.",
+                "compendium_uses": {
+                    "section": "spell",
+                    "categories": [
+                        {
+                            "name": "1/Day",
+                            "entries": [
+                                "Blur"
+                            ],
+                            "used": [
+                                false
+                            ]
+                        }
+                    ]
+                },
+                "attributes": [
+                    {
+                        "type": "spellcasting_ability",
+                        "value": "Charisma"
+                    }
+                ]
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Death Burst Damage",
+            "expression": "1d8"
+        },
+        {
+            "name": "Claws",
+            "expression": "{d20} + 2",
+            "damage": [
+                {
+                    "type": "Slashing",
+                    "count": 1,
+                    "sides": 4,
+                    "modifier": 0
+                },
+                {
+                    "type": "Fire",
+                    "count": 1,
+                    "sides": 4,
+                    "modifier": 0
+                }
+            ]
+        },
+        {
+            "name": "Steam Breath Damage",
+            "expression": "1d8"
+        }
+    ],
+    "actions": [
+        {
+            "name": "Claws",
+            "extras": {
+                "roll": "Claws",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+2"
+                    },
+                    {
+                        "type": "slashing_attack",
+                        "value": "1d4"
+                    },
+                    {
+                        "type": "fire_attack",
+                        "value": "1d4"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Steam Breath (Recharge 6)",
+            "extras": {
+                "roll": "Steam Breath Damage",
+                "description": "The mephit exhales a 15-foot cone of scalding steam. Each creature in that area must succeed on a DC 10 Dexterity saving throw, taking 1d8 fire damage on a failed save, or half as much damage on a successful one.",
+                "used": [
+                    false
+                ]
+            }
+        }
+    ]
+}

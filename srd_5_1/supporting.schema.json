@@ -70,6 +70,22 @@
                     "required": ["type", "value"]
                 },
                 {
+                    "title": "Fire Attack",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "const": "fire_attack"
+                        },
+                        "value": {
+                            "title": "Damage",
+                            "type": "string",
+                            "default": "1d6 + 2"
+                        }
+                    },
+                    "required": ["type", "value"]
+                },
+                {
                     "title": "Melee Weapon",
                     "type": "object",
                     "properties": {
@@ -274,7 +290,13 @@
                 "type": {
                     "title": "Damage Type",
                     "type": "string",
-                    "enum": ["Bludgeoning", "Piercing", "Poison", "Slashing"]
+                    "enum": [
+                        "Bludgeoning",
+                        "Fire",
+                        "Piercing",
+                        "Poison",
+                        "Slashing"
+                    ]
                 },
                 "count": {
                     "title": "Count",
@@ -675,6 +697,7 @@
                             "Draconic",
                             "Elvish",
                             "Goblin",
+                            "Ignan",
                             "One known by its creator",
                             "Sylvan",
                             "Telepathy 60 ft (Abyssal only)",

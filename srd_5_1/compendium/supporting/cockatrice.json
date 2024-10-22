@@ -1,0 +1,64 @@
+{
+    "name": "Cockatrice",
+    "id": "Mzqy7HvQkMdt",
+    "size": "Small",
+    "type": "Monstrosity",
+    "alignment": "Unaligned",
+    "hp": "6d6 + 6",
+    "speed": "20 ft, fly 40 ft",
+    "ability_scores": [
+        6,
+        12,
+        12,
+        2,
+        13,
+        5
+    ],
+    "challenge": "1/2 (100 XP)",
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 60
+        },
+        {
+            "type": "passive_perception",
+            "value": 11
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Bite",
+            "expression": "{d20} + 3",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 4,
+                    "modifier": 1
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Bite",
+            "extras": {
+                "roll": "Bite",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d4 + 1"
+                    }
+                ],
+                "description": "On a hit, the target must succeed on a DC 11 Constitution saving throw against being magically petrified. On a failed save, the creature begins to turn to stone and is restrained. It must repeat the saving throw at the end of its next turn. On a success, the effect ends. On a failure, the creature is petrified for 24 hours."
+            }
+        }
+    ]
+}

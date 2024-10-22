@@ -16,7 +16,7 @@ impl super::Supporting {
             Cell::try_new(3..5, 4..5, Contents::new_number("hp").align(Alignment::Center)?)?,
             Cell::try_new(5..7, 4..5, Contents::new_label().label("Max HP")?.align(Alignment::Right)?)?,
             Cell::try_new(7..9, 4..5, Contents::new_number("max_hp").align(Alignment::Center)?)?,
-            Cell::try_new(9..11, 4..5, Contents::new_text("hp_expression").align(Alignment::Center)?.read_only()?)?,
+            Cell::try_new(9..11, 4..5, Contents::new_text("hp_expression").align(Alignment::Center)?.read_only()?.roll(PrepareOptions::by_name("Maximum HP"))?.tooltip("Roll Maximum HP")?)?,
             Cell::try_new(11..12, 4..5, Contents::new_number("temp_hp").align(Alignment::Center)?.label("Temp")?)?,
             Cell::try_new(0..3, 5..6, Contents::new_label().label("Speed")?.align(Alignment::Right)?)?,
             Cell::try_new(3..9, 5..6, Contents::new_text("speed").align(Alignment::Left)?.read_only()?)?,

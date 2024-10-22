@@ -1,6 +1,6 @@
 use crate::{Ability, Skill};
 
-use tavern::{anyhow, Card, Change, HitPoints, Roll, RollConfig, TableKey, Uid, Variable};
+use tavern::{anyhow, Action, Card, Change, HitPoints, Roll, RollConfig, TableKey, Target, Uid, Variable};
 
 mod layout;
 
@@ -131,6 +131,12 @@ impl Supporting {
                 notify_card = true;
                 notify_sheet = true;
             }
+            "roll_max_hp" => {
+                self.max_hp = value;
+                self.hp = self.max_hp;
+                notify_card = true;
+                notify_sheet = true;
+            }
             "temp_hp" => {
                 self.temp_hp = value.max(0);
                 notify_card = true;
@@ -225,6 +231,10 @@ impl Supporting {
                 rolls.push(roll);
             }
         }
+
+        let max_hp_roll = Roll::try_new("Maximum HP", [], self.hp_expression)?;
+        max_hp_roll.set_action(Action::new(Target::Roller, "roll_max_hp"));
+        rolls.push(max_hp_roll);
 
         if !self.template.contains_key("rolls") {
             return Ok(rolls);

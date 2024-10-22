@@ -1,0 +1,68 @@
+{
+    "name": "Crocodile",
+    "id": "2Qc04DpSZZCQ",
+    "size": "Large",
+    "type": "Beast",
+    "alignment": "Unaligned",
+    "hp": "3d10 + 3",
+    "speed": "20 ft, swim 30 ft",
+    "ability_scores": [
+        15,
+        10,
+        13,
+        2,
+        10,
+        5
+    ],
+    "challenge": "1/2 (100 XP)",
+    "armor": [
+        "9CRfC7zF1FTM"
+    ],
+    "features": [
+        {
+            "name": "Hold Breath",
+            "extras": {
+                "description": "The crocodile can hold its breath for 15 minutes."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Bite",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 10,
+                    "modifier": 2
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Bite",
+            "extras": {
+                "roll": "Bite",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d10 + 2"
+                    }
+                ],
+                "description": "On a hit, the target is grappled (escape DC 12). Until this grapple ends, the target is restrained, and the crocodile can't bite another target.",
+                "used": [
+                    false
+                ]
+            }
+        }
+    ]
+}

@@ -1018,6 +1018,12 @@
         "_invisible": true
     },
     {
+        "id": "9CRfC7zF1FTM",
+        "name": "Natural Armor",
+        "attributes": [{ "type": "ac_plus_dex_mod", "value": 12 }],
+        "_invisible": true
+    },
+    {
         "id": "KhZCsRJVgGRP",
         "name": "Natural Armor",
         "attributes": [{ "type": "ac_plus_dex_mod", "value": 13 }],

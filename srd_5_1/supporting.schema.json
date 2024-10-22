@@ -97,12 +97,12 @@
                     "required": ["type"]
                 },
                 {
-                    "title": "Slashing Attack",
+                    "title": "Necrotic Attack",
                     "type": "object",
                     "properties": {
                         "type": {
                             "type": "string",
-                            "const": "slashing_attack"
+                            "const": "necrotic_attack"
                         },
                         "value": {
                             "title": "Damage",
@@ -181,6 +181,37 @@
                         "value": {
                             "type": "integer",
                             "const": 0
+                        }
+                    },
+                    "required": ["type", "value"]
+                },
+                {
+                    "title": "Reach Attack",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "const": "reach_attack"
+                        },
+                        "value": {
+                            "type": "integer",
+                            "default": 10
+                        }
+                    },
+                    "required": ["type", "value"]
+                },
+                {
+                    "title": "Slashing Attack",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "const": "slashing_attack"
+                        },
+                        "value": {
+                            "title": "Damage",
+                            "type": "string",
+                            "default": "1d6 + 2"
                         }
                     },
                     "required": ["type", "value"]
@@ -312,6 +343,7 @@
                     "enum": [
                         "Bludgeoning",
                         "Fire",
+                        "Necrotic",
                         "Piercing",
                         "Poison",
                         "Slashing"

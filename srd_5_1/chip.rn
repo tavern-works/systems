@@ -80,6 +80,8 @@ pub fn get_for_attribute(attribute) {
             .tooltip("Medium armor offers more protection than light armor, but impairs movement more, so you can only add a maximum of +2 when applying your Dexterity modifier"),
         "musical_instrument" => Chip::new([ChipField::Text("Musical Instrument")])
             .tooltip("If you have proficiency with a given musical instrument, you can add your proficiency bonus to any ability checks you make to play music with the instrument. A bard can use a musical instrument as a spellcasting focus. Each type of musical instrument requires a separate proficiency."),
+        "necrotic_attack" => Chip::new([ChipField::Value, ChipField::Divider, ChipField::Text("Necrotic")])
+            .tooltip("This attack does {} necrotic damage"),
         "net" => Chip::new([ChipField::Text("Net")])
             .tooltip("A Large or smaller creature hit by a net is restrained until it is freed. A net has no effect on creatures that are formless, or creatures that are Huge or larger. When you attack with a net, you can make only one attack regardless of the number of attacks you can normally make."),
         "passive_perception" => Chip::new([ChipField::Text("Passive Perception"), ChipField::Divider, ChipField::Value])
@@ -106,6 +108,8 @@ pub fn get_for_attribute(attribute) {
             .tooltip("This weapon adds 5 feet to your reach when you attack with it, as well as when determining your reach for opportunity attacks with it"),
         "reach_0" => Chip::new([ChipField::Text("Reach"), ChipField::Divider, ChipField::Value])
             .tooltip("Attacks a target in the creature's space"),
+        "reach_attack" => Chip::new([ChipField::Text("Reach"), ChipField::Divider, ChipField::Value])
+            .tooltip("This attack has a reach of {} feet"),
         "Religion" => Chip::new([ChipField::Text("Religion"), ChipField::Divider, ChipField::Value])
             .tooltip("Roll Religion Check")
             .roll(PrepareOptions::by_name("Religion Check")),

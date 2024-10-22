@@ -1,0 +1,94 @@
+{
+    "name": "Violet Fungus",
+    "id": "lHy68wdWNb0S",
+    "size": "Medium",
+    "type": "Plant",
+    "alignment": "Unaligned",
+    "hp": "4d8",
+    "speed": "5 ft",
+    "ability_scores": [
+        3,
+        1,
+        10,
+        1,
+        3,
+        1
+    ],
+    "challenge": "1/4 (50 XP)",
+    "condition_immunities": [
+        {
+            "value": "Blinded"
+        },
+        {
+            "value": "Deafened"
+        },
+        {
+            "value": "Frightened"
+        }
+    ],
+    "senses": [
+        {
+            "type": "blindsight_only",
+            "value": 30
+        },
+        {
+            "type": "passive_perception",
+            "value": 6
+        }
+    ],
+    "features": [
+        {
+            "name": "False Appearance",
+            "extras": {
+                "description": "While the violet fungus remains motionless, it is indistinguishable from an ordinary fungus."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Multiattack",
+            "expression": "1d4"
+        },
+        {
+            "name": "Rotting Touch",
+            "expression": "{d20} + 2",
+            "damage": [
+                {
+                    "type": "Necrotic",
+                    "count": 1,
+                    "sides": 8,
+                    "modifier": 0
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Multiattack",
+            "extras": {
+                "roll": "Multiattack",
+                "description": "The fungus makes 1d4 Rotting Touch attacks"
+            }
+        },
+        {
+            "name": "Rotting Touch",
+            "extras": {
+                "roll": "Rotting Touch",
+                "attributes": [
+                    {
+                        "type": "reach_attack",
+                        "value": 10
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+2"
+                    },
+                    {
+                        "type": "necrotic_attack",
+                        "value": "1d8"
+                    }
+                ]
+            }
+        }
+    ]
+}

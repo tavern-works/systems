@@ -1,0 +1,122 @@
+{
+    "name": "Swarm of Rats",
+    "id": "H3tf7n76CY1T",
+    "size": "Medium",
+    "type": "Swarm of Tiny beasts",
+    "alignment": "Unaligned",
+    "hp": "7d8 - 7",
+    "speed": "30 ft",
+    "ability_scores": [
+        9,
+        11,
+        9,
+        2,
+        10,
+        3
+    ],
+    "challenge": "1/4 (50 XP)",
+    "damage_resistances": [
+        {
+            "value": "Bludgeoning"
+        },
+        {
+            "value": "Piercing"
+        },
+        {
+            "value": "Slashing"
+        }
+    ],
+    "condition_immunities": [
+        {
+            "value": "Charmed"
+        },
+        {
+            "value": "Frightened"
+        },
+        {
+            "value": "Grappled"
+        },
+        {
+            "value": "Paralyzed"
+        },
+        {
+            "value": "Petrified"
+        },
+        {
+            "value": "Prone"
+        },
+        {
+            "value": "Restrained"
+        },
+        {
+            "value": "Stunned"
+        }
+    ],
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 30
+        },
+        {
+            "type": "passive_perception",
+            "value": 10
+        }
+    ],
+    "features": [
+        {
+            "name": "Keen Smell",
+            "extras": {
+                "description": "The swarm has advantage on Wisdom (Perception) checks that rely on smell."
+            }
+        },
+        {
+            "name": "Swarm",
+            "extras": {
+                "description": "The swarm can occupy another creature's space and vice versa, and the swarm can move through any opening large enough for a Tiny rat. The swarm can't regain hit points or gain temporary hit points."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Bites",
+            "expression": "{d20} + 2",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 2,
+                    "sides": 6,
+                    "modifier": 0
+                },
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 0
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Bites",
+            "extras": {
+                "roll": "Bites",
+                "attributes": [
+                    {
+                        "type": "reach_0",
+                        "value": 0
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+2"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "2d6 or 1d6"
+                    }
+                ],
+                "description": "If the swarm has half of its hit points or fewer, this attack does 1d6 piercing damage rather than 2d6 as usual."
+            }
+        }
+    ]
+}

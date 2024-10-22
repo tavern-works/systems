@@ -104,6 +104,8 @@ pub fn get_for_attribute(attribute) {
             .tooltip("A ranged weapon is used to attack a target at a distance"),
         "reach" => Chip::new([ChipField::Text("Reach")])
             .tooltip("This weapon adds 5 feet to your reach when you attack with it, as well as when determining your reach for opportunity attacks with it"),
+        "reach_0" => Chip::new([ChipField::Text("Reach"), ChipField::Divider, ChipField::Value])
+            .tooltip("Attacks a target in the creature's space"),
         "Religion" => Chip::new([ChipField::Text("Religion"), ChipField::Divider, ChipField::Value])
             .tooltip("Roll Religion Check")
             .roll(PrepareOptions::by_name("Religion Check")),

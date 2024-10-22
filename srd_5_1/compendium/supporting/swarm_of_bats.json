@@ -1,0 +1,128 @@
+{
+    "name": "Swarm of Bats",
+    "id": "RkZywNfPkbGN",
+    "size": "Medium",
+    "type": "Swarm of Tiny beasts",
+    "alignment": "Unaligned",
+    "hp": "5d8",
+    "speed": "0 ft, fly 30 ft",
+    "ability_scores": [
+        5,
+        15,
+        10,
+        2,
+        12,
+        4
+    ],
+    "challenge": "1/4 (50 XP)",
+    "damage_resistances": [
+        {
+            "value": "Bludgeoning"
+        },
+        {
+            "value": "Piercing"
+        },
+        {
+            "value": "Slashing"
+        }
+    ],
+    "condition_immunities": [
+        {
+            "value": "Charmed"
+        },
+        {
+            "value": "Frightened"
+        },
+        {
+            "value": "Grappled"
+        },
+        {
+            "value": "Paralyzed"
+        },
+        {
+            "value": "Petrified"
+        },
+        {
+            "value": "Prone"
+        },
+        {
+            "value": "Restrained"
+        },
+        {
+            "value": "Stunned"
+        }
+    ],
+    "senses": [
+        {
+            "type": "blindsight",
+            "value": 60
+        },
+        {
+            "type": "passive_perception",
+            "value": 11
+        }
+    ],
+    "features": [
+        {
+            "name": "Echolocation",
+            "extras": {
+                "description": "The swarm can't use its blindsight while deafened."
+            }
+        },
+        {
+            "name": "Keen Hearing",
+            "extras": {
+                "description": "The swarm has advantage on Wisdom (Perception) checks that rely on hearing."
+            }
+        },
+        {
+            "name": "Swarm",
+            "extras": {
+                "description": "The swarm can occupy another creature's space and vice versa, and the swarm can move through any opening large enough for a Tiny bat. The swarm can't regain hit points or gain temporary hit points."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Bites",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 2,
+                    "sides": 4,
+                    "modifier": 0
+                },
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 4,
+                    "modifier": 0
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Bites",
+            "extras": {
+                "roll": "Bites",
+                "attributes": [
+                    {
+                        "type": "reach_0",
+                        "value": 0
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "2d4 or 1d4"
+                    }
+                ],
+                "description": "If the swarm has half of its hit points or fewer, this attack does 1d4 piercing damage rather than 2d4 as usual."
+            }
+        }
+    ]
+}

@@ -1,5 +1,7 @@
 pub fn headline(size, type_, alignment) {
-    let headline = format!("{size} {}", type_.to_lowercase());
+    let type_ = type_[..1].to_lowercase() + type_[1..];
+
+    let headline = format!("{size} {type_}");
 
     if alignment == "Any" {
         headline += ", any alignment";    

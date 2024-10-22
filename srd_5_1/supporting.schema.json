@@ -171,6 +171,21 @@
                     "required": ["type"]
                 },
                 {
+                    "title": "Reach 0",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "const": "reach_0"
+                        },
+                        "value": {
+                            "type": "integer",
+                            "const": 0
+                        }
+                    },
+                    "required": ["type", "value"]
+                },
+                {
                     "title": "Spell Attack",
                     "type": "object",
                     "properties": {
@@ -274,9 +289,13 @@
                         "Deafened",
                         "Exhaustion",
                         "Frightened",
+                        "Grappled",
                         "Paralyzed",
                         "Petrified",
                         "Poisoned",
+                        "Prone",
+                        "Restrained",
+                        "Stunned",
                         "Unconscious"
                     ]
                 }
@@ -330,7 +349,8 @@
                         "Lightning",
                         "Piercing",
                         "Poison",
-                        "Psychic"
+                        "Psychic",
+                        "Slashing"
                     ]
                 }
             },

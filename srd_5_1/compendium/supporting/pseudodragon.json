@@ -1,0 +1,143 @@
+{
+    "name": "Pseudodragon",
+    "id": "S8FSfTk6GYxJ",
+    "size": "Tiny",
+    "type": "Dragon",
+    "alignment": "Neutral Good",
+    "hp": "2d4 + 2",
+    "speed": "15 ft, fly 60 ft",
+    "ability_scores": [
+        6,
+        15,
+        13,
+        10,
+        12,
+        10
+    ],
+    "challenge": "1/4 (50 XP)",
+    "armor": [
+        "XSyXthp8xVjL"
+    ],
+    "skills": [
+        {
+            "type": "Perception",
+            "value": "+3"
+        },
+        {
+            "type": "Stealth",
+            "value": "+4"
+        }
+    ],
+    "senses": [
+        {
+            "type": "blindsight",
+            "value": 10
+        },
+        {
+            "type": "darkvision",
+            "value": 60
+        },
+        {
+            "type": "passive_perception",
+            "value": 13
+        }
+    ],
+    "languages": [
+        {
+            "value": "Can't Speak"
+        },
+        {
+            "value": "Understands Common"
+        },
+        {
+            "value": "Understands Draconic"
+        }
+    ],
+    "features": [
+        {
+            "name": "Keen Senses",
+            "extras": {
+                "description": "The pseudodragon has advantage on Wisdom (Perception) checks that rely on sight, hearing, or smell."
+            }
+        },
+        {
+            "name": "Magic Resistance",
+            "extras": {
+                "description": "The pseudodragon has advantage on saving throws against spells and other magical effects."
+            }
+        },
+        {
+            "name": "Limited Telepathy",
+            "extras": {
+                "description": "The pseudodragon can magically communicate simple ideas, emotions, and images telepathically with any creature within 100 feet of it that can understand a language."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Bite",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 4,
+                    "modifier": 2
+                }
+            ]
+        },
+        {
+            "name": "Sting",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 4,
+                    "modifier": 2
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Bite",
+            "extras": {
+                "roll": "Bite",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d4 + 2"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Sting",
+            "extras": {
+                "roll": "Sting",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d4 + 2"
+                    }
+                ],
+                "description": "On a hit, the target must succeed on a DC 11 Constitution saving throw or become poisoned for 1 hour. If the saving throw fails by 5 or more, the target falls unconscious for the same duration, or until it takes damage or another creature uses an action to shake it awake."
+            }
+        }
+    ]
+}

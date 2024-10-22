@@ -1,0 +1,118 @@
+{
+    "name": "Swarm of Ravens",
+    "id": "kpGfdNn6lqpr",
+    "size": "Medium",
+    "type": "Swarm of Tiny beasts",
+    "alignment": "Unaligned",
+    "hp": "7d8 - 7",
+    "speed": "10 ft, fly 50 ft",
+    "ability_scores": [
+        6,
+        14,
+        8,
+        3,
+        12,
+        6
+    ],
+    "challenge": "1/4 (50 XP)",
+    "skills": [
+        {
+            "type": "Perception",
+            "value": "+5"
+        }
+    ],
+    "damage_resistances": [
+        {
+            "value": "Bludgeoning"
+        },
+        {
+            "value": "Piercing"
+        },
+        {
+            "value": "Slashing"
+        }
+    ],
+    "condition_immunities": [
+        {
+            "value": "Charmed"
+        },
+        {
+            "value": "Frightened"
+        },
+        {
+            "value": "Grappled"
+        },
+        {
+            "value": "Paralyzed"
+        },
+        {
+            "value": "Petrified"
+        },
+        {
+            "value": "Prone"
+        },
+        {
+            "value": "Restrained"
+        },
+        {
+            "value": "Stunned"
+        }
+    ],
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 15
+        }
+    ],
+    "features": [
+        {
+            "name": "Swarm",
+            "extras": {
+                "description": "The swarm can occupy another creature's space and vice versa, and the swarm can move through any opening large enough for a Tiny raven. The swarm can't regain hit points or gain temporary hit points."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Beaks",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 2,
+                    "sides": 6,
+                    "modifier": 0
+                },
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 0
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Beaks",
+            "extras": {
+                "roll": "Beaks",
+                "attributes": [
+                    {
+                        "type": "reach_0",
+                        "value": 0
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "2d6 or 1d6"
+                    }
+                ],
+                "description": "If the swarm has half of its hit points or fewer, this attack does 1d6 piercing damage rather than 2d6 as usual."
+            }
+        }
+    ]
+}

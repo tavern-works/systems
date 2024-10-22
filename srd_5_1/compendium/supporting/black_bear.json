@@ -1,0 +1,113 @@
+{
+    "name": "Black Bear",
+    "id": "F5ZFgGS6XJNl",
+    "size": "Medium",
+    "type": "Beast",
+    "alignment": "Unaligned",
+    "hp": "3d8 + 6",
+    "speed": "40 ft, climb 30 ft",
+    "ability_scores": [
+        15,
+        10,
+        14,
+        2,
+        12,
+        7
+    ],
+    "challenge": "1/2 (100 XP)",
+    "armor": [
+        "XSyXthp8xVjL"
+    ],
+    "skills": [
+        {
+            "type": "Perception",
+            "value": "+3"
+        }
+    ],
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 13
+        }
+    ],
+    "features": [
+        {
+            "name": "Keen Smell",
+            "extras": {
+                "description": "The bear has advantage on Wisdom (Perception) checks that rely on smell."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Bite",
+            "expression": "{d20} + 3",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 2
+                }
+            ]
+        },
+        {
+            "name": "Claws",
+            "expression": "{d20} + 3",
+            "damage": [
+                {
+                    "type": "Slashing",
+                    "count": 2,
+                    "sides": 4,
+                    "modifier": 2
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Multiattack",
+            "extras": {
+                "description": "The bear makes two attacks: one with its bite and one with its claws."
+            }
+        },
+        {
+            "name": "Bite",
+            "extras": {
+                "roll": "Bite",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d6 + 2"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Claws",
+            "extras": {
+                "roll": "Claws",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "slashing_attack",
+                        "value": "2d4 + 2"
+                    }
+                ]
+            }
+        }
+    ]
+}

@@ -1,0 +1,139 @@
+{
+    "name": "Dust Mephit",
+    "id": "R0pw1myZsh3z",
+    "size": "Small",
+    "type": "Elemental",
+    "alignment": "Neutral Evil",
+    "hp": "5d6",
+    "speed": "30 ft, fly 30 ft",
+    "ability_scores": [
+        5,
+        14,
+        10,
+        9,
+        11,
+        10
+    ],
+    "challenge": "1/2 (100 XP)",
+    "skills": [
+        {
+            "type": "Perception",
+            "value": "+2"
+        },
+        {
+            "type": "Stealth",
+            "value": "+4"
+        }
+    ],
+    "damage_vulnerabilities": [
+        {
+            "value": "Fire"
+        }
+    ],
+    "damage_immunities": [
+        {
+            "value": "Poison"
+        }
+    ],
+    "condition_immunities": [
+        {
+            "value": "Poisoned"
+        }
+    ],
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 60
+        },
+        {
+            "type": "passive_perception",
+            "value": 12
+        }
+    ],
+    "languages": [
+        {
+            "value": "Auran"
+        },
+        {
+            "value": "Terran"
+        }
+    ],
+    "features": [
+        {
+            "name": "Death Burst",
+            "extras": {
+                "description": "When the mephit dies, it explodes in a burst of dust. Each creature within 5 feet of it much then succeed on a DC 10 Constitution saving throw or be blinded for 1 minute. A blinded creature can repeat the saving throw on each of its turns, ending the effect on itself on a success."
+            }
+        },
+        {
+            "name": "Innate Spellcasting",
+            "extras": {
+                "attributes": [
+                    {
+                        "type": "spellcasting_ability",
+                        "value": "Charisma"
+                    }
+                ],
+                "description": "The mephit can innately cast *sleep*, requiring no material components.",
+                "compendium_uses": {
+                    "section": "spell",
+                    "categories": [
+                        {
+                            "name": "1/Day",
+                            "entries": [
+                                "Sleep"
+                            ],
+                            "used": [
+                                false
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Claws",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Slashing",
+                    "count": 1,
+                    "sides": 4,
+                    "modifier": 2
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Claws",
+            "extras": {
+                "roll": "Claws",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "slashing_attack",
+                        "value": "1d4 + 2"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Blinding Breath (Recharge 6)",
+            "extras": {
+                "description": "The mephit exhales a 15-foot cone of blinding dust. Each creature in that area must succeed on a DC 10 Dexterity saving throw or be blinded for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success.",
+                "used": [
+                    false
+                ]
+            }
+        }
+    ]
+}

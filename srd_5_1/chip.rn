@@ -58,6 +58,9 @@ pub fn get_for_attribute(attribute) {
         "Insight" => Chip::new([ChipField::Text("Insight"), ChipField::Divider, ChipField::Value])
             .tooltip("Roll Insight Check")
             .roll(PrepareOptions::by_name("Insight Check")),
+        "Investigation" => Chip::new([ChipField::Text("Investigation"), ChipField::Divider, ChipField::Value])
+            .tooltip("Roll Investigation Check")
+            .roll(PrepareOptions::by_name("Investigation Check")),
         "lance" => Chip::new([ChipField::Text("Lance")])
             .tooltip("You have disadvantage when you use a lance to attack a target within 5 feet of you. Also, a lance requires two hands to wield when you aren't mounted."),
         "light_armor" => Chip::new([ChipField::Text("Armor"), ChipField::Divider, ChipField::Value])

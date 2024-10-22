@@ -20,7 +20,7 @@ impl super::Supporting {
             Cell::try_new(11..12, 4..5, Contents::new_number("temp_hp").align(Alignment::Center)?.label("Temp")?)?,
             Cell::try_new(0..3, 5..6, Contents::new_label().label("Speed")?.align(Alignment::Right)?)?,
             Cell::try_new(3..9, 5..6, Contents::new_text("speed").align(Alignment::Left)?.read_only()?)?,
-            Cell::try_new(9..12, 5..6, Contents::new_button().roll(PrepareOptions::by_name("Initiative"))?.label("Initiative")?)?,
+            Cell::try_new(9..12, 5..6, Contents::new_button().roll(PrepareOptions::by_name("Initiative"))?.label("Initiative")?.tooltip("Roll Initiative")?)?,
             Cell::try_new(0..12, 3..6, Contents::Outline)?,
         ];
 

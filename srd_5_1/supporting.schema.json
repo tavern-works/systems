@@ -279,7 +279,7 @@
                         "value": {
                             "title": "Ability",
                             "type": "string",
-                            "enum": ["Charisma", "Wisdom"]
+                            "enum": ["Charisma", "Intelligence", "Wisdom"]
                         }
                     },
                     "required": ["type", "value"]
@@ -677,6 +677,7 @@
                             "Athletics",
                             "Deception",
                             "Insight",
+                            "Investigation",
                             "Medicine",
                             "Perception",
                             "Persuasion",
@@ -753,11 +754,13 @@
                             "Common",
                             "Draconic",
                             "Elvish",
+                            "Gnomish",
                             "Goblin",
                             "Ignan",
                             "One known by its creator",
                             "Sylvan",
                             "Telepathy 60 ft (Abyssal only)",
+                            "Terran",
                             "Undercommon",
                             "Understands Common",
                             "Understands Draconic",

@@ -193,8 +193,6 @@ impl Supporting {
 
         let saving_throws = self.template.get("saving_throws").unwrap_or([]);
         for saving_throw in saving_throws {
-            log::info!("st {:?}", saving_throw);
-
             let configs = [
                 RollConfig::new("Advantage", "@advantage", 'A', [], "false"),
                 RollConfig::new("Disadvantage", "@disadvantage", 'D', [], "false"),

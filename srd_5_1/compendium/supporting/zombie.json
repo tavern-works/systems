@@ -1,0 +1,95 @@
+{
+    "name": "Zombie",
+    "id": "Kk7TllwWhg2Q",
+    "size": "Medium",
+    "type": "Undead",
+    "alignment": "Neutral Evil",
+    "hp": "3d8 + 9",
+    "speed": "20 ft",
+    "ability_scores": [
+        13,
+        6,
+        16,
+        3,
+        6,
+        5
+    ],
+    "challenge": "1/4 (50 XP)",
+    "saving_throws": [
+        {
+            "type": "Wisdom",
+            "value": "+0"
+        }
+    ],
+    "damage_immunities": [
+        {
+            "value": "Poison"
+        }
+    ],
+    "condition_immunities": [
+        {
+            "value": "Poisoned"
+        }
+    ],
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 60
+        },
+        {
+            "type": "passive_perception",
+            "value": 8
+        }
+    ],
+    "languages": [
+        {
+            "value": "Can't speak"
+        },
+        {
+            "value": "Understands languages known in life"
+        }
+    ],
+    "features": [
+        {
+            "name": "Undead Fortitude",
+            "extras": {
+                "description": "If damage reduces the zombie to 0 hit points, it must make a Constitution saving throw with a DC of 5 + the damage taken, unless the damage is radiant or from a critical hit. On a success, the zombie drops to 1 hit point instead."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Slam",
+            "expression": "{d20} + 3",
+            "damage": [
+                {
+                    "type": "Bludgeoning",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 1
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Slam",
+            "extras": {
+                "roll": "Slam",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "bludgeoning_attack",
+                        "value": "1d6 + 1"
+                    }
+                ]
+            }
+        }
+    ]
+}

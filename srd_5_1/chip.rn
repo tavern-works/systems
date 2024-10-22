@@ -148,6 +148,9 @@ pub fn get_for_attribute(attribute) {
             .tooltip("This weapon does {} damage of a type determined by the GM"),
         "versatile" => Chip::new([ChipField::Text("Versatile"), ChipField::Divider, ChipField::Value])
             .tooltip("This weapon can be used with one or two hands, and does {} damage when used with two hands"),
+        "Wisdom" => Chip::new([ChipField::Text("Wisdom"), ChipField::Divider, ChipField::Value])
+            .tooltip("Roll Wisdom Saving Throw")
+            .roll(PrepareOptions::by_name("Wisdom Saving Throw")),
         _ => return Err(Error::msg(format!("Unknown attribute {attribute} in get_chip_for_attribute")))
     };
     Ok(chip)

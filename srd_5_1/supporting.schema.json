@@ -675,8 +675,8 @@
                             "Draconic",
                             "Elvish",
                             "Goblin",
-                            "Understands languages known in life",
                             "One known by its creator",
+                            "Sylvan",
                             "Telepathy 60 ft (Abyssal only)",
                             "Undercommon",
                             "Understands Common",
@@ -684,7 +684,8 @@
                             "Understands Elvish",
                             "Understands Infernal",
                             "Understands Sylvan",
-                            "Understands its creator, but can't speak"
+                            "Understands its creator, but can't speak",
+                            "Understands languages known in life"
                         ]
                     }
                 },

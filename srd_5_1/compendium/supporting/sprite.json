@@ -1,0 +1,131 @@
+{
+    "name": "Sprite",
+    "id": "cqh77MwpQ6G8",
+    "size": "Tiny",
+    "type": "Fey",
+    "alignment": "Neutral Good",
+    "hp": "1d4",
+    "speed": "10 ft, fly 40 ft",
+    "ability_scores": [
+        3,
+        18,
+        10,
+        14,
+        13,
+        11
+    ],
+    "challenge": "1/4 (50 XP)",
+    "armor": [
+        "mVvkHTZh19NX"
+    ],
+    "skills": [
+        {
+            "type": "Perception",
+            "value": "+3"
+        },
+        {
+            "type": "Stealth",
+            "value": "+8"
+        }
+    ],
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 13
+        }
+    ],
+    "languages": [
+        {
+            "value": "Common"
+        },
+        {
+            "value": "Elvish"
+        },
+        {
+            "value": "Sylvan"
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Longsword",
+            "expression": "{d20} + 2",
+            "damage": [
+                {
+                    "type": "Slashing",
+                    "count": 0,
+                    "sides": 0,
+                    "modifier": 1
+                }
+            ]
+        },
+        {
+            "name": "Shortbow",
+            "expression": "{d20} + 6",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 0,
+                    "sides": 0,
+                    "modifier": 1
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Longsword",
+            "extras": {
+                "roll": "Longsword",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+2"
+                    },
+                    {
+                        "type": "slashing_attack",
+                        "value": "1"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Shortbow",
+            "extras": {
+                "roll": "Shortbow",
+                "attributes": [
+                    {
+                        "type": "ranged_weapon"
+                    },
+                    {
+                        "type": "range",
+                        "value": "40/160"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+6"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1"
+                    }
+                ],
+                "description": "On a hit, the target must succeed on a DC 10 Constitution saving throw or become poisoned for 1 minute. If its saving throw result is 5 or lower, the poisoned target falls unconscious for the same duration, or until it takes damage or another creature takes an action to shake it awake."
+            }
+        },
+        {
+            "name": "Heart Sight",
+            "extras": {
+                "description": "The sprite touches a creature and magically knows the creature's current emotional state. If the target fails a DC 10 Charisma saving throw, the sprite also knows the creature's alignment. Celestials, fiends, and undead automatically fail the saving throw."
+            }
+        },
+        {
+            "name": "Invisibility",
+            "extras": {
+                "description": "The sprite magically turns invisible until it attacks or casts a spell, or until its concentration ends (as if concentrating on a spell). Any equipment the sprite wears or carries is invisible with it."
+            }
+        }
+    ]
+}

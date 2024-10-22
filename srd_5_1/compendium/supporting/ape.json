@@ -1,0 +1,110 @@
+{
+    "name": "Ape",
+    "id": "pRfB3FCYXGjm",
+    "size": "Medium",
+    "type": "Beast",
+    "alignment": "Unaligned",
+    "hp": "3d8 + 6",
+    "speed": "30 ft, climb 30 ft",
+    "ability_scores": [
+        16,
+        14,
+        14,
+        6,
+        12,
+        7
+    ],
+    "challenge": "1/2 (100 XP)",
+    "skills": [
+        {
+            "type": "Athletics",
+            "value": "+5"
+        },
+        {
+            "type": "Perception",
+            "value": "+3"
+        }
+    ],
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 13
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Fist",
+            "expression": "{d20} + 5",
+            "damage": [
+                {
+                    "type": "Bludgeoning",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 3
+                }
+            ]
+        },
+        {
+            "name": "Rock",
+            "expression": "{d20} + 5",
+            "damage": [
+                {
+                    "type": "Bludgeoning",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 3
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Multiattack",
+            "extras": {
+                "description": "The ape makes two fist attacks."
+            }
+        },
+        {
+            "name": "Fist",
+            "extras": {
+                "roll": "Fist",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+5"
+                    },
+                    {
+                        "type": "bludgeoning_attack",
+                        "value": "1d6 + 3"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Rock",
+            "extras": {
+                "roll": "Rock",
+                "attributes": [
+                    {
+                        "type": "thrown"
+                    },
+                    {
+                        "type": "range",
+                        "value": "25/50"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+5"
+                    },
+                    {
+                        "type": "bludgeoning_attack",
+                        "value": "1d6 + 3"
+                    }
+                ]
+            }
+        }
+    ]
+}

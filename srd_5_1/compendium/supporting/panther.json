@@ -1,0 +1,114 @@
+{
+    "name": "Panther",
+    "id": "B4n7JwBWfyb9",
+    "size": "Medium",
+    "type": "Beast",
+    "alignment": "Unaligned",
+    "hp": "3d8",
+    "speed": "50 ft, climb 40 ft",
+    "ability_scores": [
+        14,
+        15,
+        10,
+        3,
+        14,
+        7
+    ],
+    "challenge": "1/4 (50 XP)",
+    "skills": [
+        {
+            "type": "Perception",
+            "value": "+4"
+        },
+        {
+            "type": "Stealth",
+            "value": "+6"
+        }
+    ],
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 14
+        }
+    ],
+    "features": [
+        {
+            "name": "Keen Smell",
+            "extras": {
+                "description": "The Panther has advantage on Wisdom (Perception) checks that rely on smell."
+            }
+        },
+        {
+            "name": "Pounce",
+            "extras": {
+                "description": "If the panther moves at least 20 feet straight toward a creature and then hits it with a claw attack on the same turn, that target must succeed on a DC 12 Strength saving throw or be knocked prone. If the target is prone, the panther can make one bite attack against it as a bonus action."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Bite",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 2
+                }
+            ]
+        },
+        {
+            "name": "Claw",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Slashing",
+                    "count": 1,
+                    "sides": 4,
+                    "modifier": 2
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Bite",
+            "extras": {
+                "roll": "Bite",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d6 + 2"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Claw",
+            "extras": {
+                "roll": "Claw",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "slashing_attack",
+                        "value": "1d4 + 2"
+                    }
+                ]
+            }
+        }
+    ]
+}

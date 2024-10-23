@@ -10,6 +10,8 @@ pub fn get_for_attribute(attribute) {
             .tooltip("This armor provides an Armor Class of {} plus your Dexterity modifier (to a maximum of +2)"),
         "acid" => Chip::new([ChipField::Value, ChipField::Divider, ChipField::Text("Acid")])
             .tooltip("This weapon does {} acid damage"),
+        "acid_attack" => Chip::new([ChipField::Value, ChipField::Divider, ChipField::Text("Acid")])
+            .tooltip("This attack does {} acid damage"),
         "ammunition" => Chip::new([ChipField::Text("Ammunition"), ChipField::Divider, ChipField::Value])
             .tooltip("Ammunition for {}"),
         "arcane_focus" => Chip::new([ChipField::Text("Arcane Focus")])

@@ -1,0 +1,131 @@
+{
+    "name": "Gray Ooze",
+    "id": "Chl0458TVqcJ",
+    "size": "Medium",
+    "type": "Ooze",
+    "alignment": "Unaligned",
+    "hp": "3d8 + 9",
+    "speed": "10 ft, climb 10 ft",
+    "ability_scores": [
+        12,
+        6,
+        16,
+        1,
+        6,
+        2
+    ],
+    "challenge": "1/2 (100 XP)",
+    "skills": [
+        {
+            "type": "Stealth",
+            "value": "+2"
+        }
+    ],
+    "damage_resistances": [
+        {
+            "value": "Acid"
+        },
+        {
+            "value": "Cold"
+        },
+        {
+            "value": "Fire"
+        }
+    ],
+    "condition_immunities": [
+        {
+            "value": "Blinded"
+        },
+        {
+            "value": "Charmed"
+        },
+        {
+            "value": "Deafened"
+        },
+        {
+            "value": "Exhaustion"
+        },
+        {
+            "value": "Frightened"
+        },
+        {
+            "value": "Prone"
+        }
+    ],
+    "senses": [
+        {
+            "type": "blindsight_only",
+            "value": 60
+        },
+        {
+            "type": "passive_perception",
+            "value": 8
+        }
+    ],
+    "features": [
+        {
+            "name": "Amorphous",
+            "extras": {
+                "description": "The ooze can move through a space as narrow as 1 inch wide without squeezing."
+            }
+        },
+        {
+            "name": "Corrode Metal",
+            "extras": {
+                "description": "Any nonmagical weapon made of metal that hits the ooze corrodes. After dealing the damage, the weapon takes a permanent and cumulative -1 penalty to damage rolls. If its penalty drops to -5, the weapon is destroyed. Nonmagical ammunition made of metal that hits the ooze is destroyed after dealing damage.\n\nThe ooze can eat through 2-inch-thick, nonmagical metal in 1 round."
+            }
+        },
+        {
+            "name": "False Appearance",
+            "extras": {
+                "description": "While the ooze remains motionless, it is indistinguishable from an oily pool or wet rock."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Pseudopod",
+            "expression": "{d20} + 3",
+            "damage": [
+                {
+                    "type": "Bludgeoning",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 1
+                },
+                {
+                    "type": "Acid",
+                    "count": 2,
+                    "sides": 6,
+                    "modifier": 0
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Pseudopod",
+            "extras": {
+                "roll": "Pseudopod",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "bludgeoning_attack",
+                        "value": "1d6 + 1"
+                    },
+                    {
+                        "type": "acid_attack",
+                        "value": "2d6"
+                    }
+                ],
+                "description": "On a hit, if the target is wearing nonmagical metal armor, its armor is partly corroded and takes a permanent and cumulative -1 penalty to the AC it offers. The armor is destroyed if the penalty reduces its AC to 10."
+            }
+        }
+    ]
+}

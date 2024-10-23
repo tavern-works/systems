@@ -59,6 +59,22 @@
         "attribute": {
             "oneOf": [
                 {
+                    "title": "Acid Attack",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "const": "acid_attack"
+                        },
+                        "value": {
+                            "title": "Damage",
+                            "type": "string",
+                            "default": "1d6 + 2"
+                        }
+                    },
+                    "required": ["type", "value"]
+                },
+                {
                     "title": "Bludgeoning Attack",
                     "type": "object",
                     "properties": {
@@ -346,6 +362,7 @@
                     "title": "Damage Type",
                     "type": "string",
                     "enum": [
+                        "Acid",
                         "Bludgeoning",
                         "Fire",
                         "Necrotic",
@@ -380,6 +397,7 @@
                     "title": "Damage Type",
                     "type": "string",
                     "enum": [
+                        "Acid",
                         "Bludgeoning",
                         "Cold",
                         "Fire",

@@ -1,0 +1,82 @@
+{
+    "name": "Giant Sea Horse",
+    "id": "44lNTZ6Ty3RD",
+    "size": "Large",
+    "type": "Beast",
+    "alignment": "Unaligned",
+    "hp": "3d10",
+    "speed": "0 ft, swim 40 ft",
+    "ability_scores": [
+        12,
+        15,
+        11,
+        2,
+        12,
+        5
+    ],
+    "challenge": "1/2 (100 XP)",
+    "armor": [
+        "XSyXthp8xVjL"
+    ],
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 11
+        }
+    ],
+    "features": [
+        {
+            "name": "Charge",
+            "extras": {
+                "description": "If the sea horse moves at least 20 feet straight toward a target and then hits it with a ram attack on the same turn, the target takes an extra 2d6 bludgeoning damage. If the target is a creature, it must succeed on a DC 11 Strength saving throw or be knocked prone.",
+                "roll": "Charge Damage"
+            }
+        },
+        {
+            "name": "Water Breathing",
+            "extras": {
+                "description": "The sea horse can breathe only underwater."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Charge Damage",
+            "expression": "2d6"
+        },
+        {
+            "name": "Ram",
+            "expression": "{d20} + 3",
+            "damage": [
+                {
+                    "type": "Bludgeoning",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 1
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Ram",
+            "extras": {
+                "roll": "Ram",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "bludgeoning_attack",
+                        "value": "1d6 + 1"
+                    }
+                ]
+            }
+        }
+    ],
+    "description": "Like their smaller kin, **giant sea horses** are shy, colorful fish with elongated bodies and curled tails. Aquatic elves train them as mounts."
+}

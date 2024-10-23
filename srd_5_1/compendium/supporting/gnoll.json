@@ -1,0 +1,200 @@
+{
+    "name": "Gnoll",
+    "id": "0091yMtF78CY",
+    "size": "Medium",
+    "type": "Humanoid (gnoll)",
+    "alignment": "Chaotic Evil",
+    "hp": "5d8",
+    "speed": "30 ft",
+    "ability_scores": [
+        14,
+        12,
+        11,
+        6,
+        10,
+        7
+    ],
+    "challenge": "1/2 (100 XP)",
+    "armor": [
+        "ljnFvGbgHTcx",
+        "nY7KF1CqTVKG"
+    ],
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 60
+        },
+        {
+            "type": "passive_perception",
+            "value": 10
+        }
+    ],
+    "languages": [
+        {
+            "value": "Gnoll"
+        }
+    ],
+    "features": [
+        {
+            "name": "Rampage",
+            "extras": {
+                "description": "When the gnoll reduces a creature to 0 hit points with a melee attack on its turn, the gnoll can take a bonus action to move up to half its speed and make a bite attack."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Bite",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 4,
+                    "modifier": 2
+                }
+            ]
+        },
+        {
+            "name": "Spear",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 2
+                }
+            ]
+        },
+        {
+            "name": "Spear (Two-Handed)",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 8,
+                    "modifier": 2
+                }
+            ]
+        },
+        {
+            "name": "Longbow",
+            "expression": "{d20} + 3",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 8,
+                    "modifier": 1
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Bite",
+            "extras": {
+                "roll": "Bite",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d4 + 2"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Spear",
+            "extras": {
+                "roll": "Spear",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d6 + 2"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Spear (Two-Handed)",
+            "extras": {
+                "roll": "Spear (Two-Handed)",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d8 + 2"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Spear (Thrown)",
+            "extras": {
+                "roll": "Spear",
+                "attributes": [
+                    {
+                        "type": "thrown"
+                    },
+                    {
+                        "type": "range",
+                        "value": "20/60"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d6 + 2"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Longbow",
+            "extras": {
+                "roll": "Longbow",
+                "attributes": [
+                    {
+                        "type": "ranged_weapon"
+                    },
+                    {
+                        "type": "range",
+                        "value": "150/600"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d8 + 1"
+                    }
+                ]
+            }
+        }
+    ]
+}

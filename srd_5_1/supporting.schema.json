@@ -470,7 +470,8 @@
                         "section": {
                             "title": "Section",
                             "description": "Section of the compendium to pull entries from",
-                            "type": "string"
+                            "type": "string",
+                            "enum": ["spell"]
                         },
                         "categories": {
                             "title": "Categories",

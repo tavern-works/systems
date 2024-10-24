@@ -1,0 +1,145 @@
+{
+    "name": "Orc",
+    "id": "Hb5ztlyzhX19",
+    "size": "Medium",
+    "type": "Humanoid",
+    "alignment": "Chaotic Evil",
+    "hp": "2d8 + 6",
+    "speed": "30 ft",
+    "ability_scores": [
+        16,
+        12,
+        16,
+        7,
+        11,
+        10
+    ],
+    "challenge": "1/2 (100 XP)",
+    "subtypes": [
+        "Orc"
+    ],
+    "skills": [
+        {
+            "type": "Intimidation",
+            "value": "+2"
+        }
+    ],
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 60
+        },
+        {
+            "type": "passive_perception",
+            "value": 10
+        }
+    ],
+    "languages": [
+        {
+            "value": "Common"
+        },
+        {
+            "value": "Orc"
+        }
+    ],
+    "features": [
+        {
+            "name": "Aggressive",
+            "extras": {
+                "description": "As a bonus action, the orc can move up to its speed toward a hostile creature that it can see."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Greataxe",
+            "expression": "{d20} + 5",
+            "damage": [
+                {
+                    "type": "Slashing",
+                    "count": 1,
+                    "sides": 12,
+                    "modifier": 3
+                }
+            ]
+        },
+        {
+            "name": "Javelin",
+            "expression": "{d20} + 5",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 3
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Greataxe",
+            "extras": {
+                "roll": "Greataxe",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+5"
+                    },
+                    {
+                        "type": "slashing_attack",
+                        "value": "1d12 + 3"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Javelin",
+            "extras": {
+                "roll": "Javelin",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+5"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d6 + 3"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Javelin (Thrown)",
+            "extras": {
+                "roll": "Javelin",
+                "attributes": [
+                    {
+                        "type": "thrown"
+                    },
+                    {
+                        "type": "range",
+                        "value": "30/120"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+5"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d6 + 3"
+                    }
+                ]
+            }
+        }
+    ],
+    "armor": [
+        "ljnFvGbgHTcx"
+    ]
+}

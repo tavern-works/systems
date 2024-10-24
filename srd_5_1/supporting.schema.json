@@ -636,7 +636,21 @@
         },
         "type": {
             "title": "Type",
-            "type": "string"
+            "type": "string",
+            "enum": [
+                "Beast",
+                "Construct",
+                "Dragon",
+                "Elemental",
+                "Fey",
+                "Fiend",
+                "Humanoid",
+                "Monstrosity",
+                "Ooze",
+                "Plant",
+                "Swarm of Tiny beasts",
+                "Undead"
+            ]
         },
         "subtypes": {
             "title": "Subtype(s)",
@@ -658,7 +672,8 @@
                     "Grimlock",
                     "Kobold",
                     "Lizardfolk",
-                    "Merfolk"
+                    "Merfolk",
+                    "Orc"
                 ]
             }
         },
@@ -745,6 +760,7 @@
                             "Athletics",
                             "Deception",
                             "Insight",
+                            "Intimidation",
                             "Investigation",
                             "Medicine",
                             "Perception",
@@ -829,6 +845,7 @@
                             "Goblin",
                             "Ignan",
                             "One known by its creator",
+                            "Orc",
                             "Sylvan",
                             "Telepathy 60 ft (Abyssal only)",
                             "Terran",

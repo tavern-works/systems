@@ -62,6 +62,9 @@ pub fn get_for_attribute(attribute) {
         "Insight" => Chip::new([ChipField::Text("Insight"), ChipField::Divider, ChipField::Value])
             .tooltip("Roll Insight Check")
             .roll(PrepareOptions::by_name("Insight Check")),
+        "Intimidation" => Chip::new([ChipField::Text("Intimidation"), ChipField::Divider, ChipField::Value])
+            .tooltip("Roll Intimidation Check")
+            .roll(PrepareOptions::by_name("Intimidation Check")),
         "Investigation" => Chip::new([ChipField::Text("Investigation"), ChipField::Divider, ChipField::Value])
             .tooltip("Roll Investigation Check")
             .roll(PrepareOptions::by_name("Investigation Check")),

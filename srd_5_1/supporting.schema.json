@@ -10,6 +10,11 @@
                     "const": "BCLvsjWBrcH1"
                 },
                 {
+                    "title": "Barding Scraps",
+                    "type": "string",
+                    "const": "myQzwZpmYkPq"
+                },
+                {
                     "title": "Breastplate",
                     "type": "string",
                     "const": "D09JsNwQWVPN"

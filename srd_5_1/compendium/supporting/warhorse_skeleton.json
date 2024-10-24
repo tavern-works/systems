@@ -1,0 +1,83 @@
+{
+    "name": "Warhorse Skeleton",
+    "size": "Large",
+    "type": "Undead",
+    "alignment": "Lawful Evil",
+    "hp": "3d10 + 6",
+    "speed": "60 ft",
+    "ability_scores": [
+        18,
+        12,
+        15,
+        2,
+        8,
+        5
+    ],
+    "challenge": "1/2 (100 XP)",
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 60
+        },
+        {
+            "type": "passive_perception",
+            "value": 9
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Hooves",
+            "expression": "{d20} + 6",
+            "damage": [
+                {
+                    "type": "Bludgeoning",
+                    "count": 2,
+                    "sides": 6,
+                    "modifier": 4
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Hooves",
+            "extras": {
+                "roll": "Hooves",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+6"
+                    },
+                    {
+                        "type": "bludgeoning_attack",
+                        "value": "2d6 + 4"
+                    }
+                ]
+            }
+        }
+    ],
+    "damage_vulnerabilities": [
+        {
+            "value": "Bludgeoning"
+        }
+    ],
+    "condition_immunities": [
+        {
+            "value": "Exhaustion"
+        },
+        {
+            "value": "Poisoned"
+        }
+    ],
+    "armor": [
+        "myQzwZpmYkPq"
+    ],
+    "damage_immunities": [
+        {
+            "value": "Poison"
+        }
+    ]
+}

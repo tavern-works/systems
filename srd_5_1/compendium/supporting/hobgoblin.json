@@ -1,0 +1,154 @@
+{
+    "name": "Hobgoblin",
+    "id": "rLCRc6YcHZFH",
+    "size": "Medium",
+    "type": "Humanoid (goblinoid)",
+    "alignment": "Lawful Evil",
+    "hp": "2d8 + 2",
+    "speed": "30 ft",
+    "ability_scores": [
+        13,
+        12,
+        12,
+        10,
+        10,
+        9
+    ],
+    "challenge": "1/2 (100 XP)",
+    "armor": [
+        "Qlq2NSDCw3D4",
+        "nY7KF1CqTVKG"
+    ],
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 60
+        },
+        {
+            "type": "passive_perception",
+            "value": 10
+        }
+    ],
+    "languages": [
+        {
+            "value": "Common"
+        },
+        {
+            "value": "Goblin"
+        }
+    ],
+    "features": [
+        {
+            "name": "Martial Advantage",
+            "extras": {
+                "roll": "Martial Advantage Damage",
+                "description": "Once per turn, the hobgoblin can deal an extra 2d6 damage to a creature it hits with a weapon attack if that creature is within 5 feet of an ally of the hobgoblin that isn't incapacitated."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Martial Advantage Damage",
+            "expression": "2d6"
+        },
+        {
+            "name": "Longsword",
+            "expression": "{d20} + 3",
+            "damage": [
+                {
+                    "type": "Slashing",
+                    "count": 1,
+                    "sides": 8,
+                    "modifier": 1
+                }
+            ]
+        },
+        {
+            "name": "Longsword (Two-Handed)",
+            "expression": "{d20} + 3",
+            "damage": [
+                {
+                    "type": "Slashing",
+                    "count": 1,
+                    "sides": 10,
+                    "modifier": 1
+                }
+            ]
+        },
+        {
+            "name": "Longbow",
+            "expression": "{d20} + 3",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 8,
+                    "modifier": 1
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Longsword",
+            "extras": {
+                "roll": "Longsword",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "slashing_attack",
+                        "value": "1d8 + 1"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Longsword (Two-Handed)",
+            "extras": {
+                "roll": "Longsword (Two-Handed)",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "slashing_attack",
+                        "value": "1d10 + 1"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Longbow",
+            "extras": {
+                "roll": "Longbow",
+                "attributes": [
+                    {
+                        "type": "ranged_weapon"
+                    },
+                    {
+                        "type": "range",
+                        "value": "150/600"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d8 + 1"
+                    }
+                ]
+            }
+        }
+    ]
+}

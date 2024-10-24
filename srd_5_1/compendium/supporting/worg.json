@@ -1,0 +1,89 @@
+{
+    "name": "Worg",
+    "size": "Large",
+    "type": "Monstrosity",
+    "alignment": "Neutral Evil",
+    "hp": "4d10 + 4",
+    "speed": "50 ft",
+    "ability_scores": [
+        16,
+        13,
+        13,
+        7,
+        11,
+        8
+    ],
+    "challenge": "1/2 (100 XP)",
+    "armor": [
+        "9CRfC7zF1FTM"
+    ],
+    "skills": [
+        {
+            "type": "Perception",
+            "value": "+4"
+        }
+    ],
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 60
+        },
+        {
+            "type": "passive_perception",
+            "value": 14
+        }
+    ],
+    "languages": [
+        {
+            "value": "Goblin"
+        },
+        {
+            "value": "Worg"
+        }
+    ],
+    "features": [
+        {
+            "name": "Keen Hearing and Smell",
+            "extras": {
+                "description": "The worg has advantage on Wisdom (Perception) checks that rely on hearing or smell."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Bite",
+            "expression": "{d20} + 5",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 2,
+                    "sides": 6,
+                    "modifier": 3
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Bite",
+            "extras": {
+                "roll": "Bite",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+5"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "2d6 + 3"
+                    }
+                ],
+                "description": "On a hit, if the target is a creature, it must succeed on a DC 13 Strength saving throw or be knocked prone."
+            }
+        }
+    ],
+    "description": "A **worg** is an evil predator that delights in hunting and devouring creatures weaker than itself. Cunning and malevolent, worgs roam across the remote wilderness or are raised by goblins and hobgoblins. Those creatures use worgs as mounts, but a worg will turn on its rider if it feels mistreated or malnourished. Worgs speak in their own language and Goblin, and a few learn to speak Common as well."
+}

@@ -1,0 +1,116 @@
+{
+    "name": "Magmin",
+    "id": "PjxjsdBXQLpJ",
+    "size": "Small",
+    "type": "Elemental",
+    "alignment": "Chaotic Neutral",
+    "hp": "2d6 + 2",
+    "speed": "30 ft",
+    "ability_scores": [
+        7,
+        15,
+        12,
+        8,
+        11,
+        10
+    ],
+    "challenge": "1/2 (100 XP)",
+    "armor": [
+        "9CRfC7zF1FTM"
+    ],
+    "damage_resistances": [
+        {
+            "value": "Nonmagical"
+        },
+        {
+            "value": "Bludgeoning"
+        },
+        {
+            "value": "Piercing"
+        },
+        {
+            "value": "Slashing"
+        }
+    ],
+    "damage_immunities": [
+        {
+            "value": "Fire"
+        }
+    ],
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 60
+        },
+        {
+            "type": "passive_perception",
+            "value": 10
+        }
+    ],
+    "languages": [
+        {
+            "value": "Ignan"
+        }
+    ],
+    "features": [
+        {
+            "name": "Death Burst",
+            "extras": {
+                "roll": "Death Burst Damage",
+                "description": "When the magmin dies, it explodes in a burst of fire and magma. Each creature within 10 feet of it must make a DC 11 Dexterity saving throw, taking 2d6 fire damage on a failed save, or half as much damage on a successful one. Flammable objects that aren't being worn or carried in that area are ignited."
+            }
+        },
+        {
+            "name": "Ignited Illumination",
+            "extras": {
+                "description": "As a bonus action, the magmin can set itself ablaze or extinguish its flames. While ablaze, the magmin sheds bright light in a 10-foot radius and dim light for an additional 10 feet."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Death Burst Damage",
+            "expression": "2d6"
+        },
+        {
+            "name": "Touch",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Fire",
+                    "count": 2,
+                    "sides": 6,
+                    "modifier": 0
+                },
+                {
+                    "type": "Fire",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 0
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Touch",
+            "extras": {
+                "roll": "Touch",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "fire_attack",
+                        "value": "2d6"
+                    }
+                ],
+                "description": "On a hit, if the target is a creature or a flammable object, it ignites. Until a creature takes an action to douse the fire, the target takes 1d6 fire damage at the end of each of its turns."
+            }
+        }
+    ]
+}

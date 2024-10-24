@@ -425,6 +425,7 @@
                         "Cold",
                         "Fire",
                         "Lightning",
+                        "Nonmagical",
                         "Piercing",
                         "Poison",
                         "Psychic",
@@ -672,6 +673,7 @@
                 "Neutral Good",
                 "Neutral",
                 "Neutral Evil",
+                "Chaotic Neutral",
                 "Chaotic Evil",
                 "Unaligned"
             ]

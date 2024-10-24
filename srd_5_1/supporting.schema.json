@@ -96,6 +96,22 @@
                     "required": ["type", "value"]
                 },
                 {
+                    "title": "Cold Attack",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "const": "cold_attack"
+                        },
+                        "value": {
+                            "title": "Damage",
+                            "type": "string",
+                            "default": "1d6 + 2"
+                        }
+                    },
+                    "required": ["type", "value"]
+                },
+                {
                     "title": "Fire Attack",
                     "type": "object",
                     "properties": {
@@ -369,6 +385,7 @@
                     "enum": [
                         "Acid",
                         "Bludgeoning",
+                        "Cold",
                         "Fire",
                         "Necrotic",
                         "Piercing",

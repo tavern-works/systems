@@ -1,0 +1,125 @@
+{
+    "name": "Thug",
+    "size": "Medium",
+    "type": "Humanoid",
+    "alignment": "Any Non-Good",
+    "hp": "5d8 + 10",
+    "speed": "30 ft",
+    "ability_scores": [
+        15,
+        11,
+        14,
+        10,
+        10,
+        11
+    ],
+    "challenge": "1/2 (100 XP)",
+    "subtypes": [
+        "Any Race"
+    ],
+    "armor": [
+        "mVvkHTZh19NX"
+    ],
+    "skills": [
+        {
+            "type": "Intimidation",
+            "value": "+2"
+        }
+    ],
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 10
+        }
+    ],
+    "languages": [
+        {
+            "value": "Any one"
+        }
+    ],
+    "features": [
+        {
+            "name": "Pack Tactics",
+            "extras": {
+                "description": "The thug has advantage on an attack roll against a creature if at least one of the thug's allies is within 5 feet of the creature and the ally isn't incapacitated."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Mace",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Bludgeoning",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 2
+                }
+            ]
+        },
+        {
+            "name": "Heavy Crossbow",
+            "expression": "{d20} + 2",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 10,
+                    "modifier": 0
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Multiattack",
+            "extras": {
+                "description": "The thug makes two melee attacks."
+            }
+        },
+        {
+            "name": "Mace",
+            "extras": {
+                "roll": "Mace",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "bludgeoning_attack",
+                        "value": "1d6 + 2"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Heavy Crossbow",
+            "extras": {
+                "roll": "Heavy Crossbow",
+                "attributes": [
+                    {
+                        "type": "ranged_weapon"
+                    },
+                    {
+                        "type": "range",
+                        "value": "100/400"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+2"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d10"
+                    }
+                ]
+            }
+        }
+    ],
+    "description": "**Thugs** are ruthless enforcers skilled at intimidation and violence. They work for money and have few scruples."
+}

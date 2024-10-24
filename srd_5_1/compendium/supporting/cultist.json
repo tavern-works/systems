@@ -2,11 +2,8 @@
     "name": "Cultist",
     "id": "xQFd7hBXFYvk",
     "size": "Medium",
-    "type": "Humanoid (any race)",
+    "type": "Humanoid",
     "alignment": "Any Non-Good",
-    "armor": [
-        "mVvkHTZh19NX"
-    ],
     "hp": "2d8",
     "speed": "30 ft",
     "ability_scores": [
@@ -16,6 +13,10 @@
         10,
         11,
         10
+    ],
+    "challenge": "1/8 (25 XP)",
+    "armor": [
+        "mVvkHTZh19NX"
     ],
     "skills": [
         {
@@ -27,10 +28,6 @@
             "value": "+2"
         }
     ],
-    "damage_vulnerabilities": [],
-    "damage_resistances": [],
-    "damage_immunities": [],
-    "condition_immunities": [],
     "senses": [
         {
             "type": "passive_perception",
@@ -42,7 +39,6 @@
             "value": "Any one"
         }
     ],
-    "challenge": "1/8 (25 XP)",
     "rolls": [
         {
             "name": "Scimitar",
@@ -86,5 +82,8 @@
             }
         }
     ],
-    "description": "**Cultists** swear allegiance to dark powers such as elemental princes, demon lords, or archdevils. Most conceal their loyalties to avoid being ostracized, imprisoned, or executed for their beliefs. Unlike evil acolytes, cultists often show signs of insanity in their beliefs and practices."
+    "description": "**Cultists** swear allegiance to dark powers such as elemental princes, demon lords, or archdevils. Most conceal their loyalties to avoid being ostracized, imprisoned, or executed for their beliefs. Unlike evil acolytes, cultists often show signs of insanity in their beliefs and practices.",
+    "subtypes": [
+        "Any Race"
+    ]
 }

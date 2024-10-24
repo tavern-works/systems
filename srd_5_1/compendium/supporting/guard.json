@@ -2,12 +2,8 @@
     "name": "Guard",
     "id": "0f89f6Ynr57f",
     "size": "Medium",
-    "type": "Humanoid (any race)",
+    "type": "Humanoid",
     "alignment": "Any",
-    "armor": [
-        "GyBNs52x7QkZ",
-        "nY7KF1CqTVKG"
-    ],
     "hp": "2d8 + 2",
     "speed": "30 ft",
     "ability_scores": [
@@ -18,16 +14,17 @@
         11,
         10
     ],
+    "challenge": "1/8 (25 XP)",
+    "armor": [
+        "GyBNs52x7QkZ",
+        "nY7KF1CqTVKG"
+    ],
     "skills": [
         {
             "type": "Perception",
             "value": "+2"
         }
     ],
-    "damage_vulnerabilities": [],
-    "damage_resistances": [],
-    "damage_immunities": [],
-    "condition_immunities": [],
     "senses": [
         {
             "type": "passive_perception",
@@ -39,7 +36,6 @@
             "value": "Any one"
         }
     ],
-    "challenge": "1/8 (25 XP)",
     "rolls": [
         {
             "name": "Spear",
@@ -141,5 +137,8 @@
             }
         }
     ],
-    "description": "**Guards** include members of a city watch, sentries in a citadel or fortified town, and the bodyguards of merchants and nobles."
+    "description": "**Guards** include members of a city watch, sentries in a citadel or fortified town, and the bodyguards of merchants and nobles.",
+    "subtypes": [
+        "Any Race"
+    ]
 }

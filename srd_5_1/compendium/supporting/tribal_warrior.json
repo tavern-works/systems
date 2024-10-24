@@ -2,11 +2,8 @@
     "name": "Tribal Warrior",
     "id": "cW6Fy0VzNby0",
     "size": "Medium",
-    "type": "Humanoid (any race)",
+    "type": "Humanoid",
     "alignment": "Any",
-    "armor": [
-        "ljnFvGbgHTcx"
-    ],
     "hp": "2d8 + 2",
     "speed": "30 ft",
     "ability_scores": [
@@ -17,11 +14,10 @@
         11,
         8
     ],
-    "skills": [],
-    "damage_vulnerabilities": [],
-    "damage_resistances": [],
-    "damage_immunities": [],
-    "condition_immunities": [],
+    "challenge": "1/8 (25 XP)",
+    "armor": [
+        "ljnFvGbgHTcx"
+    ],
     "senses": [
         {
             "type": "passive_perception",
@@ -33,7 +29,6 @@
             "value": "Any one"
         }
     ],
-    "challenge": "1/8 (25 XP)",
     "features": [
         {
             "name": "Pack Tactics",
@@ -143,5 +138,8 @@
             }
         }
     ],
-    "description": "**Tribal warriors** live beyond civilization, most often subsisting on fishing and hunting. Each tribe acts in accordance with the wishes of its chief, who is the greatest or oldest warrior of the tribe or a tribe member blessed by the gods."
+    "description": "**Tribal warriors** live beyond civilization, most often subsisting on fishing and hunting. Each tribe acts in accordance with the wishes of its chief, who is the greatest or oldest warrior of the tribe or a tribe member blessed by the gods.",
+    "subtypes": [
+        "Any Race"
+    ]
 }

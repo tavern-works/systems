@@ -2,9 +2,8 @@
     "name": "Acolyte",
     "id": "G1wM6W45t62Y",
     "size": "Medium",
-    "type": "Humanoid (any race)",
+    "type": "Humanoid",
     "alignment": "Any",
-    "armor": [],
     "hp": "2d8",
     "speed": "30 ft",
     "ability_scores": [
@@ -15,6 +14,7 @@
         14,
         11
     ],
+    "challenge": "1/4 (50 XP)",
     "skills": [
         {
             "type": "Medicine",
@@ -25,10 +25,6 @@
             "value": "+2"
         }
     ],
-    "damage_vulnerabilities": [],
-    "damage_resistances": [],
-    "damage_immunities": [],
-    "condition_immunities": [],
     "senses": [
         {
             "type": "passive_perception",
@@ -40,7 +36,6 @@
             "value": "Any one"
         }
     ],
-    "challenge": "1/4 (50 XP)",
     "features": [
         {
             "name": "Spellcasting",
@@ -132,5 +127,8 @@
             }
         }
     ],
-    "description": "**Acolytes** are junior members of a clergy, usually answerable to a priest. They perform a variety of functions in a temple and are granted minor spellcasting power by their deities."
+    "description": "**Acolytes** are junior members of a clergy, usually answerable to a priest. They perform a variety of functions in a temple and are granted minor spellcasting power by their deities.",
+    "subtypes": [
+        "Any Race"
+    ]
 }

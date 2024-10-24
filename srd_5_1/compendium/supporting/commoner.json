@@ -2,9 +2,8 @@
     "name": "Commoner",
     "id": "Cw1rSWNrpqzj",
     "size": "Medium",
-    "type": "Humanoid (any race)",
+    "type": "Humanoid",
     "alignment": "Any",
-    "armor": [],
     "hp": "1d8",
     "speed": "30 ft",
     "ability_scores": [
@@ -15,11 +14,7 @@
         10,
         10
     ],
-    "skills": [],
-    "damage_vulnerabilities": [],
-    "damage_resistances": [],
-    "damage_immunities": [],
-    "condition_immunities": [],
+    "challenge": "0 (10 XP)",
     "senses": [
         {
             "type": "passive_perception",
@@ -31,7 +26,6 @@
             "value": "Any one"
         }
     ],
-    "challenge": "0 (10 XP)",
     "rolls": [
         {
             "name": "Club",
@@ -67,5 +61,8 @@
             }
         }
     ],
-    "description": "**Commoners** include peasants, serfs, slaves, servants, pilgrims, merchants, artisans, and hermits."
+    "description": "**Commoners** include peasants, serfs, slaves, servants, pilgrims, merchants, artisans, and hermits.",
+    "subtypes": [
+        "Any Race"
+    ]
 }

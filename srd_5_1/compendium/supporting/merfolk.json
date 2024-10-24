@@ -2,9 +2,8 @@
     "name": "Merfolk",
     "id": "LZDFhGP59DBH",
     "size": "Medium",
-    "type": "Humanoid (merfolk)",
+    "type": "Humanoid",
     "alignment": "Neutral",
-    "armor": [],
     "hp": "2d8 + 2",
     "speed": "10 ft, swim 40 ft",
     "ability_scores": [
@@ -15,16 +14,7 @@
         11,
         12
     ],
-    "skills": [
-        {
-            "type": "Perception",
-            "value": "+2"
-        }
-    ],
-    "damage_vulnerabilities": [],
-    "damage_resistances": [],
-    "damage_immunities": [],
-    "condition_immunities": [],
+    "challenge": "1/8 (25 XP)",
     "senses": [
         {
             "type": "passive_perception",
@@ -39,7 +29,14 @@
             "value": "Common"
         }
     ],
-    "challenge": "1/8 (25 XP)",
+    "features": [
+        {
+            "name": "Amphibious",
+            "extras": {
+                "description": "The merfolk can breathe air and water."
+            }
+        }
+    ],
     "rolls": [
         {
             "name": "Spear",
@@ -141,12 +138,13 @@
             }
         }
     ],
-    "features": [
+    "skills": [
         {
-            "name": "Amphibious",
-            "extras": {
-                "description": "The merfolk can breathe air and water."
-            }
+            "type": "Perception",
+            "value": "+2"
         }
+    ],
+    "subtypes": [
+        "Merfolk"
     ]
 }

@@ -1,44 +1,57 @@
 {
-    "name": "Gnoll",
-    "id": "0091yMtF78CY",
+    "name": "Lizardfolk",
+    "id": "63wFxv9XCKcF",
     "size": "Medium",
     "type": "Humanoid",
-    "alignment": "Chaotic Evil",
-    "hp": "5d8",
-    "speed": "30 ft",
+    "alignment": "Neutral",
+    "hp": "4d8 + 4",
+    "speed": "30 ft, swim 30 ft",
     "ability_scores": [
-        14,
-        12,
-        11,
-        6,
+        15,
         10,
+        13,
+        7,
+        12,
         7
     ],
     "challenge": "1/2 (100 XP)",
+    "subtypes": [
+        "Lizardfolk"
+    ],
     "armor": [
-        "ljnFvGbgHTcx",
+        "KhZCsRJVgGRP",
         "nY7KF1CqTVKG"
+    ],
+    "skills": [
+        {
+            "type": "Perception",
+            "value": "+3"
+        },
+        {
+            "type": "Stealth",
+            "value": "+4"
+        },
+        {
+            "type": "Survival",
+            "value": "+5"
+        }
     ],
     "senses": [
         {
-            "type": "darkvision",
-            "value": 60
-        },
-        {
             "type": "passive_perception",
-            "value": 10
+            "value": 13
         }
     ],
     "languages": [
         {
-            "value": "Gnoll"
+            "value": "Draconic"
         }
     ],
     "features": [
         {
-            "name": "Rampage",
+            "name": "Hold Breath",
             "extras": {
-                "description": "When the gnoll reduces a creature to 0 hit points with a melee attack on its turn, the gnoll can take a bonus action to move up to half its speed and make a bite attack."
+                "description": "The lizardfolk can hold its breath for 15 minutes."
             }
         }
     ],
@@ -50,13 +63,25 @@
                 {
                     "type": "Piercing",
                     "count": 1,
-                    "sides": 4,
+                    "sides": 6,
                     "modifier": 2
                 }
             ]
         },
         {
-            "name": "Spear",
+            "name": "Heavy Club",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Bludgeoning",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 2
+                }
+            ]
+        },
+        {
+            "name": "Javelin",
             "expression": "{d20} + 4",
             "damage": [
                 {
@@ -68,31 +93,25 @@
             ]
         },
         {
-            "name": "Spear (Two-Handed)",
+            "name": "Spiked Shield",
             "expression": "{d20} + 4",
             "damage": [
                 {
                     "type": "Piercing",
                     "count": 1,
-                    "sides": 8,
+                    "sides": 6,
                     "modifier": 2
-                }
-            ]
-        },
-        {
-            "name": "Longbow",
-            "expression": "{d20} + 3",
-            "damage": [
-                {
-                    "type": "Piercing",
-                    "count": 1,
-                    "sides": 8,
-                    "modifier": 1
                 }
             ]
         }
     ],
     "actions": [
+        {
+            "name": "Multiattack",
+            "extras": {
+                "description": "The lizardfolk makes two melee attacks, each one with a different weapon."
+            }
+        },
         {
             "name": "Bite",
             "extras": {
@@ -107,15 +126,34 @@
                     },
                     {
                         "type": "piercing_attack",
-                        "value": "1d4 + 2"
+                        "value": "1d6 + 2"
                     }
                 ]
             }
         },
         {
-            "name": "Spear",
+            "name": "Heavy Club",
             "extras": {
-                "roll": "Spear",
+                "roll": "Heavy Club",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "bludgeoning_attack",
+                        "value": "1d6 + 2"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Javelin",
+            "extras": {
+                "roll": "Javelin",
                 "attributes": [
                     {
                         "type": "melee_weapon"
@@ -132,35 +170,16 @@
             }
         },
         {
-            "name": "Spear (Two-Handed)",
+            "name": "Javelin (Thrown)",
             "extras": {
-                "roll": "Spear (Two-Handed)",
-                "attributes": [
-                    {
-                        "type": "melee_weapon"
-                    },
-                    {
-                        "type": "to_hit",
-                        "value": "+4"
-                    },
-                    {
-                        "type": "piercing_attack",
-                        "value": "1d8 + 2"
-                    }
-                ]
-            }
-        },
-        {
-            "name": "Spear (Thrown)",
-            "extras": {
-                "roll": "Spear",
+                "roll": "Javelin",
                 "attributes": [
                     {
                         "type": "thrown"
                     },
                     {
                         "type": "range",
-                        "value": "20/60"
+                        "value": "30/120"
                     },
                     {
                         "type": "to_hit",
@@ -174,30 +193,23 @@
             }
         },
         {
-            "name": "Longbow",
+            "name": "Spiked Shield",
             "extras": {
-                "roll": "Longbow",
+                "roll": "Spiked Shield",
                 "attributes": [
                     {
-                        "type": "ranged_weapon"
-                    },
-                    {
-                        "type": "range",
-                        "value": "150/600"
+                        "type": "melee_weapon"
                     },
                     {
                         "type": "to_hit",
-                        "value": "+3"
+                        "value": "+4"
                     },
                     {
                         "type": "piercing_attack",
-                        "value": "1d8 + 1"
+                        "value": "1d6 + 2"
                     }
                 ]
             }
         }
-    ],
-    "subtypes": [
-        "Gnoll"
     ]
 }

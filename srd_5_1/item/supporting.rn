@@ -1,7 +1,14 @@
-pub fn headline(size, type_, alignment) {
+pub fn headline(size, type_, subtypesa, alignment) {
     let type_ = type_[..1].to_lowercase() + type_[1..];
 
     let headline = format!("{size} {type_}");
+    if let Some(subtypes) = subtypesa {
+        headline += format!(" ({}", subtypes[0].to_lowercase());
+        for subtype in subtypes[1..] {
+            headline += format!(", {}", subtype.to_lowercase());
+        }
+        headline.push(')');
+    }
 
     if alignment == "Any" {
         headline += ", any alignment";    

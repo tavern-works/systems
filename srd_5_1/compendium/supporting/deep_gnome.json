@@ -2,7 +2,7 @@
     "name": "Deep Gnome",
     "id": "Qbdj1bNrF7XQ",
     "size": "Small",
-    "type": "Humanoid (gnome)",
+    "type": "Humanoid",
     "alignment": "Neutral Good",
     "hp": "3d6 + 6",
     "speed": "20 ft",
@@ -178,5 +178,8 @@
                 "description": "On a hit, the target must succeed on a DC 12 Constitution saving throw or be poisoned for 1 minute. The target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
             }
         }
+    ],
+    "subtypes": [
+        "Gnome"
     ]
 }

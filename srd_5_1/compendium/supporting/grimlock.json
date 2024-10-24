@@ -2,7 +2,7 @@
     "name": "Grimlock",
     "id": "GbxzDSDy3gSz",
     "size": "Medium",
-    "type": "Humanoid (grimlock)",
+    "type": "Humanoid",
     "alignment": "Neutral Evil",
     "hp": "2d8 + 2",
     "speed": "30 ft",
@@ -113,5 +113,8 @@
                 ]
             }
         }
+    ],
+    "subtypes": [
+        "Grimlock"
     ]
 }

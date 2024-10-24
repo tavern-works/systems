@@ -426,9 +426,17 @@ impl Supporting {
 
     fn headline(self, template, extended) {
         let type_ = template["type"][..1].to_lowercase() + template["type"][1..];
-
         let headline = format!("{} {type_}", template["size"]);
+
         if extended {
+            if let Some(subtypes) = template.get("subtypes") {
+                headline += format!(" ({}", subtypes[0].to_lowercase());
+                for subtype in subtypes[1..] {
+                    headline += format!(", {}", subtype.to_lowercase());
+                }
+                headline.push(')');
+            }
+
             if template["alignment"] == "Any" {
                 headline += ", any alignment";    
             } else if template["alignment"] == "Any Non-Good" {

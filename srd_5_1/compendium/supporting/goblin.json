@@ -2,7 +2,7 @@
     "name": "Goblin",
     "id": "2WPKKN9VN0H7",
     "size": "Small",
-    "type": "Humanoid (goblinoid)",
+    "type": "Humanoid",
     "alignment": "Neutral Evil",
     "hp": "2d6",
     "speed": "30 ft",
@@ -120,5 +120,8 @@
         {
             "value": "Goblin"
         }
+    ],
+    "subtypes": [
+        "Goblinoid"
     ]
 }

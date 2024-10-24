@@ -145,6 +145,9 @@ pub fn get_for_attribute(attribute) {
             .roll(PrepareOptions::by_name("Stealth Check")),
         "strength" => Chip::new([ChipField::Text("STR"), ChipField::Divider, ChipField::Value])
             .tooltip("Reduces the wearer's speed by 10 feet unless the wearer has a Strength score greater than or equal to {}"),
+        "Survival" => Chip::new([ChipField::Text("Survival"), ChipField::Divider, ChipField::Value])
+            .tooltip("Roll Survival Check")
+            .roll(PrepareOptions::by_name("Survival Check")),
         "thrown" => Chip::new([ChipField::Text("Thrown")])
             .tooltip("You may throw the weapon to make a ranged attack. If it is a melee weapon, use the same ability modifier for the attack and damage rolls as you would for a melee attack."),
         "to_hit" => Chip::new([ChipField::Value, ChipField::Divider, ChipField::Text("to Hit")])

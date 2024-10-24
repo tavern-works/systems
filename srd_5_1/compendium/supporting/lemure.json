@@ -2,7 +2,7 @@
     "name": "Lemure",
     "id": "KztjWZFDGVBb",
     "size": "Medium",
-    "type": "Fiend (devil)",
+    "type": "Fiend",
     "alignment": "Lawful Evil",
     "hp": "3d8",
     "speed": "15 ft",
@@ -15,7 +15,6 @@
         3
     ],
     "challenge": "0 (10 XP)",
-    "skills": [],
     "senses": [
         {
             "type": "darkvision",
@@ -83,8 +82,6 @@
             }
         }
     ],
-    "armor": [],
-    "damage_vulnerabilities": [],
     "damage_resistances": [
         {
             "value": "Cold"
@@ -108,5 +105,8 @@
         {
             "value": "Poisoned"
         }
+    ],
+    "subtypes": [
+        "Devil"
     ]
 }

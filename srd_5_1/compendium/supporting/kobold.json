@@ -2,9 +2,8 @@
     "name": "Kobold",
     "id": "hJkG9VbkZGcx",
     "size": "Small",
-    "type": "Humanoid (kobold)",
+    "type": "Humanoid",
     "alignment": "Lawful Evil",
-    "armor": [],
     "hp": "2d6 - 2",
     "speed": "30 ft",
     "ability_scores": [
@@ -15,11 +14,7 @@
         7,
         8
     ],
-    "skills": [],
-    "damage_vulnerabilities": [],
-    "damage_resistances": [],
-    "damage_immunities": [],
-    "condition_immunities": [],
+    "challenge": "1/8 (25 XP)",
     "senses": [
         {
             "type": "darkvision",
@@ -38,7 +33,20 @@
             "value": "Draconic"
         }
     ],
-    "challenge": "1/8 (25 XP)",
+    "features": [
+        {
+            "name": "Sunlight Sensitivity",
+            "extras": {
+                "description": "While in sunlight, the kobold has disadvantage on attack rolls, as well as on Wisdom (Perception) checks that rely on sight."
+            }
+        },
+        {
+            "name": "Pack Tactics",
+            "extras": {
+                "description": "The kobold has advantage on an attack roll against a creature if at least one of the kobold's allies is within 5 feet of the creature and the ally isn't incapacitated."
+            }
+        }
+    ],
     "rolls": [
         {
             "name": "Dagger",
@@ -109,18 +117,7 @@
             }
         }
     ],
-    "features": [
-        {
-            "name": "Sunlight Sensitivity",
-            "extras": {
-                "description": "While in sunlight, the kobold has disadvantage on attack rolls, as well as on Wisdom (Perception) checks that rely on sight."
-            }
-        },
-        {
-            "name": "Pack Tactics",
-            "extras": {
-                "description": "The kobold has advantage on an attack roll against a creature if at least one of the kobold's allies is within 5 feet of the creature and the ally isn't incapacitated."
-            }
-        }
+    "subtypes": [
+        "Kobold"
     ]
 }

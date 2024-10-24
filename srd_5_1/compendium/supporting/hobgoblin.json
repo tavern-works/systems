@@ -2,7 +2,7 @@
     "name": "Hobgoblin",
     "id": "rLCRc6YcHZFH",
     "size": "Medium",
-    "type": "Humanoid (goblinoid)",
+    "type": "Humanoid",
     "alignment": "Lawful Evil",
     "hp": "2d8 + 2",
     "speed": "30 ft",
@@ -150,5 +150,8 @@
                 ]
             }
         }
+    ],
+    "subtypes": [
+        "Goblinoid"
     ]
 }

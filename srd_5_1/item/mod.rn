@@ -11,7 +11,7 @@ pub fn get_data(section, entry) {
             entry["duration_string"] = spell::duration_string(entry["concentration"], entry["duration"]);
         },
         "supporting" => {
-            entry["headline"] = supporting::headline(entry["size"], entry["type"], entry["alignment"])
+            entry["headline"] = supporting::headline(entry["size"], entry["type"], entry.get("subtypes"), entry["alignment"])
         }
         _ => log::warn!("unhandled section {section} in get_data"),
     }    

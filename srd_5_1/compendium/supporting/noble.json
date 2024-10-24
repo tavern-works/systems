@@ -2,11 +2,8 @@
     "name": "Noble",
     "id": "1h48zHx2D2xc",
     "size": "Medium",
-    "type": "Humanoid (any race)",
+    "type": "Humanoid",
     "alignment": "Any",
-    "armor": [
-        "D09JsNwQWVPN"
-    ],
     "hp": "2d8",
     "speed": "30 ft",
     "ability_scores": [
@@ -17,24 +14,7 @@
         14,
         16
     ],
-    "skills": [
-        {
-            "type": "Deception",
-            "value": "+5"
-        },
-        {
-            "type": "Insight",
-            "value": "+4"
-        },
-        {
-            "type": "Persuasion",
-            "value": "+5"
-        }
-    ],
-    "damage_vulnerabilities": [],
-    "damage_resistances": [],
-    "damage_immunities": [],
-    "condition_immunities": [],
+    "challenge": "1/8 (25 XP)",
     "senses": [
         {
             "type": "passive_perception",
@@ -46,7 +26,6 @@
             "value": "Any two"
         }
     ],
-    "challenge": "1/8 (25 XP)",
     "rolls": [
         {
             "name": "Rapier",
@@ -82,6 +61,23 @@
             }
         }
     ],
+    "skills": [
+        {
+            "type": "Deception",
+            "value": "+5"
+        },
+        {
+            "type": "Insight",
+            "value": "+4"
+        },
+        {
+            "type": "Persuasion",
+            "value": "+5"
+        }
+    ],
+    "armor": [
+        "D09JsNwQWVPN"
+    ],
     "reactions": [
         {
             "name": "Parry",
@@ -90,5 +86,8 @@
             }
         }
     ],
-    "description": "**Nobles** wield great authority and influence as members of the upper class, possessing wealth and connections that can make them as powerful as monarchs and generals. A noble often travels in the company of guards, as well as servants who are commoners. The noble's statistics can also be used to represent **courtiers** who aren't of noble birth."
+    "description": "**Nobles** wield great authority and influence as members of the upper class, possessing wealth and connections that can make them as powerful as monarchs and generals. A noble often travels in the company of guards, as well as servants who are commoners. The noble's statistics can also be used to represent **courtiers** who aren't of noble birth.",
+    "subtypes": [
+        "Any Race"
+    ]
 }

@@ -2,11 +2,8 @@
     "name": "Drow",
     "id": "tSGkYyLbyzZh",
     "size": "Medium",
-    "type": "Humanoid (elf)",
+    "type": "Humanoid",
     "alignment": "Neutral Evil",
-    "armor": [
-        "GyBNs52x7QkZ"
-    ],
     "hp": "3d8",
     "speed": "30 ft",
     "ability_scores": [
@@ -16,6 +13,10 @@
         11,
         11,
         12
+    ],
+    "challenge": "1/4 (50 XP)",
+    "armor": [
+        "GyBNs52x7QkZ"
     ],
     "skills": [
         {
@@ -27,10 +28,6 @@
             "value": "+4"
         }
     ],
-    "damage_vulnerabilities": [],
-    "damage_resistances": [],
-    "damage_immunities": [],
-    "condition_immunities": [],
     "senses": [
         {
             "type": "darkvision",
@@ -49,7 +46,6 @@
             "value": "Undercommon"
         }
     ],
-    "challenge": "1/4 (50 XP)",
     "features": [
         {
             "name": "Fey Ancestry",
@@ -173,5 +169,8 @@
                 "description": "On a hit, the target must succeed on a DC 13 Constitution saving throw or be poisoned for 1 hour. If the saving throw fails by 5 or more, the target is also unconscious while poisoned in this way. The target wakes up if it takes damage or if another creature takes an action to shake it awake."
             }
         }
+    ],
+    "subtypes": [
+        "Elf"
     ]
 }

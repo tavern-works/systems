@@ -1,0 +1,87 @@
+{
+    "name": "Reef Shark",
+    "id": "PrLPXwMNbfq6",
+    "size": "Medium",
+    "type": "Beast",
+    "alignment": "Unaligned",
+    "hp": "4d8 + 4",
+    "speed": "0 ft, swim 40 ft",
+    "ability_scores": [
+        14,
+        13,
+        13,
+        1,
+        10,
+        4
+    ],
+    "challenge": "1/2 (100 XP)",
+    "armor": [
+        "XSyXthp8xVjL"
+    ],
+    "skills": [
+        {
+            "type": "Perception",
+            "value": "+2"
+        }
+    ],
+    "senses": [
+        {
+            "type": "blindsight",
+            "value": 30
+        },
+        {
+            "type": "passive_perception",
+            "value": 12
+        }
+    ],
+    "features": [
+        {
+            "name": "Pack Tactics",
+            "extras": {
+                "description": "The shark has advantage on an attack roll against a creature if at least one of the shark's allies is within 5 feet of the creature and the ally isn't incapacitated."
+            }
+        },
+        {
+            "name": "Water Breathing",
+            "extras": {
+                "description": "The shark can breathe only underwater."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Bite",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 8,
+                    "modifier": 2
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Bite",
+            "extras": {
+                "roll": "Bite",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d8 + 2"
+                    }
+                ]
+            }
+        }
+    ],
+    "description": "Smaller than giant sharks and hunter sharks, **reef sharks** inhabit shallow waters and coral reefs, gathering in small packs to hunt. A full-grown specimen measures 6 to 10 feet long."
+}

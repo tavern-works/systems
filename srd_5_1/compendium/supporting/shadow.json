@@ -1,0 +1,157 @@
+{
+    "name": "Shadow",
+    "size": "Medium",
+    "type": "Undead",
+    "alignment": "Chaotic Evil",
+    "hp": "3d8 + 3",
+    "speed": "40 ft",
+    "ability_scores": [
+        6,
+        14,
+        13,
+        6,
+        10,
+        8
+    ],
+    "challenge": "1/2 (100 XP)",
+    "skills": [
+        {
+            "type": "Stealth",
+            "value": "+4"
+        }
+    ],
+    "damage_vulnerabilities": [
+        {
+            "value": "Radiant"
+        }
+    ],
+    "damage_resistances": [
+        {
+            "value": "Acid"
+        },
+        {
+            "value": "Cold"
+        },
+        {
+            "value": "Fire"
+        },
+        {
+            "value": "Lightning"
+        },
+        {
+            "value": "Thunder"
+        },
+        {
+            "value": "Nonmagical"
+        },
+        {
+            "value": "Bludgeoning"
+        },
+        {
+            "value": "Piercing"
+        },
+        {
+            "value": "Slashing"
+        }
+    ],
+    "damage_immunities": [
+        {
+            "value": "Necrotic"
+        },
+        {
+            "value": "Poison"
+        }
+    ],
+    "condition_immunities": [
+        {
+            "value": "Exhaustion"
+        },
+        {
+            "value": "Frightened"
+        },
+        {
+            "value": "Grappled"
+        },
+        {
+            "value": "Paralyzed"
+        },
+        {
+            "value": "Petrified"
+        },
+        {
+            "value": "Poisoned"
+        },
+        {
+            "value": "Prone"
+        },
+        {
+            "value": "Restrained"
+        }
+    ],
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 60
+        },
+        {
+            "type": "passive_perception",
+            "value": 10
+        }
+    ],
+    "features": [
+        {
+            "name": "Amorphous",
+            "extras": {
+                "description": "The shadow can move through a space as narrow as 1 inch wide without squeezing."
+            }
+        },
+        {
+            "name": "Shadow Stealth",
+            "extras": {
+                "description": "While in dim light or darkness, the shadow can take the Hide action as a bonus action, and it has a +6 bonus on Stealth checks rather than its usual +4 bonus."
+            }
+        },
+        {
+            "name": "Sunlight Weakness",
+            "extras": {
+                "description": "While in sunlight, the shadow has disadvantage on attack rolls, ability checks, and saving throws."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Strength Drain",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Necrotic",
+                    "count": 2,
+                    "sides": 6,
+                    "modifier": 2
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Strength Drain",
+            "extras": {
+                "description": "On a hit, the target's Strength score is reduced by 1d4. The target dies if this reduces its Strength to 0. Otherwise, the reduction lasts until the target finishes a short or long rest.\n\nIf a non-evil humanoid dies from this attack, a new shadow rises from the corpse 1d4 hours later.",
+                "roll": "Strength Drain",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "necrotic_attack",
+                        "value": "2d6 + 2"
+                    }
+                ]
+            }
+        }
+    ]
+}

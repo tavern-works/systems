@@ -425,11 +425,14 @@
                         "Cold",
                         "Fire",
                         "Lightning",
+                        "Necrotic",
                         "Nonmagical",
                         "Piercing",
                         "Poison",
                         "Psychic",
-                        "Slashing"
+                        "Radiant",
+                        "Slashing",
+                        "Thunder"
                     ]
                 }
             },

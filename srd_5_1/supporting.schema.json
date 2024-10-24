@@ -60,6 +60,11 @@
                     "const": "mrjDrvy7Cfy7"
                 },
                 {
+                    "title": "Natural Armor (+6)",
+                    "type": "string",
+                    "const": "HlJhGVpGVbbQ"
+                },
+                {
                     "title": "Natural Armor (+8)",
                     "type": "string",
                     "const": "RlRphDDr6w5F"
@@ -698,6 +703,7 @@
                 "Neutral Good",
                 "Neutral",
                 "Neutral Evil",
+                "Chaotic Good",
                 "Chaotic Neutral",
                 "Chaotic Evil",
                 "Unaligned"
@@ -744,7 +750,12 @@
                     "type": {
                         "title": "Ability",
                         "type": "string",
-                        "enum": ["Dexterity", "Wisdom"]
+                        "enum": [
+                            "Charisma",
+                            "Constitution",
+                            "Dexterity",
+                            "Wisdom"
+                        ]
                     },
                     "value": {
                         "title": "Modifier",

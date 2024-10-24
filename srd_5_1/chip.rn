@@ -31,8 +31,14 @@ pub fn get_for_attribute(attribute) {
             .tooltip("This attack does {} bludgeoning damage"),
         "bright_light" => Chip::new([ChipField::Text("Bright Light"), ChipField::Divider, ChipField::Value])
             .tooltip("Emits bright light in a {}-foot radius"),
+        "Charisma" => Chip::new([ChipField::Text("Charisma"), ChipField::Divider, ChipField::Value])
+            .tooltip("Roll Charisma Saving Throw")
+            .roll(PrepareOptions::by_name("Charisma Saving Throw")),
         "cold_attack" => Chip::new([ChipField::Value, ChipField::Divider, ChipField::Text("Cold")])
             .tooltip("This attack does {} cold damage"),
+        "Constitution" => Chip::new([ChipField::Text("Constitution"), ChipField::Divider, ChipField::Value])
+            .tooltip("Roll Constitution Saving Throw")
+            .roll(PrepareOptions::by_name("Constitution Saving Throw")),
         "darkvision" => Chip::new([ChipField::Text("Darkvision"), ChipField::Divider, ChipField::Value])
             .tooltip("This creature can see in dim light within {} feet as if it were bright light and in darkness as if it were dim light. It can't discern color in darkness, only shades of gray."),
         "Deception" => Chip::new([ChipField::Text("Deception"), ChipField::Divider, ChipField::Value])

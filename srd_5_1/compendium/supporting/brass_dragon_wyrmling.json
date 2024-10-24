@@ -1,0 +1,133 @@
+{
+    "name": "Brass Dragon Wyrmling",
+    "size": "Medium",
+    "type": "Dragon",
+    "alignment": "Chaotic Good",
+    "hp": "3d8 + 3",
+    "speed": "30 ft, burrow 15 ft, fly 60 ft",
+    "ability_scores": [
+        15,
+        10,
+        13,
+        10,
+        11,
+        13
+    ],
+    "challenge": "1 (200 XP)",
+    "armor": [
+        "HlJhGVpGVbbQ"
+    ],
+    "saving_throws": [
+        {
+            "type": "Dexterity",
+            "value": "+2"
+        },
+        {
+            "type": "Constitution",
+            "value": "+3"
+        },
+        {
+            "type": "Wisdom",
+            "value": "+2"
+        },
+        {
+            "type": "Charisma",
+            "value": "+3"
+        }
+    ],
+    "skills": [
+        {
+            "type": "Perception",
+            "value": "+4"
+        },
+        {
+            "type": "Stealth",
+            "value": "+2"
+        }
+    ],
+    "damage_immunities": [
+        {
+            "value": "Fire"
+        }
+    ],
+    "senses": [
+        {
+            "type": "blindsight",
+            "value": 10
+        },
+        {
+            "type": "darkvision",
+            "value": 60
+        },
+        {
+            "type": "passive_perception",
+            "value": 14
+        }
+    ],
+    "languages": [
+        {
+            "value": "Draconic"
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Bite",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 10,
+                    "modifier": 2
+                }
+            ]
+        },
+        {
+            "name": "Fire Breath Damage",
+            "expression": "4d6"
+        }
+    ],
+    "actions": [
+        {
+            "name": "Bite",
+            "extras": {
+                "roll": "Bite",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d10 + 2"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Breath Weapons (Recharge 5-6)",
+            "extras": {
+                "description": "The dragon uses one of the following breath weapons.",
+                "used": [
+                    false
+                ]
+            }
+        },
+        {
+            "name": "Fire Breath",
+            "extras": {
+                "roll": "Fire Breath Damage",
+                "description": "The dragon exhales fire in a 20-foot line that is 5-feet wide. Each creature in that line must make a DC 11 Dexterity saving throw, taking 4d6 fire damage on a failed save, or half as much damage on a successful one."
+            }
+        },
+        {
+            "name": "Sleep Breath",
+            "extras": {
+                "description": "The dragon exhales sleep gas in a 15-foot cone. Each creature in that area must succeed on a DC 11 Constitution saving throw or fall unconscious for 1 minute. This effect ends for a creature if the creature takes damage or someone else uses an action to wake it."
+            }
+        }
+    ]
+}

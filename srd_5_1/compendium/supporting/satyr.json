@@ -1,0 +1,161 @@
+{
+    "name": "Satyr",
+    "id": "SpHs1WPGz4br",
+    "size": "Medium",
+    "type": "Fey",
+    "alignment": "Chaotic Neutral",
+    "hp": "7d8",
+    "speed": "40 ft",
+    "ability_scores": [
+        12,
+        16,
+        11,
+        12,
+        10,
+        14
+    ],
+    "challenge": "1/2 (100 XP)",
+    "armor": [
+        "mVvkHTZh19NX"
+    ],
+    "skills": [
+        {
+            "type": "Perception",
+            "value": "+2"
+        },
+        {
+            "type": "Performance",
+            "value": "+6"
+        },
+        {
+            "type": "Stealth",
+            "value": "+5"
+        }
+    ],
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 12
+        }
+    ],
+    "languages": [
+        {
+            "value": "Common"
+        },
+        {
+            "value": "Elvish"
+        },
+        {
+            "value": "Sylvan"
+        }
+    ],
+    "features": [
+        {
+            "name": "Magic Resistance",
+            "extras": {
+                "description": "The satyr has advantage on saving throws against spells and other magical effects."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Ram",
+            "expression": "{d20} + 3",
+            "damage": [
+                {
+                    "type": "Bludgeoning",
+                    "count": 2,
+                    "sides": 4,
+                    "modifier": 1
+                }
+            ]
+        },
+        {
+            "name": "Shortsword",
+            "expression": "{d20} + 5",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 3
+                }
+            ]
+        },
+        {
+            "name": "Shortbow",
+            "expression": "{d20} + 5",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 3
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Ram",
+            "extras": {
+                "roll": "Ram",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "bludgeoning_attack",
+                        "value": "2d4 + 1"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Shortsword",
+            "extras": {
+                "roll": "Shortsword",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+5"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d6 + 3"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Shortbow",
+            "extras": {
+                "roll": "Shortbow",
+                "attributes": [
+                    {
+                        "type": "ranged_weapon"
+                    },
+                    {
+                        "type": "range",
+                        "value": "80/320"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+5"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d6 + 3"
+                    }
+                ]
+            }
+        }
+    ]
+}

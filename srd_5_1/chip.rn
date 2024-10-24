@@ -99,6 +99,9 @@ pub fn get_for_attribute(attribute) {
         "Perception" => Chip::new([ChipField::Text("Perception"), ChipField::Divider, ChipField::Value])
             .tooltip("Roll Perception Check")
             .roll(PrepareOptions::by_name("Perception Check")),
+        "Performance" => Chip::new([ChipField::Text("Performance"), ChipField::Divider, ChipField::Value])
+            .tooltip("Roll Performance Check")
+            .roll(PrepareOptions::by_name("Performance Check")),
         "Persuasion" => Chip::new([ChipField::Text("Persuasion"), ChipField::Divider, ChipField::Value])
             .tooltip("Roll Persuasion Check")
             .roll(PrepareOptions::by_name("Persuasion Check")),

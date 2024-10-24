@@ -60,6 +60,11 @@
                     "const": "mrjDrvy7Cfy7"
                 },
                 {
+                    "title": "Natural Armor (+8)",
+                    "type": "string",
+                    "const": "RlRphDDr6w5F"
+                },
+                {
                     "title": "Shield",
                     "type": "string",
                     "const": "nY7KF1CqTVKG"
@@ -880,7 +885,8 @@
                 "0 (10 XP)",
                 "1/8 (25 XP)",
                 "1/4 (50 XP)",
-                "1/2 (100 XP)"
+                "1/2 (100 XP)",
+                "1 (200 XP)"
             ]
         },
         "features": {

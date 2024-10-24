@@ -625,10 +625,6 @@
             "title": "Name",
             "type": "string"
         },
-        "id": {
-            "title": "ID",
-            "type": "string"
-        },
         "size": {
             "title": "Size",
             "type": "string",

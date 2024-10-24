@@ -90,6 +90,9 @@ pub fn get_for_attribute(attribute) {
             .tooltip("Medium armor offers more protection than light armor, but impairs movement more, so you can only add a maximum of +2 when applying your Dexterity modifier"),
         "musical_instrument" => Chip::new([ChipField::Text("Musical Instrument")])
             .tooltip("If you have proficiency with a given musical instrument, you can add your proficiency bonus to any ability checks you make to play music with the instrument. A bard can use a musical instrument as a spellcasting focus. Each type of musical instrument requires a separate proficiency."),
+        "Nature" => Chip::new([ChipField::Text("Nature"), ChipField::Divider, ChipField::Value])
+            .tooltip("Roll Nature Check")
+            .roll(PrepareOptions::by_name("Nature Check")),
         "necrotic_attack" => Chip::new([ChipField::Value, ChipField::Divider, ChipField::Text("Necrotic")])
             .tooltip("This attack does {} necrotic damage"),
         "net" => Chip::new([ChipField::Text("Net")])

@@ -1,0 +1,137 @@
+{
+    "name": "Scout",
+    "size": "Medium",
+    "type": "Humanoid",
+    "alignment": "Any",
+    "hp": "3d8 + 3",
+    "speed": "30 ft",
+    "ability_scores": [
+        11,
+        14,
+        12,
+        11,
+        13,
+        11
+    ],
+    "challenge": "1/2 (100 XP)",
+    "subtypes": [
+        "Any Race"
+    ],
+    "armor": [
+        "mVvkHTZh19NX"
+    ],
+    "skills": [
+        {
+            "type": "Nature",
+            "value": "+4"
+        },
+        {
+            "type": "Perception",
+            "value": "+5"
+        },
+        {
+            "type": "Stealth",
+            "value": "+6"
+        },
+        {
+            "type": "Survival",
+            "value": "+5"
+        }
+    ],
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 15
+        }
+    ],
+    "languages": [
+        {
+            "value": "Any one"
+        }
+    ],
+    "features": [
+        {
+            "name": "Keen Hearing and Sight",
+            "extras": {
+                "description": "The scout has advantage on Wisdom (Perception) checks that rely on hearing or sight."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Shortsword",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 2
+                }
+            ]
+        },
+        {
+            "name": "Longbow",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 8,
+                    "modifier": 2
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Multiattack",
+            "extras": {
+                "description": "The scout makes two melee attacks or two ranged attacks."
+            }
+        },
+        {
+            "name": "Shortsword",
+            "extras": {
+                "roll": "Shortsword",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d6 + 2"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Longbow",
+            "extras": {
+                "roll": "Longbow",
+                "attributes": [
+                    {
+                        "type": "ranged_weapon"
+                    },
+                    {
+                        "type": "range",
+                        "value": "150/600"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d8 + 2"
+                    }
+                ]
+            }
+        }
+    ],
+    "description": "**Scouts** are skilled hunters and trackers who offer their services for a fee. Most hunt wild game, but a few work as bounty hunters, serve as guides, or provide military reconnaissance."
+}

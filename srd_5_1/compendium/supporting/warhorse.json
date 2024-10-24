@@ -1,0 +1,66 @@
+{
+    "name": "Warhorse",
+    "size": "Large",
+    "type": "Beast",
+    "alignment": "Unaligned",
+    "hp": "3d10 + 3",
+    "speed": "60 ft",
+    "ability_scores": [
+        18,
+        12,
+        13,
+        2,
+        12,
+        7
+    ],
+    "challenge": "1/2 (100 XP)",
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 11
+        }
+    ],
+    "features": [
+        {
+            "name": "Trampling Charge",
+            "extras": {
+                "description": "If the horse moves at least 20 feet straight toward a creature and then hits it with a hooves attack on the same turn, that target must succeed on a DC 14 Strength saving throw or be knocked prone. If the target is prone, the horse can make another attack with its hooves against it as a bonus action."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Hooves",
+            "expression": "{d20} + 6",
+            "damage": [
+                {
+                    "type": "Bludgeoning",
+                    "count": 2,
+                    "sides": 6,
+                    "modifier": 4
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Hooves",
+            "extras": {
+                "roll": "Hooves",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+6"
+                    },
+                    {
+                        "type": "bludgeoning_attack",
+                        "value": "2d6 + 4"
+                    }
+                ]
+            }
+        }
+    ]
+}

@@ -673,7 +673,8 @@
                     "Kobold",
                     "Lizardfolk",
                     "Merfolk",
-                    "Orc"
+                    "Orc",
+                    "Sahuagin"
                 ]
             }
         },
@@ -846,6 +847,7 @@
                             "Ignan",
                             "One known by its creator",
                             "Orc",
+                            "Sahuagin",
                             "Sylvan",
                             "Telepathy 60 ft (Abyssal only)",
                             "Terran",

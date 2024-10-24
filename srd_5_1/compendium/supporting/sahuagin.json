@@ -1,0 +1,222 @@
+{
+    "name": "Sahuagin",
+    "id": "Jcbj9FRLQqc3",
+    "size": "Medium",
+    "type": "Humanoid",
+    "alignment": "Lawful Evil",
+    "hp": "4d8 + 4",
+    "speed": "30 ft, swim 40 ft",
+    "ability_scores": [
+        13,
+        11,
+        12,
+        12,
+        13,
+        9
+    ],
+    "challenge": "1/2 (100 XP)",
+    "subtypes": [
+        "Sahuagin"
+    ],
+    "armor": [
+        "9CRfC7zF1FTM"
+    ],
+    "skills": [
+        {
+            "type": "Perception",
+            "value": "+5"
+        }
+    ],
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 120
+        },
+        {
+            "type": "passive_perception",
+            "value": 15
+        }
+    ],
+    "languages": [
+        {
+            "value": "Sahuagin"
+        }
+    ],
+    "features": [
+        {
+            "name": "Blood Frenzy",
+            "extras": {
+                "description": "The sahuagin has advantage on melee attack rolls against any creature that doesn't have all its hit points."
+            }
+        },
+        {
+            "name": "Limited Amphibiousness",
+            "extras": {
+                "description": "The sahuagin can breathe air and water, but it needs to be submerged at least once every 4 hours to avoid suffocating."
+            }
+        },
+        {
+            "name": "Shark Telepathy",
+            "extras": {
+                "description": "The sahuagin can magically command any shark within 120 feet of it, using a limited telepathy."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Bite",
+            "expression": "{d20} + 3",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 4,
+                    "modifier": 1
+                }
+            ]
+        },
+        {
+            "name": "Claws",
+            "expression": "{d20} + 3",
+            "damage": [
+                {
+                    "type": "Slashing",
+                    "count": 1,
+                    "sides": 4,
+                    "modifier": 1
+                }
+            ]
+        },
+        {
+            "name": "Spear",
+            "expression": "{d20} + 3",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 1
+                }
+            ]
+        },
+        {
+            "name": "Spear (Two-Handed)",
+            "expression": "{d20} + 3",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 8,
+                    "modifier": 1
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Multiattack",
+            "extras": {
+                "description": "The sahuagin makes two melee attacks: one with its bite and one with its claws or spear."
+            }
+        },
+        {
+            "name": "Bite",
+            "extras": {
+                "roll": "Bite",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d4 + 1"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Claws",
+            "extras": {
+                "roll": "Claws",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "slashing_attack",
+                        "value": "1d4 + 1"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Spear",
+            "extras": {
+                "roll": "Spear",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d6 + 1"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Spear (Two-Handed)",
+            "extras": {
+                "roll": "Spear (Two-Handed)",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d8 + 1"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Spear (Thrown)",
+            "extras": {
+                "roll": "Spear",
+                "attributes": [
+                    {
+                        "type": "thrown"
+                    },
+                    {
+                        "type": "range",
+                        "value": "20/60"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d6 + 1"
+                    }
+                ]
+            }
+        }
+    ]
+}

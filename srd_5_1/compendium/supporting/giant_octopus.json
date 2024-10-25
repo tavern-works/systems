@@ -1,0 +1,103 @@
+{
+    "name": "Giant Octopus",
+    "size": "Large",
+    "type": "Beast",
+    "alignment": "Unaligned",
+    "hp": "8d10 + 8",
+    "speed": "10 ft, swim 60 ft",
+    "ability_scores": [
+        17,
+        13,
+        13,
+        4,
+        10,
+        4
+    ],
+    "challenge": "1 (200 XP)",
+    "skills": [
+        {
+            "type": "Perception",
+            "value": "+4"
+        },
+        {
+            "type": "Stealth",
+            "value": "+5"
+        }
+    ],
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 60
+        },
+        {
+            "type": "passive_perception",
+            "value": 14
+        }
+    ],
+    "features": [
+        {
+            "name": "Hold Breath",
+            "extras": {
+                "description": "While out of water, the octopus can hold its breath for 1 hour."
+            }
+        },
+        {
+            "name": "Underwater Camouflage",
+            "extras": {
+                "description": "The octopus has advantage on Dexterity (Stealth) checks made while underwater."
+            }
+        },
+        {
+            "name": "Water Breathing",
+            "extras": {
+                "description": "The octopus can breathe only underwater."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Tentacles",
+            "expression": "{d20} + 5",
+            "damage": [
+                {
+                    "type": "Bludgeoning",
+                    "count": 2,
+                    "sides": 6,
+                    "modifier": 3
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Tentacles",
+            "extras": {
+                "description": "On a hit, if the target is a creature, it is grappled (escape DC 16). Until this grapple ends, the target is restrained, and the octopus can't use its tentacles on another target.",
+                "roll": "Tentacles",
+                "attributes": [
+                    {
+                        "type": "reach_attack",
+                        "value": 15
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+5"
+                    },
+                    {
+                        "type": "bludgeoning_attack",
+                        "value": "2d6 + 3"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Ink Cloud",
+            "extras": {
+                "description": "A 20-foot-radius cloud of ink extends all around the octopus if it is underwater. The area is heavily obscured for 1 minute, although a significant current can disperse the ink. After releasing the ink, the octopus can use the Dash action as a bonus action.\n\nRecharges after a short or long rest.",
+                "used": [
+                    false
+                ]
+            }
+        }
+    ]
+}

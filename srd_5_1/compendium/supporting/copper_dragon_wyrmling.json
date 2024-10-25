@@ -1,0 +1,133 @@
+{
+    "name": "Copper Dragon Wyrmling",
+    "size": "Medium",
+    "type": "Dragon",
+    "alignment": "Chaotic Good",
+    "hp": "4d8 + 4",
+    "speed": "30 ft, climb 30 ft, fly 60 ft",
+    "ability_scores": [
+        15,
+        12,
+        13,
+        14,
+        11,
+        13
+    ],
+    "challenge": "1 (200 XP)",
+    "armor": [
+        "mrjDrvy7Cfy7"
+    ],
+    "saving_throws": [
+        {
+            "type": "Dexterity",
+            "value": "+3"
+        },
+        {
+            "type": "Constitution",
+            "value": "+3"
+        },
+        {
+            "type": "Wisdom",
+            "value": "+2"
+        },
+        {
+            "type": "Charisma",
+            "value": "+3"
+        }
+    ],
+    "skills": [
+        {
+            "type": "Perception",
+            "value": "+4"
+        },
+        {
+            "type": "Stealth",
+            "value": "+3"
+        }
+    ],
+    "damage_immunities": [
+        {
+            "value": "Acid"
+        }
+    ],
+    "senses": [
+        {
+            "type": "blindsight",
+            "value": 10
+        },
+        {
+            "type": "darkvision",
+            "value": 60
+        },
+        {
+            "type": "passive_perception",
+            "value": 14
+        }
+    ],
+    "languages": [
+        {
+            "value": "Draconic"
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Bite",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 10,
+                    "modifier": 2
+                }
+            ]
+        },
+        {
+            "name": "Acid Breath Damage",
+            "expression": "4d8"
+        }
+    ],
+    "actions": [
+        {
+            "name": "Bite",
+            "extras": {
+                "roll": "Bite",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d10 + 2"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Breath Weapons (Recharge 5-6)",
+            "extras": {
+                "description": "The dragon uses one of the following breath weapons.",
+                "used": [
+                    false
+                ]
+            }
+        },
+        {
+            "name": "Acid Breath",
+            "extras": {
+                "roll": "Acid Breath Damage",
+                "description": "The dragon exhales acid in a 20-foot line that is 5-feet wide. Each creature in that line must make a DC 11 Dexterity saving throw, taking 4d8 acid damage on a failed save, or half as much damage on a successful one."
+            }
+        },
+        {
+            "name": "Slowing Breath",
+            "extras": {
+                "description": "The dragon exhales gas in a 15-foot cone. Each creature in that area must succeed on a DC 11 Constitution saving throw. On a failed save, the creature can't use reactions, its speed is halved, and it can't make more than one attack on its turn. In addition, the creature can use either an action or a bonus action on its turn, but not both. These effects last for 1 minute. The creature can repeat the saving throw at the end of each of its turns, ending the effect on itself with a successful save."
+            }
+        }
+    ]
+}

@@ -1,0 +1,106 @@
+{
+    "name": "Harpy",
+    "size": "Medium",
+    "type": "Monstrosity",
+    "alignment": "Chaotic Evil",
+    "hp": "7d8 + 7",
+    "speed": "20 ft, fly 40 ft",
+    "ability_scores": [
+        12,
+        13,
+        12,
+        7,
+        10,
+        13
+    ],
+    "challenge": "1 (200 XP)",
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 10
+        }
+    ],
+    "languages": [
+        {
+            "value": "Common"
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Claws",
+            "expression": "{d20} + 3",
+            "damage": [
+                {
+                    "type": "Slashing",
+                    "count": 2,
+                    "sides": 4,
+                    "modifier": 1
+                }
+            ]
+        },
+        {
+            "name": "Club",
+            "expression": "{d20} + 3",
+            "damage": [
+                {
+                    "type": "Bludgeoning",
+                    "count": 1,
+                    "sides": 4,
+                    "modifier": 1
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Multiattack",
+            "extras": {
+                "description": "The harpy makes two attacks: one with its claws and one with its club."
+            }
+        },
+        {
+            "name": "Claws",
+            "extras": {
+                "roll": "Claws",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "slashing_attack",
+                        "value": "2d4 + 1"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Club",
+            "extras": {
+                "roll": "Club",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+3"
+                    },
+                    {
+                        "type": "bludgeoning_attack",
+                        "value": "1d4 + 1"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Luring Song",
+            "extras": {
+                "description": "The harpy sings a magical melody. Every humanoid and giant within 300 feet of the harpy that can hear the song must succeed on a DC 11 Wisdom saving throw or be charmed until the song ends. The harpy must take a bonus action on its subsequent turns to continue singing. It can stop singing at any time. The song ends if the harpy is incapacitated.\n\nWhile charmed by the harpy, a target is incapacitated and ignores the songs of other harpies. If the charmed target is more than 5 feet away from the harpy, the target must move on its turn toward the harpy by the most direct route, trying to get within 5 feet. It doesn't avoid opportunity attacks, but before moving into damaging terrain, such as lava or a pit, and whenever it takes damage from a source other than the harpy, the target can repeat the saving throw. A charmed target can also repeat the saving throw at the end of each of its turns. If the saving throw is successful, the effect ends on it.\n\nA target that successfully saves is immune to this harpy's song for the next 24 hours."
+            }
+        }
+    ]
+}

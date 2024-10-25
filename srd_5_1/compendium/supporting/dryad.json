@@ -1,0 +1,195 @@
+{
+    "name": "Dryad",
+    "size": "Medium",
+    "type": "Fey",
+    "alignment": "Neutral",
+    "hp": "5d8",
+    "speed": "30 ft",
+    "ability_scores": [
+        10,
+        12,
+        11,
+        14,
+        15,
+        18
+    ],
+    "challenge": "1 (200 XP)",
+    "skills": [
+        {
+            "type": "Perception",
+            "value": "+4"
+        },
+        {
+            "type": "Stealth",
+            "value": "+5"
+        }
+    ],
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 60
+        },
+        {
+            "type": "passive_perception",
+            "value": 14
+        }
+    ],
+    "languages": [
+        {
+            "value": "Elvish"
+        },
+        {
+            "value": "Sylvan"
+        }
+    ],
+    "features": [
+        {
+            "name": "Innate Spellcasting",
+            "extras": {
+                "description": "The dryad can innately cast the following spells, requiring no material components.",
+                "attributes": [
+                    {
+                        "type": "spellcasting_ability",
+                        "value": "Charisma"
+                    },
+                    {
+                        "type": "spell_save_dc",
+                        "value": 14
+                    }
+                ],
+                "compendium_uses": {
+                    "section": "spell",
+                    "categories": [
+                        {
+                            "name": "At Will",
+                            "entries": [
+                                "Druidcraft"
+                            ],
+                            "used": []
+                        },
+                        {
+                            "name": "3/Day Each",
+                            "entries": [
+                                "Entangle",
+                                "Goodberry"
+                            ],
+                            "used": [
+                                false,
+                                false,
+                                false,
+                                false,
+                                false,
+                                false
+                            ],
+                            "interleave": 3
+                        },
+                        {
+                            "name": "1/Day Each",
+                            "entries": [
+                                "Barkskin",
+                                "Pass Without Trace",
+                                "Shillelagh"
+                            ],
+                            "used": [
+                                false,
+                                false,
+                                false
+                            ],
+                            "interleave": 1
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Magic Resistance",
+            "extras": {
+                "description": "The dryad has advantage on saving throws against spells and other magical effects."
+            }
+        },
+        {
+            "name": "Speak with Beasts and Plants",
+            "extras": {
+                "description": "The dryad can communicate with beasts and plants as if they shared a language."
+            }
+        },
+        {
+            "name": "Tree Stride",
+            "extras": {
+                "description": "Once on her turn, the dryad can use 10 feet of her movement to step magically into one living tree within her reach and emerge from a second living tree within 60 feet of the first tree, appearing in an unoccupied space within 5 feet of the second tree. Both trees must be Large or bigger."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Club",
+            "expression": "{d20} + 2",
+            "damage": [
+                {
+                    "type": "Bludgeoning",
+                    "count": 1,
+                    "sides": 4,
+                    "modifier": 0
+                }
+            ]
+        },
+        {
+            "name": "Shillelagh",
+            "expression": "{d20} + 6",
+            "damage": [
+                {
+                    "type": "Bludgeoning",
+                    "count": 1,
+                    "sides": 8,
+                    "modifier": 4
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Club",
+            "extras": {
+                "roll": "Club",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+2"
+                    },
+                    {
+                        "type": "bludgeoning_attack",
+                        "value": "1d4"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Shillelagh",
+            "extras": {
+                "roll": "Shillelagh",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+6"
+                    },
+                    {
+                        "type": "bludgeoning_attack",
+                        "value": "1d8 + 4"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Fey Charm",
+            "extras": {
+                "description": "The dryad targets one humanoid or beast that she can see within 30 feet of her. If the target can see the dryad, it must succeed on a DC 14 Wisdom saving throw or be magically charmed. The charmed creature regards the dryad as a trusted friend to be heeded and protected. Although the target isn't under the dryad's control, it takes the dryad's requests or actions in the most favorable way it can.\n\nEach time the dryad or its allies do anything harmful to the target, it can repeat the saving throw, ending the effect on itself on a success. Otherwise, the effect lasts 24 hours or until the dryad dies, is on a different plane of existence from the target, or ends the effect as a bonus action. If a target's saving throw is successful, the target is immune to the dryad's Fey Charm for the next 24 hours.\n\nThe dryad can have no more than one humanoid and up to three beasts charmed at a time."
+            }
+        }
+    ]
+}

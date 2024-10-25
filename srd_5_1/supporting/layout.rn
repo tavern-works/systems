@@ -50,8 +50,7 @@ impl super::Supporting {
 
         if self.template.contains_key("saving_throws") && !self.template["saving_throws"].is_empty() {
             let saving_throws = [
-                Cell::try_new(0..3, 0..1, Contents::new_label().label("Saving Throws")?.align(Alignment::Right)?)?,
-                Cell::try_new(3..12, 0..1, Contents::ChipList("saving_throws"))?
+                Cell::try_new(0..12, 0..1, Contents::new_chip_list("saving_throws").label("Saving Throws")?)?
             ];
 
             layout.push(Section::Grid(Grid::new(saving_throws, false)));
@@ -59,8 +58,7 @@ impl super::Supporting {
 
         if self.template.contains_key("skills") && !self.template["skills"].is_empty() {
             let skills = [
-                Cell::try_new(0..2, 0..1, Contents::new_label().label("Skills")?.align(Alignment::Right)?)?,
-                Cell::try_new(2..12, 0..1, Contents::ChipList("skills"))?,
+                Cell::try_new(0..12, 0..1, Contents::new_chip_list("skills").label("Skills")?)?,
             ];
 
             layout.push(Section::Grid(Grid::new(skills, false)));
@@ -68,8 +66,7 @@ impl super::Supporting {
 
         if self.template.contains_key("damage_vulnerabilities") && !self.template["damage_vulnerabilities"].is_empty() {
             let damage_vulnerabilities = [
-                Cell::try_new(0..12, 0..1, Contents::new_label().label("Damage Vulnerabilites")?.align(Alignment::Left)?)?,
-                Cell::try_new(0..12, 1..2, Contents::ChipList("damage_vulnerabilities"))?,
+                Cell::try_new(0..12, 0..1, Contents::new_chip_list("damage_vulnerabilities").label("Damage Vulnerabilites")?)?,
             ];
 
             layout.push(Section::Grid(Grid::new(damage_vulnerabilities, false)));
@@ -77,8 +74,7 @@ impl super::Supporting {
 
         if self.template.contains_key("damage_resistances") && !self.template["damage_resistances"].is_empty() {
             let damage_resistances = [
-                Cell::try_new(0..12, 0..1, Contents::new_label().label("Damage Resistances")?.align(Alignment::Left)?)?,
-                Cell::try_new(0..12, 1..2, Contents::ChipList("damage_resistances"))?,
+                Cell::try_new(0..12, 0..1, Contents::new_chip_list("damage_resistances").label("Damage Resistances")?)?,
             ];
 
             layout.push(Section::Grid(Grid::new(damage_resistances, false)));
@@ -86,8 +82,7 @@ impl super::Supporting {
 
         if self.template.contains_key("damage_immunities") && !self.template["damage_immunities"].is_empty() {
             let damage_immunities = [
-                Cell::try_new(0..12, 0..1, Contents::new_label().label("Damage Immunities")?.align(Alignment::Left)?)?,
-                Cell::try_new(0..12, 1..2, Contents::ChipList("damage_immunities"))?,
+                Cell::try_new(0..12, 0..1, Contents::new_chip_list("damage_immunities").label("Damage Immunities")?)?,
             ];
 
             layout.push(Section::Grid(Grid::new(damage_immunities, false)));
@@ -95,8 +90,7 @@ impl super::Supporting {
 
         if self.template.contains_key("condition_immunities") && !self.template["condition_immunities"].is_empty() {
             let condition_immunities = [
-                Cell::try_new(0..12, 0..1, Contents::new_label().label("Condition Immunities")?.align(Alignment::Left)?)?,
-                Cell::try_new(0..12, 1..2, Contents::ChipList("condition_immunities"))?,
+                Cell::try_new(0..12, 0..1, Contents::new_chip_list("condition_immunities").label("Condition Immunities")?)?,
             ];
 
             layout.push(Section::Grid(Grid::new(condition_immunities, false)));
@@ -104,8 +98,7 @@ impl super::Supporting {
 
         if self.template.contains_key("senses") && !self.template["senses"].is_empty() {
             let senses = [
-                Cell::try_new(0..2, 0..1, Contents::new_label().label("Senses")?.align(Alignment::Right)?)?,
-                Cell::try_new(2..12, 0..1, Contents::ChipList("senses"))?,
+                Cell::try_new(0..12, 0..1, Contents::new_chip_list("senses").label("Senses")?)?,
             ];
 
             layout.push(Section::Grid(Grid::new(senses, false)));
@@ -113,8 +106,7 @@ impl super::Supporting {
 
         if self.template.contains_key("languages") && !self.template["languages"].is_empty() {
             let languages = [
-                Cell::try_new(0..3, 0..1, Contents::new_label().label("Languages")?.align(Alignment::Right)?)?,
-                Cell::try_new(3..12, 0..1, Contents::ChipList("languages"))?,
+                Cell::try_new(0..12, 0..1, Contents::new_chip_list("languages").label("Languages")?)?,
             ];
 
             layout.push(Section::Grid(Grid::new(languages, false)));
@@ -122,8 +114,8 @@ impl super::Supporting {
 
 
         let challenge = [
-            Cell::try_new(0..3, 0..1, Contents::new_label().label("Challenge")?.align(Alignment::Right)?)?,
-            Cell::try_new(3..12, 0..1, Contents::new_text("challenge").read_only()?)?,
+            Cell::try_new(0..2, 0..1, Contents::new_label().label("Challenge")?.align(Alignment::Right)?)?,
+            Cell::try_new(2..12, 0..1, Contents::new_text("challenge").read_only()?)?,
         ];
 
         layout.push(Section::Grid(Grid::new(challenge, false)));

@@ -28,8 +28,7 @@ pub fn get_layout(name) {
         Cell::try_new(0..2, 2..3, Contents::new_label().label("Class")?.align(Alignment::Right)?)?,
         Cell::try_new(2..11, 2..3, Contents::new_text("class").read_only()?)?,
         Cell::try_new(11..12, 2..3, Contents::new_button().key("edit_classes")?.icon("edit")?.size(Size::Large)?.depends_on("unimplemented")?)?,
-        Cell::try_new(0..2, 3..4, Contents::new_label().label("Languages")?.align(Alignment::Right)?)?,
-        Cell::try_new(2..11, 3..4, Contents::ChipList("languages"))?,
+        Cell::try_new(0..11, 3..4, Contents::new_chip_list("languages").label("Languages")?)?,
         Cell::try_new(11..12, 3..4, Contents::new_button().key("edit_languages")?.icon("edit")?.size(Size::Large)?.depends_on("unimplemented")?)?,
         Cell::try_new(0..2, 4..5, Contents::new_label().label("Vision")?.align(Alignment::Right)?)?,
         Cell::try_new(2..12, 4..5, Contents::new_text("vision").read_only()?)?
@@ -53,12 +52,9 @@ pub fn get_layout(name) {
     overview_cells.extend([
         Cell::try_new(0..12, 5..11, Contents::Table(resource_table))?,
         Cell::try_new(0..12, 11..12, Contents::new_label().label("Proficiencies")?.size(Size::Large)?.align(Alignment::Center)?)?,
-        Cell::try_new(0..2, 12..13, Contents::new_label().label("Tools")?.align(Alignment::Right)?)?,
-        Cell::try_new(2..12, 12..13, Contents::ChipList("tool_proficiencies"))?,
-        Cell::try_new(0..2, 13..14, Contents::new_label().label("Armor")?.align(Alignment::Right)?)?,
-        Cell::try_new(2..12, 13..14, Contents::ChipList("armor_proficiencies"))?,
-        Cell::try_new(0..2, 14..16, Contents::new_label().label("Weapons")?.align(Alignment::Right)?)?,
-        Cell::try_new(2..12, 14..16, Contents::ChipList("weapon_proficiencies"))?,
+        Cell::try_new(0..12, 12..13, Contents::new_chip_list("tool_proficiencies").label("Tools")?)?,
+        Cell::try_new(0..12, 13..14, Contents::new_chip_list("armor_proficiencies").label("Armor")?)?,
+        Cell::try_new(0..12, 14..16, Contents::new_chip_list("weapon_proficiencies").label("Weapons")?)?,
     ]);
     let overview = Grid::new(overview_cells, false);
 

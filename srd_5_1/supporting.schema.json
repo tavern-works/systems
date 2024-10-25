@@ -70,6 +70,11 @@
                     "const": "RlRphDDr6w5F"
                 },
                 {
+                    "title": "Scale Mail",
+                    "type": "string",
+                    "const": "m5CCkMHGwBDf"
+                },
+                {
                     "title": "Shield",
                     "type": "string",
                     "const": "nY7KF1CqTVKG"
@@ -684,6 +689,7 @@
                     "Any Race",
                     "Demon",
                     "Devil",
+                    "Dwarf",
                     "Elf",
                     "Gnoll",
                     "Gnome",
@@ -867,6 +873,7 @@
                             "Can't speak",
                             "Common",
                             "Draconic",
+                            "Dwarvish",
                             "Elvish",
                             "Gnoll",
                             "Gnomish",

@@ -1,0 +1,183 @@
+{
+    "name": "Duergar",
+    "size": "Medium",
+    "type": "Humanoid",
+    "alignment": "Lawful Evil",
+    "hp": "4d8 + 8",
+    "speed": "25 ft",
+    "ability_scores": [
+        14,
+        11,
+        14,
+        11,
+        10,
+        9
+    ],
+    "challenge": "1 (200 XP)",
+    "subtypes": [
+        "Dwarf"
+    ],
+    "armor": [
+        "m5CCkMHGwBDf",
+        "nY7KF1CqTVKG"
+    ],
+    "damage_resistances": [
+        {
+            "value": "Poison"
+        }
+    ],
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 120
+        },
+        {
+            "type": "passive_perception",
+            "value": 10
+        }
+    ],
+    "languages": [
+        {
+            "value": "Dwarvish"
+        },
+        {
+            "value": "Undercommon"
+        }
+    ],
+    "features": [
+        {
+            "name": "Duergar Resistance",
+            "extras": {
+                "description": "The duergar has advantage on saving throws against poison, spells, and illusions, as well as to resist being charmed or paralyzed."
+            }
+        },
+        {
+            "name": "Sunlight Sensitivity",
+            "extras": {
+                "description": "While in sunlight, the duergar has disadvantage on attack rolls, as well as on Wisdom (Perception) checks that rely on sight."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "War Pick",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 8,
+                    "modifier": 2
+                },
+                {
+                    "type": "Piercing",
+                    "count": 2,
+                    "sides": 8,
+                    "modifier": 2
+                }
+            ]
+        },
+        {
+            "name": "Javelin",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 2
+                },
+                {
+                    "type": "Piercing",
+                    "count": 2,
+                    "sides": 6,
+                    "modifier": 2
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Enlarge",
+            "extras": {
+                "description": "For 1 minute, the duergar magically increases in size, along with anything it is wearing or carrying. While enlarged, the duergar is Large, doubles its damage dice on Strength-based weapon attacks, and makes Strength checks and Strength saving throws with advantage. If the duergar lacks the room to become Large, it attains the maximum size possible in the space available.\n\nRecharges after a short or long rest.",
+                "used": [
+                    false
+                ]
+            }
+        },
+        {
+            "name": "War Pick",
+            "extras": {
+                "roll": "War Pick",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d8 + 2 or 2d8 + 2"
+                    }
+                ],
+                "description": "If the duergar is enlarged, this attack does 2d8 + 2 piercing damage rather than 1d8 + 2 as usual."
+            }
+        },
+        {
+            "name": "Javelin",
+            "extras": {
+                "roll": "Javelin",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d6 + 2 or 2d6 + 2"
+                    }
+                ],
+                "description": "If the duergar is enlarged, this attack does 2d6 + 2 piercing damage rather than 1d6 + 2 as usual."
+            }
+        },
+        {
+            "name": "Javelin (Thrown)",
+            "extras": {
+                "roll": "Javelin",
+                "attributes": [
+                    {
+                        "type": "thrown"
+                    },
+                    {
+                        "type": "range",
+                        "value": "30/120"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d6 + 2 or 2d6 + 2"
+                    }
+                ],
+                "description": "If the duergar is enlarged, this attack does 2d6 + 2 piercing damage rather than 1d6 + 2 as usual."
+            }
+        },
+        {
+            "name": "Invisibility",
+            "extras": {
+                "description": "The duergar magically turns invisible until it attacks, casts a spell, or uses its Enlarge, or until its concentration is broken, up to 1 hour (as if concentrating on a spell). Any equipment the duergar wears or carries is invisible with it.\n\nRecharges after a short or long rest.",
+                "used": [
+                    false
+                ]
+            }
+        }
+    ]
+}

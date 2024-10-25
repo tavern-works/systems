@@ -1,0 +1,109 @@
+{
+    "name": "Hippogriff",
+    "size": "Large",
+    "type": "Monstrosity",
+    "alignment": "Unaligned",
+    "hp": "3d10 + 3",
+    "speed": "40 ft, fly 60 ft",
+    "ability_scores": [
+        17,
+        13,
+        13,
+        2,
+        12,
+        8
+    ],
+    "challenge": "1 (200 XP)",
+    "skills": [
+        {
+            "type": "Perception",
+            "value": "+5"
+        }
+    ],
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 15
+        }
+    ],
+    "features": [
+        {
+            "name": "Keen Sight",
+            "extras": {
+                "description": "The hippogriff has advantage on Wisdom (Perception) checks that rely on sight."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Beak",
+            "expression": "{d20} + 5",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 10,
+                    "modifier": 3
+                }
+            ]
+        },
+        {
+            "name": "Claws",
+            "expression": "{d20} + 5",
+            "damage": [
+                {
+                    "type": "Slashing",
+                    "count": 2,
+                    "sides": 6,
+                    "modifier": 3
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Multiattack",
+            "extras": {
+                "description": "The hippogriff makes two attacks: one with its beak and one with its claws."
+            }
+        },
+        {
+            "name": "Beak",
+            "extras": {
+                "roll": "Beak",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+5"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d10 + 3"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Claws",
+            "extras": {
+                "roll": "Claws",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+5"
+                    },
+                    {
+                        "type": "slashing_attack",
+                        "value": "2d6 + 3"
+                    }
+                ]
+            }
+        }
+    ]
+}

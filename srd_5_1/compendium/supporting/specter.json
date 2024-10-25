@@ -1,0 +1,156 @@
+{
+    "name": "Specter",
+    "size": "Medium",
+    "type": "Undead",
+    "alignment": "Chaotic Evil",
+    "hp": "5d8",
+    "speed": "0 ft, fly 50 ft (hover)",
+    "ability_scores": [
+        1,
+        14,
+        11,
+        10,
+        10,
+        11
+    ],
+    "challenge": "1 (200 XP)",
+    "damage_resistances": [
+        {
+            "value": "Acid"
+        },
+        {
+            "value": "Cold"
+        },
+        {
+            "value": "Fire"
+        },
+        {
+            "value": "Lightning"
+        },
+        {
+            "value": "Thunder"
+        },
+        {
+            "value": "Nonmagical"
+        },
+        {
+            "value": "Bludgeoning"
+        },
+        {
+            "value": "Piercing"
+        },
+        {
+            "value": "Slashing"
+        }
+    ],
+    "damage_immunities": [
+        {
+            "value": "Necrotic"
+        },
+        {
+            "value": "Poison"
+        }
+    ],
+    "condition_immunities": [
+        {
+            "value": "Charmed"
+        },
+        {
+            "value": "Exhaustion"
+        },
+        {
+            "value": "Grappled"
+        },
+        {
+            "value": "Paralyzed"
+        },
+        {
+            "value": "Petrified"
+        },
+        {
+            "value": "Poisoned"
+        },
+        {
+            "value": "Prone"
+        },
+        {
+            "value": "Restrained"
+        },
+        {
+            "value": "Unconscious"
+        }
+    ],
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 60
+        },
+        {
+            "type": "passive_perception",
+            "value": 10
+        }
+    ],
+    "languages": [
+        {
+            "value": "Can't speak"
+        },
+        {
+            "value": "Understands languages known in life"
+        }
+    ],
+    "features": [
+        {
+            "name": "Incorporeal Movement",
+            "extras": {
+                "description": "The specter can move through other creatures and objects as if they were difficult terrain. It takes 1d10 force damage if it ends its turn inside an object.",
+                "roll": "Incorporeal Damage"
+            }
+        },
+        {
+            "name": "Sunlight Sensitivity",
+            "extras": {
+                "description": "While in sunlight, the specter has disadvantage on attack rolls, as well as on Wisdom (Perception) checks that rely on sight."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Incorporeal Damage",
+            "expression": "1d10"
+        },
+        {
+            "name": "Life Drain",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Necrotic",
+                    "count": 3,
+                    "sides": 6,
+                    "modifier": 0
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Life Drain",
+            "extras": {
+                "roll": "Life Drain",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "necrotic_attack",
+                        "value": "3d6"
+                    }
+                ],
+                "description": "On a hit, the target must succeed on a DC 10 Constitution saving throw or its hit point maximum is reduced by an amount equal to the damage taken. This reduction lasts until the creature finishes a long rest. The target dies if this effect reduces its hit point maximum to 0."
+            }
+        }
+    ]
+}

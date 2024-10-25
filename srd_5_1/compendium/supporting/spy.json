@@ -1,0 +1,157 @@
+{
+    "name": "Spy",
+    "size": "Medium",
+    "type": "Humanoid",
+    "alignment": "Any",
+    "hp": "6d8",
+    "speed": "30 ft",
+    "ability_scores": [
+        10,
+        15,
+        10,
+        12,
+        14,
+        16
+    ],
+    "challenge": "1 (200 XP)",
+    "subtypes": [
+        "Any Race"
+    ],
+    "skills": [
+        {
+            "type": "Deception",
+            "value": "+5"
+        },
+        {
+            "type": "Insight",
+            "value": "+4"
+        },
+        {
+            "type": "Investigation",
+            "value": "+5"
+        },
+        {
+            "type": "Perception",
+            "value": "+6"
+        },
+        {
+            "type": "Persuasion",
+            "value": "+5"
+        },
+        {
+            "type": "Sleight of Hand",
+            "value": "+4"
+        },
+        {
+            "type": "Stealth",
+            "value": "+4"
+        }
+    ],
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 16
+        }
+    ],
+    "languages": [
+        {
+            "value": "Any two"
+        }
+    ],
+    "features": [
+        {
+            "name": "Cunning Action",
+            "extras": {
+                "description": "On each of its turns, the spy can use a bonus action to take the Dash, Disengage, or Hide action."
+            }
+        },
+        {
+            "name": "Sneak Attack (1/Turn)",
+            "extras": {
+                "description": "The spy deals an extra 2d6 damage when it hits a target with a weapon attack and has advantage on the attack roll, or when the target is within 5 feet of an ally of the spy that isn't incapacitated and the spy doesn't have disadvantage on the attack roll.",
+                "roll": "Sneak Attack Damage"
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Sneak Attack Damage",
+            "expression": "2d6"
+        },
+        {
+            "name": "Shortsword",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 2
+                }
+            ]
+        },
+        {
+            "name": "Hand Crossbow",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 2
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Multiattack",
+            "extras": {
+                "description": "The spy makes two melee attacks."
+            }
+        },
+        {
+            "name": "Shortsword",
+            "extras": {
+                "roll": "Shortsword",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d6 + 2"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Hand Crossbow",
+            "extras": {
+                "roll": "Hand Crossbow",
+                "attributes": [
+                    {
+                        "type": "ranged_weapon"
+                    },
+                    {
+                        "type": "range",
+                        "value": "30/120"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d6 + 2"
+                    }
+                ]
+            }
+        }
+    ],
+    "description": "Rulers, nobles, merchants, guildmasters, and other wealthy individuals use **spies** to gain the upper hand in a world of cutthroat politics. A spy is trained to secretly gather information. Loyal spies would rather die than divulge information that could compromise them or their employers."
+}

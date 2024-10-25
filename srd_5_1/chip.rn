@@ -155,6 +155,9 @@ pub fn get_for_attribute(attribute) {
             .tooltip("This weapon does {} slashing damage"),
         "slashing_attack" => Chip::new([ChipField::Value, ChipField::Divider, ChipField::Text("Slashing")])
             .tooltip("This attack does {} slashing damage"),
+        "Sleight of Hand" => Chip::new([ChipField::Text("Sleight of Hand"), ChipField::Divider, ChipField::Value])
+            .tooltip("Roll Sleight of Hand Check")
+            .roll(PrepareOptions::by_name("Sleight of Hand Check")),
         "Stealth" => Chip::new([ChipField::Text("Stealth"), ChipField::Divider, ChipField::Value])
             .tooltip("Roll Stealth Check")
             .roll(PrepareOptions::by_name("Stealth Check")),

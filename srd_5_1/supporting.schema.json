@@ -519,6 +519,11 @@
                                             "type": "boolean",
                                             "format": "checkbox"
                                         }
+                                    },
+                                    "interleave": {
+                                        "title": "Interleave",
+                                        "description": "How many checkboxes to associate with each entry",
+                                        "type": "integer"
                                     }
                                 },
                                 "required": ["name", "entries", "used"]

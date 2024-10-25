@@ -14,9 +14,6 @@
         9
     ],
     "challenge": "1/2 (100 XP)",
-    "armor": [
-        "GyBNs52x7QkZ"
-    ],
     "skills": [
         {
             "type": "Investigation",
@@ -100,12 +97,16 @@
                                 false,
                                 false,
                                 false
-                            ]
+                            ],
+                            "interleave": 1
                         }
                     ]
                 }
             }
         }
+    ],
+    "armor": [
+        "GyBNs52x7QkZ"
     ],
     "rolls": [
         {

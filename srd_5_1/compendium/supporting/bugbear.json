@@ -1,0 +1,172 @@
+{
+    "name": "Bugbear",
+    "size": "Medium",
+    "type": "Humanoid",
+    "alignment": "Chaotic Evil",
+    "hp": "5d8 + 5",
+    "speed": "30 ft",
+    "ability_scores": [
+        15,
+        14,
+        13,
+        8,
+        11,
+        9
+    ],
+    "challenge": "1 (200 XP)",
+    "subtypes": [
+        "Goblinoid"
+    ],
+    "armor": [
+        "ljnFvGbgHTcx",
+        "nY7KF1CqTVKG"
+    ],
+    "skills": [
+        {
+            "type": "Stealth",
+            "value": "+6"
+        },
+        {
+            "type": "Survival",
+            "value": "+2"
+        }
+    ],
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 60
+        },
+        {
+            "type": "passive_perception",
+            "value": 10
+        }
+    ],
+    "languages": [
+        {
+            "value": "Common"
+        },
+        {
+            "value": "Goblin"
+        }
+    ],
+    "features": [
+        {
+            "name": "Brute",
+            "extras": {
+                "description": "A melee weapon deals one extra die of damage when the bugbear hits with it (included in the attack)."
+            }
+        },
+        {
+            "name": "Surprise Attack",
+            "extras": {
+                "description": "If the bugbear surprises a creature and hits it with an attack during the first round of combat, the target takes an extra 2d6 damage from the attack.",
+                "roll": "Surprise Attack Damage"
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Surprise Attack Damage",
+            "expression": "2d6"
+        },
+        {
+            "name": "Morningstar",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 2,
+                    "sides": 8,
+                    "modifier": 2
+                }
+            ]
+        },
+        {
+            "name": "Javelin",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 2,
+                    "sides": 6,
+                    "modifier": 2
+                }
+            ]
+        },
+        {
+            "name": "Javelin (Thrown)",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 2
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Morningstar",
+            "extras": {
+                "roll": "Morningstar",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "2d8 + 2"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Javelin",
+            "extras": {
+                "roll": "Javelin",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "2d6 + 2"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Javelin (Thrown)",
+            "extras": {
+                "roll": "Javelin (Thrown)",
+                "attributes": [
+                    {
+                        "type": "thrown"
+                    },
+                    {
+                        "type": "range",
+                        "value": "30/120"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d6 + 2"
+                    }
+                ]
+            }
+        }
+    ]
+}

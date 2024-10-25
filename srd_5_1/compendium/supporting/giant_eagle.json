@@ -1,0 +1,121 @@
+{
+    "name": "Giant Eagle",
+    "size": "Large",
+    "type": "Beast",
+    "alignment": "Neutral Good",
+    "hp": "4d10 + 4",
+    "speed": "10 ft, fly 80 ft",
+    "ability_scores": [
+        16,
+        17,
+        13,
+        8,
+        14,
+        10
+    ],
+    "challenge": "1 (200 XP)",
+    "skills": [
+        {
+            "type": "Perception",
+            "value": "+4"
+        }
+    ],
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 14
+        }
+    ],
+    "languages": [
+        {
+            "value": "Can't speak"
+        },
+        {
+            "value": "Common"
+        },
+        {
+            "value": "Auran"
+        }
+    ],
+    "features": [
+        {
+            "name": "Keen Sight",
+            "extras": {
+                "description": "The eagle has advantage on Wisdom (Perception) checks that rely on sight."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Beak",
+            "expression": "{d20} + 5",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 6,
+                    "modifier": 3
+                }
+            ]
+        },
+        {
+            "name": "Talons",
+            "expression": "{d20} + 5",
+            "damage": [
+                {
+                    "type": "Slashing",
+                    "count": 2,
+                    "sides": 6,
+                    "modifier": 3
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Multiattack",
+            "extras": {
+                "description": "The eagle makes two attacks: one with its beak and one with its talons."
+            }
+        },
+        {
+            "name": "Beak",
+            "extras": {
+                "roll": "Beak",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+5"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d6 + 3"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Talons",
+            "extras": {
+                "roll": "Talons",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+5"
+                    },
+                    {
+                        "type": "slashing_attack",
+                        "value": "2d6 + 3"
+                    }
+                ]
+            }
+        }
+    ],
+    "description": "A **giant eagle** is a noble creature that speaks its own language and understands speech in the Common tongue. A mated pair of giant eagles typically has up to four eggs or young in their nest (treat the young as normal eagles)."
+}

@@ -1,0 +1,72 @@
+{
+    "name": "Giant Hyena",
+    "size": "Large",
+    "type": "Beast",
+    "alignment": "Unaligned",
+    "hp": "6d10 + 12",
+    "speed": "50 ft",
+    "ability_scores": [
+        16,
+        14,
+        14,
+        2,
+        12,
+        7
+    ],
+    "challenge": "1 (200 XP)",
+    "skills": [
+        {
+            "type": "Perception",
+            "value": "+3"
+        }
+    ],
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 13
+        }
+    ],
+    "features": [
+        {
+            "name": "Rampage",
+            "extras": {
+                "description": "When the hyena reduces a creature to 0 hit points with a melee attack on its turn, the hyena can take a bonus action to move up to half its speed and make a bite attack."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Bite",
+            "expression": "{d20} + 5",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 2,
+                    "sides": 6,
+                    "modifier": 3
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Bite",
+            "extras": {
+                "roll": "Bite",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+5"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "2d6 + 3"
+                    }
+                ]
+            }
+        }
+    ]
+}

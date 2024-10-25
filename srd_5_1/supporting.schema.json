@@ -447,6 +447,7 @@
                         "Lightning",
                         "Necrotic",
                         "Nonmagical",
+                        "Nonsilvered",
                         "Piercing",
                         "Poison",
                         "Psychic",
@@ -699,7 +700,8 @@
                     "Lizardfolk",
                     "Merfolk",
                     "Orc",
-                    "Sahuagin"
+                    "Sahuagin",
+                    "Shapechanger"
                 ]
             }
         },
@@ -879,6 +881,7 @@
                             "Gnomish",
                             "Goblin",
                             "Ignan",
+                            "Infernal",
                             "One known by its creator",
                             "Orc",
                             "Sahuagin",
@@ -886,6 +889,7 @@
                             "Telepathy 60 ft (Abyssal only)",
                             "Terran",
                             "Undercommon",
+                            "Understands Auran",
                             "Understands Common",
                             "Understands Draconic",
                             "Understands Elvish",

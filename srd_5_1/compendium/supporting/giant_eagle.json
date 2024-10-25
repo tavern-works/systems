@@ -31,10 +31,10 @@
             "value": "Can't speak"
         },
         {
-            "value": "Common"
+            "value": "Understands Common"
         },
         {
-            "value": "Auran"
+            "value": "Understands Auran"
         }
     ],
     "features": [

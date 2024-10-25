@@ -1,0 +1,158 @@
+{
+    "name": "Imp",
+    "size": "Tiny",
+    "type": "Fiend",
+    "alignment": "Lawful Evil",
+    "hp": "3d4 + 3",
+    "speed": "20 ft, fly 40 ft",
+    "ability_scores": [
+        6,
+        17,
+        13,
+        11,
+        12,
+        14
+    ],
+    "challenge": "1 (200 XP)",
+    "skills": [
+        {
+            "type": "Deception",
+            "value": "+4"
+        },
+        {
+            "type": "Insight",
+            "value": "+3"
+        },
+        {
+            "type": "Persuasion",
+            "value": "+4"
+        },
+        {
+            "type": "Stealth",
+            "value": "+5"
+        }
+    ],
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 120
+        },
+        {
+            "type": "passive_perception",
+            "value": 11
+        }
+    ],
+    "languages": [
+        {
+            "value": "Infernal"
+        },
+        {
+            "value": "Common"
+        }
+    ],
+    "features": [
+        {
+            "name": "Shapechanger",
+            "extras": {
+                "description": "The imp can use its action to polymorph into a beast form that resembles a rat (speed 20 ft), a raven (20 ft, fly 60 ft), or a spider (20 ft, climb 20 ft), or back into its true form. Its statistics are the same in each form, except for the speed changes noted. Any equipment it is wearing or carrying isn't transformed. It reverts to its true form if it dies."
+            }
+        },
+        {
+            "name": "Devil's Sight",
+            "extras": {
+                "description": "Magical darkness doesn't impede the imp's darkvision."
+            }
+        },
+        {
+            "name": "Magic Resistance",
+            "extras": {
+                "description": "The imp has advantage on saving throws against spells and other magical effects."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Sting/Bite",
+            "expression": "{d20} + 5",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 4,
+                    "modifier": 3
+                },
+                {
+                    "type": "Poison",
+                    "count": 3,
+                    "sides": 6,
+                    "modifier": 0
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Sting (Bite in Beast Form)",
+            "extras": {
+                "description": "On a hit, the target must make a DC 11 Constitution saving throw, taking 3d6 poison damage on a failed save, or half as much damage on a successful one.",
+                "roll": "Sting/Bite",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+5"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d4 + 3"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Invisibility",
+            "extras": {
+                "description": "The imp magically turns invisible until it attacks or until its concentration ends (as if concentrating on a spell). Any equipment the imp wears or carries is invisible with it."
+            }
+        }
+    ],
+    "subtypes": [
+        "Devil",
+        "Shapechanger"
+    ],
+    "damage_resistances": [
+        {
+            "value": "Cold"
+        },
+        {
+            "value": "Nonmagical"
+        },
+        {
+            "value": "Nonsilvered"
+        },
+        {
+            "value": "Bludgeoning"
+        },
+        {
+            "value": "Piercing"
+        },
+        {
+            "value": "Slashing"
+        }
+    ],
+    "damage_immunities": [
+        {
+            "value": "Fire"
+        },
+        {
+            "value": "Poison"
+        }
+    ],
+    "condition_immunities": [
+        {
+            "value": "Poisoned"
+        }
+    ]
+}

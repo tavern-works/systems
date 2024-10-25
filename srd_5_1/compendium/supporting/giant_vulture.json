@@ -1,0 +1,124 @@
+{
+    "name": "Giant Vulture",
+    "size": "Large",
+    "type": "Beast",
+    "alignment": "Neutral Evil",
+    "hp": "3d10 + 6",
+    "speed": "10 ft, fly 60 ft",
+    "ability_scores": [
+        15,
+        10,
+        15,
+        6,
+        12,
+        7
+    ],
+    "challenge": "1 (200 XP)",
+    "skills": [
+        {
+            "type": "Perception",
+            "value": "+3"
+        }
+    ],
+    "senses": [
+        {
+            "type": "passive_perception",
+            "value": 13
+        }
+    ],
+    "languages": [
+        {
+            "value": "Can't speak"
+        },
+        {
+            "value": "Common"
+        }
+    ],
+    "features": [
+        {
+            "name": "Keen Sight and Smell",
+            "extras": {
+                "description": "The vulture has advantage on Wisdom (Perception) checks that rely on sight or smell."
+            }
+        },
+        {
+            "name": "Pack Tactics",
+            "extras": {
+                "description": "The vulture has advantage on an attack roll against a creature if at least one of the vulture's allies is within 5 feet of the creature and the ally isn't incapacitated."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Beak",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 2,
+                    "sides": 4,
+                    "modifier": 2
+                }
+            ]
+        },
+        {
+            "name": "Talons",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Slashing",
+                    "count": 2,
+                    "sides": 6,
+                    "modifier": 2
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Multiattack",
+            "extras": {
+                "description": "The vulture makes two attacks: one with its beak and one with its talons."
+            }
+        },
+        {
+            "name": "Beak",
+            "extras": {
+                "roll": "Beak",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "2d4 + 2"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Talons",
+            "extras": {
+                "roll": "Talons",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "slashing_attack",
+                        "value": "2d6 + 2"
+                    }
+                ]
+            }
+        }
+    ],
+    "description": "A **giant vulture** has advanced intelligence and a malevolent bent. Unlike its smaller kin, it will attack a wounded creature to hasten its end. Giant vultures have been known to haunt a thirsty, starving creature for days to enjoy its suffering."
+}

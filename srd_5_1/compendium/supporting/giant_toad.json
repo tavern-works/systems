@@ -1,0 +1,98 @@
+{
+    "name": "Giant Toad",
+    "size": "Large",
+    "type": "Beast",
+    "alignment": "Unaligned",
+    "hp": "6d10 + 6",
+    "speed": "20 ft, swim 40 ft",
+    "ability_scores": [
+        15,
+        13,
+        13,
+        2,
+        10,
+        3
+    ],
+    "challenge": "1 (200 XP)",
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 30
+        },
+        {
+            "type": "passive_perception",
+            "value": 10
+        }
+    ],
+    "features": [
+        {
+            "name": "Amphibious",
+            "extras": {
+                "description": "The toad can breathe air and water."
+            }
+        },
+        {
+            "name": "Standing Leap",
+            "extras": {
+                "description": "The toad's long jump is up to 20 feet and its high jump is up to 10 feet, with or without a running start."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Bite",
+            "expression": "{d20} + 4",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 10,
+                    "modifier": 2
+                },
+                {
+                    "type": "Poison",
+                    "count": 1,
+                    "sides": 10,
+                    "modifier": 0
+                }
+            ]
+        },
+        {
+            "name": "Swallow Damage",
+            "expression": "3d6"
+        }
+    ],
+    "actions": [
+        {
+            "name": "Bite",
+            "extras": {
+                "roll": "Bite",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+4"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d10 + 2"
+                    },
+                    {
+                        "type": "poison_attack",
+                        "value": "1d10"
+                    }
+                ],
+                "description": "On a hit, the target is grappled (escape DC 13). Until this grapple ends, the target is restrained, and the toad can't bite another target."
+            }
+        },
+        {
+            "name": "Swallow",
+            "extras": {
+                "description": "The toad makes one bite attack against a Medium or smaller target it is grappling. If the attack hits, the target is swallowed and the grapple ends. The swallowed target is blinded and restrained, it has total cover against attacks and other effects outside the toad, and it takes 3d6 acid damage at the start of each of the toad's turns. The toad can have only one target swallowed at a time.\n\nIf the toad dies, a swallowed creature is no longer restrained by it and can escape from the corpse using 5 feet of movement, exiting prone.",
+                "roll": "Swallow Damage"
+            }
+        }
+    ]
+}

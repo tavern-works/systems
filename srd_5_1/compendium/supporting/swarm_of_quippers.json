@@ -1,0 +1,127 @@
+{
+    "name": "Swarm of Quippers",
+    "size": "Medium",
+    "type": "Swarm of Tiny beasts",
+    "alignment": "Unaligned",
+    "hp": "8d8 - 8",
+    "speed": "0 ft, swim 40 ft",
+    "ability_scores": [
+        13,
+        16,
+        9,
+        1,
+        7,
+        2
+    ],
+    "challenge": "1 (200 XP)",
+    "damage_resistances": [
+        {
+            "value": "Bludgeoning"
+        },
+        {
+            "value": "Piercing"
+        },
+        {
+            "value": "Slashing"
+        }
+    ],
+    "condition_immunities": [
+        {
+            "value": "Charmed"
+        },
+        {
+            "value": "Frightened"
+        },
+        {
+            "value": "Grappled"
+        },
+        {
+            "value": "Paralyzed"
+        },
+        {
+            "value": "Petrified"
+        },
+        {
+            "value": "Prone"
+        },
+        {
+            "value": "Restrained"
+        },
+        {
+            "value": "Stunned"
+        }
+    ],
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 60
+        },
+        {
+            "type": "passive_perception",
+            "value": 8
+        }
+    ],
+    "features": [
+        {
+            "name": "Blood Frenzy",
+            "extras": {
+                "description": "The swarm has advantage on melee attack rolls against any creature that doesn't have all its hit points."
+            }
+        },
+        {
+            "name": "Swarm",
+            "extras": {
+                "description": "The swarm can occupy another creature's space and vice versa, and the swarm can move through any opening large enough for a Tiny quipper. The swarm can't regain hit points or gain temporary hit points."
+            }
+        },
+        {
+            "name": "Water Breathing",
+            "extras": {
+                "description": "The swarm can breathe only underwater."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Bites",
+            "expression": "{d20} + 5",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 4,
+                    "sides": 6,
+                    "modifier": 0
+                },
+                {
+                    "type": "Piercing",
+                    "count": 2,
+                    "sides": 6,
+                    "modifier": 0
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Bites",
+            "extras": {
+                "description": "If the swarm has half of its hit points or fewer, this attack does 2d6 piercing damage rather than 4d6 as usual.",
+                "roll": "Bites",
+                "attributes": [
+                    {
+                        "type": "reach_0",
+                        "value": 0
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+5"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "4d6 or 2d6"
+                    }
+                ]
+            }
+        }
+    ]
+}

@@ -1,0 +1,117 @@
+{
+    "name": "Tiger",
+    "size": "Large",
+    "type": "Beast",
+    "alignment": "Unaligned",
+    "hp": "5d10 + 10",
+    "speed": "40 ft",
+    "ability_scores": [
+        17,
+        15,
+        14,
+        3,
+        12,
+        8
+    ],
+    "challenge": "1 (200 XP)",
+    "skills": [
+        {
+            "type": "Perception",
+            "value": "+3"
+        },
+        {
+            "type": "Stealth",
+            "value": "+6"
+        }
+    ],
+    "senses": [
+        {
+            "type": "darkvision",
+            "value": 60
+        },
+        {
+            "type": "passive_perception",
+            "value": 13
+        }
+    ],
+    "features": [
+        {
+            "name": "Keen Smell",
+            "extras": {
+                "description": "The tiger has advantage on Wisdom (Perception) checks that rely on smell."
+            }
+        },
+        {
+            "name": "Pounce",
+            "extras": {
+                "description": "If the tiger moves at least 20 feet straight toward a creature and then hits it with a claw attack on the same turn, that target must succeed on a DC 13 Strength saving throw or be knocked prone. If the target is prone, the tiger can make one bite attack against it as a bonus action."
+            }
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Bite",
+            "expression": "{d20} + 5",
+            "damage": [
+                {
+                    "type": "Piercing",
+                    "count": 1,
+                    "sides": 10,
+                    "modifier": 3
+                }
+            ]
+        },
+        {
+            "name": "Claw",
+            "expression": "{d20} + 5",
+            "damage": [
+                {
+                    "type": "Slashing",
+                    "count": 1,
+                    "sides": 8,
+                    "modifier": 3
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "Bite",
+            "extras": {
+                "roll": "Bite",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+5"
+                    },
+                    {
+                        "type": "piercing_attack",
+                        "value": "1d10 + 3"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Claw",
+            "extras": {
+                "roll": "Claw",
+                "attributes": [
+                    {
+                        "type": "melee_weapon"
+                    },
+                    {
+                        "type": "to_hit",
+                        "value": "+5"
+                    },
+                    {
+                        "type": "slashing_attack",
+                        "value": "1d8 + 3"
+                    }
+                ]
+            }
+        }
+    ]
+}

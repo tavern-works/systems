@@ -5,6 +5,7 @@ mod supporting;
 
 pub fn get_data(section, entry) {
     match section {
+        "equipment" => {},
         "spell" => {
             entry["headline"] = spell::headline(entry["level"], entry["school"])?;
             entry["component_string"] = spell::component_string(entry["components"]);

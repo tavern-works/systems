@@ -168,9 +168,7 @@ impl Character {
 
         data["languages"] = self.languages.iter().map(|language| {
             #{
-                "type": (),
                 "value": language.clone(),
-                "tooltip": ""
             }
         }).collect::<Vec>();
 
@@ -311,7 +309,6 @@ impl Character {
                     proficiency.with == armor)
                 }) {
                     result.push(#{
-                        "type": (),
                         "value": name,
                         "tooltip": format!("From {}", proficiency.source.clone())
                     })
@@ -325,7 +322,6 @@ impl Character {
             proficiency.with == Armor::Shields
         }) {
             result.push(#{
-                "type": (),
                 "value": "Shields",
                 "tooltip": format!("From {}", proficiency.source.clone())
             })
@@ -713,7 +709,6 @@ impl Character {
             if let (id, source) = id_source {
                 let tool = tables.get_compendium_entry_by_id(id)?;
                 result.push(#{
-                    "type": (),
                     "value": tool.get("name")?,
                     "tooltip": format!("From {source}")
                 })
@@ -741,7 +736,6 @@ impl Character {
                     proficiency.with == complexity
                 }) {
                     result.push(#{
-                        "type": (),
                         "value": name,
                         "tooltip": format!("From {}", proficiency.source.clone())
                     })
@@ -759,7 +753,6 @@ impl Character {
             if let (weapon_id, source) = id_source {
                 let weapon = tables.get_compendium_entry_by_id(weapon_id)?;
                 result.push(#{
-                    "type": (),
                     "value": weapon.get("name")?,
                     "tooltip": format!("From {source}")
                 })

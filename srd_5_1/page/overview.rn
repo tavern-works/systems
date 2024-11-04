@@ -20,10 +20,10 @@ fn build_ability(ability) {
     let cells = [
         Cell::try_new(0..12, 0..5, Contents::Outline)?,
         Cell::try_new(0..4, 0..3, Contents::new_number(ability.variable_name()).read_only()?.label(ability.name())?.font(Font::Bold)?)?,
-        Cell::try_new(0..2, 3..4, Contents::new_number(ability.modifier_variable()).read_only()?.with_sign()?)?,
-        Cell::try_new(2..4, 3..4, Contents::new_number(ability.save_variable()).read_only()?.with_sign()?)?,
-        Cell::try_new(0..2, 4..5, Contents::new_button().roll(check_roll)?.label("Check")?.tooltip(format!("Roll {} Check", ability.name()))?)?,
-        Cell::try_new(2..4, 4..5, Contents::new_button().roll(save_roll)?.label("Save")?.tooltip(format!("Roll {} Save", ability.name()))?)?,
+        Cell::try_new(0..2, 3..4, Contents::new_label().label("Check")?.align(Alignment::Center)?)?,
+        Cell::try_new(2..4, 3..4, Contents::new_number(ability.modifier_variable()).read_only()?.with_sign()?.roll(check_roll)?.tooltip(format!("Roll {} Check", ability.name()))?)?,
+        Cell::try_new(0..2, 4..5, Contents::new_label().label("Save")?.align(Alignment::Center)?)?,
+        Cell::try_new(2..4, 4..5, Contents::new_number(ability.save_variable()).read_only()?.with_sign()?.roll(save_roll)?.tooltip(format!("Roll {} Save", ability.name()))?)?,
     ];
 
     for enumerated in Skill::all().iter().filter(|skill| skill.ability() == ability).enumerate() {
@@ -103,14 +103,14 @@ pub fn get_layout(name) {
         Cell::try_new(6..7, 6..7, Contents::new_number("hit_dice_12").roll(PrepareOptions::by_name("Hit Die (d12)"))?.depends_on("hasAvailableHitDie12")?)?,
         Cell::try_new(7..8, 6..7, Contents::new_button().key("add_hit_die_12")?.label("+")?.depends_on("hasUsedHitDie12")?)?,
 
-        Cell::try_new(8..12, 4..7, Contents::Outline)?,
+        // Cell::try_new(8..12, 4..7, Contents::Outline)?,
         Cell::try_new(8..11, 4..5, Contents::new_label().label("Death Saves")?.align(Alignment::Center)?)?,
         Cell::try_new(11..12, 4..5, Contents::new_button().roll(PrepareOptions::by_name("Death Saving Throw"))?.icon("ifl")?)?,
-        Cell::try_new(8..9, 5..6, Contents::new_label().icon("check_circle")?)?,
+        Cell::try_new(8..9, 5..6, Contents::new_label().icon("check_circle")?.align(Alignment::Right)?)?,
         Cell::try_new(9..10, 5..6, Contents::new_checkbox("death_success_1"))?,
         Cell::try_new(10..11, 5..6, Contents::new_checkbox("death_success_2"))?,
         Cell::try_new(11..12, 5..6, Contents::new_checkbox("death_success_3"))?,
-        Cell::try_new(8..9, 6..7, Contents::new_label().icon("cancel")?)?,
+        Cell::try_new(8..9, 6..7, Contents::new_label().icon("cancel")?.align(Alignment::Right)?)?,
         Cell::try_new(9..10, 6..7, Contents::new_checkbox("death_failure_1"))?,
         Cell::try_new(10..11, 6..7, Contents::new_checkbox("death_failure_2"))?,
         Cell::try_new(11..12, 6..7, Contents::new_checkbox("death_failure_3"))?,

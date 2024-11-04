@@ -10,18 +10,13 @@ impl super::Supporting {
             Cell::try_new(0..10, 0..2, Contents::new_text("name"))?,
             Cell::try_new(0..12, 2..3, Contents::new_text("headline").read_only()?.font(Font::Italic)?)?,
             
-            Cell::try_new(0..3, 3..4, Contents::new_label().label("Armor Class")?.align(Alignment::Right)?)?,
-            Cell::try_new(3..12, 3..4, Contents::new_text("armor").read_only()?)?,
-            Cell::try_new(0..3, 4..5, Contents::new_label().label("Hit Points")?.align(Alignment::Right)?)?,
-            Cell::try_new(3..5, 4..5, Contents::new_number("hp").align(Alignment::Center)?)?,
-            Cell::try_new(5..7, 4..5, Contents::new_label().label("Max HP")?.align(Alignment::Right)?)?,
-            Cell::try_new(7..9, 4..5, Contents::new_number("max_hp").align(Alignment::Center)?)?,
-            Cell::try_new(9..11, 4..5, Contents::new_text("hp_expression").align(Alignment::Center)?.read_only()?.roll(PrepareOptions::by_name("Maximum HP"))?.tooltip("Roll Maximum HP")?)?,
-            Cell::try_new(11..12, 4..5, Contents::new_number("temp_hp").align(Alignment::Center)?.label("Temp")?)?,
-            Cell::try_new(0..3, 5..6, Contents::new_label().label("Speed")?.align(Alignment::Right)?)?,
-            Cell::try_new(3..9, 5..6, Contents::new_text("speed").align(Alignment::Left)?.read_only()?)?,
-            Cell::try_new(9..12, 5..6, Contents::new_button().roll(PrepareOptions::by_name("Initiative"))?.label("Initiative")?.tooltip("Roll Initiative")?)?,
-            Cell::try_new(0..12, 3..6, Contents::Outline)?,
+            Cell::try_new(0..9, 3..4, Contents::new_text("armor").read_only()?.label("Armor Class")?)?,
+            Cell::try_new(9..12, 3..4, Contents::new_button().roll(PrepareOptions::by_name("Initiative"))?.label("Initiative")?.tooltip("Roll Initiative")?)?,
+            Cell::try_new(0..4, 4..5, Contents::new_number("hp").align(Alignment::Center)?.label("Hit Points")?)?,
+            Cell::try_new(4..8, 4..5, Contents::new_number("temp_hp").align(Alignment::Center)?.label("Temp HP")?)?,
+            Cell::try_new(8..12, 4..5, Contents::new_number("max_hp").align(Alignment::Center)?.label("Max HP")?)?,
+            Cell::try_new(0..8, 5..6, Contents::new_text("speed").align(Alignment::Left)?.read_only()?.label("Speed")?)?,
+            Cell::try_new(8..12, 5..6, Contents::new_text("hp_expression").align(Alignment::Center)?.read_only()?.roll(PrepareOptions::by_name("Maximum HP"))?.tooltip("Roll Maximum HP")?)?,
         ];
 
         let start = 0;

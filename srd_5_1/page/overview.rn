@@ -2,14 +2,14 @@ use ::tavern::{Alignment, Cell, Columns, Contents, Font, Grid, Page, PrepareOpti
 
 use crate::{Ability, Skill};
 
-const NAME = "Character Overview";
+const NAME = "Overview";
 
 pub fn get_page(character) {
     let page = Page::new();
     page.character = character.id();
     page.name = NAME;
     page.icon = "newsmode";
-    page.shortcut = "c";
+    page.shortcut = "o";
     page
 }
 

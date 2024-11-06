@@ -1,0 +1,165 @@
+use tavern::{Alignment, Cell, Columns, Contents, Grid, Page, Section, Size};
+
+const NAME = "Biography";
+
+pub fn get_page(character) {
+    let page = Page::new();
+    page.character = character.id();
+    page.name = NAME;
+    page.icon = "history_edu";
+    page.shortcut = "b";
+    page
+}
+
+pub fn get_layout(name) {
+    if name != NAME {
+        return Ok(None);
+    }
+
+    let layout = [];
+
+    let overview_cells = [
+        Cell::try_new(
+            0..5,
+            0..2,
+            Contents::new_text("name")
+                .read_only()?
+                .label("Character")?
+                .align(Alignment::Center)?,
+        )?,
+        Cell::try_new(5..12, 0..1, Contents::new_text("race").read_only()?.label("Race")?)?,
+        Cell::try_new(5..12, 1..2, Contents::new_text("class").read_only()?.label("Class")?)?,
+
+        Cell::try_new(0..11, 2..3, Contents::new_chip_list("languages").label("Languages")?)?,
+        Cell::try_new(
+            11..12,
+            2..3,
+            Contents::new_button()
+                .key("edit_languages")?
+                .icon("edit")?
+                .size(Size::Large)?
+                .depends_on("unimplemented")?,
+        )?,
+
+        Cell::try_new(0..10, 3..4, Contents::new_text("background").read_only()?.label("Background")?)?,
+        Cell::try_new(10..11, 3..4, Contents::new_button().icon("info")?.size(Size::Large)?)?,
+        Cell::try_new(11..12, 3..4, Contents::new_button().icon("edit")?.size(Size::Large)?)?,
+    ];
+
+    let overview = Grid::new(overview_cells, false);
+
+    let background_cells = [
+        Cell::try_new(
+            0..12,
+            0..1,
+            Contents::new_label()
+                .label("Background Feature")?
+                .size(Size::Large)?
+                .align(Alignment::Center)?,
+        )?,
+        Cell::try_new(0..12, 1..4, Contents::new_text_area("background_feature").use_markdown()?)?,
+    ];
+
+    let background = Grid::new(background_cells, false);
+
+    layout.push(Section::Columns(Columns::new([overview, background])));
+
+    let trait_cells = [
+        Cell::try_new(
+            0..12,
+            0..1,
+            Contents::new_label()
+                .label("Personality Traits")?
+                .size(Size::Large)?
+                .align(Alignment::Center)?,
+        )?,
+        Cell::try_new(0..12, 1..3, Contents::new_text_area("personality_traits").use_markdown()?)?,
+        Cell::try_new(
+            0..12,
+            3..4,
+            Contents::new_label()
+                .label("Ideal")?
+                .size(Size::Large)?
+                .align(Alignment::Center)?,
+        )?,
+        Cell::try_new(0..12, 4..6, Contents::new_text_area("ideal").use_markdown()?)?,
+    ];
+
+    let traits = Grid::new(trait_cells, false);
+
+    let bond_flaw_cells = [
+        Cell::try_new(
+            0..12,
+            0..1,
+            Contents::new_label()
+                .label("Bond")?
+                .size(Size::Large)?
+                .align(Alignment::Center)?,
+        )?,
+        Cell::try_new(0..12, 1..3, Contents::new_text_area("bond").use_markdown()?)?,
+        Cell::try_new(
+            0..12,
+            3..4,
+            Contents::new_label()
+                .label("Flaw")?
+                .size(Size::Large)?
+                .align(Alignment::Center)?,
+        )?,
+        Cell::try_new(0..12, 4..6, Contents::new_text_area("flaw").use_markdown()?)?,
+    ];
+
+    let bond_flaw = Grid::new(bond_flaw_cells, false);
+
+    layout.push(Section::Columns(Columns::new([traits, bond_flaw])));
+
+    let backstory_cells = [
+        Cell::try_new(
+            0..12,
+            0..1,
+            Contents::new_label()
+                .label("Backstory")?
+                .size(Size::Large)?
+                .align(Alignment::Center)?,
+        )?,
+        Cell::try_new(0..12, 1..5, Contents::new_text_area("backstory").use_markdown()?)?,
+    ];
+
+    let backstory = Grid::new(backstory_cells, false);
+
+    let relationships_cells = [
+        Cell::try_new(
+            0..12,
+            0..1,
+            Contents::new_label()
+                .label("Relationships & Affiliations")?
+                .size(Size::Large)?
+                .align(Alignment::Center)?,
+        )?,
+        Cell::try_new(0..12, 1..5, Contents::new_text_area("relationships").use_markdown()?)?,
+    ];
+
+    let relationships = Grid::new(relationships_cells, false);
+
+    layout.push(Section::Columns(Columns::new([backstory, relationships])));
+
+    let notes_header_cells = [
+        Cell::try_new(
+            0..12,
+            0..1,
+            Contents::new_label()
+                .label("Notes")?
+                .size(Size::Large)?
+                .align(Alignment::Center)?,
+        )?,
+    ];
+
+    layout.push(Section::Grid(Grid::new(notes_header_cells, false)));
+
+    let notes_cells = [
+        Cell::try_new(0..12, 0..1, Contents::new_text_area("notes").use_markdown()?)?,
+    ];
+
+    layout.push(Section::Grid(Grid::new(notes_cells, false)));
+
+    Ok(Some(layout))
+}

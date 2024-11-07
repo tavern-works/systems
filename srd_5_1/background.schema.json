@@ -1,0 +1,58 @@
+{
+    "title": "Background",
+    "type": "object",
+    "properties": {
+        "name": {
+            "title": "Name",
+            "type": "string"
+        },
+        "description": {
+            "title": "Description",
+            "type": "string",
+            "format": "markdown",
+            "options": {
+                "simplemde": {
+                    "spellChecker": false,
+                    "status": false,
+                    "toolbar": false
+                }
+            }
+        },
+        "skillProficiencies": {
+            "title": "Skill Proficiencies",
+            "type": "array",
+            "format": "checkbox",
+            "uniqueItems": true,
+            "minItems": 2,
+            "maxItems": 2,
+            "items": {
+                "title": "Skill",
+                "type": "string",
+                "enum": [
+                    "Acrobatics",
+                    "Animal Handling",
+                    "Arcana",
+                    "Athletics",
+                    "Deception",
+                    "History",
+                    "Insight",
+                    "Intimidation",
+                    "Investigation",
+                    "Medicine",
+                    "Nature",
+                    "Perception",
+                    "Performance",
+                    "Persuasion",
+                    "Religion",
+                    "Sleight of Hand",
+                    "Stealth",
+                    "Survival"
+                ]
+            }
+        },
+        "languages": {
+            "title": "Languages"
+        }
+    },
+    "required": ["name", "description", "skillProficiencies", "equipment"]
+}

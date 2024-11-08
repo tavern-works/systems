@@ -1,5 +1,4 @@
-use tavern::{Alignment, Cell, Contents, Font, Grid, Section};
-
+mod background;
 mod spell;
 mod supporting;
 
@@ -21,47 +20,9 @@ pub fn get_data(section, entry) {
 }
 
 pub fn get_layout(section) {
-    if section != "spell" {
-        tavern::bail!("unknown section {section}");
+    match section {
+        "background" => background::get_layout(),
+        "spell" => spell::get_layout(),
+        _ => tavern::bail!("unknown section {section}")
     }
-
-    let layout = [];
-    
-    let title = [
-        Cell::try_new(0..12, 0..2, Contents::new_text("name").read_only()?)?,
-        Cell::try_new(0..12, 2..3, Contents::new_text("headline").read_only()?.font(Font::Italic)?)?,
-    ];
-
-    layout.push(Section::Grid(Grid::new(title, false)));
-
-    let header_top = [
-        Cell::try_new(0..3, 0..1, Contents::new_label().label("Casting Time")?.align(Alignment::Right)?)?,
-        Cell::try_new(3..12, 0..1, Contents::new_text("casting_time").read_only()?)?,
-        Cell::try_new(0..3, 1..2, Contents::new_label().label("Range")?.align(Alignment::Right)?)?,
-        Cell::try_new(3..12, 1..2, Contents::new_text("range").read_only()?)?,
-    ];
-
-    layout.push(Section::Grid(Grid::new(header_top, false)));
-
-    let components = [
-        Cell::try_new(0..3, 0..1, Contents::new_label().label("Components")?.align(Alignment::Right)?)?,
-        Cell::try_new(3..12, 0..1, Contents::new_text_area("component_string"))?,
-    ];
-
-    layout.push(Section::Grid(Grid::new(components, false)));
-
-    let duration = [
-        Cell::try_new(0..3, 0..1, Contents::new_label().label("Duration")?.align(Alignment::Right)?)?,
-        Cell::try_new(3..12, 0..1, Contents::new_text("duration_string").read_only()?)?,
-    ];
-
-    layout.push(Section::Grid(Grid::new(duration, false)));
-
-    let description = [
-        Cell::try_new(0..12, 0..1, Contents::new_text_area("description").use_markdown()?)?
-    ];
-
-    layout.push(Section::Grid(Grid::new(description, false)));
-
-    Ok(layout)
 }

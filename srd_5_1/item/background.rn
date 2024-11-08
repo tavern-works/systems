@@ -1,0 +1,50 @@
+use tavern::{Alignment, Cell, Contents, Grid, Section};
+
+pub fn get_layout() {
+    let layout = [];
+
+    let header = [
+        Cell::try_new(0..12, 0..2, Contents::new_text("name").read_only()?)?,
+        Cell::try_new(0..12, 2..3, Contents::new_chip_list("skill_proficiencies").label("Skill Proficiencies")?)?
+    ];
+
+    layout.push(Section::Grid(Grid::new(header, false)));
+
+    let languages = [
+        Cell::try_new(0..12, 0..1, Contents::new_chip_list("languages").label("Languages")?)?,
+    ];
+
+    layout.push(Section::new_conditional_grid("languages", Grid::new(languages, false)));
+
+    let tool_proficiencies = [
+        Cell::try_new(0..12, 0..1, Contents::new_chip_list("tool_proficiencies").label("Tool Proficiencies")?)?
+    ];
+
+    layout.push(Section::new_conditional_grid("tool_proficiencies", Grid::new(tool_proficiencies, false)));
+
+    let equipment_header = [
+        Cell::try_new(0..12, 0..1, Contents::new_label().label("Equipment")?.align(Alignment::Center)?)?,
+    ];
+    
+    layout.push(Section::Grid(Grid::new(equipment_header, false)));
+
+    let equipment = [
+        Cell::try_new(0..12, 0..1, Contents::new_text_area("equipment"))?,
+    ];
+
+    layout.push(Section::Grid(Grid::new(equipment, false)));
+
+    let feature_header = [
+        Cell::try_new(0..12, 0..1, Contents::new_text("feature_name").label("Feature")?.read_only()?)?,
+    ];
+
+    layout.push(Section::Grid(Grid::new(feature_header, false)));
+
+    let feature = [
+        Cell::try_new(0..12, 0..1, Contents::new_text_area("feature_description").use_markdown()?)?,
+    ];
+
+    layout.push(Section::Grid(Grid::new(feature, false)));
+
+    Ok(layout)
+}

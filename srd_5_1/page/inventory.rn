@@ -22,7 +22,7 @@ pub fn get_layout(name) {
         Cell::try_new(0..4, 0..2, Contents::new_text("name").read_only()?.label("Character")?.align(Alignment::Center)?)?,
         Cell::try_new(4..8, 0..2, Contents::new_number("ac").read_only()?.label("Armor Class")?)?,
         Cell::try_new(8..12, 0..2, Contents::new_number("speed").read_only()?.label("Speed")?.suffix("ft")?)?,
-        Cell::try_new(0..12, 2..4, Contents::Outline)?,
+        
         Cell::try_new(0..3, 2..4, Contents::new_number("wealth").read_only()?.label("Wealth (GP)")?)?,
         Cell::try_new(3..5, 2..3, Contents::new_number("gold"))?,
         Cell::try_new(5..6, 2..3, Contents::new_label().label("GP")?)?,
@@ -35,6 +35,7 @@ pub fn get_layout(name) {
         Cell::try_new(6..8, 3..4, Contents::new_number("electrum"))?,
         Cell::try_new(8..9, 3..4, Contents::new_label().label("EP")?)?,
         Cell::try_new(9..12, 3..4, Contents::new_number("money_weight").read_only()?.suffix("lb")?)?,
+        Cell::try_new(0..12, 2..4, Contents::Outline)?,
     ];
     let overview = Grid::new(overview_cells, false);
 

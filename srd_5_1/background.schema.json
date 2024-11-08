@@ -6,6 +6,84 @@
             "title": "Name",
             "type": "string"
         },
+        "id": {
+            "title": "ID",
+            "type": "string"
+        },
+        "skill_proficiencies": {
+            "title": "Skill Proficiencies",
+            "type": "array",
+            "uniqueItems": true,
+            "minItems": 2,
+            "maxItems": 2,
+            "items": {
+                "title": "Skill",
+                "type": "object",
+                "properties": {
+                    "value": {
+                        "title": "Skill",
+                        "type": "string",
+                        "enum": [
+                            "Acrobatics",
+                            "Animal Handling",
+                            "Arcana",
+                            "Athletics",
+                            "Deception",
+                            "History",
+                            "Insight",
+                            "Intimidation",
+                            "Investigation",
+                            "Medicine",
+                            "Nature",
+                            "Perception",
+                            "Performance",
+                            "Persuasion",
+                            "Religion",
+                            "Sleight of Hand",
+                            "Stealth",
+                            "Survival"
+                        ]
+                    }
+                },
+                "required": ["value"]
+            }
+        },
+        "tool_proficiencies": {
+            "title": "Tool Proficiencies",
+            "type": "string"
+        },
+        "languages": {
+            "title": "Languages",
+            "type": "array",
+            "uniqueItems": true,
+            "minItems": 1,
+            "maxItems": 2,
+            "items": {
+                "title": "Language",
+                "type": "object",
+                "properties": {
+                    "value": {
+                        "title": "Language",
+                        "type": "string"
+                    }
+                },
+                "required": ["value"]
+            }
+        },
+        "equipment": {
+            "title": "Equipment",
+            "type": "string",
+            "format": "textarea"
+        },
+        "feature_name": {
+            "title": "Feature Name",
+            "type": "string"
+        },
+        "feature_description": {
+            "title": "Feature Description",
+            "type": "string",
+            "format": "textarea"
+        },
         "description": {
             "title": "Description",
             "type": "string",
@@ -17,42 +95,14 @@
                     "toolbar": false
                 }
             }
-        },
-        "skillProficiencies": {
-            "title": "Skill Proficiencies",
-            "type": "array",
-            "format": "checkbox",
-            "uniqueItems": true,
-            "minItems": 2,
-            "maxItems": 2,
-            "items": {
-                "title": "Skill",
-                "type": "string",
-                "enum": [
-                    "Acrobatics",
-                    "Animal Handling",
-                    "Arcana",
-                    "Athletics",
-                    "Deception",
-                    "History",
-                    "Insight",
-                    "Intimidation",
-                    "Investigation",
-                    "Medicine",
-                    "Nature",
-                    "Perception",
-                    "Performance",
-                    "Persuasion",
-                    "Religion",
-                    "Sleight of Hand",
-                    "Stealth",
-                    "Survival"
-                ]
-            }
-        },
-        "languages": {
-            "title": "Languages"
         }
     },
-    "required": ["name", "description", "skillProficiencies", "equipment"]
+    "required": [
+        "name",
+        "skill_proficiencies",
+        "equipment",
+        "feature_name",
+        "feature_description",
+        "description"
+    ]
 }

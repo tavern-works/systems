@@ -98,7 +98,7 @@ impl Character {
             "name": self.name.clone(),
             "race": self.race.name(),
             "class": self.class_description(),
-            "background": "None",
+            "background": "Acolyte",
             "alignment": self.alignment.name(),
             "experience": self.experience,
             "inspiration": self.inspiration,

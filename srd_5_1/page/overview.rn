@@ -21,9 +21,9 @@ fn build_ability(ability) {
         Cell::try_new(0..12, 0..5, Contents::Outline)?,
         Cell::try_new(0..4, 0..3, Contents::new_number(ability.variable_name()).read_only()?.label(ability.name())?.font(Font::Bold)?)?,
         Cell::try_new(0..2, 3..4, Contents::new_label().label("Check")?.align(Alignment::Center)?)?,
-        Cell::try_new(2..4, 3..4, Contents::new_number(ability.modifier_variable()).read_only()?.with_sign()?.roll(check_roll)?.tooltip(format!("Roll {} Check", ability.name()))?)?,
+        Cell::try_new(2..4, 3..4, Contents::new_number(ability.modifier_variable()).with_sign()?.roll(check_roll)?.tooltip(format!("Roll {} Check", ability.name()))?)?,
         Cell::try_new(0..2, 4..5, Contents::new_label().label("Save")?.align(Alignment::Center)?)?,
-        Cell::try_new(2..4, 4..5, Contents::new_number(ability.save_variable()).read_only()?.with_sign()?.roll(save_roll)?.tooltip(format!("Roll {} Save", ability.name()))?)?,
+        Cell::try_new(2..4, 4..5, Contents::new_number(ability.save_variable()).with_sign()?.roll(save_roll)?.tooltip(format!("Roll {} Save", ability.name()))?)?,
     ];
 
     for enumerated in Skill::all().iter().filter(|skill| skill.ability() == ability).enumerate() {

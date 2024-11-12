@@ -46,5 +46,11 @@ pub fn get_layout() {
 
     layout.push(Section::Grid(Grid::new(feature, false)));
 
+    let description = [
+        Cell::try_new(0..12, 0..1, Contents::new_text_area("description").use_markdown()?)?,
+    ];
+
+    layout.push(Section::Grid(Grid::new(description, false)));
+
     Ok(layout)
 }

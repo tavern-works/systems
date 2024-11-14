@@ -45,7 +45,7 @@ impl super::Class {
         
         if has_second_wind {
             let second_wind = Roll::try_new("Second Wind", [], "1d10 + $fighter")?;
-            second_wind.set_action(Action::new(Target::Roller, "second_wind"));
+            second_wind.set_action(Action::new_sheet(Target::Roller, "second_wind"));
             rolls.push(second_wind)
         }
 

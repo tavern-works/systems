@@ -155,7 +155,7 @@ impl super::Character {
         for sides in [6, 8, 10, 12] {
             if available_hit_dice[sides] > 0 {
                 let hit_die_roll = Roll::try_new(format!("Hit Die (d{sides})"), [], format!("1d{sides}"))?;
-                hit_die_roll.set_action(Action::new(Target::Roller, format!("use_hit_die_{sides}")));
+                hit_die_roll.set_action(Action::new_sheet(Target::Roller, format!("use_hit_die_{sides}")));
                 rolls.push(hit_die_roll);
             }
         }
@@ -165,7 +165,7 @@ impl super::Character {
             RollConfig::new("Disadvantage", "@disadvantage", 'D', [], "false"),
         ];
         let death_saving_throw = Roll::try_new("Death Saving Throw", configs, d20)?;
-        death_saving_throw.set_action(Action::new(Target::Roller, "death_saving_throw"));
+        death_saving_throw.set_action(Action::new_sheet(Target::Roller, "death_saving_throw"));
         rolls.push(death_saving_throw);
 
         Ok(rolls)

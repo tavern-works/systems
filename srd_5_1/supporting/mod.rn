@@ -233,7 +233,7 @@ impl Supporting {
         }
 
         let max_hp_roll = Roll::try_new("Maximum HP", [], self.hp_expression)?;
-        max_hp_roll.set_action(Action::new(Target::Roller, "roll_max_hp"));
+        max_hp_roll.set_action(Action::new_sheet(Target::Roller, "roll_max_hp"));
         rolls.push(max_hp_roll);
 
         if !self.template.contains_key("rolls") {

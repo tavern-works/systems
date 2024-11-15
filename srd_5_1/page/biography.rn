@@ -65,7 +65,13 @@ pub fn get_layout(name) {
                 .size(Size::Large)?
                 .align(Alignment::Center)?,
         )?,
-        Cell::try_new(0..12, 1..4, Contents::new_text_area("background_feature").use_markdown()?)?,
+        Cell::try_new(
+            0..12,
+            1..4,
+            Contents::new_text_area("background_feature")
+                .use_markdown()?
+                .tooltip("Edit Background Feature")?,
+        )?,
     ];
 
     let background = Grid::new(background_cells, false);
@@ -81,16 +87,26 @@ pub fn get_layout(name) {
                 .size(Size::Large)?
                 .align(Alignment::Center)?,
         )?,
-        Cell::try_new(0..12, 1..3, Contents::new_text_area("personality_traits").use_markdown()?)?,
         Cell::try_new(
             0..12,
-            3..4,
+            1..4,
+            Contents::new_text_area("personality_traits")
+                .use_markdown()?
+                .tooltip("Edit Personality Traits")?,
+        )?,
+        Cell::try_new(
+            0..12,
+            4..5,
             Contents::new_label()
                 .label("Ideal")?
                 .size(Size::Large)?
                 .align(Alignment::Center)?,
         )?,
-        Cell::try_new(0..12, 4..6, Contents::new_text_area("ideal").use_markdown()?)?,
+        Cell::try_new(
+            0..12,
+            5..8,
+            Contents::new_text_area("ideal").use_markdown()?.tooltip("Edit Ideal")?,
+        )?,
     ];
 
     let traits = Grid::new(trait_cells, false);
@@ -104,16 +120,24 @@ pub fn get_layout(name) {
                 .size(Size::Large)?
                 .align(Alignment::Center)?,
         )?,
-        Cell::try_new(0..12, 1..3, Contents::new_text_area("bond").use_markdown()?)?,
         Cell::try_new(
             0..12,
-            3..4,
+            1..4,
+            Contents::new_text_area("bond").use_markdown()?.tooltip("Edit Bond")?,
+        )?,
+        Cell::try_new(
+            0..12,
+            4..5,
             Contents::new_label()
                 .label("Flaw")?
                 .size(Size::Large)?
                 .align(Alignment::Center)?,
         )?,
-        Cell::try_new(0..12, 4..6, Contents::new_text_area("flaw").use_markdown()?)?,
+        Cell::try_new(
+            0..12,
+            5..8,
+            Contents::new_text_area("flaw").use_markdown()?.tooltip("Edit Flaw")?,
+        )?,
     ];
 
     let bond_flaw = Grid::new(bond_flaw_cells, false);
@@ -129,7 +153,11 @@ pub fn get_layout(name) {
                 .size(Size::Large)?
                 .align(Alignment::Center)?,
         )?,
-        Cell::try_new(0..12, 1..5, Contents::new_text_area("backstory").use_markdown()?)?,
+        Cell::try_new(
+            0..12,
+            1..5,
+            Contents::new_text_area("backstory").use_markdown()?.tooltip("Edit Backstory")?,
+        )?,
     ];
 
     let backstory = Grid::new(backstory_cells, false);
@@ -143,7 +171,13 @@ pub fn get_layout(name) {
                 .size(Size::Large)?
                 .align(Alignment::Center)?,
         )?,
-        Cell::try_new(0..12, 1..5, Contents::new_text_area("relationships").use_markdown()?)?,
+        Cell::try_new(
+            0..12,
+            1..5,
+            Contents::new_text_area("relationships")
+                .use_markdown()?
+                .tooltip("Edit Relationships")?,
+        )?,
     ];
 
     let relationships = Grid::new(relationships_cells, false);
@@ -163,7 +197,13 @@ pub fn get_layout(name) {
 
     layout.push(Section::Grid(Grid::new(notes_header_cells, false)));
 
-    let notes_cells = [Cell::try_new(0..12, 0..1, Contents::new_text_area("notes").use_markdown()?)?];
+    let notes_cells = [
+        Cell::try_new(
+            0..12,
+            0..1,
+            Contents::new_text_area("notes").use_markdown()?.tooltip("Edit Notes")?,
+        )?,
+    ];
 
     layout.push(Section::Grid(Grid::new(notes_cells, false)));
 

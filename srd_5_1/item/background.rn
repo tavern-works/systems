@@ -29,7 +29,7 @@ pub fn get_layout() {
     layout.push(Section::Grid(Grid::new(equipment_header, false)));
 
     let equipment = [
-        Cell::try_new(0..12, 0..1, Contents::new_text_area("equipment"))?,
+        Cell::try_new(0..12, 0..1, Contents::new_text_area("equipment").read_only()?)?,
     ];
 
     layout.push(Section::Grid(Grid::new(equipment, false)));
@@ -41,13 +41,13 @@ pub fn get_layout() {
     layout.push(Section::Grid(Grid::new(feature_header, false)));
 
     let feature = [
-        Cell::try_new(0..12, 0..1, Contents::new_text_area("feature_description").use_markdown()?)?,
+        Cell::try_new(0..12, 0..1, Contents::new_text_area("feature_description").use_markdown()?.read_only()?)?,
     ];
 
     layout.push(Section::Grid(Grid::new(feature, false)));
 
     let description = [
-        Cell::try_new(0..12, 0..1, Contents::new_text_area("description").use_markdown()?)?,
+        Cell::try_new(0..12, 0..1, Contents::new_text_area("description").use_markdown()?.read_only()?)?,
     ];
 
     layout.push(Section::Grid(Grid::new(description, false)));

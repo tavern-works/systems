@@ -164,6 +164,18 @@ impl super::Character {
                 "background" => {
                     log::info!("setting background");
                 }
+                "background_feature" => {
+                    self.background_feature = value;
+                    notify_sheet = true;
+                }
+                "backstory" => {
+                    self.backstory = value;
+                    notify_sheet = true;
+                }
+                "bond" => {
+                    self.bond = value;
+                    notify_sheet = true;
+                }
                 "copper" => {
                     self.coins[4] = value.max(0);
                     notify_sheet = true;
@@ -197,6 +209,10 @@ impl super::Character {
                     self.experience = value.max(0);
                     notify_sheet = true;
                 }
+                "flaw" => {
+                    self.flaw = value;
+                    notify_sheet = true;
+                }
                 "gold" => {
                     self.coins[1] = value.max(0);
                     notify_sheet = true;
@@ -204,6 +220,10 @@ impl super::Character {
                 "hp" => {
                     self.hp = value.min(self.max_hp()).max(0);
                     notify_card = true;
+                    notify_sheet = true;
+                }
+                "ideal" => {
+                    self.ideal = value;
                     notify_sheet = true;
                 }
                 "inspiration" => {
@@ -215,8 +235,20 @@ impl super::Character {
                     notify_card = true;
                     notify_sheet = true;
                 }
+                "notes" => {
+                    self.notes = value;
+                    notify_sheet = true;
+                }
+                "personality_traits" => {
+                    self.personality_traits = value;
+                    notify_sheet = true;
+                }
                 "platinum" => {
                     self.coins[0] = value.max(0);
+                    notify_sheet = true;
+                }
+                "relationships" => {
+                    self.relationships = value;
                     notify_sheet = true;
                 }
                 "second_wind" => {

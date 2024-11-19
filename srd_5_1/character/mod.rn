@@ -15,9 +15,13 @@ mod updates;
 mod variables;
 
 fn attribute_map(attributes) {
-    HashMap::from_iter(attributes.iter().map(|attribute| {
-        (attribute["type"], attribute.get("value").unwrap_or(()))
-    }))
+    HashMap::from_iter(
+        attributes
+            .iter()
+            .map(|attribute| {
+                (attribute["type"], attribute.get("value").unwrap_or(()))
+            }),
+    )
 }
 
 struct Character {
@@ -28,6 +32,15 @@ struct Character {
     race,
     languages,
     classes,
+    background,
+    background_feature,
+    personality_traits,
+    bond,
+    ideal,
+    flaw,
+    backstory,
+    relationships,
+    notes,
     alignment,
     experience,
     hp_rolled,
@@ -98,7 +111,15 @@ impl Character {
             "name": self.name.clone(),
             "race": self.race.name(),
             "class": self.class_description(),
-            "background": "Acolyte",
+            "background": self.background_name(tables),
+            "background_feature": self.background_feature.clone(),
+            "personality_traits": self.personality_traits.clone(),
+            "bond": self.bond.clone(),
+            "ideal": self.ideal.clone(),
+            "flaw": self.flaw.clone(),
+            "backstory": self.backstory.clone(),
+            "relationships": self.relationships.clone(),
+            "notes": self.notes.clone(),
             "alignment": self.alignment.name(),
             "experience": self.experience,
             "inspiration": self.inspiration,
@@ -117,7 +138,7 @@ impl Character {
             "armor_proficiencies": self.armor_proficiencies(proficiencies),
             "weapon_proficiencies": self.weapon_proficiencies(tables, proficiencies)?,
             "tool_proficiencies": self.tool_proficiencies(tables, proficiencies)?,
-            "vision": self.race.vision()
+            "vision": self.race.vision(),
         };
 
         for index in 1..=3 {
@@ -162,15 +183,25 @@ impl Character {
         }
         for die in [6, 8, 10, 12] {
             data[format!("hit_dice_{die}")] = available_hit_dice[die];
-            data[format!("hasAvailableHitDie{die}")] = if available_hit_dice[die] > 0 { true } else { () };
-            data[format!("hasUsedHitDie{die}")] = if used_hit_dice[die] > 0 { true } else { () };
+            data[format!("hasAvailableHitDie{die}")] = if available_hit_dice[die] > 0 {
+                true
+            } else {
+                ()
+            };
+            data[format!("hasUsedHitDie{die}")] = if used_hit_dice[die] > 0 {
+                true
+            } else {
+                ()
+            };
         }
 
-        data["languages"] = self.languages.iter().map(|language| {
-            #{
-                "value": language.clone(),
-            }
-        }).collect::<Vec>();
+        data["languages"] = self
+            .languages
+            .iter()
+            .map(|language| {
+                #{ "value": language.clone() }
+            })
+            .collect::<Vec>();
 
         data["wealth"] = self.wealth();
 
@@ -214,12 +245,12 @@ impl Character {
     }
 
     fn get_tables(self) {
-        #{ 
+        #{
             "carried": [self.carried.clone()],
             "containers": self.containers.iter().map(|container| container["id"].clone()).collect::<Vec>(),
             "resources": [self.resources.clone()],
             "features": [self.features.clone()],
-            "attacks": [self.attacks.clone()]
+            "attacks": [self.attacks.clone()],
         }
     }
 
@@ -259,11 +290,21 @@ impl Character {
 
     fn active_armor(self, tables) {
         let carried = tables.get_hydrated_entries(self.carried)?;
-        carried.iter().find(|entry| {
-            entry["active"] is bool && entry["active"] == true && entry["attributes"].iter().find(|attribute| attribute["type"].ends_with("_armor")).is_some()
-        }).and_then(|active_armor| {
-            tables.get_entry_by_id(self.carried, Uid::from_string(active_armor["id"])).ok()
-        })
+        carried
+            .iter()
+            .find(
+                |entry| {
+                    entry["active"] is bool && entry["active"] == true && entry["attributes"]
+                        .iter()
+                        .find(|attribute| attribute["type"].ends_with("_armor"))
+                        .is_some()
+                },
+            )
+            .and_then(
+                |active_armor| {
+                    tables.get_entry_by_id(self.carried, Uid::from_string(active_armor["id"])).ok()
+                },
+            )
     }
 
     fn armor_class(self, tables) {
@@ -296,38 +337,36 @@ impl Character {
     fn armor_proficiencies(self, proficiencies) {
         let result = [];
 
-        for armor_name in [
-            (Armor::Light, "Light"),
-            (Armor::Medium, "Medium"),
-            (Armor::Heavy, "Heavy"),
-        ] {
+        for armor_name in [(Armor::Light, "Light"), (Armor::Medium, "Medium"), (Armor::Heavy, "Heavy")] {
             if let (armor, name) = armor_name {
-                if let Some(proficiency) = proficiencies.iter().find(|proficiency| {
-                    proficiency.condition == None &&
-                    proficiency.with is Armor &&
-                    (proficiency.with == Armor::All ||
-                    proficiency.with == armor)
-                }) {
-                    result.push(#{
-                        "value": name,
-                        "tooltip": format!("From {}", proficiency.source.clone())
-                    })
+                if let Some(proficiency) = proficiencies
+                    .iter()
+                    .find(
+                        |proficiency| {
+                            proficiency.condition == None && proficiency.with is Armor && (proficiency.with == Armor::All || proficiency.with == armor)
+                        },
+                    ) {
+                    result.push(#{ "value": name, "tooltip": format!("From {}", proficiency.source.clone()) })
                 }
             }
         }
 
-        if let Some(proficiency) =  proficiencies.iter().find(|proficiency| {
-            proficiency.condition == None &&
-            proficiency.with is Armor &&
-            proficiency.with == Armor::Shields
-        }) {
-            result.push(#{
-                "value": "Shields",
-                "tooltip": format!("From {}", proficiency.source.clone())
-            })
+        if let Some(proficiency) = proficiencies
+            .iter()
+            .find(
+                |proficiency| {
+                    proficiency.condition == None && proficiency.with is Armor && proficiency.with == Armor::Shields
+                },
+            ) {
+            result.push(#{ "value": "Shields", "tooltip": format!("From {}", proficiency.source.clone()) })
         }
 
         result
+
+    }
+
+    fn background_name(self, tables) {
+        "None"
     }
 
     fn class_description(self) {
@@ -396,7 +435,7 @@ impl Character {
 
     fn encumbrance(self, weight) {
         let strength = self.ability_scores()[Ability::Strength.name()];
-        
+
         if weight > (strength * 15) as f64 {
             format!("Over Capacity ({})", strength * 15)
         } else {
@@ -417,7 +456,8 @@ impl Character {
     fn get_container_weight(self, tables, id) {
         let table = tables.get_hydrated_entries(id)?;
         let total = 0f64;
-        for entry in table {let quantity = entry["quantity"];
+        for entry in table {
+            let quantity = entry["quantity"];
             let quantity = if quantity is i64 || quantity is f64 {
                 quantity as f64
             } else {
@@ -471,9 +511,16 @@ impl Character {
         }
 
         let get_name = |item| {
-            item.map(|i| {
-                tables.get_entry_by_id(self.carried, i).and_then(|entry| entry.get_value("name")).map(|name| Some(name))
-            }).unwrap_or(Ok(None))
+            item
+                .map(
+                    |i| {
+                        tables
+                            .get_entry_by_id(self.carried, i)
+                            .and_then(|entry| entry.get_value("name"))
+                            .map(|name| Some(name))
+                    },
+                )
+                .unwrap_or(Ok(None))
         };
 
         Ok((get_name(self.main_hand)?, get_name(self.off_hand)?))
@@ -481,10 +528,20 @@ impl Character {
 
     fn has_shield(self, tables) {
         let carried = tables.get_hydrated_entries(self.carried)?;
-        Ok(carried.iter().find(|entry| {
-            // The return shouldn't be necessary, but may be a workaround for https://github.com/rune-rs/rune/issues/830
-            return entry["active"] is bool && entry["active"] == true && entry["attributes"].iter().find(|attribute| attribute["type"] == "shield").is_some();
-        }).is_some())
+        Ok(
+            carried
+                .iter()
+                .find(
+                    |entry| {
+                        // The return shouldn't be necessary, but may be a workaround for https://github.com/rune-rs/rune/issues/830
+                        return entry["active"] is bool && entry["active"] == true && entry["attributes"]
+                            .iter()
+                            .find(|attribute| attribute["type"] == "shield")
+                            .is_some();
+                    },
+                )
+                .is_some(),
+        )
     }
 
     fn has_two_weapon_fighting(self) {
@@ -567,10 +624,7 @@ impl Character {
     fn set_held_item_active(self, tables, entry, active) {
         let attributes = attribute_map(entry.get_value("attributes")?);
 
-        if !attributes.contains_key("simple_weapon") &&
-            !attributes.contains_key("martial_weapon") &&
-            !attributes.contains_key("ranged_weapon") &&
-            !attributes.contains_key("shield") {
+        if !attributes.contains_key("simple_weapon") && !attributes.contains_key("martial_weapon") && !attributes.contains_key("ranged_weapon") && !attributes.contains_key("shield") {
             return Ok(());
         }
 
@@ -681,7 +735,7 @@ impl Character {
                         let strength = self.ability_scores()[Ability::Strength.name()];
                         if strength < required_strength {
                             return self.race.heavy_armor_speed();
-                        }                        
+                        }
                     }
                 }
 
@@ -697,21 +751,22 @@ impl Character {
     fn tool_proficiencies(self, tables, proficiencies) {
         let result = [];
 
-        for id_source in proficiencies.iter().filter_map(|proficiency| {
-            if proficiency.condition == None && proficiency.with is Tool {
-                match proficiency.with {
-                    Tool::Artisan(id) => Some((id.clone(), proficiency.source.clone()))
-                }
-            } else {
-                None
-            }
-        }) {
+        for id_source in proficiencies
+            .iter()
+            .filter_map(
+                |proficiency| {
+                    if proficiency.condition == None && proficiency.with is Tool {
+                        match proficiency.with {
+                            Tool::Artisan(id) => Some((id.clone(), proficiency.source.clone())),
+                        }
+                    } else {
+                        None
+                    }
+                },
+            ) {
             if let (id, source) = id_source {
                 let tool = tables.get_compendium_entry_by_id(id)?;
-                result.push(#{
-                    "value": tool.get("name")?,
-                    "tooltip": format!("From {source}")
-                })
+                result.push(#{ "value": tool.get("name")?, "tooltip": format!("From {source}") })
             }
         }
 
@@ -725,37 +780,34 @@ impl Character {
     fn weapon_proficiencies(self, tables, proficiencies) {
         let result = [];
 
-        for complexity_name in [
-            (WeaponComplexity::Simple, "Simple"),
-            (WeaponComplexity::Martial, "Martial"),
-        ] {
+        for complexity_name in [(WeaponComplexity::Simple, "Simple"), (WeaponComplexity::Martial, "Martial")] {
             if let (complexity, name) = complexity_name {
-                if let Some(proficiency) =  proficiencies.iter().find(|proficiency| {
-                    proficiency.condition == None &&
-                    proficiency.with is WeaponComplexity &&
-                    proficiency.with == complexity
-                }) {
-                    result.push(#{
-                        "value": name,
-                        "tooltip": format!("From {}", proficiency.source.clone())
-                    })
+                if let Some(proficiency) = proficiencies
+                    .iter()
+                    .find(
+                        |proficiency| {
+                            proficiency.condition == None && proficiency.with is WeaponComplexity && proficiency.with == complexity
+                        },
+                    ) {
+                    result.push(#{ "value": name, "tooltip": format!("From {}", proficiency.source.clone()) })
                 }
             }
         }
 
-        for id_source in proficiencies.iter().filter_map(|proficiency| {
-            if proficiency.condition == None && proficiency.with is BaseWeapon {
-                Some((proficiency.with.0.clone(), proficiency.source.clone()))
-            } else {
-                None
-            }
-        }) {
+        for id_source in proficiencies
+            .iter()
+            .filter_map(
+                |proficiency| {
+                    if proficiency.condition == None && proficiency.with is BaseWeapon {
+                        Some((proficiency.with.0.clone(), proficiency.source.clone()))
+                    } else {
+                        None
+                    }
+                },
+            ) {
             if let (weapon_id, source) = id_source {
                 let weapon = tables.get_compendium_entry_by_id(weapon_id)?;
-                result.push(#{
-                    "value": weapon.get("name")?,
-                    "tooltip": format!("From {source}")
-                })
+                result.push(#{ "value": weapon.get("name")?, "tooltip": format!("From {source}") })
             }
         }
 

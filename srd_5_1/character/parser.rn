@@ -52,10 +52,10 @@ pub fn parse_lead(parsed, tables) {
     let avatar = parse_string(parsed, "avatar")?;
     let name = parse_string(parsed, "name")?;
 
-    if !parsed.contains_key("base_ability_scores") {
-        ::tavern::bail!("couldn't find base_ability_scores");
+    if !parsed.contains_key("baseAbilityScores") {
+        ::tavern::bail!("couldn't find baseAbilityScores");
     }
-    let parsed_ability_scores = parsed["base_ability_scores"];
+    let parsed_ability_scores = parsed["baseAbilityScores"];
 
     let base_ability_scores = #{};
     for ability in Ability::all() {
@@ -78,18 +78,28 @@ pub fn parse_lead(parsed, tables) {
     let classes = parse_vec(parsed, "classes")?;
     let classes = classes.iter().map(|string| Class::from_string(string)).collect::<Vec>();
 
+    let background = ();
+    let background_feature = parse_string(parsed, "backgroundFeature")?;
+    let personality_traits = parse_string(parsed, "personalityTraits")?;
+    let bond = parse_string(parsed, "bond")?;
+    let ideal = parse_string(parsed, "ideal")?;
+    let flaw = parse_string(parsed, "flaw")?;
+    let backstory = parse_string(parsed, "backstory")?;
+    let relationships = parse_string(parsed, "relationships")?;
+    let notes = parse_string(parsed, "notes")?;
+
     let alignment = Alignment::from_string(parse_string(parsed, "alignment")?);
 
     let experience = parse_i64(parsed, "experience")?;
 
-    let hp_rolled = parse_vec(parsed, "hp_rolled")?;
+    let hp_rolled = parse_vec(parsed, "hpRolled")?;
     if hp_rolled.len() != classes.len() {
-        ::tavern::bail!("Expected to find {} hp_rolled, found {}", classes.len(), hp_rolled.len());
+        ::tavern::bail!("Expected to find {} hpRolled, found {}", classes.len(), hp_rolled.len());
     }
     for element in hp_rolled.iter().enumerate() {
         if let (index, roll) = element {
             if roll is not i64 {
-                ::tavern::bail!("Expected hp_rolled to be integers, found {roll}");
+                ::tavern::bail!("Expected hpRolled to be integers, found {roll}");
             }
             if roll > classes[index].hit_die() {
                 ::tavern::bail!("Expected roll {index} to be <= {}, found {roll}", classes[index].hit_die());
@@ -97,13 +107,13 @@ pub fn parse_lead(parsed, tables) {
         }
     }
 
-    let hit_die_used = parse_vec(parsed, "hit_die_used")?;
+    let hit_die_used = parse_vec(parsed, "hitDieUsed")?;
     if hit_die_used.len() != classes.len() {
-        ::tavern::bail!("Expected to find {} hit_die_used, found {}", classes.len(), hit_die_used.len());
+        ::tavern::bail!("Expected to find {} hitDieUsed, found {}", classes.len(), hit_die_used.len());
     }
     for die in hit_die_used {
         if die is not bool {
-            ::tavern::bail!("Expected hit_die_used to be boolean, found {die}");
+            ::tavern::bail!("Expected hitDieUsed to be boolean, found {die}");
         }
     }
 
@@ -140,7 +150,7 @@ pub fn parse_lead(parsed, tables) {
         }
     }
 
-    let use_encumbrance = parse_bool(parsed, "use_encumbrance")?;
+    let use_encumbrance = parse_bool(parsed, "useEncumbrance")?;
 
     let carried = Uid::from_string(parse_string(parsed, "carried")?);
     let containers = parse_vec(parsed, "containers")?;
@@ -160,6 +170,15 @@ pub fn parse_lead(parsed, tables) {
         race,
         languages,
         classes,
+        background,
+        background_feature,
+        personality_traits,
+        bond,
+        ideal,
+        flaw,
+        backstory,
+        relationships,
+        notes,
         alignment,
         experience,
         hp_rolled,
@@ -192,10 +211,10 @@ pub fn parse_lead(parsed, tables) {
 pub fn parse(bytes, tables) {
     let parsed = from_bytes(Bytes::from_vec(bytes))?;
 
-    let is_lead = parse_bool(parsed, "is_lead")?;
+    let is_lead = parse_bool(parsed, "isLead")?;
     if is_lead {
         parse_lead(parsed, tables)
     } else {
-        ::tavern::bail!("Parsing supported characters not yet supported");
+        ::tavern::bail!("parsing supported characters not yet supported");
     }
 }

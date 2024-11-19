@@ -84,7 +84,7 @@
             "type": "string",
             "format": "textarea"
         },
-        "description": {
+        "full_description": {
             "title": "Description",
             "type": "string",
             "format": "markdown",
@@ -103,6 +103,6 @@
         "equipment",
         "feature_name",
         "feature_description",
-        "description"
+        "full_description"
     ]
 }

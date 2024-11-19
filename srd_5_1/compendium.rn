@@ -2,6 +2,12 @@ use tavern::{Alignment, Cell, Contents, Font, Grid, Size};
 
 pub fn get_view(kind) {
     match kind {
+        "background" => {
+            let cells = [
+                Cell::try_new(0..12, 0..1, Contents::new_text("name").read_only()?.font(Font::Bold)?)?,
+            ];
+            Ok(Grid::new(cells, false))
+        }
         "equipment" => {
             let cells = [
                 Cell::try_new(0..6, 0..1, Contents::new_text("name").read_only()?.font(Font::Bold)?)?,
@@ -12,13 +18,25 @@ pub fn get_view(kind) {
         }
         "supporting" => {
             let cells = [
-                Cell::try_new(0..7, 0..1, Contents::new_text("name").read_only()?.font(Font::Bold)?.size(Size::Large)?)?,
-                Cell::try_new(7..9, 0..1, Contents::new_label().label("Challenge")?.size(Size::Small)?.font(Font::Bold)?.align(Alignment::Right)?)?,
+                Cell::try_new(
+                    0..7,
+                    0..1,
+                    Contents::new_text("name").read_only()?.font(Font::Bold)?.size(Size::Large)?,
+                )?,
+                Cell::try_new(
+                    7..9,
+                    0..1,
+                    Contents::new_label()
+                        .label("Challenge")?
+                        .size(Size::Small)?
+                        .font(Font::Bold)?
+                        .align(Alignment::Right)?,
+                )?,
                 Cell::try_new(9..12, 0..1, Contents::new_text("challenge").read_only()?.size(Size::Small)?)?,
                 Cell::try_new(0..12, 1..2, Contents::new_text("headline").read_only()?.font(Font::Italic)?)?,
             ];
             Ok(Grid::new(cells, true))
         }
-        _ => Err(::tavern::anyhow!("Unknown view {kind}"))
+        _ => Err(::tavern::anyhow!("Unknown view {kind}")),
     }
 }

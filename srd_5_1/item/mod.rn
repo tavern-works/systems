@@ -4,18 +4,23 @@ mod supporting;
 
 pub fn get_data(section, entry) {
     match section {
-        "background" => {},
-        "equipment" => {},
+        "background" => {
+            entry["description"] = entry["full_description"]
+                .split("\n")
+                .next()
+                .ok_or_else(|| tavern::anyhow!("failed to extract description for background"))?
+        }
+        "equipment" => {}
         "spell" => {
             entry["headline"] = spell::headline(entry["level"], entry["school"])?;
             entry["component_string"] = spell::component_string(entry["components"]);
             entry["duration_string"] = spell::duration_string(entry["concentration"], entry["duration"]);
-        },
+        }
         "supporting" => {
             entry["headline"] = supporting::headline(entry["size"], entry["type"], entry.get("subtypes"), entry["alignment"])
         }
         _ => log::warn!("unhandled section {section} in get_data"),
-    }    
+    }
 
     Ok(entry)
 }
@@ -24,6 +29,6 @@ pub fn get_layout(section) {
     match section {
         "background" => background::get_layout(),
         "spell" => spell::get_layout(),
-        _ => tavern::bail!("unknown section {section}")
+        _ => tavern::bail!("unknown section {section}"),
     }
 }

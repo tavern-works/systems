@@ -1,13 +1,10 @@
-use tavern::{anyhow, bail, Change, CompendiumOptions, Confirmation, TableKey, Uid};
+use tavern::{anyhow, bail, Change, CompendiumOptions, Confirmation, Mode, TableKey, Uid};
 
 impl super::Character {
     fn add_from_compendium(self, tables, id, item, table) {
         let item = tables.get_compendium_entry_by_id(item)?;
 
-        let data = #{
-            id: id.clone(),
-            compendium: Uid::from_string(item["id"]),
-        };
+        let data = #{ id: id.clone(), compendium: Uid::from_string(item["id"]) };
         if !item.contains_key("quantity") {
             data["quantity"] = 1;
         }
@@ -27,7 +24,14 @@ impl super::Character {
                 let quantity = entry.get_value("quantity")?;
                 if quantity == 1 {
                     key.name = "remove-no-confirm";
-                    return Ok(Confirmation::new(format!("Remove **{}** from&nbsp;inventory?", entry.get_value("name")?), "Remove", self.id(), key.to_string()));
+                    return Ok(
+                        Confirmation::new(
+                            format!("Remove **{}** from&nbsp;inventory?", entry.get_value("name")?),
+                            "Remove",
+                            self.id(),
+                            key.to_string(),
+                        ),
+                    );
                 } else {
                     entry.set_value("quantity", quantity - 1)?;
                     tables.save_entry(entry)?;
@@ -36,7 +40,14 @@ impl super::Character {
             }
             "drop" => {
                 key.name = "remove-no-confirm";
-                return Ok(Confirmation::new(format!("Drop **{}**?", entry.get_value("name")?), "Drop", self.id(), key.to_string()));
+                return Ok(
+                    Confirmation::new(
+                        format!("Drop **{}**?", entry.get_value("name")?),
+                        "Drop",
+                        self.id(),
+                        key.to_string(),
+                    ),
+                );
             }
             "increment" => {
                 entry.set_value("quantity", entry.get_value("quantity")? + 1)?;
@@ -65,8 +76,15 @@ impl super::Character {
         let command = split[2];
 
         match command {
-            "add_equipment" => return Ok(CompendiumOptions::new("equipment", self.id(), table_id)),
+            "add_equipment" => {
+                let options = CompendiumOptions::new(Mode::Item, "equipment");
+                options.set_character(self.id());
+                options.set_table(table_id);
+                return Ok(options)
+            }
         }
+
+        Err(anyhow!("unknown command {command}"))
     }
 
     fn apply_action(self, tables, key) {
@@ -84,11 +102,13 @@ impl super::Character {
                 if let (index, die) = index_die {
                     if die["sides"] == sides && die["used"] {
                         self.hit_die_used[index] = false;
-    
-                        return Ok([
-                            Change::SheetData(self.get_sheet_data(tables)?),
-                            Change::Rolls(self.get_rolls(tables)?)
-                        ]);
+
+                        return Ok(
+                            [
+                                Change::SheetData(self.get_sheet_data(tables)?),
+                                Change::Rolls(self.get_rolls(tables)?),
+                            ],
+                        );
                     }
                 }
             }
@@ -102,11 +122,13 @@ impl super::Character {
                 if let (index, die) = index_die {
                     if die["sides"] == sides && !die["used"] {
                         self.hit_die_used[index] = true;
-    
-                        return Ok([
-                            Change::SheetData(self.get_sheet_data(tables)?),
-                            Change::Rolls(self.get_rolls(tables)?)
-                        ]);
+
+                        return Ok(
+                            [
+                                Change::SheetData(self.get_sheet_data(tables)?),
+                                Change::Rolls(self.get_rolls(tables)?),
+                            ],
+                        );
                     }
                 }
             }
@@ -127,6 +149,10 @@ impl super::Character {
             }
             "drop_off_hand" => {
                 return self.drop_off_hand(tables);
+            }
+            "edit_background" => {
+                let options = CompendiumOptions::new(Mode::Select, "background");
+                return Ok(options);
             }
             _ => {
                 log::warn!("Unhandled action {key}");

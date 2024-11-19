@@ -51,7 +51,11 @@ pub fn get_layout(name) {
                 .item("background")?
                 .key("background")?,
         )?,
-        Cell::try_new(11..12, 3..4, Contents::new_button().icon("edit")?.size(Size::Large)?)?,
+        Cell::try_new(
+            11..12,
+            3..4,
+            Contents::new_button().icon("edit")?.size(Size::Large)?.key("edit_background")?,
+        )?,
     ];
 
     let overview = Grid::new(overview_cells, false);

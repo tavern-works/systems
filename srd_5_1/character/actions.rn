@@ -152,6 +152,7 @@ impl super::Character {
             }
             "edit_background" => {
                 let options = CompendiumOptions::new(Mode::Select, "background");
+                options.set_character(self.id());
                 return Ok(options);
             }
             _ => {

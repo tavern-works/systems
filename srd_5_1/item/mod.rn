@@ -5,6 +5,7 @@ mod supporting;
 pub fn get_data(section, entry) {
     match section {
         "background" => {
+            entry["attributes"] = entry["skill_proficiencies"];
             entry["description"] = entry["full_description"]
                 .split("\n")
                 .next()

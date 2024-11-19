@@ -65,7 +65,7 @@ impl super::Character {
             classes_seen.insert(class.name());
         }
 
-        let proficiencies = self.proficiencies();
+        let proficiencies = self.proficiencies(tables);
         let proficiency_options = [
             ConfigOption::try_new("0×", 0)?,
             ConfigOption::try_new("½×", 0.5)?,

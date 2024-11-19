@@ -397,7 +397,7 @@ impl super::Character {
 
     fn update_attacks(self, tables) {
         let ability_scores = self.ability_scores();
-        let proficiencies = self.proficiencies();
+        let proficiencies = self.proficiencies(tables);
         let strength_modifier = Ability::modifier_for_value(ability_scores[Ability::Strength.name()]);
 
         self.attack_rolls = [];

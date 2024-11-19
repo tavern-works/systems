@@ -2,7 +2,7 @@ use std::collections::{HashSet, HashMap};
 
 use tavern::{bail, Card, Change, Core, HitPoints, Uid};
 
-use crate::{Ability, Armor, BaseWeapon, Factor, Skill, Tool, WeaponComplexity};
+use crate::{Ability, Armor, BaseWeapon, Factor, Proficiency, Skill, Tool, WeaponComplexity};
 
 mod actions;
 mod attacks;
@@ -104,7 +104,7 @@ impl Character {
     fn get_sheet_data(self, tables) {
         let proficiency_bonus = self.proficiency_bonus();
 
-        let proficiencies = self.proficiencies();
+        let proficiencies = self.proficiencies(tables);
 
         let data = #{
             "unimplemented": (),
@@ -161,7 +161,7 @@ impl Character {
             data[ability.save_variable()] = modifier + ability.saving_throw_factor(proficiencies) * proficiency_bonus;
         }
 
-        let proficiencies = self.proficiencies();
+        let proficiencies = self.proficiencies(tables);
         for skill in Skill::all() {
             match skill.factor(proficiencies) {
                 Factor::None => data[skill.proficiency_name()] = "",
@@ -597,8 +597,18 @@ impl Character {
         0.02 * self.coins.iter().sum::<i64>() as f64
     }
 
-    fn proficiencies(self) {
+    fn proficiencies(self, tables) {
         let proficiencies = self.race.proficiencies(self);
+
+        if self.background is not Tuple {
+            let entry = tables.get_compendium_entry_by_id(self.background)?;
+            let skill_proficiencies = entry.get("skill_proficiencies")?;
+            for proficiency in skill_proficiencies {
+                let name = proficiency.get("value")?;
+                let skill = Skill::from_string(name);
+                proficiencies.push(Proficiency { source: entry.get("name")?, factor: 1, with: skill, condition: None });
+            }
+        }
 
         let classes_seen = HashSet::new();
         for element in self.classes.iter().enumerate() {

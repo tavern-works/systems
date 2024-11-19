@@ -79,7 +79,7 @@ pub fn parse_lead(parsed, tables) {
     let classes = classes.iter().map(|string| Class::from_string(string)).collect::<Vec>();
 
     let background = ();
-    let background_feature = parse_string(parsed, "backgroundFeature")?;
+    let feature_description = parse_string(parsed, "featureDescription")?;
     let personality_traits = parse_string(parsed, "personalityTraits")?;
     let bond = parse_string(parsed, "bond")?;
     let ideal = parse_string(parsed, "ideal")?;
@@ -171,7 +171,7 @@ pub fn parse_lead(parsed, tables) {
         languages,
         classes,
         background,
-        background_feature,
+        feature_description,
         personality_traits,
         bond,
         ideal,

@@ -33,7 +33,7 @@ struct Character {
     languages,
     classes,
     background,
-    background_feature,
+    feature_description,
     personality_traits,
     bond,
     ideal,
@@ -111,8 +111,9 @@ impl Character {
             "name": self.name.clone(),
             "race": self.race.name(),
             "class": self.class_description(),
-            "background": self.background_name(tables),
-            "background_feature": self.background_feature.clone(),
+            "background": (),
+            "feature_name": (),
+            "feature_description": self.feature_description.clone(),
             "personality_traits": self.personality_traits.clone(),
             "bond": self.bond.clone(),
             "ideal": self.ideal.clone(),
@@ -140,6 +141,12 @@ impl Character {
             "tool_proficiencies": self.tool_proficiencies(tables, proficiencies)?,
             "vision": self.race.vision(),
         };
+
+        if self.background is not Tuple {
+            let entry = tables.get_compendium_entry_by_id(self.background)?;
+            data["background"] = entry.get("name")?;
+            data["feature_name"] = entry.get("feature_name")?;
+        }
 
         for index in 1..=3 {
             data[format!("death_success_{index}")] = self.death_successes >= index;
@@ -366,7 +373,12 @@ impl Character {
     }
 
     fn background_name(self, tables) {
-        "None"
+        if self.background is Tuple {
+            return Ok(());
+        }
+
+        let entry = tables.get_compendium_entry_by_id(self.background)?;
+        Ok(entry.get("name")?)
     }
 
     fn class_description(self) {

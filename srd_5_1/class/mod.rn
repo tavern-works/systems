@@ -6,7 +6,7 @@ enum Class {
     Fighter,
     Ranger,
     Rogue,
-    Wizard
+    Wizard,
 }
 
 impl Class {
@@ -61,7 +61,16 @@ impl Class {
 
     fn skills(self) {
         match self {
-            Class::Fighter => [Skill::Acrobatics, Skill::AnimalHandling, Skill::Athletics, Skill::History, Skill::Insight, Skill::Intimidation, Skill::Perception, Skill::Survival],
+            Class::Fighter => [
+                Skill::Acrobatics,
+                Skill::AnimalHandling,
+                Skill::Athletics,
+                Skill::History,
+                Skill::Insight,
+                Skill::Intimidation,
+                Skill::Perception,
+                Skill::Survival,
+            ],
         }
     }
 
@@ -106,11 +115,39 @@ impl Class {
                     proficiencies.push(Proficiency { source: "Fighter", factor: 1, with: Armor::Medium, condition: None });
                 }
                 proficiencies.push(Proficiency { source: "Fighter", factor: 1, with: Armor::Shields, condition: None });
-                proficiencies.push(Proficiency { source: "Fighter", factor: 1, with: WeaponComplexity::Simple, condition: None });
-                proficiencies.push(Proficiency { source: "Fighter", factor: 1, with: WeaponComplexity::Martial, condition: None });
+                proficiencies.push(
+                    Proficiency {
+                        source: "Fighter",
+                        factor: 1,
+                        with: WeaponComplexity::Simple,
+                        condition: None,
+                    },
+                );
+                proficiencies.push(
+                    Proficiency {
+                        source: "Fighter",
+                        factor: 1,
+                        with: WeaponComplexity::Martial,
+                        condition: None,
+                    },
+                );
                 if is_initial {
-                    proficiencies.push(Proficiency { source: "Fighter", factor: 1, with: SavingThrow::Ability(Ability::Strength), condition: None });
-                    proficiencies.push(Proficiency { source: "Fighter", factor: 1, with: SavingThrow::Ability(Ability::Constitution), condition: None });
+                    proficiencies.push(
+                        Proficiency {
+                            source: "Fighter",
+                            factor: 1,
+                            with: SavingThrow::Ability(Ability::Strength),
+                            condition: None,
+                        },
+                    );
+                    proficiencies.push(
+                        Proficiency {
+                            source: "Fighter",
+                            factor: 1,
+                            with: SavingThrow::Ability(Ability::Constitution),
+                            condition: None,
+                        },
+                    );
                     for skill in character.choices["fighter_skills"] {
                         proficiencies.push(Proficiency { source: "Fighter", factor: 1, with: skill, condition: None });
                     }

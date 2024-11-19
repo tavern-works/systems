@@ -4,7 +4,12 @@ impl super::Character {
     fn apply_table_update(self, tables, key, value) {
         let entry = tables.get_entry_by_id(key.table_id, key.entry_id)?;
         if key.name.starts_with("use-") {
-            let index = key.name.split("-").skip(1).next().ok_or_else(|| anyhow!("failed to find use index"))?;
+            let index = key
+                .name
+                .split("-")
+                .skip(1)
+                .next()
+                .ok_or_else(|| anyhow!("failed to find use index"))?;
             let index = index.parse::<i64>()?;
             let extras = entry.get_value("extras")?;
             extras["used"][index] = value;
@@ -20,7 +25,10 @@ impl super::Character {
                 // Work around https://github.com/rune-rs/rune/issues/830
                 let check = value;
 
-                if check && attributes.iter().find(|attribute| attribute["type"].ends_with("_armor")).is_some() {
+                if check && attributes
+                    .iter()
+                    .find(|attribute| attribute["type"].ends_with("_armor"))
+                    .is_some() {
                     if let Some(active_armor) = self.active_armor(tables) {
                         active_armor.set_value("active", false)?;
                         tables.save_entry(active_armor)?;
@@ -32,17 +40,26 @@ impl super::Character {
                 entry.set_value("active", value)?;
                 tables.save_entry(entry)?;
 
-                Ok([
-                    Change::SheetData(self.get_sheet_data(tables)?),
-                    Change::Rolls(self.get_rolls(tables)?)
-                ])
+                Ok(
+                    [
+                        Change::SheetData(self.get_sheet_data(tables)?),
+                        Change::Rolls(self.get_rolls(tables)?),
+                    ],
+                )
             }
             "quantity" => {
                 if value < 0 {
                     bail!("Quantity may not be less than 0");
                 } else if value == 0 {
                     key.name = "remove-no-confirm";
-                    Ok(Confirmation::new(format!("Remove **{}** from&nbsp;inventory?", entry.get_value("name")?), "Remove", self.id(), key.to_string()))
+                    Ok(
+                        Confirmation::new(
+                            format!("Remove **{}** from&nbsp;inventory?", entry.get_value("name")?),
+                            "Remove",
+                            self.id(),
+                            key.to_string(),
+                        ),
+                    )
                 } else {
                     entry.set_value("quantity", value)?;
                     tables.save_entry(entry)?;
@@ -64,7 +81,11 @@ impl super::Character {
 
         let table_id = Uid::from_string(split[1]);
         let command = split[2];
-        let container = self.containers.iter().find(|container| container["id"] == table_id).ok_or_else(|| anyhow!("Failed to find container with id {:?}", table_id))?;
+        let container = self
+            .containers
+            .iter()
+            .find(|container| container["id"] == table_id)
+            .ok_or_else(|| anyhow!("Failed to find container with id {:?}", table_id))?;
         match command {
             "carried" => container["carried"] = value,
             "name" => container["name"] = value,
@@ -162,10 +183,14 @@ impl super::Character {
         } else {
             match key {
                 "background" => {
-                    log::info!("setting background");
+                    self.background = Uid::from_string(value);
+                    let entry = tables.get_compendium_entry_by_id(self.background)?;
+                    self.feature_description = entry.get("feature_description")?;
+                    notify_sheet = true;
+                    notify_card = true;
                 }
-                "background_feature" => {
-                    self.background_feature = value;
+                "feature_description" => {
+                    self.feature_description = value;
                     notify_sheet = true;
                 }
                 "backstory" => {

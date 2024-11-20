@@ -110,6 +110,7 @@ impl Character {
             "unimplemented": (),
             "name": self.name.clone(),
             "race": self.race.name(),
+            "languages": self.languages.clone(),
             "class": self.class_description(),
             "background": (),
             "feature_name": (),
@@ -201,14 +202,6 @@ impl Character {
                 ()
             };
         }
-
-        data["languages"] = self
-            .languages
-            .iter()
-            .map(|language| {
-                #{ "value": language.clone() }
-            })
-            .collect::<Vec>();
 
         data["wealth"] = self.wealth();
 

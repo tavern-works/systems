@@ -67,13 +67,7 @@ pub fn parse_lead(parsed, tables) {
 
     let race = Race::from_string(parse_string(parsed, "race")?);
 
-    let known_languages = tables.get_compendium_list("languages")?;
     let languages = parse_vec(parsed, "languages")?;
-    for language in languages {
-        if known_languages.iter().find(|item| item == language).is_none() {
-            ::tavern::bail!("Character language {language} not found in compendium");
-        }
-    }
 
     let classes = parse_vec(parsed, "classes")?;
     let classes = classes.iter().map(|string| Class::from_string(string)).collect::<Vec>();

@@ -1,11 +1,11 @@
 [
-    "Common",
-    "Dwarvish",
-    "Elvish",
-    "Giant",
-    "Gnomish",
-    "Goblin",
-    "Halfling",
-    "Infernal",
-    "Orc"
+    { "value": "Common" },
+    { "value": "Dwarvish" },
+    { "value": "Elvish" },
+    { "value": "Giant" },
+    { "value": "Gnomish" },
+    { "value": "Goblin" },
+    { "value": "Halfling" },
+    { "value": "Infernal" },
+    { "value": "Orc" }
 ]

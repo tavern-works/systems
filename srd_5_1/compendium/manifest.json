@@ -1,6 +1,6 @@
 {
     "background": "fragments",
-    "languages": "inline",
+    "language": "inline",
     "equipment": "inline",
     "spell": "fragments",
     "supporting": "fragments"

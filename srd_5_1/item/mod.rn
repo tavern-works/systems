@@ -12,6 +12,7 @@ pub fn get_data(section, entry) {
                 .ok_or_else(|| tavern::anyhow!("failed to extract description for background"))?
         }
         "equipment" => {}
+        "language" => {}
         "spell" => {
             entry["headline"] = spell::headline(entry["level"], entry["school"])?;
             entry["component_string"] = spell::component_string(entry["components"]);

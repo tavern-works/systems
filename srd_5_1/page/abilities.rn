@@ -45,11 +45,7 @@ pub fn get_layout(name) {
         Cell::try_new(
             11..12,
             3..4,
-            Contents::new_button()
-                .key("edit_languages")?
-                .icon("edit")?
-                .size(Size::Large)?
-                .depends_on("unimplemented")?,
+            Contents::new_button().key("edit_languages")?.icon("edit")?.size(Size::Large)?,
         )?,
         Cell::try_new(0..2, 4..5, Contents::new_label().label("Vision")?.align(Alignment::Right)?)?,
         Cell::try_new(2..12, 4..5, Contents::new_text("vision").read_only()?)?,

@@ -255,6 +255,10 @@ impl super::Character {
                     self.inspiration = value;
                     notify_sheet = true;
                 }
+                "language" => {
+                    self.languages = value;
+                    notify_sheet = true;
+                }
                 "name" => {
                     self.name = value;
                     notify_card = true;

@@ -243,7 +243,8 @@ pub fn get_layout(name) {
             4..5,
             Contents::new_button()
                 .roll(PrepareOptions::by_name("Death Saving Throw"))?
-                .icon("ifl")?,
+                .icon("ifl")?
+                .tooltip("Roll Death Saving Throw")?,
         )?,
         Cell::try_new(8..9, 5..6, Contents::new_label().icon("check_circle")?.align(Alignment::Right)?)?,
         Cell::try_new(9..10, 5..6, Contents::new_checkbox("death_success_1"))?,

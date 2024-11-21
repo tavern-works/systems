@@ -1,0 +1,16 @@
+{
+    "name": "Unsavory Character",
+    "skill_proficiencies": [
+        {
+            "value": "Deception"
+        },
+        {
+            "value": "Stealth"
+        }
+    ],
+    "equipment": "A crowbar, unremarkable common clothes suitable for blending into the shadows, and a belt pouch containing 15 gp",
+    "feature_name": "I Know A Guy...",
+    "feature_description": "When it comes to getting in touch with the local criminal element, you always seem to know either a specialist in a given illegal act or someone who can make an introduction.",
+    "full_description": "You have spent a lot of time in the seedier back alleys of your home city or town. You associate fairly regularly with criminals of various stripes, and may have participated in a significant number of crimes yourself. Polite society hasn't done much to help you, so you do what you have to do (or maybe just what you want to do) to survive.",
+    "tool_proficiencies": "One type of gaming set, thieves' tools"
+}

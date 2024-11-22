@@ -1,0 +1,16 @@
+{
+    "name": "Performer",
+    "skill_proficiencies": [
+        {
+            "value": "Acrobatics"
+        },
+        {
+            "value": "Performance"
+        }
+    ],
+    "equipment": "A musical instrument of your choice, a costume, and a belt pouch containing 15 gp",
+    "feature_name": "Headliner",
+    "feature_description": "It is never difficult for you to find a venue for performance, be it a local tavern, a theater, or at the estate of a benefactor. In exchange for a daily performance, you are able to obtain food and lodging at a modest or comfortable level, depending on the host. People who have attended one of your performances tend to have a good impression of you.",
+    "full_description": "Whether it be through music or comedy, poetry or pratfalls, you live to entertain those around you, and that passion is reflected back on you by the adoring audiences you are able to find wherever you go.",
+    "tool_proficiencies": "One type of musical instrument, disguise kit"
+}

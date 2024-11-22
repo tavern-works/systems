@@ -11,5 +11,6 @@
     "equipment": "A set of fine clothes, a disguise kit, tools related to your con of choice, and a belt pouch containing 15 gp",
     "feature_name": "Identity Thief",
     "feature_description": "You have a second identity that you have \"borrowed\" from a person in a distant locale. This includes documents, personal references, and even apparel to help you impersonate the victim. You can also manufacture convincing fake documents when provided with a sample to copy from.",
-    "full_description": "You are very good at figuring out what motivates other people. With just a short conversation, you can reliably determine what someone wants or needs. Unfortunately for them, you are also happy to use what you learn to get what you want, whether that's selling them vials of snake oil or getting yourself written into someone's will."
+    "full_description": "You are very good at figuring out what motivates other people. With just a short conversation, you can reliably determine what someone wants or needs. Unfortunately for them, you are also happy to use what you learn to get what you want, whether that's selling them vials of snake oil or getting yourself written into someone's will.",
+    "tool_proficiencies": "Disguise kit, forgery kit"
 }

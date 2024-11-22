@@ -1,0 +1,16 @@
+{
+    "name": "Military Officer",
+    "skill_proficiencies": [
+        {
+            "value": "Athletics"
+        },
+        {
+            "value": "Intimidation"
+        }
+    ],
+    "equipment": "A dice set or playing cards, a set of common clothes, and a belt pouch containing 10 gp",
+    "feature_name": "Salute Your Superiors",
+    "feature_description": "Your career as an officer has given you a rank in the corps you served. People who recognize that corps respect that rank, and will aid you by lending equipment or reasonable assistance if needed. You are also usually welcome at facilities operated by that corps.",
+    "full_description": "From the beginning of your life, you have been drawn to the unity and sense of purpose provided by military organizations. The organization you chose doesn't have to have been a national army; some are called to serve local militias or even to freelance as mercenaries, but no matter the group you joined, it has defined who you are today.",
+    "tool_proficiencies": "One type of gaming set, land vehicles"
+}

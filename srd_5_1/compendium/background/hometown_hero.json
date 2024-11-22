@@ -1,0 +1,16 @@
+{
+    "name": "Hometown Hero",
+    "skill_proficiencies": [
+        {
+            "value": "Animal Handling"
+        },
+        {
+            "value": "Survival"
+        }
+    ],
+    "equipment": "A set of artisan's tools of your choice, a shovel, an iron pot, a set of common clothes, and a belt pouch containing 10 gp",
+    "feature_name": "Part of the Family",
+    "feature_description": "As long as it doesn't endanger their lives, people are willing to host you while you recover or hide, and will even work to throw off anyone who might be looking for you.",
+    "full_description": "There was nothing remarkable about your background until one day you made a name for yourself by standing up to someone or something threatening your home, neighbors, or comrades. Since then, it has been clear that you're destined for bigger things than your story would otherwise suggest.",
+    "tool_proficiencies": "One type of artisan's tools, land vehicles"
+}

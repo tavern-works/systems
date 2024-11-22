@@ -1,0 +1,21 @@
+{
+    "name": "Wayfarer",
+    "skill_proficiencies": [
+        {
+            "value": "Athletics"
+        },
+        {
+            "value": "Survival"
+        }
+    ],
+    "equipment": "A staff, a hunting trap, a set of traveler's clothes, and a belt pouch containing 10 gp",
+    "feature_name": "One with the Land",
+    "feature_description": "You are rarely lost, and have a sixth sense about the layout of the landscape around you. You are also able to fend for yourself in nature, finding food and fresh water for yourself and up to five others so long as there is food and water to find.",
+    "full_description": "You have spent most of your life far away from large communities of people, preferring the beauty and solitude of the wild landscape instead. This may be because you want to push the boundaries of the known world, to take advantage of those who lose their way in the woods, or even just to avoid having to hear another person snoring.",
+    "tool_proficiencies": "One type of musical instrument",
+    "languages": [
+        {
+            "value": "One of your choice"
+        }
+    ]
+}

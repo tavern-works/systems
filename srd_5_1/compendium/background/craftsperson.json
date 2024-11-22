@@ -1,0 +1,21 @@
+{
+    "name": "Craftsperson",
+    "skill_proficiencies": [
+        {
+            "value": "Insight"
+        },
+        {
+            "value": "Persuasion"
+        }
+    ],
+    "equipment": "A set of artisan's tools of your choice, a set of traveler's clothes, and a belt pouch containing 15 gp",
+    "feature_name": "Union Card",
+    "feature_description": "You have been a member of the trade union for your craft for several years, and the respect that has granted you brings with it certain benefits. Other union members will provide food and lodging when necessary, and the union itself will use its often-considerable political power to help protect you from unjust legal action or to permit you to talk to otherwise inaccessible people in positions of power. These perks come at a cost, specifically 5 gp per month in membership dues (which must be made up if you fall behind).",
+    "full_description": "Craftspeople are responsible for almost everything you see in a town, from the carpenters and masons building houses, to the brewers and chefs keeping taverns well-stocked, to the jewelers and painters making beautiful and coveted objects for the well-off to collect. You joined this class of talented people after apprenticing under a master craftsperson, and the union membership you received upon completing your training provides a number of benefits.",
+    "languages": [
+        {
+            "value": "One of your choice"
+        }
+    ],
+    "tool_proficiencies": "One type of artisan's tools"
+}

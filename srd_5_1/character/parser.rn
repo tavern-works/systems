@@ -72,7 +72,7 @@ pub fn parse_lead(parsed, tables) {
     let classes = parse_vec(parsed, "classes")?;
     let classes = classes.iter().map(|string| Class::from_string(string)).collect::<Vec>();
 
-    let background = ();
+    let background = Uid::from_string(parse_string(parsed, "background")?);
     let feature_description = parse_string(parsed, "featureDescription")?;
     let personality_traits = parse_string(parsed, "personalityTraits")?;
     let bond = parse_string(parsed, "bond")?;

@@ -27,6 +27,7 @@ fn attribute_map(attributes) {
 struct Character {
     id,
     avatar,
+    portrait,
     name,
     base_ability_scores,
     race,
@@ -109,6 +110,7 @@ impl Character {
         let data = #{
             "unimplemented": (),
             "name": self.name.clone(),
+            "portrait": self.portrait.clone(),
             "race": self.race.name(),
             "languages": self.languages.clone(),
             "class": self.class_description(),

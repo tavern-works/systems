@@ -50,6 +50,7 @@ fn parse_vec(parsed, key) {
 pub fn parse_lead(parsed, tables) {
     let id = Uid::from_string(parse_string(parsed, "id")?);
     let avatar = parse_string(parsed, "avatar")?;
+    let portrait = parse_string(parsed, "portrait")?;
     let name = parse_string(parsed, "name")?;
 
     if !parsed.contains_key("baseAbilityScores") {
@@ -159,6 +160,7 @@ pub fn parse_lead(parsed, tables) {
     let character = super::Character {
         id,
         avatar,
+        portrait,
         name,
         base_ability_scores,
         race,

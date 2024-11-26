@@ -183,6 +183,14 @@ impl super::Supporting {
 
         layout.push(Section::Grid(Grid::new(challenge, false)));
 
+        if self.template.contains_key("description") {
+            let description = [
+                Cell::try_new(0..12, 0..1, Contents::new_text_area("description").use_markdown()?.read_only()?)?,
+            ];
+
+            layout.push(Section::Grid(Grid::new(description, false)));
+        }
+
         if self.features.is_some() {
             let left_cells = [
                 Cell::try_new(
@@ -241,14 +249,6 @@ impl super::Supporting {
             let reactions = [Cell::try_new(0..12, 0..1, Contents::Table(reaction_table))?];
 
             layout.push(Section::Grid(Grid::new(reactions, false)));
-        }
-
-        if self.template.contains_key("description") {
-            let description = [
-                Cell::try_new(0..12, 0..1, Contents::new_text_area("description").use_markdown()?.read_only()?)?,
-            ];
-
-            layout.push(Section::Grid(Grid::new(description, false)));
         }
 
         let notes_header_cell = Cell::try_new(

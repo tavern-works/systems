@@ -11,6 +11,7 @@ pub fn get_data(section, entry) {
                 .next()
                 .ok_or_else(|| tavern::anyhow!("failed to extract description for background"))?
         }
+        "condition" => {}
         "equipment" => {}
         "language" => {}
         "spell" => {

@@ -201,6 +201,10 @@ impl super::Character {
                     self.bond = value;
                     notify_sheet = true;
                 }
+                "condition" => {
+                    self.conditions = value;
+                    notify_sheet = true;
+                }
                 "copper" => {
                     self.coins[4] = value.max(0);
                     notify_sheet = true;

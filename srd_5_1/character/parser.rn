@@ -115,6 +115,8 @@ pub fn parse_lead(parsed, tables) {
     let hp = parse_i64(parsed, "hp")?;
     let temp_hp = parse_i64(parsed, "temp_hp")?;
 
+    let conditions = parse_vec(parsed, "conditions")?;
+
     let death_successes = parse_i64(parsed, "death_successes")?;
     let death_failures = parse_i64(parsed, "death_failures")?;
 
@@ -181,6 +183,7 @@ pub fn parse_lead(parsed, tables) {
         hit_die_used,
         hp,
         temp_hp,
+        conditions,
         death_successes,
         death_failures,
         inspiration,

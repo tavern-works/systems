@@ -1,0 +1,15 @@
+{
+    "type": "object",
+    "properties": {
+        "value": {
+            "title": "Name",
+            "type": "string"
+        },
+        "tooltip": {
+            "title": "Tooltip",
+            "type": "string",
+            "format": "textarea"
+        }
+    },
+    "required": ["value", "tooltip"]
+}

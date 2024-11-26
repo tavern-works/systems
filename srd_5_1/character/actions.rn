@@ -155,6 +155,12 @@ impl super::Character {
                 options.set_character(self.id());
                 return Ok(options);
             }
+            "edit_conditions" => {
+                let options = CompendiumOptions::new(Mode::ChipList, "condition");
+                options.set_character(self.id());
+                options.set_data(self.conditions.clone());
+                return Ok(options);
+            }
             "edit_languages" => {
                 let options = CompendiumOptions::new(Mode::ChipList, "language");
                 options.set_character(self.id());

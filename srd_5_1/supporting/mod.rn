@@ -1,6 +1,6 @@
 use crate::{Ability, Skill};
 
-use tavern::{anyhow, Action, Card, Change, HitPoints, Roll, RollConfig, TableKey, Target, Uid, Variable};
+use tavern::{anyhow, Action, Card, Change, CompendiumOptions, HitPoints, Mode, Roll, RollConfig, TableKey, Target, Uid, Variable};
 
 mod layout;
 
@@ -12,9 +12,11 @@ struct Supporting {
     temp_hp,
     max_hp,
     hp_expression,
+    conditions,
     features,
     actions,
     reactions,
+    notes,
 }
 
 pub fn create(tables, id, template_id, name) {
@@ -22,7 +24,7 @@ pub fn create(tables, id, template_id, name) {
 
     let average = Roll::average(template["hp"])?;
 
-    let character = Supporting { 
+    let character = Supporting {
         id,
         template,
         name,
@@ -30,9 +32,11 @@ pub fn create(tables, id, template_id, name) {
         temp_hp: 0,
         max_hp: average,
         hp_expression: template["hp"],
+        conditions: [],
         features: None,
         actions: None,
         reactions: None,
+        notes: "",
     };
 
     if let Some(features) = template.get("features") {
@@ -43,7 +47,7 @@ pub fn create(tables, id, template_id, name) {
         }
         character.features = Some(table_id);
     }
-    
+
     if let Some(actions) = template.get("actions") {
         let table_id = Uid::from_string(format!("{}-actions", id.to_string()));
         tables.create_table(table_id);
@@ -67,7 +71,7 @@ pub fn create(tables, id, template_id, name) {
 
 impl Supporting {
     fn get_methods(self) {
-        #{ 
+        #{
             "apply_sheet_update": |tables, key, value| self.apply_update(tables, key, value),
             "get_card": |tables| self.get_card(tables),
             "get_layout": || self.get_layout(),
@@ -81,7 +85,12 @@ impl Supporting {
     fn apply_table_update(self, tables, key, value) {
         let entry = tables.get_entry_by_id(key.table_id, key.entry_id)?;
         if key.name.starts_with("use-") {
-            let index = key.name.split("-").skip(1).next().ok_or_else(|| anyhow!("failed to find use index"))?;
+            let index = key
+                .name
+                .split("-")
+                .skip(1)
+                .next()
+                .ok_or_else(|| anyhow!("failed to find use index"))?;
             let index = index.parse::<i64>()?;
             let extras = entry.get_value("extras")?;
             extras["used"][index] = value;
@@ -109,12 +118,22 @@ impl Supporting {
     fn apply_update(self, tables, key, value) {
         let notify_card = false;
         let notify_sheet = false;
-        
+
         if let Some(table_key) = TableKey::try_parse(key) {
             return self.apply_table_update(tables, table_key, value);
         }
 
         match key {
+            "condition" => {
+                self.conditions = value;
+                notify_sheet = true;
+            }
+            "edit_conditions" => {
+                let options = CompendiumOptions::new(Mode::ChipList, "condition");
+                options.set_character(self.id());
+                options.set_data(self.conditions.clone());
+                return Ok(options);
+            }
             "hp" => {
                 self.hp = value.min(self.max_hp).max(0);
                 notify_card = true;
@@ -129,6 +148,10 @@ impl Supporting {
             "name" => {
                 self.name = value;
                 notify_card = true;
+                notify_sheet = true;
+            }
+            "notes" => {
+                self.notes = value;
                 notify_sheet = true;
             }
             "roll_max_hp" => {
@@ -256,12 +279,12 @@ impl Supporting {
                     let count = damage["count"];
                     let sides = damage["sides"];
                     let modifier = damage["modifier"];
-    
+
                     let configs = [];
                     if count > 0 {
                         configs.push(RollConfig::new("Critical Hit", "@critical", 'C', [], "false"));
                     }
-    
+
                     let expression = if count == 0 {
                         format!("{modifier}")
                     } else {
@@ -282,15 +305,17 @@ impl Supporting {
         let data = #{
             "name": self.name,
             "headline": self.headline(self.template, true),
-            
+
             "armor": self.armor_description(tables, self.template),
             "hp": self.hp,
             "max_hp": self.max_hp,
             "hp_expression": self.hp_expression.clone(),
             "temp_hp": self.temp_hp,
+            "conditions": self.conditions.clone(),
             "speed": self.template["speed"],
 
             "challenge": self.template["challenge"],
+            "notes": self.notes.clone(),
         };
 
         for ability in Ability::all() {
@@ -307,7 +332,7 @@ impl Supporting {
             "condition_immunities",
             "senses",
             "languages",
-            "description"
+            "description",
         ];
 
         for section in sections {
@@ -321,7 +346,7 @@ impl Supporting {
 
     fn get_tables(self) {
         let tables = #{};
-        
+
         if let Some(features) = self.features {
             tables["features"] = [features.clone()]
         }
@@ -333,7 +358,7 @@ impl Supporting {
         if let Some(reactions) = self.reactions {
             tables["reactions"] = [reactions.clone()]
         }
-        
+
         tables
     }
 
@@ -341,14 +366,16 @@ impl Supporting {
         let variables = [];
 
         for ability in Ability::all() {
-            variables.push(Variable::try_new(
-                ability.modifier_variable(),
-                ability.name() + " Modifier",
-                ability.name()[0..3] + " Mod",
-                self.ability_modifier(self.template, ability)
-            )?);
+            variables.push(
+                Variable::try_new(
+                    ability.modifier_variable(),
+                    ability.name() + " Modifier",
+                    ability.name()[0..3] + " Mod",
+                    self.ability_modifier(self.template, ability),
+                )?,
+            );
         }
-        
+
         Ok(variables)
     }
 }
@@ -380,7 +407,7 @@ impl Supporting {
                     "ac_plus_dex_mod" => {
                         has_armor = true;
                         ac += attribute["value"] + dex_mod
-                    },
+                    }
                     "ac_plus_capped_dex_mod" => {
                         has_armor = true;
                         ac += attribute["value"] + dex_mod.min(2)
@@ -388,7 +415,7 @@ impl Supporting {
                     "ac" => {
                         has_armor = true;
                         ac += attribute["value"]
-                    },
+                    }
                     "shield" => ac += 2,
                 }
             }
@@ -438,7 +465,7 @@ impl Supporting {
             }
 
             if template["alignment"] == "Any" {
-                headline += ", any alignment";    
+                headline += ", any alignment";
             } else if template["alignment"] == "Any Non-Good" {
                 headline += ", any non-good alignment";
             } else {
@@ -446,5 +473,9 @@ impl Supporting {
             }
         }
         headline
+    }
+
+    fn id(self) {
+        self.id.clone()
     }
 }

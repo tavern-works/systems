@@ -9,35 +9,92 @@ impl super::Supporting {
         let header = [
             Cell::try_new(0..10, 0..2, Contents::new_text("name"))?,
             Cell::try_new(0..12, 2..3, Contents::new_text("headline").read_only()?.font(Font::Italic)?)?,
-            
+
             Cell::try_new(0..9, 3..4, Contents::new_text("armor").read_only()?.label("Armor Class")?)?,
-            Cell::try_new(9..12, 3..4, Contents::new_button().roll(PrepareOptions::by_name("Initiative"))?.label("Initiative")?.tooltip("Roll Initiative")?)?,
-            Cell::try_new(0..4, 4..5, Contents::new_number("hp").align(Alignment::Center)?.label("Hit Points")?)?,
-            Cell::try_new(4..8, 4..5, Contents::new_number("temp_hp").align(Alignment::Center)?.label("Temp HP")?)?,
-            Cell::try_new(8..12, 4..5, Contents::new_number("max_hp").align(Alignment::Center)?.label("Max HP")?)?,
-            Cell::try_new(0..8, 5..6, Contents::new_text("speed").align(Alignment::Left)?.read_only()?.label("Speed")?)?,
-            Cell::try_new(8..12, 5..6, Contents::new_text("hp_expression").align(Alignment::Center)?.read_only()?.roll(PrepareOptions::by_name("Maximum HP"))?.tooltip("Roll Maximum HP")?)?,
+            Cell::try_new(
+                9..12,
+                3..4,
+                Contents::new_button()
+                    .roll(PrepareOptions::by_name("Initiative"))?
+                    .label("Initiative")?
+                    .tooltip("Roll Initiative")?,
+            )?,
+            Cell::try_new(
+                0..4,
+                4..5,
+                Contents::new_number("hp").align(Alignment::Center)?.label("Hit Points")?,
+            )?,
+            Cell::try_new(
+                4..8,
+                4..5,
+                Contents::new_number("temp_hp").align(Alignment::Center)?.label("Temp HP")?,
+            )?,
+            Cell::try_new(
+                8..12,
+                4..5,
+                Contents::new_number("max_hp").align(Alignment::Center)?.label("Max HP")?,
+            )?,
+            Cell::try_new(
+                0..8,
+                5..6,
+                Contents::new_text("speed").align(Alignment::Left)?.read_only()?.label("Speed")?,
+            )?,
+            Cell::try_new(
+                8..12,
+                5..6,
+                Contents::new_text("hp_expression")
+                    .align(Alignment::Center)?
+                    .read_only()?
+                    .roll(PrepareOptions::by_name("Maximum HP"))?
+                    .tooltip("Roll Maximum HP")?,
+            )?,
+            Cell::try_new(0..11, 6..7, Contents::new_chip_list("conditions").label("Conditions")?)?,
+            Cell::try_new(
+                11..12,
+                6..7,
+                Contents::new_button()
+                    .key("edit_conditions")?
+                    .icon("edit")?
+                    .tooltip("Edit Conditions")?,
+            )?,
         ];
 
         let start = 0;
         for ability in Ability::all() {
-            header.push(Cell::try_new(start..start + 2, 6..7, Contents::new_label().label(ability.name()[0..3].to_uppercase())?.align(Alignment::Center)?)?);
+            header.push(
+                Cell::try_new(
+                    start..start + 2,
+                    7..8,
+                    Contents::new_label()
+                        .label(ability.name()[0..3].to_uppercase())?
+                        .align(Alignment::Center)?,
+                )?,
+            );
             start += 2;
         }
 
         let start = 0;
         for ability in Ability::all() {
-            header.push(Cell::try_new(start..start + 1, 7..8, Contents::new_number(ability.variable_name()).align(Alignment::Center)?.read_only()?)?);
-            
-            let check_roll = PrepareOptions::by_name(format!("{} Check", ability.name())).for_character(self.id);
+            header.push(
+                Cell::try_new(
+                    start..start + 1,
+                    8..9,
+                    Contents::new_number(ability.variable_name())
+                        .align(Alignment::Center)?
+                        .read_only()?,
+                )?,
+            );
+
+            let check_roll = PrepareOptions::by_name(format!("{} Check", ability.name()))
+                .for_character(self.id);
             let modifier = Contents::new_number(ability.modifier_variable())
                 .align(Alignment::Center)?
                 .read_only()?
                 .with_sign()?
                 .roll(check_roll)?
                 .tooltip(format!("Roll {} Check", ability.name()))?;
-            
-            header.push(Cell::try_new(start + 1..start + 2, 7..8, modifier)?);
+
+            header.push(Cell::try_new(start + 1..start + 2, 8..9, modifier)?);
             start += 2;
         }
 
@@ -45,23 +102,25 @@ impl super::Supporting {
 
         if self.template.contains_key("saving_throws") && !self.template["saving_throws"].is_empty() {
             let saving_throws = [
-                Cell::try_new(0..12, 0..1, Contents::new_chip_list("saving_throws").label("Saving Throws")?)?
+                Cell::try_new(0..12, 0..1, Contents::new_chip_list("saving_throws").label("Saving Throws")?)?,
             ];
 
             layout.push(Section::Grid(Grid::new(saving_throws, false)));
         }
 
         if self.template.contains_key("skills") && !self.template["skills"].is_empty() {
-            let skills = [
-                Cell::try_new(0..12, 0..1, Contents::new_chip_list("skills").label("Skills")?)?,
-            ];
+            let skills = [Cell::try_new(0..12, 0..1, Contents::new_chip_list("skills").label("Skills")?)?];
 
             layout.push(Section::Grid(Grid::new(skills, false)));
         }
 
         if self.template.contains_key("damage_vulnerabilities") && !self.template["damage_vulnerabilities"].is_empty() {
             let damage_vulnerabilities = [
-                Cell::try_new(0..12, 0..1, Contents::new_chip_list("damage_vulnerabilities").label("Damage Vulnerabilites")?)?,
+                Cell::try_new(
+                    0..12,
+                    0..1,
+                    Contents::new_chip_list("damage_vulnerabilities").label("Damage Vulnerabilites")?,
+                )?,
             ];
 
             layout.push(Section::Grid(Grid::new(damage_vulnerabilities, false)));
@@ -69,7 +128,11 @@ impl super::Supporting {
 
         if self.template.contains_key("damage_resistances") && !self.template["damage_resistances"].is_empty() {
             let damage_resistances = [
-                Cell::try_new(0..12, 0..1, Contents::new_chip_list("damage_resistances").label("Damage Resistances")?)?,
+                Cell::try_new(
+                    0..12,
+                    0..1,
+                    Contents::new_chip_list("damage_resistances").label("Damage Resistances")?,
+                )?,
             ];
 
             layout.push(Section::Grid(Grid::new(damage_resistances, false)));
@@ -77,7 +140,11 @@ impl super::Supporting {
 
         if self.template.contains_key("damage_immunities") && !self.template["damage_immunities"].is_empty() {
             let damage_immunities = [
-                Cell::try_new(0..12, 0..1, Contents::new_chip_list("damage_immunities").label("Damage Immunities")?)?,
+                Cell::try_new(
+                    0..12,
+                    0..1,
+                    Contents::new_chip_list("damage_immunities").label("Damage Immunities")?,
+                )?,
             ];
 
             layout.push(Section::Grid(Grid::new(damage_immunities, false)));
@@ -85,16 +152,18 @@ impl super::Supporting {
 
         if self.template.contains_key("condition_immunities") && !self.template["condition_immunities"].is_empty() {
             let condition_immunities = [
-                Cell::try_new(0..12, 0..1, Contents::new_chip_list("condition_immunities").label("Condition Immunities")?)?,
+                Cell::try_new(
+                    0..12,
+                    0..1,
+                    Contents::new_chip_list("condition_immunities").label("Condition Immunities")?,
+                )?,
             ];
 
             layout.push(Section::Grid(Grid::new(condition_immunities, false)));
         }
 
         if self.template.contains_key("senses") && !self.template["senses"].is_empty() {
-            let senses = [
-                Cell::try_new(0..12, 0..1, Contents::new_chip_list("senses").label("Senses")?)?,
-            ];
+            let senses = [Cell::try_new(0..12, 0..1, Contents::new_chip_list("senses").label("Senses")?)?];
 
             layout.push(Section::Grid(Grid::new(senses, false)));
         }
@@ -107,7 +176,6 @@ impl super::Supporting {
             layout.push(Section::Grid(Grid::new(languages, false)));
         }
 
-
         let challenge = [
             Cell::try_new(0..2, 0..1, Contents::new_label().label("Challenge")?.align(Alignment::Right)?)?,
             Cell::try_new(2..12, 0..1, Contents::new_text("challenge").read_only()?)?,
@@ -117,62 +185,84 @@ impl super::Supporting {
 
         if self.features.is_some() {
             let left_cells = [
-                Cell::try_new(0..12, 0..1, Contents::new_label().label("Features")?.size(Size::Large)?.align(Alignment::Center)?)?,
+                Cell::try_new(
+                    0..12,
+                    0..1,
+                    Contents::new_label()
+                        .label("Features")?
+                        .size(Size::Large)?
+                        .align(Alignment::Center)?,
+                )?,
             ];
             let left = Grid::new(left_cells, false);
             let feature_controls = Columns::new([left, Grid::new([], false)]);
-            let feature_columns = [
-                Column::new("name", 12, Contents::new_text("name").read_only()?),
-            ];
+            let feature_columns = [Column::new("name", 12, Contents::new_text("name").read_only()?)];
             let feature_table = Table::new("features", feature_controls, [], feature_columns, "order");
-            let features = [
-                Cell::try_new(0..12, 0..1, Contents::Table(feature_table))?
-            ];
-    
+            let features = [Cell::try_new(0..12, 0..1, Contents::Table(feature_table))?];
+
             layout.push(Section::Grid(Grid::new(features, false)));
         }
 
         if self.actions.is_some() {
             let left_cells = [
-                Cell::try_new(0..12, 0..1, Contents::new_label().label("Actions")?.size(Size::Large)?.align(Alignment::Center)?)?,
+                Cell::try_new(
+                    0..12,
+                    0..1,
+                    Contents::new_label()
+                        .label("Actions")?
+                        .size(Size::Large)?
+                        .align(Alignment::Center)?,
+                )?,
             ];
             let left = Grid::new(left_cells, false);
             let action_controls = Columns::new([left, Grid::new([], false)]);
-            let action_columns = [
-                Column::new("name", 12, Contents::new_text("name").read_only()?),
-            ];
+            let action_columns = [Column::new("name", 12, Contents::new_text("name").read_only()?)];
             let action_table = Table::new("actions", action_controls, [], action_columns, "order");
-            let actions = [
-                Cell::try_new(0..12, 0..1, Contents::Table(action_table))?
-            ];
-    
+            let actions = [Cell::try_new(0..12, 0..1, Contents::Table(action_table))?];
+
             layout.push(Section::Grid(Grid::new(actions, false)));
         }
 
         if self.reactions.is_some() {
             let left_cells = [
-                Cell::try_new(0..12, 0..1, Contents::new_label().label("Reactions")?.size(Size::Large)?.align(Alignment::Center)?)?,
+                Cell::try_new(
+                    0..12,
+                    0..1,
+                    Contents::new_label()
+                        .label("Reactions")?
+                        .size(Size::Large)?
+                        .align(Alignment::Center)?,
+                )?,
             ];
             let left = Grid::new(left_cells, false);
             let reaction_controls = Columns::new([left, Grid::new([], false)]);
-            let reaction_columns = [
-                Column::new("name", 12, Contents::new_text("name").read_only()?),
-            ];
+            let reaction_columns = [Column::new("name", 12, Contents::new_text("name").read_only()?)];
             let reaction_table = Table::new("reactions", reaction_controls, [], reaction_columns, "order");
-            let reactions = [
-                Cell::try_new(0..12, 0..1, Contents::Table(reaction_table))?
-            ];
-    
+            let reactions = [Cell::try_new(0..12, 0..1, Contents::Table(reaction_table))?];
+
             layout.push(Section::Grid(Grid::new(reactions, false)));
         }
 
         if self.template.contains_key("description") {
             let description = [
-                Cell::try_new(0..12, 0..1, Contents::new_text_area("description").use_markdown()?.read_only()?)?
+                Cell::try_new(0..12, 0..1, Contents::new_text_area("description").use_markdown()?.read_only()?)?,
             ];
 
             layout.push(Section::Grid(Grid::new(description, false)));
         }
+
+        let notes_header_cell = Cell::try_new(
+            0..12,
+            0..1,
+            Contents::new_label()
+                .label("Notes")?
+                .size(Size::Large)?
+                .align(Alignment::Center)?,
+        )?;
+        layout.push(Section::Grid(Grid::new([notes_header_cell], false)));
+
+        let notes_cell = Cell::try_new(0..12, 0..1, Contents::new_text_area("notes").use_markdown()?)?;
+        layout.push(Section::Grid(Grid::new([notes_cell], false)));
 
         Ok(layout)
     }

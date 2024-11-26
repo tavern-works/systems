@@ -170,7 +170,15 @@ impl super::Supporting {
 
         if self.template.contains_key("languages") && !self.template["languages"].is_empty() {
             let languages = [
-                Cell::try_new(0..12, 0..1, Contents::new_chip_list("languages").label("Languages")?)?,
+                Cell::try_new(0..11, 0..1, Contents::new_chip_list("languages").label("Languages")?)?,
+                Cell::try_new(
+                    11..12,
+                    0..1,
+                    Contents::new_button()
+                        .key("edit_languages")?
+                        .icon("edit")?
+                        .tooltip("Edit Languages")?,
+                )?,
             ];
 
             layout.push(Section::Grid(Grid::new(languages, false)));

@@ -13,6 +13,7 @@ struct Supporting {
     max_hp,
     hp_expression,
     conditions,
+    languages,
     features,
     actions,
     reactions,
@@ -33,11 +34,16 @@ pub fn create(tables, id, template_id, name) {
         max_hp: average,
         hp_expression: template["hp"],
         conditions: [],
+        languages: [],
         features: None,
         actions: None,
         reactions: None,
         notes: "",
     };
+
+    if let Some(languages) = template.get("languages") {
+        character.languages = languages;
+    }
 
     if let Some(features) = template.get("features") {
         let table_id = Uid::from_string(format!("{}-features", id.to_string()));
@@ -134,9 +140,19 @@ impl Supporting {
                 options.set_data(self.conditions.clone());
                 return Ok(options);
             }
+            "edit_languages" => {
+                let options = CompendiumOptions::new(Mode::ChipList, "language");
+                options.set_character(self.id());
+                options.set_data(self.languages.clone());
+                return Ok(options);
+            }
             "hp" => {
                 self.hp = value.min(self.max_hp).max(0);
                 notify_card = true;
+                notify_sheet = true;
+            }
+            "language" => {
+                self.languages = value;
                 notify_sheet = true;
             }
             "max_hp" => {
@@ -312,6 +328,7 @@ impl Supporting {
             "hp_expression": self.hp_expression.clone(),
             "temp_hp": self.temp_hp,
             "conditions": self.conditions.clone(),
+            "languages": self.languages.clone(),
             "speed": self.template["speed"],
 
             "challenge": self.template["challenge"],
@@ -331,7 +348,6 @@ impl Supporting {
             "damage_immunities",
             "condition_immunities",
             "senses",
-            "languages",
             "description",
         ];
 

@@ -88,12 +88,8 @@ pub fn get_layout(name) {
     let layout = [];
 
     let description_cells = [
-        Cell::try_new(
-            0..5,
-            0..1,
-            Contents::new_text("name").align(Alignment::Center)?.font(Font::Bold)?,
-        )?,
-        Cell::try_new(0..5, 1..8, Contents::Image("portrait"))?,
+        Cell::try_new(0..5, 0..2, Contents::new_text("name").align(Alignment::Center)?.label("Name")?)?,
+        Cell::try_new(0..5, 2..8, Contents::Image("portrait"))?,
 
         Cell::try_new(5..12, 0..1, Contents::new_text("race").read_only()?.label("Race")?)?,
         Cell::try_new(5..12, 1..2, Contents::new_text("class").read_only()?.label("Class")?)?,

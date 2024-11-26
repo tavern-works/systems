@@ -269,7 +269,11 @@ impl super::Supporting {
         )?;
         layout.push(Section::Grid(Grid::new([notes_header_cell], false)));
 
-        let notes_cell = Cell::try_new(0..12, 0..1, Contents::new_text_area("notes").use_markdown()?)?;
+        let notes_cell = Cell::try_new(
+            0..12,
+            0..1,
+            Contents::new_text_area("notes").use_markdown()?.tooltip("Edit Notes")?,
+        )?;
         layout.push(Section::Grid(Grid::new([notes_cell], false)));
 
         Ok(layout)

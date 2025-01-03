@@ -1,4 +1,4 @@
-use tavern::{Alignment, Cell, Contents, Grid, Section};
+use tavern::{Cell, Contents, Grid, Section};
 
 pub fn get_layout() {
     let layout = [];
@@ -34,7 +34,13 @@ pub fn get_layout() {
         Section::new_conditional_grid("tool_proficiencies", Grid::new(tool_proficiencies, false)),
     );
 
-    let equipment = [Cell::try_new(0..12, 0..1, Contents::new_text_area("equipment").label("Equipment")?.read_only()?)?];
+    let equipment = [
+        Cell::try_new(
+            0..12,
+            0..1,
+            Contents::new_text_area("equipment").label("Equipment")?.read_only()?,
+        )?,
+    ];
 
     layout.push(Section::Grid(Grid::new(equipment, false)));
 

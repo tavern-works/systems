@@ -30,7 +30,7 @@ struct Character {
     portrait,
     name,
     base_ability_scores,
-    race,
+    species,
     languages,
     classes,
     background,
@@ -112,7 +112,7 @@ impl Character {
             "unimplemented": (),
             "name": self.name.clone(),
             "portrait": self.portrait.clone(),
-            "race": self.race.name(),
+            "species": self.species.name(),
             "languages": self.languages.clone(),
             "class": self.class_description(),
             "background": (),
@@ -144,7 +144,7 @@ impl Character {
             "armor_proficiencies": self.armor_proficiencies(proficiencies),
             "weapon_proficiencies": self.weapon_proficiencies(tables, proficiencies)?,
             "tool_proficiencies": self.tool_proficiencies(tables, proficiencies)?,
-            "vision": self.race.vision(),
+            "vision": self.species.vision(),
         };
 
         if self.background is not Tuple {
@@ -281,7 +281,7 @@ impl Character {
 
     fn ability_scores(self) {
         let ability_scores = #{};
-        let increases = self.race.ability_score_increases();
+        let increases = self.species.ability_score_increases();
         for entry in self.base_ability_scores {
             if increases.contains_key(entry.0) {
                 ability_scores[entry.0] = entry.1 + increases[entry.0]
@@ -558,7 +558,7 @@ impl Character {
     }
 
     fn headline(self) {
-        format!("{} {}", self.race.short_name(), self.class_description())
+        format!("{} {}", self.species.short_name(), self.class_description())
     }
 
     fn hit_dice(self) {
@@ -587,7 +587,7 @@ impl Character {
     fn max_hp(self) {
         let max_hp = self.hp_rolled.iter().sum::<i64>();
         max_hp += Ability::modifier_for_value(self.ability_scores()[Ability::Constitution.name()]) * self.level();
-        max_hp + self.race.max_hp_modifier(self)
+        max_hp + self.species.max_hp_modifier(self)
     }
 
     fn money_weight(self) {
@@ -595,7 +595,7 @@ impl Character {
     }
 
     fn proficiencies(self, tables) {
-        let proficiencies = self.race.proficiencies(self);
+        let proficiencies = self.species.proficiencies(self);
 
         if self.background is not Tuple {
             let entry = tables.get_compendium_entry_by_id(self.background)?;
@@ -759,16 +759,16 @@ impl Character {
                         let required_strength = attributes.get("strength")?;
                         let strength = self.ability_scores()[Ability::Strength.name()];
                         if strength < required_strength {
-                            return self.race.heavy_armor_speed();
+                            return self.species.heavy_armor_speed();
                         }
                     }
                 }
 
-                self.race.speed()
+                self.species.speed()
             }
-            "Unencumbered" => self.race.speed(),
-            "Encumbered" => self.race.speed() - 10,
-            "Heavily Encumbered" => self.race.speed() - 20,
+            "Unencumbered" => self.species.speed(),
+            "Encumbered" => self.species.speed() - 10,
+            "Heavily Encumbered" => self.species.speed() - 20,
             _ => (),
         }
     }

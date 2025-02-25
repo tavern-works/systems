@@ -1,6 +1,6 @@
 use tavern::Uid;
 
-impl super::Race {
+impl super::Species {
     fn dwarf_features(self) {
         [
             #{

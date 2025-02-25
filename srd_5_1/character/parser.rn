@@ -1,7 +1,7 @@
 use json::from_bytes;
 use tavern::Uid;
 
-use crate::{Ability, Alignment, Class, Race};
+use crate::{Ability, Alignment, Class, Species};
 
 fn parse_bool(parsed, key) {
     if !parsed.contains_key(key) {
@@ -66,7 +66,7 @@ pub fn parse_lead(parsed, tables) {
         base_ability_scores[ability.name()] = parsed_ability_scores[ability.name()];
     }
 
-    let race = Race::from_string(parse_string(parsed, "race")?);
+    let species = Species::from_string(parse_string(parsed, "species")?);
 
     let languages = parse_vec(parsed, "languages")?;
 
@@ -123,7 +123,7 @@ pub fn parse_lead(parsed, tables) {
     let inspiration = parse_bool(parsed, "inspiration")?;
 
     let choices = #{};
-    race.parse_choices(parsed, choices);
+    species.parse_choices(parsed, choices);
     let class_level = #{};
     for element in classes.iter().enumerate() {
         if let (index, class) = element {
@@ -165,7 +165,7 @@ pub fn parse_lead(parsed, tables) {
         portrait,
         name,
         base_ability_scores,
-        race,
+        species,
         languages,
         classes,
         background,

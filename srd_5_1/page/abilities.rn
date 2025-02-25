@@ -27,7 +27,7 @@ pub fn get_layout(name) {
                 .label("Character")?
                 .align(Alignment::Center)?,
         )?,
-        Cell::try_new(5..12, 0..1, Contents::new_text("race").read_only()?.label("Race")?)?,
+        Cell::try_new(5..12, 0..1, Contents::new_text("species").read_only()?.label("Species")?)?,
         Cell::try_new(5..12, 1..2, Contents::new_text("background").read_only()?.label("Background")?)?,
 
         Cell::try_new(0..2, 2..3, Contents::new_label().label("Class")?.align(Alignment::Right)?)?,

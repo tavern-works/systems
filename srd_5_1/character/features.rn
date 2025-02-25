@@ -10,7 +10,7 @@ impl super::Character {
         }
 
         for class in self.classes {
-            for feature in class.features() {
+            for feature in class.features(self) {
                 feature["order"] = order;
                 order += 1;
                 tables.create_entry(self.features, feature)?

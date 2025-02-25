@@ -30,9 +30,10 @@ impl Class {
         }
     }
 
-    fn features(self) {
+    fn features(self, character) {
         match self {
             Class::Fighter => self.fighter_features(),
+            Class::Rogue => self.rogue_features(character),
             _ => [],
         }
     }
@@ -53,9 +54,10 @@ impl Class {
         }
     }
 
-    fn rolls(self, resources, tables) {
+    fn rolls(self, character, resources, tables) {
         match self {
             Class::Fighter => self.fighter_rolls(resources, tables),
+            Class::Rogue => self.rogue_rolls(character),
             _ => Ok([]),
         }
     }

@@ -60,7 +60,7 @@ impl super::Character {
                 continue;
             }
 
-            rolls.extend(class.rolls(self.resources.clone(), tables)?);
+            rolls.extend(class.rolls(self, self.resources.clone(), tables)?);
 
             classes_seen.insert(class.name());
         }

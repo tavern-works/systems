@@ -602,8 +602,14 @@ impl Character {
             let skill_proficiencies = entry.get("skill_proficiencies")?;
             for proficiency in skill_proficiencies {
                 let name = proficiency.get("value")?;
+                let factor = if self.choices.contains_key("expertise") && self.choices["expertise"].iter().any(|entry| entry == name) {
+                    2
+                } else {
+                    1
+                };
+
                 let skill = Skill::from_string(name);
-                proficiencies.push(Proficiency { source: entry.get("name")?, factor: 1, with: skill, condition: None });
+                proficiencies.push(Proficiency { source: entry.get("name")?, factor, with: skill, condition: None });
             }
         }
 

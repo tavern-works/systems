@@ -47,6 +47,11 @@ impl Species {
                 increases[Ability::Constitution.name()] = 2;
                 increases[Ability::Wisdom.name()] = 1;
             }
+            Self::Human => {
+                for ability in Ability::all() {
+                    increases[ability.name()] = 1;
+                }
+            }
         }
         increases
     }

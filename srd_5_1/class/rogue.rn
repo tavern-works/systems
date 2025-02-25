@@ -1,0 +1,81 @@
+use tavern::Uid;
+
+use crate::{Ability, Armor, BaseWeapon, Proficiency, SavingThrow, Skill, Tool, WeaponComplexity};
+
+impl super::Class {
+    fn rogue_proficiencies(self, character, is_initial) {
+        let proficiencies = [];
+
+        proficiencies.push(Proficiency { source: "Rogue", factor: 1, with: Armor::Light, condition: None });
+        if is_initial {
+            proficiencies.push(
+                Proficiency {
+                    source: "Rogue",
+                    factor: 1,
+                    with: WeaponComplexity::Simple,
+                    condition: None,
+                },
+            );
+            proficiencies.extend(
+                [
+                    BaseWeapon(Uid::from_string("cfw2tYVNf6kK")),
+                    BaseWeapon(Uid::from_string("GbPSTxF1jjgD")),
+                    BaseWeapon(Uid::from_string("F8l3z9tmvkFY")),
+                    BaseWeapon(Uid::from_string("dR1kSddsBpzJ")),
+                ]
+                    .iter()
+                    .map(|weapon| Proficiency { source: "Rogue", factor: 1, with: weapon, condition: None }),
+            );
+        }
+        proficiencies.push(
+            Proficiency {
+                source: "Rogue",
+                factor: 1,
+                with: Tool::Artisan(Uid::from_string("D2BbvLgQ6ckw")),
+                condition: None,
+            },
+        );
+        if is_initial {
+            proficiencies.extend(
+                [
+                    SavingThrow::Ability(Ability::Dexterity),
+                    SavingThrow::Ability(Ability::Intelligence),
+                ]
+                    .iter()
+                    .map(|ability| Proficiency { source: "Rogue", factor: 1, with: ability, condition: None }),
+            );
+        }
+        for skill in character.choices["rogue_skills"] {
+            proficiencies.push(Proficiency { source: "Rogue", factor: 1, with: skill, condition: None });
+        }
+
+        proficiencies
+    }
+
+    fn parse_rogue_choices(self, parsed, choices, level, is_initial) {
+        if !parsed.contains_key("rogueSkills") {
+            panic("couldn't find rogue skills");
+        }
+        let rogue_skills = parsed["rogueSkills"];
+        if rogue_skills is not Vec {
+            panic("expected rogue skills to be an array");
+        }
+        if is_initial {
+            if rogue_skills.len() != 4 {
+                panic!("expected 4 rogue skills, found {}", rogue_skills.len());
+            }
+        } else {
+            if rogue_skills.len() != 1 {
+                panic!("expected 1 rogue skill, found {}", rogue_skills.len());
+            }
+        }
+        let rogue_skills = rogue_skills.iter().map(|skill| Skill::from_string(skill)).collect::<Vec>();
+        let valid_skills = self.skills();
+        for skill in rogue_skills {
+            if valid_skills.iter().find(|v| v == skill).is_none() {
+                panic!("skill {} is not a valid rogue skill", skill.name())
+            }
+        }
+        choices["rogue_skills"] = rogue_skills;
+    }
+}

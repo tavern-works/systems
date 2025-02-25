@@ -1,6 +1,7 @@
-use crate::{Ability, Armor, Proficiency, SavingThrow, Skill, WeaponComplexity};
+use crate::Skill;
 
 mod fighter;
+mod rogue;
 
 enum Class {
     Fighter,
@@ -71,89 +72,37 @@ impl Class {
                 Skill::Perception,
                 Skill::Survival,
             ],
+            Class::Rogue => [
+                Skill::Acrobatics,
+                Skill::Athletics,
+                Skill::Deception,
+                Skill::Insight,
+                Skill::Intimidation,
+                Skill::Investigation,
+                Skill::Perception,
+                Skill::Performance,
+                Skill::Persuasion,
+                Skill::SleightOfHand,
+                Skill::Stealth,
+            ],
         }
     }
 
     fn parse_choices(self, parsed, choices, level, is_initial) {
         match self {
             Class::Fighter => {
-                if is_initial {
-                    if !parsed.contains_key("fighterSkills") {
-                        panic("couldn't find fighter skills");
-                    }
-                    let fighter_skills = parsed["fighterSkills"];
-                    if fighter_skills is not Vec {
-                        panic("expected fighter skills to be an array");
-                    }
-                    if fighter_skills.len() != 2 {
-                        panic!("expected 2 fighter skills, found {}", fighter_skills.len());
-                    }
-                    if fighter_skills[0] == fighter_skills[1] {
-                        panic("expected two different skills")
-                    }
-                    let fighter_skills = fighter_skills.iter().map(|skill| Skill::from_string(skill)).collect::<Vec>();
-                    let valid_skills = self.skills();
-                    for skill in fighter_skills {
-                        if valid_skills.iter().find(|v| v == skill).is_none() {
-                            panic!("skill {} is not a valid fighter skill", skill.name())
-                        }
-                    }
-                    choices["fighter_skills"] = fighter_skills;
-                }
+                self.parse_fighter_choices(parsed, choices, level, is_initial)
+            }
+            Class::Rogue => {
+                self.parse_rogue_choices(parsed, choices, level, is_initial)
             }
         }
     }
 
     fn proficiencies(self, character, is_initial) {
-        let proficiencies = [];
         match self {
-            Class::Fighter => {
-                if is_initial {
-                    proficiencies.push(Proficiency { source: "Fighter", factor: 1, with: Armor::All, condition: None });
-                } else {
-                    proficiencies.push(Proficiency { source: "Fighter", factor: 1, with: Armor::Light, condition: None });
-                    proficiencies.push(Proficiency { source: "Fighter", factor: 1, with: Armor::Medium, condition: None });
-                }
-                proficiencies.push(Proficiency { source: "Fighter", factor: 1, with: Armor::Shields, condition: None });
-                proficiencies.push(
-                    Proficiency {
-                        source: "Fighter",
-                        factor: 1,
-                        with: WeaponComplexity::Simple,
-                        condition: None,
-                    },
-                );
-                proficiencies.push(
-                    Proficiency {
-                        source: "Fighter",
-                        factor: 1,
-                        with: WeaponComplexity::Martial,
-                        condition: None,
-                    },
-                );
-                if is_initial {
-                    proficiencies.push(
-                        Proficiency {
-                            source: "Fighter",
-                            factor: 1,
-                            with: SavingThrow::Ability(Ability::Strength),
-                            condition: None,
-                        },
-                    );
-                    proficiencies.push(
-                        Proficiency {
-                            source: "Fighter",
-                            factor: 1,
-                            with: SavingThrow::Ability(Ability::Constitution),
-                            condition: None,
-                        },
-                    );
-                    for skill in character.choices["fighter_skills"] {
-                        proficiencies.push(Proficiency { source: "Fighter", factor: 1, with: skill, condition: None });
-                    }
-                }
-            }
+            Class::Fighter => self.fighter_proficiencies(character, is_initial),
+            Class::Rogue => self.rogue_proficiencies(character, is_initial),
         }
-        proficiencies
     }
 }

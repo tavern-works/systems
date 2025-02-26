@@ -709,6 +709,17 @@
         "description": "As an action, you can splash the contents of this flask onto a creature within 5 feet of you or throw it up to 20 feet, shattering it on impact. If the target is a fiend or undead, it takes 2d6 radiant damage. A cleric or paladin may create holy water by performing a special ritual. The ritual takes 1 hour to perform, uses 25 gp worth of powdered silver, and requires the caster to expend a 1st-level spell slot."
     },
     {
+        "id": "H5gdlhgrRr9C",
+        "name": "Hooded Lantern",
+        "cost": 5,
+        "weight": 2,
+        "attributes": [
+            { "type": "bright_light", "value": 30 },
+            { "type": "dim_light", "value": 30 }
+        ],
+        "description": "Once lit, a hooded lantern burns for 6 hours on a flask (1 pint) of oil. As an action, you can lower the hood, reducing the light to dim light in a 5-foot radius."
+    },
+    {
         "id": "kD599sdg593J",
         "name": "Horn",
         "cost": 3,
@@ -1258,6 +1269,7 @@
         "cost": 1,
         "weight": 1,
         "active": null,
+        "quantity": null,
         "description": "A quiver can hold up to 20 arrows."
     },
     {

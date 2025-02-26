@@ -1,6 +1,7 @@
 use crate::Skill;
 
 mod fighter;
+mod ranger;
 mod rogue;
 
 enum Class {
@@ -32,8 +33,8 @@ impl Class {
 
     fn features(self, character) {
         match self {
-            Class::Fighter => self.fighter_features(),
-            Class::Rogue => self.rogue_features(character),
+            Class::Fighter => fighter::features(),
+            Class::Rogue => rogue::features(self, character),
             _ => [],
         }
     }
@@ -47,17 +48,32 @@ impl Class {
         }
     }
 
+    fn parse_choices(self, parsed, choices, level, is_initial) {
+        match self {
+            Class::Fighter => fighter::parse_choices(self, parsed, choices, level, is_initial),
+            Class::Rogue => rogue::parse_choices(self, parsed, choices, level, is_initial),
+        }
+    }
+
+    fn proficiencies(self, character, is_initial) {
+        match self {
+            Class::Fighter => fighter::proficiencies(character, is_initial),
+            Class::Ranger => ranger::proficiencies(character, is_initial),
+            Class::Rogue => rogue::proficiencies(character, is_initial),
+        }
+    }
+
     fn resources(self) {
         match self {
-            Class::Fighter => self.fighter_resources(),
+            Class::Fighter => fighter::resources(),
             _ => [],
         }
     }
 
     fn rolls(self, character, resources, tables) {
         match self {
-            Class::Fighter => self.fighter_rolls(resources, tables),
-            Class::Rogue => self.rogue_rolls(character),
+            Class::Fighter => fighter::rolls(resources, tables),
+            Class::Rogue => rogue::rolls(character),
             _ => Ok([]),
         }
     }
@@ -87,24 +103,6 @@ impl Class {
                 Skill::SleightOfHand,
                 Skill::Stealth,
             ],
-        }
-    }
-
-    fn parse_choices(self, parsed, choices, level, is_initial) {
-        match self {
-            Class::Fighter => {
-                self.parse_fighter_choices(parsed, choices, level, is_initial)
-            }
-            Class::Rogue => {
-                self.parse_rogue_choices(parsed, choices, level, is_initial)
-            }
-        }
-    }
-
-    fn proficiencies(self, character, is_initial) {
-        match self {
-            Class::Fighter => self.fighter_proficiencies(character, is_initial),
-            Class::Rogue => self.rogue_proficiencies(character, is_initial),
         }
     }
 }

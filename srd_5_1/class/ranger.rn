@@ -1,0 +1,23 @@
+use crate::{Armor, Proficiency, WeaponComplexity};
+
+pub fn proficiencies(character, is_initial) {
+    let proficiencies = [];
+
+    proficiencies.extend(
+        [Armor::Light, Armor::Medium, Armor::Shields]
+            .iter()
+            .map(|armor| Proficiency { source: "Ranger", factor: 1, with: armor, condition: None }),
+    );
+
+    proficiencies.extend(
+        [WeaponComplexity::Simple, WeaponComplexity::Martial]
+            .iter()
+            .map(|weapon| Proficiency { source: "Ranger", factor: 1, with: weapon, condition: None }),
+    );
+
+    // for skill in character.choices["ranger_skills"] {
+    //     proficiencies.push(Proficiency { source: "Fighter", factor: 1, with: skill, condition: None });
+    // }
+
+    proficiencies
+}

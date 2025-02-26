@@ -2,151 +2,149 @@ use tavern::{Roll, Uid};
 
 use crate::{Ability, Armor, BaseWeapon, Proficiency, SavingThrow, Skill, Tool, WeaponComplexity};
 
-impl super::Class {
-    fn sneak_attack_damage(self, character) {
-        let class_levels = character.class_levels();
-        let rogue_level = class_levels[self.name()];
-        format!("{}d6", (rogue_level + 1) / 2)
-    }
+fn sneak_attack_damage(character) {
+    let class_levels = character.class_levels();
+    let rogue_level = class_levels["Rogue"];
+    format!("{}d6", (rogue_level + 1) / 2)
+}
 
-    fn rogue_features(self, character) {
-        let sneak_attack_damage = self.sneak_attack_damage(character);
-        [
-            #{
-                "name": "Expertise",
-                "source": "Rogue",
-                "extras": #{
-                    "attributes": character
-                        .choices["expertise"]
-                        .iter()
-                        .map(|entry| #{ "value": entry })
-                        .collect::<Vec>(),
-                    "description": "At 1st level, choose two of your skill proficiencies, or one of your skill proficiencies and your proficiency with thieves' tools. Your proficiency bonus is doubled for any ability check you make that uses either of the chosen proficiencies.\n\nAt 6th level, you can choose two more of your proficiencies (in skills or with thieves' tools) to gain this benefit.",
-                },
-            },
-            #{
-                "name": "Sneak Attack",
-                "source": "Rogue",
-                "extras": #{
-                    "description": format!("You know how to strike subtly and exploit a foe's distraction. Once per turn, you can deal an extra {sneak_attack_damage} damage to one creature you hit with an attack if you have advantage on the attack roll. The attack must use a finesse or ranged weapon.\n\nYou don't need advantage on the attack roll if another enemy of the target is within 5 feet of it, that enemy isn't incapacitated, and you don't have disadvantage on the attack roll."),
-                    "roll": "Sneak Attack Damage",
-                },
-            },
-            #{
-                "name": "Thieves' Cant",
-                "source": "Rogue",
-                "extras": #{
-                    "description": "During your rogue training you learned thieves' cant, a secret mix of dialect, jargon, and code that allows you to hide messages in seemingly normal conversation. Only another creature that knows thieves' cant understands such messages. It takes four times longer to convey such a message than it does to speak the same idea plainly.\n\nIn addition, you understand a set of secret signs and symbols used to convey short, simple messages, such as whether an area is dangerous or the territory of a thieves' guild, whether loot is nearby, or whether the people in an area are easy marks or will provide a safe house for thieves on the run."
-                }
-            }
-        ]
-    }
-
-    fn rogue_proficiencies(self, character, is_initial) {
-        let proficiencies = [];
-
-        proficiencies.push(Proficiency { source: "Rogue", factor: 1, with: Armor::Light, condition: None });
-        if is_initial {
-            proficiencies.push(
-                Proficiency {
-                    source: "Rogue",
-                    factor: 1,
-                    with: WeaponComplexity::Simple,
-                    condition: None,
-                },
-            );
-            proficiencies.extend(
-                [
-                    BaseWeapon(Uid::from_string("cfw2tYVNf6kK")),
-                    BaseWeapon(Uid::from_string("GbPSTxF1jjgD")),
-                    BaseWeapon(Uid::from_string("F8l3z9tmvkFY")),
-                    BaseWeapon(Uid::from_string("dR1kSddsBpzJ")),
-                ]
+pub fn features(class, character) {
+    let sneak_attack_damage = sneak_attack_damage(character);
+    [
+        #{
+            "name": "Expertise",
+            "source": "Rogue",
+            "extras": #{
+                "attributes": character
+                    .choices["expertise"]
                     .iter()
-                    .map(|weapon| Proficiency { source: "Rogue", factor: 1, with: weapon, condition: None }),
-            );
+                    .map(|entry| #{ "value": entry })
+                    .collect::<Vec>(),
+                "description": "At 1st level, choose two of your skill proficiencies, or one of your skill proficiencies and your proficiency with thieves' tools. Your proficiency bonus is doubled for any ability check you make that uses either of the chosen proficiencies.\n\nAt 6th level, you can choose two more of your proficiencies (in skills or with thieves' tools) to gain this benefit.",
+            },
+        },
+        #{
+            "name": "Sneak Attack",
+            "source": "Rogue",
+            "extras": #{
+                "description": format!("You know how to strike subtly and exploit a foe's distraction. Once per turn, you can deal an extra {sneak_attack_damage} damage to one creature you hit with an attack if you have advantage on the attack roll. The attack must use a finesse or ranged weapon.\n\nYou don't need advantage on the attack roll if another enemy of the target is within 5 feet of it, that enemy isn't incapacitated, and you don't have disadvantage on the attack roll."),
+                "roll": "Sneak Attack Damage",
+            },
+        },
+        #{
+            "name": "Thieves' Cant",
+            "source": "Rogue",
+            "extras": #{
+                "description": "During your rogue training you learned thieves' cant, a secret mix of dialect, jargon, and code that allows you to hide messages in seemingly normal conversation. Only another creature that knows thieves' cant understands such messages. It takes four times longer to convey such a message than it does to speak the same idea plainly.\n\nIn addition, you understand a set of secret signs and symbols used to convey short, simple messages, such as whether an area is dangerous or the territory of a thieves' guild, whether loot is nearby, or whether the people in an area are easy marks or will provide a safe house for thieves on the run.",
+            },
+        },
+    ]
+}
+
+pub fn parse_choices(class, parsed, choices, level, is_initial) {
+    if !parsed.contains_key("rogueSkills") {
+        panic!("couldn't find rogue skills");
+    }
+    let rogue_skills = parsed["rogueSkills"];
+    if rogue_skills is not Vec {
+        panic!("expected rogue skills to be an array");
+    }
+    if is_initial {
+        if rogue_skills.len() != 4 {
+            panic!("expected 4 rogue skills, found {}", rogue_skills.len());
         }
+    } else {
+        if rogue_skills.len() != 1 {
+            panic!("expected 1 rogue skill, found {}", rogue_skills.len());
+        }
+    }
+    let rogue_skills = rogue_skills.iter().map(|skill| Skill::from_string(skill)).collect::<Vec>();
+    let valid_skills = class.skills();
+    for skill in rogue_skills {
+        if valid_skills.iter().find(|v| v == skill).is_none() {
+            panic!("skill {} is not a valid rogue skill", skill.name())
+        }
+    }
+    choices["rogue_skills"] = rogue_skills;
+
+    if !parsed.contains_key("expertise") {
+        panic!("couldn't find rogue expertise");
+    }
+    let expertise = parsed["expertise"];
+    if expertise is not Vec {
+        panic!("expected expertise to be an array");
+    }
+    let expected_count = if level < 6 {
+        2
+    } else {
+        4
+    };
+    if expertise.len() != expected_count {
+        panic!("expected {expected_count} expertise entries, found {}", expertise.len());
+    }
+    for entry in expertise {
+        if entry == "Thieves' Tools" {
+            continue;
+        }
+        Skill::from_string(entry);
+    }
+    choices["expertise"] = expertise;
+}
+
+pub fn proficiencies(character, is_initial) {
+    let proficiencies = [];
+
+    proficiencies.push(Proficiency { source: "Rogue", factor: 1, with: Armor::Light, condition: None });
+    if is_initial {
         proficiencies.push(
             Proficiency {
                 source: "Rogue",
                 factor: 1,
-                with: Tool::Artisan(Uid::from_string("D2BbvLgQ6ckw")),
+                with: WeaponComplexity::Simple,
                 condition: None,
             },
         );
-        if is_initial {
-            proficiencies.extend(
-                [
-                    SavingThrow::Ability(Ability::Dexterity),
-                    SavingThrow::Ability(Ability::Intelligence),
-                ]
-                    .iter()
-                    .map(|ability| Proficiency { source: "Rogue", factor: 1, with: ability, condition: None }),
-            );
-        }
-        for skill in character.choices["rogue_skills"] {
-            let factor = if character.choices["expertise"].iter().any(|entry| entry == skill.name()) {
-                2
-            } else {
-                1
-            };
-            proficiencies.push(Proficiency { source: "Rogue", factor, with: skill, condition: None });
-        }
-
-        proficiencies
+        proficiencies.extend(
+            [
+                BaseWeapon(Uid::from_string("cfw2tYVNf6kK")),
+                BaseWeapon(Uid::from_string("GbPSTxF1jjgD")),
+                BaseWeapon(Uid::from_string("F8l3z9tmvkFY")),
+                BaseWeapon(Uid::from_string("dR1kSddsBpzJ")),
+            ]
+                .iter()
+                .map(|weapon| Proficiency { source: "Rogue", factor: 1, with: weapon, condition: None }),
+        );
     }
-
-    fn rogue_rolls(self, character) {
-        Ok([Roll::try_new("Sneak Attack Damage", [], self.sneak_attack_damage(character))?])
+    proficiencies.push(
+        Proficiency {
+            source: "Rogue",
+            factor: 1,
+            with: Tool::Artisan(Uid::from_string("D2BbvLgQ6ckw")),
+            condition: None,
+        },
+    );
+    if is_initial {
+        proficiencies.extend(
+            [
+                SavingThrow::Ability(Ability::Dexterity),
+                SavingThrow::Ability(Ability::Intelligence),
+            ]
+                .iter()
+                .map(|ability| Proficiency { source: "Rogue", factor: 1, with: ability, condition: None }),
+        );
     }
-
-    fn parse_rogue_choices(self, parsed, choices, level, is_initial) {
-        if !parsed.contains_key("rogueSkills") {
-            panic!("couldn't find rogue skills");
-        }
-        let rogue_skills = parsed["rogueSkills"];
-        if rogue_skills is not Vec {
-            panic!("expected rogue skills to be an array");
-        }
-        if is_initial {
-            if rogue_skills.len() != 4 {
-                panic!("expected 4 rogue skills, found {}", rogue_skills.len());
-            }
-        } else {
-            if rogue_skills.len() != 1 {
-                panic!("expected 1 rogue skill, found {}", rogue_skills.len());
-            }
-        }
-        let rogue_skills = rogue_skills.iter().map(|skill| Skill::from_string(skill)).collect::<Vec>();
-        let valid_skills = self.skills();
-        for skill in rogue_skills {
-            if valid_skills.iter().find(|v| v == skill).is_none() {
-                panic!("skill {} is not a valid rogue skill", skill.name())
-            }
-        }
-        choices["rogue_skills"] = rogue_skills;
-
-        if !parsed.contains_key("expertise") {
-            panic!("couldn't find rogue expertise");
-        }
-        let expertise = parsed["expertise"];
-        if expertise is not Vec {
-            panic!("expected expertise to be an array");
-        }
-        let expected_count = if level < 6 {
+    for skill in character.choices["rogue_skills"] {
+        let factor = if character.choices["expertise"].iter().any(|entry| entry == skill.name()) {
             2
         } else {
-            4
+            1
         };
-        if expertise.len() != expected_count {
-            panic!("expected {expected_count} expertise entries, found {}", expertise.len());
-        }
-        for entry in expertise {
-            if entry == "Thieves' Tools" {
-                continue;
-            }
-            Skill::from_string(entry);
-        }
-        choices["expertise"] = expertise;
+        proficiencies.push(Proficiency { source: "Rogue", factor, with: skill, condition: None });
     }
+
+    proficiencies
+}
+
+pub fn rolls(character) {
+    Ok([Roll::try_new("Sneak Attack Damage", [], sneak_attack_damage(character))?])
 }

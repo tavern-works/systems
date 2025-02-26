@@ -2,117 +2,115 @@ use tavern::{Action, Roll, Target, Uid};
 
 use crate::{Ability, Armor, Proficiency, SavingThrow, Skill, WeaponComplexity};
 
-impl super::Class {
-    fn fighter_features(self) {
-        [
-            #{
-                "id": "two_weapon_fighting",
-                "name": "Two-Weapon Fighting",
-                "source": "Fighter",
-                "extras": #{
-                    "description": "When you engage in two-weapon fighting, you can add your ability modifier to the damage of the second attack",
-                },
+pub fn features() {
+    [
+        #{
+            "id": "two_weapon_fighting",
+            "name": "Two-Weapon Fighting",
+            "source": "Fighter",
+            "extras": #{
+                "description": "When you engage in two-weapon fighting, you can add your ability modifier to the damage of the second attack",
             },
-        ]
-    }
+        },
+    ]
+}
 
-    fn fighter_proficiencies(self, character, is_initial) {
-        let proficiencies = [];
-
-        if is_initial {
-            proficiencies.push(Proficiency { source: "Fighter", factor: 1, with: Armor::All, condition: None });
-        } else {
-            proficiencies.push(Proficiency { source: "Fighter", factor: 1, with: Armor::Light, condition: None });
-            proficiencies.push(Proficiency { source: "Fighter", factor: 1, with: Armor::Medium, condition: None });
+pub fn parse_choices(class, parsed, choices, level, is_initial) {
+    if is_initial {
+        if !parsed.contains_key("fighterSkills") {
+            panic("couldn't find fighter skills");
         }
-        proficiencies.push(Proficiency { source: "Fighter", factor: 1, with: Armor::Shields, condition: None });
-        proficiencies.push(
-            Proficiency {
-                source: "Fighter",
-                factor: 1,
-                with: WeaponComplexity::Simple,
-                condition: None,
-            },
+        let fighter_skills = parsed["fighterSkills"];
+        if fighter_skills is not Vec {
+            panic("expected fighter skills to be an array");
+        }
+        if fighter_skills.len() != 2 {
+            panic!("expected 2 fighter skills, found {}", fighter_skills.len());
+        }
+        if fighter_skills[0] == fighter_skills[1] {
+            panic("expected two different skills")
+        }
+        let fighter_skills = fighter_skills.iter().map(|skill| Skill::from_string(skill)).collect::<Vec>();
+        let valid_skills = class.skills();
+        for skill in fighter_skills {
+            if valid_skills.iter().find(|v| v == skill).is_none() {
+                panic!("skill {} is not a valid fighter skill", skill.name())
+            }
+        }
+        choices["fighter_skills"] = fighter_skills;
+    }
+}
+
+pub fn proficiencies(character, is_initial) {
+    let proficiencies = [];
+
+    if is_initial {
+        proficiencies.push(Proficiency { source: "Fighter", factor: 1, with: Armor::All, condition: None });
+    } else {
+        proficiencies.push(Proficiency { source: "Fighter", factor: 1, with: Armor::Light, condition: None });
+        proficiencies.push(Proficiency { source: "Fighter", factor: 1, with: Armor::Medium, condition: None });
+    }
+    proficiencies.push(Proficiency { source: "Fighter", factor: 1, with: Armor::Shields, condition: None });
+    proficiencies.push(
+        Proficiency {
+            source: "Fighter",
+            factor: 1,
+            with: WeaponComplexity::Simple,
+            condition: None,
+        },
+    );
+    proficiencies.push(
+        Proficiency {
+            source: "Fighter",
+            factor: 1,
+            with: WeaponComplexity::Martial,
+            condition: None,
+        },
+    );
+    if is_initial {
+        proficiencies.extend(
+            [
+                SavingThrow::Ability(Ability::Strength),
+                SavingThrow::Ability(Ability::Constitution),
+            ]
+                .iter()
+                .map(|ability| Proficiency { source: "Fighter", factor: 1, with: ability, condition: None }),
         );
-        proficiencies.push(
-            Proficiency {
-                source: "Fighter",
-                factor: 1,
-                with: WeaponComplexity::Martial,
-                condition: None,
+        for skill in character.choices["fighter_skills"] {
+            proficiencies.push(Proficiency { source: "Fighter", factor: 1, with: skill, condition: None });
+        }
+    }
+
+    proficiencies
+}
+
+pub fn resources() {
+    [
+        #{
+            "id": "second_wind",
+            "name": "Second Wind",
+            "attributes": [#{ "type": "short_rest" }, #{ "type": "long_rest" }],
+            "extras": #{
+                "description": "On your turn, you can use a bonus action to regain hit points equal to 1d10 + your fighter level",
+                "roll": "Second Wind",
+                "used": [false],
             },
-        );
-        if is_initial {
-            proficiencies.extend(
-                [
-                    SavingThrow::Ability(Ability::Strength),
-                    SavingThrow::Ability(Ability::Constitution),
-                ]
-                    .iter()
-                    .map(|ability| Proficiency { source: "Fighter", factor: 1, with: ability, condition: None }),
-            );
-            for skill in character.choices["fighter_skills"] {
-                proficiencies.push(Proficiency { source: "Fighter", factor: 1, with: skill, condition: None });
-            }
-        }
+        },
+    ]
+}
 
-        proficiencies
+pub fn rolls(resources, tables) {
+    let rolls = [];
+
+    let entry = tables.get_entry_by_id(resources, Uid::from_string("second_wind"))?;
+    let extras = entry.get_value("extras")?;
+    let has_second_wind = !extras["used"].iter().all(|used| used);
+
+    if has_second_wind {
+        let second_wind = Roll::try_new("Second Wind", [], "1d10 + $fighter")?;
+        second_wind.set_action(Action::new_sheet(Target::Roller, "second_wind"));
+        rolls.push(second_wind)
     }
 
-    fn fighter_resources(self) {
-        [
-            #{
-                "id": "second_wind",
-                "name": "Second Wind",
-                "attributes": [#{ "type": "short_rest" }, #{ "type": "long_rest" }],
-                "extras": #{
-                    "description": "On your turn, you can use a bonus action to regain hit points equal to 1d10 + your fighter level",
-                    "roll": "Second Wind",
-                    "used": [false],
-                },
-            },
-        ]
-    }
-
-    fn fighter_rolls(self, resources, tables) {
-        let rolls = [];
-
-        let entry = tables.get_entry_by_id(resources, Uid::from_string("second_wind"))?;
-        let extras = entry.get_value("extras")?;
-        let has_second_wind = !extras["used"].iter().all(|used| used);
-
-        if has_second_wind {
-            let second_wind = Roll::try_new("Second Wind", [], "1d10 + $fighter")?;
-            second_wind.set_action(Action::new_sheet(Target::Roller, "second_wind"));
-            rolls.push(second_wind)
-        }
-
-        Ok(rolls)
-    }
-
-    fn parse_fighter_choices(self, parsed, choices, level, is_initial) {
-        if is_initial {
-            if !parsed.contains_key("fighterSkills") {
-                panic("couldn't find fighter skills");
-            }
-            let fighter_skills = parsed["fighterSkills"];
-            if fighter_skills is not Vec {
-                panic("expected fighter skills to be an array");
-            }
-            if fighter_skills.len() != 2 {
-                panic!("expected 2 fighter skills, found {}", fighter_skills.len());
-            }
-            if fighter_skills[0] == fighter_skills[1] {
-                panic("expected two different skills")
-            }
-            let fighter_skills = fighter_skills.iter().map(|skill| Skill::from_string(skill)).collect::<Vec>();
-            let valid_skills = self.skills();
-            for skill in fighter_skills {
-                if valid_skills.iter().find(|v| v == skill).is_none() {
-                    panic!("skill {} is not a valid fighter skill", skill.name())
-                }
-            }
-            choices["fighter_skills"] = fighter_skills;
-        }
-    }
+    Ok(rolls)
 }

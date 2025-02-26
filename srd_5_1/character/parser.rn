@@ -123,7 +123,7 @@ pub fn parse_lead(parsed, tables) {
     let inspiration = parse_bool(parsed, "inspiration")?;
 
     let choices = #{};
-    species.parse_choices(parsed, choices);
+    species.parse_choices(tables, parsed, choices)?;
     let class_level = #{};
     for element in classes.iter().enumerate() {
         if let (index, class) = element {

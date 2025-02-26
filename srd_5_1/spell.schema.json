@@ -78,6 +78,7 @@
             "type": "string",
             "enum": [
                 "Instantaneous",
+                "Up to 1 round",
                 "Up to 1 minute",
                 "1 minute",
                 "Up to 10 minutes",

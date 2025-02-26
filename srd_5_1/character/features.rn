@@ -3,7 +3,7 @@ impl super::Character {
         tables.clear_table(self.features)?;
         let order = 0;
 
-        for feature in self.species.features() {
+        for feature in self.species.features(tables, self)? {
             feature["order"] = order;
             order += 1;
             tables.create_entry(self.features, feature)?

@@ -1,0 +1,14 @@
+use tavern::Uid;
+
+pub fn features() {
+    Ok([
+        #{
+            "id": Uid::new(),
+            "name": "Ability Score Increase",
+            "source": "Human",
+            "extras": #{
+                "description": "Your ability scores each increase by 1.",
+            },
+        },
+    ])
+}

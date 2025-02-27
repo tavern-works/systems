@@ -4,7 +4,7 @@ impl super::Character {
         let order = 0;
 
         for class in self.classes {
-            for resource in class.resources() {
+            for resource in class.resources(self) {
                 resource["order"] = order;
                 order += 1;
                 tables.create_entry(self.resources, resource)?

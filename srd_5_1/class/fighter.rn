@@ -90,7 +90,7 @@ pub fn resources() {
             "name": "Second Wind",
             "attributes": [#{ "type": "short_rest" }, #{ "type": "long_rest" }],
             "extras": #{
-                "description": "On your turn, you can use a bonus action to regain hit points equal to 1d10 + your fighter level",
+                "description": "On your turn, you can use a bonus action to regain hit points equal to 1d10 + your fighter level.",
                 "roll": "Second Wind",
                 "used": [false],
             },

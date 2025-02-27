@@ -1,0 +1,103 @@
+use tavern::Uid;
+
+use crate::{Ability, BaseWeapon, Proficiency, SavingThrow, Skill};
+
+pub fn features() {
+    [
+        #{
+            "name": "Ritual Casting",
+            "source": "Wizard",
+            "extras": #{
+                "description": "You can cast a wizard spell as a ritual if that spell has the ritual tag and you have the spell in your spellbook. You don't need to have the spell prepared.",
+            },
+        },
+        #{
+            "name": "Spellcasting Focus",
+            "source": "Wizard",
+            "extras": #{
+                "description": "You can use an arcane focus as a spellcasting focus for your wizard spells.",
+            },
+        },
+    ]
+}
+
+pub fn parse_choices(class, parsed, choices, level, is_initial) {
+    if is_initial {
+        if !parsed.contains_key("wizardSkills") {
+            panic!("couldn't find wizard skills");
+        }
+        let wizard_skills = parsed["wizardSkills"];
+        if wizard_skills.len() != 2 {
+            panic!("expected 2 wizard skills, found {}", wizard_skills.len());
+        }
+
+        let wizard_skills = wizard_skills.iter().map(|skill| Skill::from_string(skill)).collect::<Vec>();
+        let valid_skills = class.skills();
+        for skill in wizard_skills {
+            if valid_skills.iter().find(|v| v == skill).is_none() {
+                panic!("skill {} is not a valid wizard skill", skill.name())
+            }
+        }
+        choices["wizard_skills"] = wizard_skills;
+    }
+}
+
+pub fn proficiencies(character, is_initial) {
+    let proficiencies = [];
+
+    if is_initial {
+        proficiencies.extend(
+            [
+                SavingThrow::Ability(Ability::Intelligence),
+                SavingThrow::Ability(Ability::Wisdom),
+            ]
+                .iter()
+                .map(|ability| Proficiency { source: "Wizard", factor: 1, with: ability, condition: None }),
+        );
+
+        proficiencies.extend(
+            [
+                BaseWeapon(Uid::from_string("sj1LjsmRxJg3")),
+                BaseWeapon(Uid::from_string("gWTzvHns7D6p")),
+                BaseWeapon(Uid::from_string("hLSbLKHnMQMK")),
+                BaseWeapon(Uid::from_string("VLFf0RqbQFsF")),
+                BaseWeapon(Uid::from_string("lNpGVYzXw5gr")),
+            ]
+                .iter()
+                .map(|weapon| Proficiency { source: "Wizard", factor: 1, with: weapon, condition: None }),
+        );
+
+        for skill in character.choices["wizard_skills"] {
+            proficiencies.push(Proficiency { source: "Wizard", factor: 1, with: skill, condition: None });
+        }
+    }
+
+    proficiencies
+}
+
+pub fn resources(character) {
+    let wizard_level = character.class_levels()["Wizard"];
+    let arcane_recovery_slots = (wizard_level + 1) / 2;
+
+    [
+        #{
+            "name": "Arcane Recovery",
+            "attributes": [#{ "type": "daily" }],
+            "extras": #{
+                "description": format!("You have learned to regain some of your magical energy by studying your spellbook. Once per day when you finish a short rest, you can choose expended spell slots to recover. The spell slots can have a combined level that is equal to or less than {arcane_recovery_slots} (half your wizard level, rounded up), and none of the slots can be 6th level or higher."),
+                "used": [false],
+            },
+        },
+    ]
+}
+
+pub fn skills() {
+    [
+        Skill::Arcana,
+        Skill::History,
+        Skill::Insight,
+        Skill::Investigation,
+        Skill::Medicine,
+        Skill::Religion,
+    ]
+}

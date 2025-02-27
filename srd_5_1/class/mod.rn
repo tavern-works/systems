@@ -1,6 +1,7 @@
 mod fighter;
 mod ranger;
 mod rogue;
+mod wizard;
 
 enum Class {
     Fighter,
@@ -34,7 +35,7 @@ impl Class {
             Class::Fighter => fighter::features(),
             Class::Ranger => ranger::features(character),
             Class::Rogue => rogue::features(self, character),
-            _ => [],
+            Class::Wizard => wizard::features(),
         }
     }
 
@@ -52,6 +53,7 @@ impl Class {
             Class::Fighter => fighter::parse_choices(self, parsed, choices, level, is_initial),
             Class::Ranger => ranger::parse_choices(self, parsed, choices, level, is_initial),
             Class::Rogue => rogue::parse_choices(self, parsed, choices, level, is_initial),
+            Class::Wizard => wizard::parse_choices(self, parsed, choices, level, is_initial),
         }
     }
 
@@ -60,12 +62,14 @@ impl Class {
             Class::Fighter => fighter::proficiencies(character, is_initial),
             Class::Ranger => ranger::proficiencies(character, is_initial),
             Class::Rogue => rogue::proficiencies(character, is_initial),
+            Class::Wizard => wizard::proficiencies(character, is_initial),
         }
     }
 
-    fn resources(self) {
+    fn resources(self, character) {
         match self {
             Class::Fighter => fighter::resources(),
+            Class::Wizard => wizard::resources(character),
             _ => [],
         }
     }
@@ -83,6 +87,7 @@ impl Class {
             Class::Fighter => fighter::skills(),
             Class::Ranger => ranger::skills(),
             Class::Rogue => rogue::skills(),
+            Class::Wizard => wizard::skills(),
         }
     }
 }

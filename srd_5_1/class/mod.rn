@@ -1,5 +1,3 @@
-use crate::Skill;
-
 mod fighter;
 mod ranger;
 mod rogue;

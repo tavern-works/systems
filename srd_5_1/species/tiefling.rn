@@ -1,0 +1,31 @@
+pub fn features() {
+    Ok(
+        [
+            #{
+                "name": "Ability Score Increase",
+                "source": "Tiefling",
+                "extras": #{
+                    "description": "Your Intelligence score increases by 1 and your Charisma score increases by 2.",
+                },
+            },
+            #{
+                "name": "Hellish Resistance",
+                "source": "Tiefling",
+                "extras": #{
+                    "description": "You have resistance to fire damage.",
+                },
+            },
+            #{
+                "name": "Infernal Legacy",
+                "source": "Tiefling",
+                "extras": #{
+                    "attributes": [#{ "type": "spellcasting_ability", "value": "Charisma" }],
+                    "compendium_uses": #{
+                        "section": "spell",
+                        "categories": [#{ "name": "At Will", "entries": ["Thaumaturgy"], "used": [] }],
+                    },
+                },
+            },
+        ],
+    )
+}

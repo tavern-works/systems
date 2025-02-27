@@ -5,6 +5,7 @@ use crate::{Ability, DamageType, Resistance};
 mod dwarf;
 mod elf;
 mod human;
+mod tiefling;
 
 enum Species {
     HighElf,
@@ -58,6 +59,10 @@ impl Species {
                     increases[ability.name()] = 1;
                 }
             }
+            Self::Tiefling => {
+                increases[Ability::Charisma.name()] = 2;
+                increases[Ability::Intelligence.name()] = 1;
+            }
         }
         increases
     }
@@ -67,6 +72,7 @@ impl Species {
             Self::HighElf => elf::features(tables, character),
             Self::HillDwarf => dwarf::features(),
             Self::Human => human::features(),
+            Self::Tiefling => tiefling::features(),
             _ => Ok([]),
         }
     }

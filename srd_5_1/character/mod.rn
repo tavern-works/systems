@@ -59,6 +59,7 @@ struct Character {
     containers,
     main_hand,
     off_hand,
+    tool_proficiencies,
     resources,
     features,
     attacks,
@@ -624,6 +625,12 @@ impl Character {
             }
         }
 
+        for tool in self.tool_proficiencies {
+            let tool = Uid::from_string(tool);
+            let entry = tables.get_compendium_entry_by_id(tool)?;
+            proficiencies.push(Proficiency { source: "", factor: 1, with: Tool::Artisan(tool), condition: None });
+        }
+
         proficiencies
     }
 
@@ -791,7 +798,11 @@ impl Character {
             ) {
             if let (id, source) = id_source {
                 let tool = tables.get_compendium_entry_by_id(id)?;
-                result.push(#{ "value": tool.get("name")?, "tooltip": format!("From {source}") })
+                if source.is_empty() {
+                    result.push(#{ "value": tool.get("name")? })
+                } else {
+                    result.push(#{ "value": tool.get("name")?, "tooltip": format!("From {source}") })
+                }
             }
         }
 

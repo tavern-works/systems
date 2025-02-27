@@ -1,6 +1,6 @@
 use tavern::{anyhow, bail, Uid};
 
-use crate::{Advantage, Ability, DamageType, Resistance, SavingThrow};
+use crate::{Ability, DamageType, Resistance};
 
 mod dwarf;
 mod elf;

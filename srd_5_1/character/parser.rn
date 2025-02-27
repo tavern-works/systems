@@ -155,6 +155,7 @@ pub fn parse_lead(parsed, tables) {
         container["id"] = Uid::from_string(container["id"])
     }
 
+    let tool_proficiencies = parse_vec(parsed, "tool_proficiencies")?;
     let resources = Uid::from_string(parse_string(parsed, "resources")?);
     let features = Uid::from_string(parse_string(parsed, "features")?);
     let attacks = Uid::from_string(parse_string(parsed, "attacks")?);
@@ -194,6 +195,7 @@ pub fn parse_lead(parsed, tables) {
         containers,
         main_hand: None,
         off_hand: None,
+        tool_proficiencies,
         resources,
         features,
         attacks,

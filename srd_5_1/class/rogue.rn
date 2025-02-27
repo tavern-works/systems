@@ -148,3 +148,19 @@ pub fn proficiencies(character, is_initial) {
 pub fn rolls(character) {
     Ok([Roll::try_new("Sneak Attack Damage", [], sneak_attack_damage(character))?])
 }
+
+pub fn skills() {
+    [
+        Skill::Acrobatics,
+        Skill::Athletics,
+        Skill::Deception,
+        Skill::Insight,
+        Skill::Intimidation,
+        Skill::Investigation,
+        Skill::Perception,
+        Skill::Performance,
+        Skill::Persuasion,
+        Skill::SleightOfHand,
+        Skill::Stealth,
+    ]
+}

@@ -1,4 +1,114 @@
-use crate::{Armor, Proficiency, WeaponComplexity};
+use crate::{Ability, Armor, Proficiency, SavingThrow, Skill, WeaponComplexity};
+
+pub fn features(character) {
+    [
+        #{
+            "name": "Favored Enemy",
+            "source": "Ranger",
+            "extras": #{
+                "description": "You have significant experience studying, tracking, hunting, and even talking to a certain type of enemy.\n\nYou have hadvantage on Wisdom (Survival) checks to track your favored enemies, as well as on Intelligence checks to recall information about them. When you gain this feature, you also learn one language of your choice that is spoken by your favored enemies, if they speak one at all.",
+                "attributes": character
+                    .choices["favored_enemies"]
+                    .iter()
+                    .map(|enemy| #{ "value": enemy })
+                    .collect::<Vec>(),
+            },
+        },
+        #{
+            "name": "Natural Explorer",
+            "source": "Ranger",
+            "extras": #{
+                "description": "You are particularly familiar with one type of natural environment and are adept at traveling and surviving in such regions. When you make an Intelligence or Wisdom check related to your favored terrain, your proficiency bonus is doubled if you are using a skill that you're proficient in.\n\nWhile traveling for an hour or more in your favored terrain, you gain the following benefits:\n- Difficult terrain doesn't slow your group's travel.\n- Your group can't become lost except by magical means.\n- Even when you are engaged in another activity while traveling (such as foraging, navigating, or tracking), you remain alert to danger.\n- If you are traveling alone, you can move stealthily at a normal pace.\n- When you forage, you find twice as much food as you normally would.\n- While tracking other creatures, you also learn their exact number, their sizes, and how long ago they passed through the area.",
+                "attributes": character
+                    .choices["favored_terrain"]
+                    .iter()
+                    .map(|terrain| #{ "value": terrain })
+                    .collect::<Vec>(),
+            },
+        },
+    ]
+}
+
+pub fn parse_choices(class, parsed, choices, level, is_initial) {
+    if !parsed.contains_key("rangerSkills") {
+        panic!("couldn't find ranger skills");
+    }
+    let ranger_skills = parsed["rangerSkills"];
+    if is_initial {
+        if ranger_skills.len() != 3 {
+            panic!("expected 3 ranger skills, found {}", ranger_skills.len());
+        }
+    } else {
+        if ranger_skills.len() != 1 {
+            panic!("expected 1 ranger skill, found {}", ranger_skills.len());
+        }
+    }
+    let ranger_skills = ranger_skills.iter().map(|skill| Skill::from_string(skill)).collect::<Vec>();
+    let valid_skills = class.skills();
+    for skill in ranger_skills {
+        if valid_skills.iter().find(|v| v == skill).is_none() {
+            panic!("skill {} is not a valid ranger skill", skill.name())
+        }
+    }
+    choices["ranger_skills"] = ranger_skills;
+
+    if !parsed.contains_key("favoredEnemies") {
+        panic!("couldn't find favored enemies for ranger");
+    }
+    let favored_enemies = parsed["favoredEnemies"];
+    let valid_enemies = [
+        "Aberrations",
+        "Beasts",
+        "Celestials",
+        "Constructs",
+        "Dragons",
+        "Elementals",
+        "Fey",
+        "Fiends",
+        "Giants",
+        "Monstrosities",
+        "Oozes",
+        "Plants",
+        "Undead",
+    ];
+    let valid_humanoids = [
+        "Dwarves",
+        "Elves",
+        "Gnolls",
+        "Goblinoids",
+        "Halflings",
+        "Humans",
+        "Kobolds",
+        "Lizardfolk",
+        "Orcs",
+    ];
+    for enemy in favored_enemies {
+        if valid_enemies.iter().find(|v| v == enemy).is_none() && valid_humanoids.iter().find(|v| v == enemy).is_none() {
+            panic!("enemy {enemy} is not a valid favored enemy");
+        }
+    }
+    choices["favored_enemies"] = favored_enemies;
+
+    if !parsed.contains_key("favoredTerrain") {
+        panic!("couldn't find favored terrain for ranger");
+    }
+    let favored_terrain = parsed["favoredTerrain"];
+    let valid_terrain = [
+        "Arctic",
+        "Coast",
+        "Desert",
+        "Forest",
+        "Grassland",
+        "Mountain",
+        "Swamp",
+    ];
+    for terrain in favored_terrain {
+        if valid_terrain.iter().find(|t| t == terrain).is_none() {
+            panic!("terrain {terrain} is not a valid favored terrain");
+        }
+    }
+    choices["favored_terrain"] = favored_terrain;
+}
 
 pub fn proficiencies(character, is_initial) {
     let proficiencies = [];
@@ -15,9 +125,33 @@ pub fn proficiencies(character, is_initial) {
             .map(|weapon| Proficiency { source: "Ranger", factor: 1, with: weapon, condition: None }),
     );
 
-    // for skill in character.choices["ranger_skills"] {
-    //     proficiencies.push(Proficiency { source: "Fighter", factor: 1, with: skill, condition: None });
-    // }
+    if is_initial {
+        proficiencies.extend(
+            [
+                SavingThrow::Ability(Ability::Strength),
+                SavingThrow::Ability(Ability::Dexterity),
+            ]
+                .iter()
+                .map(|ability| Proficiency { source: "Ranger", factor: 1, with: ability, condition: None }),
+        );
+    }
+
+    for skill in character.choices["ranger_skills"] {
+        proficiencies.push(Proficiency { source: "Ranger", factor: 1, with: skill, condition: None });
+    }
 
     proficiencies
+}
+
+pub fn skills() {
+    [
+        Skill::AnimalHandling,
+        Skill::Athletics,
+        Skill::Insight,
+        Skill::Investigation,
+        Skill::Nature,
+        Skill::Perception,
+        Skill::Stealth,
+        Skill::Survival,
+    ]
 }

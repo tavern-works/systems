@@ -5,11 +5,10 @@ use crate::{Ability, Armor, Proficiency, SavingThrow, Skill, WeaponComplexity};
 pub fn features() {
     [
         #{
-            "id": "two_weapon_fighting",
             "name": "Two-Weapon Fighting",
             "source": "Fighter",
             "extras": #{
-                "description": "When you engage in two-weapon fighting, you can add your ability modifier to the damage of the second attack",
+                "description": "When you engage in two-weapon fighting, you can add your ability modifier to the damage of the second attack.",
             },
         },
     ]
@@ -113,4 +112,17 @@ pub fn rolls(resources, tables) {
     }
 
     Ok(rolls)
+}
+
+pub fn skills() {
+    [
+        Skill::Acrobatics,
+        Skill::AnimalHandling,
+        Skill::Athletics,
+        Skill::History,
+        Skill::Insight,
+        Skill::Intimidation,
+        Skill::Perception,
+        Skill::Survival,
+    ]
 }

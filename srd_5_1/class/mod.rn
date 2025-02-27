@@ -34,6 +34,7 @@ impl Class {
     fn features(self, character) {
         match self {
             Class::Fighter => fighter::features(),
+            Class::Ranger => ranger::features(character),
             Class::Rogue => rogue::features(self, character),
             _ => [],
         }
@@ -51,6 +52,7 @@ impl Class {
     fn parse_choices(self, parsed, choices, level, is_initial) {
         match self {
             Class::Fighter => fighter::parse_choices(self, parsed, choices, level, is_initial),
+            Class::Ranger => ranger::parse_choices(self, parsed, choices, level, is_initial),
             Class::Rogue => rogue::parse_choices(self, parsed, choices, level, is_initial),
         }
     }
@@ -80,29 +82,9 @@ impl Class {
 
     fn skills(self) {
         match self {
-            Class::Fighter => [
-                Skill::Acrobatics,
-                Skill::AnimalHandling,
-                Skill::Athletics,
-                Skill::History,
-                Skill::Insight,
-                Skill::Intimidation,
-                Skill::Perception,
-                Skill::Survival,
-            ],
-            Class::Rogue => [
-                Skill::Acrobatics,
-                Skill::Athletics,
-                Skill::Deception,
-                Skill::Insight,
-                Skill::Intimidation,
-                Skill::Investigation,
-                Skill::Perception,
-                Skill::Performance,
-                Skill::Persuasion,
-                Skill::SleightOfHand,
-                Skill::Stealth,
-            ],
+            Class::Fighter => fighter::skills(),
+            Class::Ranger => ranger::skills(),
+            Class::Rogue => rogue::skills(),
         }
     }
 }

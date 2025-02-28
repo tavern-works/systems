@@ -18,6 +18,7 @@ pub fn get_data(section, entry) {
             entry["headline"] = spell::headline(entry["level"], entry["school"])?;
             entry["component_string"] = spell::component_string(entry["components"]);
             entry["duration_string"] = spell::duration_string(entry["concentration"], entry["duration"]);
+            entry["save"] = 5;
         }
         "supporting" => {
             entry["headline"] = supporting::headline(entry["size"], entry["type"], entry.get("subtypes"), entry["alignment"])

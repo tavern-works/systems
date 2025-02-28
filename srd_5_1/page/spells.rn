@@ -1,0 +1,60 @@
+use tavern::{Cell, Column, Columns, Contents, Grid, Header, Page, Section, Size, Sort, Table};
+
+const NAME = "Spells";
+
+pub fn get_page(character) {
+    let page = Page::new();
+    page.character = character.id();
+    page.name = NAME;
+    page.icon = "electric_bolt";
+    page.shortcut = "s";
+    page
+}
+
+pub fn get_layout(name) {
+    if name != NAME {
+        return Ok(None);
+    }
+
+    let layout = [];
+
+    let left_cells = [
+        Cell::try_new(0..4, 0..1, Contents::new_label().label("Cantrips")?.size(Size::Large)?)?,
+    ];
+    let left = Grid::new(left_cells, false);
+    let right_cells = [
+        Cell::try_new(
+            8..12,
+            0..1,
+            Contents::new_button()
+                .key("add_cantrip")?
+                .size(Size::Large)?
+                .icon("add_box")?
+                .label("Add Cantrip")?,
+        )?,
+    ];
+    let right = Grid::new(right_cells, false);
+    let cantrip_controls = Columns::new([left, right]);
+
+    let headers = [
+        Header::new("name", 8, "Name", Sort::Alphabetical),
+        Header::new("save", 2, "Save", Sort::None),
+        Header::new("attack", 2, "Attack", Sort::None),
+        Header::new("attributes", 12, "Attributes", Sort::None),
+    ];
+
+    let columns = [
+        Column::new("name", 8, Contents::new_text("name").read_only()?),
+        Column::new("save", 2, Contents::new_number("save").read_only()?),
+        Column::new(
+            "attack",
+            2,
+            Contents::new_button().key("attack")?.label("Roll")?.depends_on("undefined")?,
+        ),
+        Column::new("attributes", 12, Contents::Attributes),
+    ];
+
+    layout.push(Section::Table(Table::new("cantrips", cantrip_controls, headers, columns, "name")));
+
+    Ok(Some(layout))
+}

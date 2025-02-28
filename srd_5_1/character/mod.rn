@@ -64,6 +64,7 @@ struct Character {
     features,
     attacks,
     attack_rolls,
+    cantrips,
 }
 
 impl Character {
@@ -256,6 +257,7 @@ impl Character {
             "resources": [self.resources.clone()],
             "features": [self.features.clone()],
             "attacks": [self.attacks.clone()],
+            "cantrips": self.cantrips.iter().map(|cantrips| cantrips["id"].clone()).collect::<Vec>(),
         }
     }
 

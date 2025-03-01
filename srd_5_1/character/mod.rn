@@ -76,6 +76,7 @@ impl Character {
             "get_card": |tables| self.get_card(tables),
             "get_core": || self.get_core(),
             "get_rolls": |tables| self.get_rolls(tables),
+            "get_self": || self,
             "get_sheet_data": |tables| self.get_sheet_data(tables),
             "get_tables": || self.get_tables(),
             "get_variables": |tables| self.get_variables(tables),

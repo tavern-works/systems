@@ -1,3 +1,5 @@
+use crate::Ability;
+
 mod fighter;
 mod ranger;
 mod rogue;
@@ -89,5 +91,14 @@ impl Class {
             Class::Rogue => rogue::skills(),
             Class::Wizard => wizard::skills(),
         }
+    }
+
+    fn spell_save_dc(self, character) {
+        let ability = match self {
+            Class::Wizard => "Intelligence",
+            _ => panic!("spell_save_dc not implemented for {}", self.name()),
+        };
+        let ability_modifier = Ability::modifier_for_value(character.ability_scores()[ability]);
+        8 + character.proficiency_bonus() + ability_modifier
     }
 }

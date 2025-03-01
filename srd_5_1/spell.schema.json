@@ -111,6 +111,20 @@
                     "Wizard"
                 ]
             }
+        },
+        "damage": {
+            "title": "Damage",
+            "description": "A base damage expression with a damage type, like '1d8 fire'",
+            "type": "string"
+        },
+        "damage_increases": {
+            "title": "Damage Increases",
+            "description": "Levels at which damage dice increase",
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+                "type": "integer"
+            }
         }
     },
     "required": [

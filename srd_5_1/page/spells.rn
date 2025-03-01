@@ -49,7 +49,7 @@ pub fn get_layout(name) {
         Column::new(
             "attack",
             2,
-            Contents::new_button().key("attack")?.label("Roll")?.depends_on("undefined")?,
+            Contents::new_button().key("attack")?.label("Roll")?.depends_on("roll")?,
         ),
         Column::new("attributes", 12, Contents::Attributes),
     ];

@@ -1,9 +1,12 @@
+use crate::Class;
+
 mod background;
 mod spell;
 mod supporting;
 
-pub fn get_data(section, entry) {
+pub fn get_data(character_, section, entry) {
     match section {
+        "attacks" => {}
         "background" => {
             entry["attributes"] = entry["skill_proficiencies"];
             entry["description"] = entry["full_description"]
@@ -11,14 +14,57 @@ pub fn get_data(section, entry) {
                 .next()
                 .ok_or_else(|| tavern::anyhow!("failed to extract description for background"))?
         }
+        "cantrips" => {
+            if let Some(character) = character_ {
+                let spell_save_dc = Class::Wizard.spell_save_dc(character);
+                if entry.contains_key("save") {
+                    entry["save"] = spell_save_dc;
+                } else {
+                    entry["save"] = ();
+                }
+
+                entry["roll"] = ();
+
+                let attributes = [
+                    #{ "type": entry["school"].to_lowercase() },
+                    #{ "type": "casting_time", "value": entry["casting_time"] },
+                    #{ "type": "spell_range", "value": entry["range"] },
+                ];
+
+                let components = entry["components"];
+                if components["verbal"] {
+                    attributes.push(#{ "type": "verbal" });
+                }
+                if components["somatic"] {
+                    attributes.push(#{ "type": "somatic" });
+                }
+                if components.contains_key("material") {
+                    attributes.push(#{ "type": "material", "value": components["material"] });
+                }
+
+                if entry["concentration"] {
+                    attributes.push(#{ "type": "concentration" });
+                }
+
+                attributes.push(#{ "type": "duration", "value": entry["duration"] });
+
+                entry["attributes"] = attributes;
+            } else {
+                panic!("didn't receive character with cantrip entry");
+            }
+
+        }
+        "carried" => {}
         "condition" => {}
+        "containers" => {}
         "equipment" => {}
+        "features" => {}
         "language" => {}
+        "resources" => {}
         "spell" => {
             entry["headline"] = spell::headline(entry["level"], entry["school"])?;
             entry["component_string"] = spell::component_string(entry["components"]);
             entry["duration_string"] = spell::duration_string(entry["concentration"], entry["duration"]);
-            entry["save"] = 5;
         }
         "supporting" => {
             entry["headline"] = supporting::headline(entry["size"], entry["type"], entry.get("subtypes"), entry["alignment"])

@@ -15,32 +15,46 @@ pub fn get_for_attribute(attribute) {
         "ammunition" => Chip::new([ChipField::Text("Ammunition"), ChipField::Divider, ChipField::Value])
             .tooltip("Ammunition for {}"),
         "arcane_focus" => Chip::new([ChipField::Text("Arcane Focus")])
-            .tooltip("An arcane focus is a special item designed to channel the power of arcane spells. A sorcerer, warlock, or wizard can use such an item as a spellcasting focus."),
+            .tooltip(
+                "An arcane focus is a special item designed to channel the power of arcane spells. A sorcerer, warlock, or wizard can use such an item as a spellcasting focus.",
+            ),
         "artisan_tools" => Chip::new([ChipField::Text("Artisan's Tools")])
-            .tooltip("These special tools include the items needed to pursue a craft or trade. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency."),
+            .tooltip(
+                "These special tools include the items needed to pursue a craft or trade. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency.",
+            ),
         "Athletics" => Chip::new([ChipField::Text("Athletics"), ChipField::Divider, ChipField::Value])
             .tooltip("Roll Athletics Check")
             .roll(PrepareOptions::by_name("Athletics Check")),
         "blindsight" => Chip::new([ChipField::Text("Blindsight"), ChipField::Divider, ChipField::Value])
             .tooltip("This creature can perceive its surroundings without relying on sight within {} feet"),
         "blindsight_only" => Chip::new([ChipField::Text("Blindsight"), ChipField::Divider, ChipField::Value])
-            .tooltip("This creature can perceive its surroundings without relying on sight within {} feet. It is blind beyond this radius."),
+            .tooltip(
+                "This creature can perceive its surroundings without relying on sight within {} feet. It is blind beyond this radius.",
+            ),
         "bludgeoning" => Chip::new([ChipField::Value, ChipField::Divider, ChipField::Text("Bludgeoning")])
             .tooltip("This weapon does {} bludgeoning damage"),
         "bludgeoning_attack" => Chip::new([ChipField::Value, ChipField::Divider, ChipField::Text("Bludgeoning")])
             .tooltip("This attack does {} bludgeoning damage"),
         "bright_light" => Chip::new([ChipField::Text("Bright Light"), ChipField::Divider, ChipField::Value])
             .tooltip("Emits bright light in a {}-foot radius"),
+        "casting_time" => Chip::new([ChipField::Text("Casting Time"), ChipField::Divider, ChipField::Value])
+            .tooltip("It takes {} to cast this spell"),
         "Charisma" => Chip::new([ChipField::Text("Charisma"), ChipField::Divider, ChipField::Value])
             .tooltip("Roll Charisma Saving Throw")
             .roll(PrepareOptions::by_name("Charisma Saving Throw")),
         "cold_attack" => Chip::new([ChipField::Value, ChipField::Divider, ChipField::Text("Cold")])
             .tooltip("This attack does {} cold damage"),
+        "concentration" => Chip::new([ChipField::Text("Concentration")])
+            .tooltip(
+                "This spell requires you to maintain concentration in order to keep your magic active. If you lose concentration, such a spell ends.\n\nNormal activity, such as moving and attacking, doesn't interfere with concentration. The following factors can break concentration:\n\n- Casting another spell that requires concentration.\n\n- Taking damage. Whenever you take damage while you are concentrating on a spell, make a Constitution saving throw to maintain concentration. The DC equals 10 or half the damage you take, whichever is higher. If you take damage from multiple sources, you make a separate saving throw for each source of damage.\n\n- Being incapacitated or killed.\n\n- Other environmental phenomena as determined by your GM.",
+            ),
         "Constitution" => Chip::new([ChipField::Text("Constitution"), ChipField::Divider, ChipField::Value])
             .tooltip("Roll Constitution Saving Throw")
             .roll(PrepareOptions::by_name("Constitution Saving Throw")),
         "darkvision" => Chip::new([ChipField::Text("Darkvision"), ChipField::Divider, ChipField::Value])
-            .tooltip("This creature can see in dim light within {} feet as if it were bright light and in darkness as if it were dim light. It can't discern color in darkness, only shades of gray."),
+            .tooltip(
+                "This creature can see in dim light within {} feet as if it were bright light and in darkness as if it were dim light. It can't discern color in darkness, only shades of gray.",
+            ),
         "Deception" => Chip::new([ChipField::Text("Deception"), ChipField::Divider, ChipField::Value])
             .tooltip("Roll Deception Check")
             .roll(PrepareOptions::by_name("Deception Check")),
@@ -54,18 +68,30 @@ pub fn get_for_attribute(attribute) {
             .tooltip("The wearer has disadvantage on {} skill checks"),
         "druidic_focus" => Chip::new([ChipField::Text("Druidic Focus")])
             .tooltip("A druid can use such an object as a spellcasting focus."),
+        "duration" => Chip::new([ChipField::Text("Duration"), ChipField::Divider, ChipField::Value])
+            .tooltip("This spell lasts for {}"),
+        "evocation" => Chip::new([ChipField::Text("Evocation")])
+            .tooltip("Evocation spells manipulate magical energy to produce a desired effect."),
         "finesse" => Chip::new([ChipField::Text("Finesse")])
-            .tooltip("When making an attack with a finesse weapon, you use your choice of your Strength or Dexterity modifier for the attack and damage rolls. You must use the same modifier for both rolls."),
+            .tooltip(
+                "When making an attack with a finesse weapon, you use your choice of your Strength or Dexterity modifier for the attack and damage rolls. You must use the same modifier for both rolls.",
+            ),
         "fire_attack" => Chip::new([ChipField::Value, ChipField::Divider, ChipField::Text("Fire")])
             .tooltip("This attack does {} fire damage"),
         "gaming_set" => Chip::new([ChipField::Text("Gaming Set")])
-            .tooltip("If you are proficient with a gaming set, you can add your proficiency bonus to ability checks you make to play games with that set. Each type of gaming set requires a separate proficiency."),
+            .tooltip(
+                "If you are proficient with a gaming set, you can add your proficiency bonus to ability checks you make to play games with that set. Each type of gaming set requires a separate proficiency.",
+            ),
         "heavy_armor" => Chip::new([ChipField::Text("Armor"), ChipField::Divider, ChipField::Value])
-            .tooltip("Heavy armor doesn't let you add your Dexterity modifier to your Armor Class, but it also doesn't penalize you if your Dexterity modifier is negative"),
+            .tooltip(
+                "Heavy armor doesn't let you add your Dexterity modifier to your Armor Class, but it also doesn't penalize you if your Dexterity modifier is negative",
+            ),
         "heavy_weapon" => Chip::new([ChipField::Text("Heavy")])
             .tooltip("Small creatures have disadvantage on attack rolls with heavy weapons"),
         "holy_symbol" => Chip::new([ChipField::Text("Holy Symbol")])
-            .tooltip("A cleric or paladin can use a holy symbol as a spellcasting focus. To use the symbol in this way, the caster must hold it in hand, wear it visibly, or bear it on a shield."),
+            .tooltip(
+                "A cleric or paladin can use a holy symbol as a spellcasting focus. To use the symbol in this way, the caster must hold it in hand, wear it visibly, or bear it on a shield.",
+            ),
         "Insight" => Chip::new([ChipField::Text("Insight"), ChipField::Divider, ChipField::Value])
             .tooltip("Roll Insight Check")
             .roll(PrepareOptions::by_name("Insight Check")),
@@ -76,36 +102,52 @@ pub fn get_for_attribute(attribute) {
             .tooltip("Roll Investigation Check")
             .roll(PrepareOptions::by_name("Investigation Check")),
         "lance" => Chip::new([ChipField::Text("Lance")])
-            .tooltip("You have disadvantage when you use a lance to attack a target within 5 feet of you. Also, a lance requires two hands to wield when you aren't mounted."),
+            .tooltip(
+                "You have disadvantage when you use a lance to attack a target within 5 feet of you. Also, a lance requires two hands to wield when you aren't mounted.",
+            ),
         "light_armor" => Chip::new([ChipField::Text("Armor"), ChipField::Divider, ChipField::Value])
-            .tooltip("Light armor favors agile adventurers since it offers some protection without sacrificing mobility"),
+            .tooltip(
+                "Light armor favors agile adventurers since it offers some protection without sacrificing mobility",
+            ),
         "light_weapon" => Chip::new([ChipField::Text("Light")])
-            .tooltip("A light weapon is small and easy to handle, making it ideal for use when fighting with two weapons"),
+            .tooltip(
+                "A light weapon is small and easy to handle, making it ideal for use when fighting with two weapons",
+            ),
         "loading" => Chip::new([ChipField::Text("Loading")])
-            .tooltip("Because of the time required to load this weapon, you can fire only one piece of ammunition from it when you use an action, bonus action, or reaction to fire it, regardless of the number of attacks you can normally make"),
+            .tooltip(
+                "Because of the time required to load this weapon, you can fire only one piece of ammunition from it when you use an action, bonus action, or reaction to fire it, regardless of the number of attacks you can normally make",
+            ),
         "long_rest" => Chip::new([ChipField::Text("Long Rest")]),
         "martial_weapon" => Chip::new([ChipField::Text("Weapon"), ChipField::Divider, ChipField::Value])
             .tooltip("Martial weapons require specialized training to use effectively"),
-        "melee_attack" => Chip::new([ChipField::Text("Melee")])
-            .tooltip("Attacks a target within 5 feet of you"),
+        "material" => Chip::new([ChipField::Text("Material")]).tooltip("This spell requires {} to cast."),
+        "melee_attack" => Chip::new([ChipField::Text("Melee")]).tooltip("Attacks a target within 5 feet of you"),
         "melee_weapon" => Chip::new([ChipField::Text("Melee")])
             .tooltip("A melee weapon is used to attack a target within 5 feet of you"),
         "Medicine" => Chip::new([ChipField::Text("Medicine"), ChipField::Divider, ChipField::Value])
             .tooltip("Roll Medicine Check")
             .roll(PrepareOptions::by_name("Medicine Check")),
         "medium_armor" => Chip::new([ChipField::Text("Armor"), ChipField::Divider, ChipField::Value])
-            .tooltip("Medium armor offers more protection than light armor, but impairs movement more, so you can only add a maximum of +2 when applying your Dexterity modifier"),
+            .tooltip(
+                "Medium armor offers more protection than light armor, but impairs movement more, so you can only add a maximum of +2 when applying your Dexterity modifier",
+            ),
         "musical_instrument" => Chip::new([ChipField::Text("Musical Instrument")])
-            .tooltip("If you have proficiency with a given musical instrument, you can add your proficiency bonus to any ability checks you make to play music with the instrument. A bard can use a musical instrument as a spellcasting focus. Each type of musical instrument requires a separate proficiency."),
+            .tooltip(
+                "If you have proficiency with a given musical instrument, you can add your proficiency bonus to any ability checks you make to play music with the instrument. A bard can use a musical instrument as a spellcasting focus. Each type of musical instrument requires a separate proficiency.",
+            ),
         "Nature" => Chip::new([ChipField::Text("Nature"), ChipField::Divider, ChipField::Value])
             .tooltip("Roll Nature Check")
             .roll(PrepareOptions::by_name("Nature Check")),
         "necrotic_attack" => Chip::new([ChipField::Value, ChipField::Divider, ChipField::Text("Necrotic")])
             .tooltip("This attack does {} necrotic damage"),
         "net" => Chip::new([ChipField::Text("Net")])
-            .tooltip("A Large or smaller creature hit by a net is restrained until it is freed. A net has no effect on creatures that are formless, or creatures that are Huge or larger. When you attack with a net, you can make only one attack regardless of the number of attacks you can normally make."),
+            .tooltip(
+                "A Large or smaller creature hit by a net is restrained until it is freed. A net has no effect on creatures that are formless, or creatures that are Huge or larger. When you attack with a net, you can make only one attack regardless of the number of attacks you can normally make.",
+            ),
         "passive_perception" => Chip::new([ChipField::Text("Passive Perception"), ChipField::Divider, ChipField::Value])
-            .tooltip("When you hide, there's a chance someone will notice you even if they aren't searching. To determine whether such a creature notices you, the GM compares your Dexterity check with that creature's passive perception score."),
+            .tooltip(
+                "When you hide, there's a chance someone will notice you even if they aren't searching. To determine whether such a creature notices you, the GM compares your Dexterity check with that creature's passive perception score.",
+            ),
         "Perception" => Chip::new([ChipField::Text("Perception"), ChipField::Divider, ChipField::Value])
             .tooltip("Roll Perception Check")
             .roll(PrepareOptions::by_name("Perception Check")),
@@ -124,11 +166,15 @@ pub fn get_for_attribute(attribute) {
         "radiant" => Chip::new([ChipField::Value, ChipField::Divider, ChipField::Text("Radiant")])
             .tooltip("This weapon does {} radiant damage"),
         "range" => Chip::new([ChipField::Text("Range"), ChipField::Divider, ChipField::Value])
-            .tooltip("The range lists two numbers: the first is the weapon's normal range in feet, and the second indicates the weapon's long range. You have disadvantage when attacking beyond normal range, and you can't attack beyond long range."),
+            .tooltip(
+                "The range lists two numbers: the first is the weapon's normal range in feet, and the second indicates the weapon's long range. You have disadvantage when attacking beyond normal range, and you can't attack beyond long range.",
+            ),
         "ranged_weapon" => Chip::new([ChipField::Text("Ranged")])
             .tooltip("A ranged weapon is used to attack a target at a distance"),
         "reach" => Chip::new([ChipField::Text("Reach")])
-            .tooltip("This weapon adds 5 feet to your reach when you attack with it, as well as when determining your reach for opportunity attacks with it"),
+            .tooltip(
+                "This weapon adds 5 feet to your reach when you attack with it, as well as when determining your reach for opportunity attacks with it",
+            ),
         "reach_0" => Chip::new([ChipField::Text("Reach"), ChipField::Divider, ChipField::Value])
             .tooltip("Attacks a target in the creature's space"),
         "reach_attack" => Chip::new([ChipField::Text("Reach"), ChipField::Divider, ChipField::Value])
@@ -137,13 +183,19 @@ pub fn get_for_attribute(attribute) {
             .tooltip("Roll Religion Check")
             .roll(PrepareOptions::by_name("Religion Check")),
         "requires_ammunition" => Chip::new([ChipField::Text("Requires"), ChipField::Divider, ChipField::Value])
-            .tooltip("You can only use this weapon to make a ranged attack if you have {} to fire from it. Each time you attack, you expend one piece of ammunition. Drawing the ammunition from a container is part of the attack."),
+            .tooltip(
+                "You can only use this weapon to make a ranged attack if you have {} to fire from it. Each time you attack, you expend one piece of ammunition. Drawing the ammunition from a container is part of the attack.",
+            ),
         "shield" => Chip::new([ChipField::Text("Shield")])
-            .tooltip("Wielding a shield increases your Armor Class by 2. You can only benefit from one shield at a time."),
+            .tooltip(
+                "Wielding a shield increases your Armor Class by 2. You can only benefit from one shield at a time.",
+            ),
         "short_rest" => Chip::new([ChipField::Text("Short Rest")]),
         "spell_attack" => Chip::new([ChipField::Text("Attack"), ChipField::Divider, ChipField::Value])
             .tooltip("This character has {} to hit with spell attacks. Click to roll.")
             .roll(PrepareOptions::by_name("Spell Attack")),
+        "spell_range" => Chip::new([ChipField::Text("Range"), ChipField::Divider, ChipField::Value])
+            .tooltip("The target of a spell must be within the spell's range."),
         "spell_save_dc" => Chip::new([ChipField::Text("Save DC"), ChipField::Divider, ChipField::Value])
             .tooltip("The difficulty class to save against this character's spells is {}"),
         "spellcaster_level" => Chip::new([ChipField::Text("Level"), ChipField::Divider, ChipField::Value])
@@ -159,28 +211,40 @@ pub fn get_for_attribute(attribute) {
         "Sleight of Hand" => Chip::new([ChipField::Text("Sleight of Hand"), ChipField::Divider, ChipField::Value])
             .tooltip("Roll Sleight of Hand Check")
             .roll(PrepareOptions::by_name("Sleight of Hand Check")),
+        "somatic" => Chip::new([ChipField::Text("Somatic")])
+            .tooltip("This spell requires the caster to have free use of at least one hand to perform gestures."),
         "Stealth" => Chip::new([ChipField::Text("Stealth"), ChipField::Divider, ChipField::Value])
             .tooltip("Roll Stealth Check")
             .roll(PrepareOptions::by_name("Stealth Check")),
         "strength" => Chip::new([ChipField::Text("STR"), ChipField::Divider, ChipField::Value])
-            .tooltip("Reduces the wearer's speed by 10 feet unless the wearer has a Strength score greater than or equal to {}"),
+            .tooltip(
+                "Reduces the wearer's speed by 10 feet unless the wearer has a Strength score greater than or equal to {}",
+            ),
         "Survival" => Chip::new([ChipField::Text("Survival"), ChipField::Divider, ChipField::Value])
             .tooltip("Roll Survival Check")
             .roll(PrepareOptions::by_name("Survival Check")),
         "thrown" => Chip::new([ChipField::Text("Thrown")])
-            .tooltip("You may throw the weapon to make a ranged attack. If it is a melee weapon, use the same ability modifier for the attack and damage rolls as you would for a melee attack."),
+            .tooltip(
+                "You may throw the weapon to make a ranged attack. If it is a melee weapon, use the same ability modifier for the attack and damage rolls as you would for a melee attack.",
+            ),
         "to_hit" => Chip::new([ChipField::Value, ChipField::Divider, ChipField::Text("to Hit")])
             .tooltip("This attack has a {} modifier to hit"),
         "two_handed" => Chip::new([ChipField::Text("Two-Handed")])
             .tooltip("This weapon requires two hands when you attack with it"),
+        "transmutation" => Chip::new([ChipField::Text("Evocation")])
+            .tooltip("Transmutation spells change the properties of a creature, object, or the environment."),
         "untyped_damage" => Chip::new([ChipField::Value, ChipField::Divider, ChipField::Text("Damage")])
             .tooltip("This weapon does {} damage of a type determined by the GM"),
+        "verbal" => Chip::new([ChipField::Text("Verbal")])
+            .tooltip(
+                "A character who is gagged or in an area of silence, such as one created by the *silence* spell, can't cast a spell with a verbal component",
+            ),
         "versatile" => Chip::new([ChipField::Text("Versatile"), ChipField::Divider, ChipField::Value])
             .tooltip("This weapon can be used with one or two hands, and does {} damage when used with two hands"),
         "Wisdom" => Chip::new([ChipField::Text("Wisdom"), ChipField::Divider, ChipField::Value])
             .tooltip("Roll Wisdom Saving Throw")
             .roll(PrepareOptions::by_name("Wisdom Saving Throw")),
-        _ => return Err(Error::msg(format!("Unknown attribute {attribute} in get_chip_for_attribute")))
+        _ => return Err(Error::msg(format!("Unknown attribute {attribute} in get_chip_for_attribute"))),
     };
     Ok(chip)
 }

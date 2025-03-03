@@ -150,6 +150,20 @@ impl super::Character {
             bail!("No available d{sides} hit dice to remove")
         }
 
+        if key.starts_with("add_spell_slot_") {
+            let spell_level = key.get(15..).ok_or_else(|| anyhow!("Failed to get spell level"))?.parse::<i64>()?;
+            let new_count = self.spell_slots_used[spell_level - 1] - 1;
+            self.spell_slots_used[spell_level - 1] = new_count.max(0);
+            return Ok([Change::SheetData(self.get_sheet_data(tables)?)]);
+        }
+
+        if key.starts_with("remove_spell_slot_") {
+            let spell_level = key.get(18..).ok_or_else(|| anyhow!("Failed to get spell level"))?.parse::<i64>()?;
+            let new_count = self.spell_slots_used[spell_level - 1] + 1;
+            self.spell_slots_used[spell_level - 1] = new_count.min(self.max_spell_slots()[spell_level - 1]);
+            return Ok([Change::SheetData(self.get_sheet_data(tables)?)]);
+        }
+
         match key {
             "doff_armor" => {
                 if let Some(active_armor) = self.active_armor(tables) {

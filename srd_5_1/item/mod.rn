@@ -23,6 +23,8 @@ pub fn get_data(character_, section, entry) {
                     entry["save"] = ();
                 }
 
+                entry["section"] = "spell";
+
                 if entry.contains_key("damage") {
                     entry["roll"] = entry["name"];
                 } else {

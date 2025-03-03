@@ -239,7 +239,7 @@ pub fn get_for_attribute(attribute) {
             .tooltip("This weapon does {} damage of a type determined by the GM"),
         "verbal" => Chip::new([ChipField::Text("Verbal")])
             .tooltip(
-                "A character who is gagged or in an area of silence, such as one created by the *silence* spell, can't cast a spell with a verbal component",
+                "A character who is gagged or in an area of silence, such as one created by the *silence* spell, can't cast a spell with a verbal component.",
             ),
         "versatile" => Chip::new([ChipField::Text("Versatile"), ChipField::Divider, ChipField::Value])
             .tooltip("This weapon can be used with one or two hands, and does {} damage when used with two hands"),

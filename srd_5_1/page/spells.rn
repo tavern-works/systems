@@ -1,4 +1,4 @@
-use tavern::{Alignment, Cell, Column, Columns, Contents, Grid, Header, Page, Section, Size, Sort, Table};
+use tavern::{Alignment, Cell, Column, Columns, Contents, Grid, Header, Page, PrepareOptions, Section, Size, Sort, Table};
 
 const NAME = "Spells";
 
@@ -138,7 +138,10 @@ pub fn get_layout(name) {
         Column::new(
             "attack",
             2,
-            Contents::new_button().key("attack")?.label("Roll")?.hide_unless("roll")?,
+            Contents::new_button()
+                .roll(PrepareOptions::by_key("roll"))?
+                .label("Roll")?
+                .hide_unless("roll")?,
         ),
         Column::new("attributes", 12, Contents::Attributes),
     ];

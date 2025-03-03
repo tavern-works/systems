@@ -1,7 +1,7 @@
 use std::collections::{HashMap, HashSet};
-use tavern::{Action, ConfigOption, Roll, RollConfig, Target};
+use tavern::{anyhow, bail, Action, ConfigOption, Roll, RollConfig, Target, Uid};
 
-use crate::{Ability, Skill};
+use crate::{Ability, Class, Skill};
 
 fn string_for_factor(factor) {
     match (factor.to::<f64>() * 2.0).round().to::<i64>() {
@@ -28,27 +28,78 @@ impl super::Character {
         let configs = [
             RollConfig::new("Advantage", "@advantage", 'A', [], "false"),
             RollConfig::new("Disadvantage", "@disadvantage", 'D', [], "false"),
-            RollConfig::new("Proficiency Bonus", "@proficiency", 'P', proficiency_options, string_for_factor(proficiency_factor)),
+            RollConfig::new(
+                "Proficiency Bonus",
+                "@proficiency",
+                'P',
+                proficiency_options,
+                string_for_factor(proficiency_factor),
+            ),
         ];
 
         let d20 = "if (@advantage, if (@disadvantage, 1d20, 2d20kh1), if (@disadvantage, 2d20kl1, 1d20))";
 
-        let expression = format!(
-            "{d20} + {} + floor(@proficiency * $profBonus)",
-            ability.modifier_variable(),
-        );
+        let expression = format!("{d20} + {} + floor(@proficiency * $profBonus)", ability.modifier_variable(), );
 
         let roll = Roll::try_new(name, configs, expression)?;
 
-        let configs = [
-            RollConfig::new("Critical Hit", "@critical", 'C', [], "false"),
-        ];
+        let configs = [RollConfig::new("Critical Hit", "@critical", 'C', [], "false")];
 
         let damage_expression = format!("if (@critical, {}, {damage})", Roll::doubled(damage)?);
-        let damage_roll = Roll::try_new(damage_type[..1].to_uppercase() + damage_type[1..] + " Damage", configs, damage_expression)?;
+        let damage_roll = Roll::try_new(
+            damage_type[..1].to_uppercase() + damage_type[1..] + " Damage",
+            configs,
+            damage_expression,
+        )?;
 
         roll.add_next(damage_roll);
         Ok(roll)
+    }
+
+    fn spell_rolls(self, tables) {
+        let rolls = [];
+
+        for cantrip_table in self.cantrips {
+            let id = Uid::from_string(cantrip_table["id"]);
+            let table = tables.get_hydrated_entries(id)?;
+            for spell in table {
+                log::info!("processing {spell:?}");
+                if !spell.contains_key("damage") {
+                    continue;
+                }
+
+                let class_level = self.class_levels()[spell["class"]];
+
+                let damage = spell["damage"];
+                let split = damage.split(" ");
+                let expression = split.next().ok_or_else(|| anyhow!("couldn't find damage expression"))?;
+                let damage_type = split.next().ok_or_else(|| anyhow!("couldn't find damage type"))?;
+
+                let split = expression.split("d");
+                let count = split.next().ok_or_else(|| anyhow!("couldn't find dice count"))?;
+                let count = count.parse::<i64>()?;
+                let sides = split.next().ok_or_else(|| anyhow!("couldn't find dice sides"))?;
+
+                if spell.contains_key("damage_increases") {
+                    for threshold in spell["damage_increases"] {
+                        if class_level >= threshold {
+                            count += 1;
+                        }
+                    }
+                }
+
+                let expression = format!("{count}d{sides}");
+
+                let ability = match spell["class"] {
+                    "Wizard" => Ability::Intelligence,
+                    _ => bail!("unhandled class {}", spell["class"]),
+                };
+
+                rolls.push(self.build_attack_roll(spell["name"], ability, 1, expression, damage_type)?);
+            }
+        }
+
+        Ok(rolls)
     }
 
     fn get_rolls(self, tables) {
@@ -82,13 +133,16 @@ impl super::Character {
             let configs = [
                 RollConfig::new("Advantage", "@advantage", 'A', [], "false"),
                 RollConfig::new("Disadvantage", "@disadvantage", 'D', [], "false"),
-                RollConfig::new("Proficiency Bonus", "@proficiency", 'P', proficiency_options, string_for_factor(unconditional_factor)),
+                RollConfig::new(
+                    "Proficiency Bonus",
+                    "@proficiency",
+                    'P',
+                    proficiency_options,
+                    string_for_factor(unconditional_factor),
+                ),
             ];
 
-            let expression = format!(
-                "{d20} + {} + floor(@proficiency * $profBonus)",
-                skill.ability().modifier_variable()
-            );
+            let expression = format!("{d20} + {} + floor(@proficiency * $profBonus)", skill.ability().modifier_variable());
 
             let roll = Roll::try_new(skill.name(), configs, expression)?;
             rolls.push(roll);
@@ -110,10 +164,7 @@ impl super::Character {
                 RollConfig::new("Proficiency Bonus", "@proficiency", 'P', options, "0×"),
             ];
 
-            let expression = format!(
-                "{d20} + {} + floor(@proficiency * $profBonus)",
-                ability.modifier_variable()
-            );
+            let expression = format!("{d20} + {} + floor(@proficiency * $profBonus)", ability.modifier_variable());
 
             let roll = Roll::try_new(ability.name() + " Check", configs, expression.clone())?;
             rolls.push(roll);
@@ -124,7 +175,13 @@ impl super::Character {
             let configs = [
                 RollConfig::new("Advantage", "@advantage", 'A', [], "false"),
                 RollConfig::new("Disadvantage", "@disadvantage", 'D', [], "false"),
-                RollConfig::new("Proficiency Bonus", "@proficiency", 'P', options, string_for_factor(saving_throw_factor)),
+                RollConfig::new(
+                    "Proficiency Bonus",
+                    "@proficiency",
+                    'P',
+                    options,
+                    string_for_factor(saving_throw_factor),
+                ),
             ];
 
             let roll = Roll::try_new(ability.name() + " Save", configs, expression)?;
@@ -135,10 +192,7 @@ impl super::Character {
             RollConfig::new("Advantage", "@advantage", 'A', [], "false"),
             RollConfig::new("Disadvantage", "@disadvantage", 'D', [], "false"),
         ];
-        let expression = format!(
-            "{d20} + {}",
-            Ability::Dexterity.modifier_variable()
-        );
+        let expression = format!("{d20} + {}", Ability::Dexterity.modifier_variable());
         let initiative = Roll::try_new("Initiative", configs, expression)?;
         rolls.push(initiative);
 
@@ -167,6 +221,8 @@ impl super::Character {
         let death_saving_throw = Roll::try_new("Death Saving Throw", configs, d20)?;
         death_saving_throw.set_action(Action::new_sheet(Target::Roller, "death_saving_throw"));
         rolls.push(death_saving_throw);
+
+        rolls.extend(self.spell_rolls(tables)?);
 
         Ok(rolls)
     }

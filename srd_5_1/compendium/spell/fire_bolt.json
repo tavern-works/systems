@@ -1,0 +1,25 @@
+{
+    "name": "Fire Bolt",
+    "level": 0,
+    "school": "Evocation",
+    "ritual": false,
+    "casting_time": "1 action",
+    "range": "120 feet",
+    "components": {
+        "verbal": true,
+        "somatic": true
+    },
+    "concentration": false,
+    "duration": "Instantaneous",
+    "description": "You hurl a mote of fire at a creature or object within range. A flammable object hit by this spell ignites if it isn't being worn or carried.",
+    "spell_lists": [
+        "Sorcerer",
+        "Wizard"
+    ],
+    "damage": "1d10 fire",
+    "damage_increases": [
+        5,
+        11,
+        17
+    ]
+}

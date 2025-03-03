@@ -63,7 +63,6 @@ impl super::Character {
             let id = Uid::from_string(cantrip_table["id"]);
             let table = tables.get_hydrated_entries(id)?;
             for spell in table {
-                log::info!("processing {spell:?}");
                 if !spell.contains_key("damage") {
                     continue;
                 }

@@ -2,7 +2,7 @@ use std::collections::{HashSet, HashMap};
 
 use tavern::{bail, Card, Change, Core, HitPoints, Uid};
 
-use crate::{Ability, Armor, BaseWeapon, Factor, Proficiency, Skill, Tool, WeaponComplexity};
+use crate::{Ability, Armor, BaseWeapon, Class, Factor, Proficiency, Skill, Tool, WeaponComplexity};
 
 mod actions;
 mod attacks;
@@ -48,6 +48,7 @@ struct Character {
     hit_die_used,
     hp,
     temp_hp,
+    spell_slots_used,
     conditions,
     death_successes,
     death_failures,
@@ -208,6 +209,15 @@ impl Character {
             } else {
                 ()
             };
+        }
+
+        let max_spell_slots = self.max_spell_slots();
+        let spell_slots = self.spell_slots();
+        for spell_level in 0..9 {
+            data[format!("spell_slots_{}", spell_level + 1)] = spell_slots[spell_level];
+            data[format!("can_add_spell_slot_{}", spell_level + 1)] = if spell_slots[spell_level] < max_spell_slots[spell_level] { true } else { () };
+            data[format!("can_remove_spell_slot_{}", spell_level + 1)] = if spell_slots[spell_level] > 0 { true } else { () };
+            data[format!("can_have_spell_slot_{}", spell_level + 1)] = if max_spell_slots[spell_level] > 0 { true } else { () };
         }
 
         data["wealth"] = self.wealth();
@@ -594,6 +604,46 @@ impl Character {
         max_hp + self.species.max_hp_modifier(self)
     }
 
+    fn max_spell_slots(self) {
+        let double_level = 0;
+        for class_level in self.class_levels() {
+            if let (class, level) = class_level {
+                let class = Class::from_string(class);
+                match class {
+                    Class::Wizard => double_level += level * 2,
+                    Class::Ranger => double_level += level,
+                }
+            }
+        }
+
+        let caster_level = double_level / 2;
+
+        match caster_level {
+            0 => [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            1 => [2, 0, 0, 0, 0, 0, 0, 0, 0],
+            2 => [3, 0, 0, 0, 0, 0, 0, 0, 0],
+            3 => [4, 2, 0, 0, 0, 0, 0, 0, 0],
+            4 => [4, 3, 0, 0, 0, 0, 0, 0, 0],
+            5 => [4, 3, 2, 0, 0, 0, 0, 0, 0],
+            6 => [4, 3, 3, 0, 0, 0, 0, 0, 0],
+            7 => [4, 3, 3, 1, 0, 0, 0, 0, 0],
+            8 => [4, 3, 3, 2, 0, 0, 0, 0, 0],
+            9 => [4, 3, 3, 3, 1, 0, 0, 0, 0],
+            10 => [4, 3, 3, 3, 2, 0, 0, 0, 0],
+            11 => [4, 3, 3, 3, 2, 1, 0, 0, 0],
+            12 => [4, 3, 3, 3, 2, 1, 0, 0, 0],
+            13 => [4, 3, 3, 3, 2, 1, 1, 0, 0],
+            14 => [4, 3, 3, 3, 2, 1, 1, 0, 0],
+            15 => [4, 3, 3, 3, 2, 1, 1, 1, 0],
+            16 => [4, 3, 3, 3, 2, 1, 1, 1, 0],
+            17 => [4, 3, 3, 3, 2, 1, 1, 1, 1],
+            18 => [4, 3, 3, 3, 3, 1, 1, 1, 1],
+            19 => [4, 3, 3, 3, 3, 2, 1, 1, 1],
+            20 => [4, 3, 3, 3, 3, 2, 2, 1, 1],
+            _ => panic!("invalid caster level {caster_level}")
+        }
+    }
+
     fn money_weight(self) {
         0.02 * self.coins.iter().sum::<i64>() as f64
     }
@@ -781,6 +831,14 @@ impl Character {
             "Heavily Encumbered" => self.species.speed() - 20,
             _ => (),
         }
+    }
+
+    fn spell_slots(self) {
+        let spell_slots = self.max_spell_slots().clone();
+        for level in 0..9 {
+            spell_slots[level] = spell_slots[level] - self.spell_slots_used[level];
+        }
+        spell_slots
     }
 
     fn tool_proficiencies(self, tables, proficiencies) {

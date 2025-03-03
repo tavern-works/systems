@@ -1,4 +1,4 @@
-use tavern::{Cell, Column, Columns, Contents, Grid, Header, Page, Section, Size, Sort, Table};
+use tavern::{Alignment, Cell, Column, Columns, Contents, Grid, Header, Page, Section, Size, Sort, Table};
 
 const NAME = "Spells";
 
@@ -18,33 +18,122 @@ pub fn get_layout(name) {
 
     let layout = [];
 
+    let overview_cells = [
+        Cell::try_new(
+            0..5,
+            0..2,
+            Contents::new_text("name")
+                .read_only()?
+                .label("Character")?
+                .align(Alignment::Center)?,
+        )?,
+        Cell::try_new(5..12, 0..1, Contents::new_text("species").read_only()?.label("Species")?)?,
+        Cell::try_new(5..12, 1..2, Contents::new_text("background").read_only()?.label("Background")?)?,
+        Cell::try_new(0..11, 2..3, Contents::new_text("class").read_only()?.label("Class")?)?,
+        Cell::try_new(
+            11..12,
+            2..3,
+            Contents::new_button()
+                .key("edit_classes")?
+                .icon("edit")?
+                .size(Size::Large)?
+                .depends_on("unimplemented")?,
+        )?,
+        Cell::try_new(0..12, 3..4, Contents::new_label().label("")?)?,
+    ];
+    let overview = Grid::new(overview_cells, false);
+
+    let spell_slot_cells = [
+        Cell::try_new(0..3, 0..1, Contents::new_label().label("Spell Level")?.align(Alignment::Center)?)?,
+    ];
+
+    for level in 1..=9 {
+        spell_slot_cells.push(
+            Cell::try_new(
+                (level + 2)..(level + 3),
+                0..1,
+                Contents::new_label().label(format!("{level}"))?.align(Alignment::Center)?,
+            )?,
+        );
+    }
+
+    for level in 1..=9 {
+        spell_slot_cells.push(
+            Cell::try_new(
+                (level + 2)..(level + 3),
+                1..2,
+                Contents::new_button()
+                    .label("+")?
+                    .key(format!("add_spell_slot_{level}"))?
+                    .depends_on(format!("can_add_spell_slot_{level}"))?
+                    .hide_unless(format!("can_have_spell_slot_{level}"))?,
+            )?,
+        );
+    }
+
+    for level in 1..=9 {
+        spell_slot_cells.push(
+            Cell::try_new(
+                (level + 2)..(level + 3),
+                2..3,
+                Contents::new_number(format!("spell_slots_{level}")).read_only()?,
+            )?,
+        );
+    }
+
+    for level in 1..=9 {
+        spell_slot_cells.push(
+            Cell::try_new(
+                (level + 2)..(level + 3),
+                3..4,
+                Contents::new_button()
+                    .label("−")?
+                    .key(format!("remove_spell_slot_{level}"))?
+                    .depends_on(format!("can_remove_spell_slot_{level}"))?
+                    .hide_unless(format!("can_have_spell_slot_{level}"))?,
+            )?,
+        );
+    }
+
+    spell_slot_cells.push(
+        Cell::try_new(0..3, 2..3, Contents::new_label().label("Spell Slots")?.align(Alignment::Center)?)?,
+    );
+
+    let spell_slots = Grid::new(spell_slot_cells, false);
+
+    layout.push(Section::Columns(Columns::new([overview, spell_slots])));
+    layout.push(Section::Gap);
+
     let left_cells = [
         Cell::try_new(0..4, 0..1, Contents::new_label().label("Cantrips")?.size(Size::Large)?)?,
     ];
     let left = Grid::new(left_cells, false);
     let right_cells = [
-        Cell::try_new(
-            8..12,
-            0..1,
-            Contents::new_button()
-                .key("add_cantrip")?
-                .size(Size::Large)?
-                .icon("add_box")?
-                .label("Add Cantrip")?,
-        )?,
+        Cell::try_new(8..12, 0..1, Contents::new_label().label("")?)?,
+        // Cell::try_new(
+        //     8..12,
+        //     0..1,
+        //     Contents::new_button()
+        //         .key("add_cantrip")?
+        //         .size(Size::Large)?
+        //         .icon("add_box")?
+        //         .label("Add Cantrip")?,
+        // )?,
     ];
     let right = Grid::new(right_cells, false);
     let cantrip_controls = Columns::new([left, right]);
 
     let headers = [
-        Header::new("name", 8, "Name", Sort::Alphabetical),
+        Header::new("name", 6, "Name", Sort::Alphabetical),
+        Header::new("class", 2, "Class", Sort::None),
         Header::new("save", 2, "Save", Sort::None),
         Header::new("attack", 2, "Attack", Sort::None),
         Header::new("attributes", 12, "Attributes", Sort::None),
     ];
 
     let columns = [
-        Column::new("name", 8, Contents::new_text("name").read_only()?),
+        Column::new("name", 6, Contents::new_text("name").read_only()?),
+        Column::new("class", 2, Contents::new_text("class").read_only()?.align(Alignment::Center)?),
         Column::new("save", 2, Contents::new_number("save").read_only()?),
         Column::new(
             "attack",

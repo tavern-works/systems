@@ -8,7 +8,7 @@
     "components": {
         "verbal": true,
         "somatic": false,
-        "material": "a firefly or phosphorescent moss, a firefly or phosphorescent moss, a firefly or phosphorescent moss"
+        "material": "a firefly or phosphorescent moss"
     },
     "concentration": false,
     "duration": "1 hour",
@@ -18,5 +18,6 @@
         "Cleric",
         "Sorcerer",
         "Wizard"
-    ]
+    ],
+    "save": true
 }

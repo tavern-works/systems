@@ -126,7 +126,7 @@ pub fn get_layout(name) {
     let headers = [
         Header::new("name", 6, "Name", Sort::Alphabetical),
         Header::new("class", 2, "Class", Sort::None),
-        Header::new("save", 2, "Save", Sort::None),
+        Header::new("save", 2, "Save DC", Sort::None),
         Header::new("attack", 2, "Attack", Sort::None),
         Header::new("attributes", 12, "Attributes", Sort::None),
     ];

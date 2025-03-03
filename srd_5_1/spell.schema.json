@@ -125,6 +125,11 @@
             "items": {
                 "type": "integer"
             }
+        },
+        "save": {
+            "title": "Show Save DC",
+            "description": "Whether to show the save DC in the spell list",
+            "type": "boolean"
         }
     },
     "required": [

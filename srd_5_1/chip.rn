@@ -92,6 +92,8 @@ pub fn get_for_attribute(attribute) {
             .tooltip(
                 "A cleric or paladin can use a holy symbol as a spellcasting focus. To use the symbol in this way, the caster must hold it in hand, wear it visibly, or bear it on a shield.",
             ),
+        "illusion" => Chip::new([ChipField::Text("Illusion")])
+            .tooltip("Illusion spells deceive the senses or minds of others."),
         "Insight" => Chip::new([ChipField::Text("Insight"), ChipField::Divider, ChipField::Value])
             .tooltip("Roll Insight Check")
             .roll(PrepareOptions::by_name("Insight Check")),

@@ -19,10 +19,21 @@ pub fn get_layout(name) {
     let layout = [];
 
     let overview_cells = [
-        Cell::try_new(0..4, 0..2, Contents::new_text("name").read_only()?.label("Character")?.align(Alignment::Center)?)?,
+        Cell::try_new(
+            0..4,
+            0..2,
+            Contents::new_text("name")
+                .read_only()?
+                .label("Character")?
+                .align(Alignment::Center)?,
+        )?,
         Cell::try_new(4..8, 0..2, Contents::new_number("ac").read_only()?.label("Armor Class")?)?,
-        Cell::try_new(8..12, 0..2, Contents::new_number("speed").read_only()?.label("Speed")?.suffix("ft")?)?,
-        
+        Cell::try_new(
+            8..12,
+            0..2,
+            Contents::new_number("speed").read_only()?.label("Speed")?.suffix("ft")?,
+        )?,
+
         Cell::try_new(0..3, 2..4, Contents::new_number("wealth").read_only()?.label("Wealth (GP)")?)?,
         Cell::try_new(3..5, 2..3, Contents::new_number("gold"))?,
         Cell::try_new(5..6, 2..3, Contents::new_label().label("GP")?)?,
@@ -42,17 +53,56 @@ pub fn get_layout(name) {
     let body_part_cells = [
         Cell::try_new(0..2, 0..1, Contents::new_label().label("Main Hand")?.align(Alignment::Right)?)?,
         Cell::try_new(2..11, 0..1, Contents::new_text("main_hand").read_only()?)?,
-        Cell::try_new(11..12, 0..1, Contents::new_button().key("drop_main_hand")?.icon("close")?.depends_on("main_hand")?.tooltip("Unequip Main Hand")?)?,
+        Cell::try_new(
+            11..12,
+            0..1,
+            Contents::new_button()
+                .key("drop_main_hand")?
+                .icon("close")?
+                .depends_on("main_hand")?
+                .tooltip("Unequip Main Hand")?,
+        )?,
         Cell::try_new(0..2, 1..2, Contents::new_label().label("Off Hand")?.align(Alignment::Right)?)?,
         Cell::try_new(2..11, 1..2, Contents::new_text("off_hand").read_only()?)?,
-        Cell::try_new(11..12, 1..2, Contents::new_button().key("drop_off_hand")?.icon("close")?.depends_on("off_hand")?.tooltip("Unequip Off Hand")?)?,
+        Cell::try_new(
+            11..12,
+            1..2,
+            Contents::new_button()
+                .key("drop_off_hand")?
+                .icon("close")?
+                .depends_on("off_hand")?
+                .tooltip("Unequip Off Hand")?,
+        )?,
         Cell::try_new(0..2, 2..3, Contents::new_label().label("Armor")?.align(Alignment::Right)?)?,
         Cell::try_new(2..11, 2..3, Contents::new_text("armor").read_only()?)?,
-        Cell::try_new(11..12, 2..3, Contents::new_button().key("doff_armor")?.icon("close")?.depends_on("armor")?.tooltip("Doff Armor")?)?,
-        Cell::try_new(0..2, 3..4, Contents::new_label().label("Carrying")?.align(Alignment::Right)?.size(Size::Large)?)?,
+        Cell::try_new(
+            11..12,
+            2..3,
+            Contents::new_button()
+                .key("doff_armor")?
+                .icon("close")?
+                .depends_on("armor")?
+                .tooltip("Doff Armor")?,
+        )?,
+        Cell::try_new(
+            0..2,
+            3..4,
+            Contents::new_label()
+                .label("Carrying")?
+                .align(Alignment::Right)?
+                .size(Size::Large)?,
+        )?,
         Cell::try_new(2..5, 3..4, Contents::new_number("weight").read_only()?.suffix("lb")?)?,
-        Cell::try_new(5..9, 3..4, Contents::new_text("encumbrance").read_only()?.align(Alignment::Center)?)?,
-        Cell::try_new(9..10, 3..4, Contents::new_checkbox("use_encumbrance").tooltip("Use Encumbrance Variant")?)?,
+        Cell::try_new(
+            5..9,
+            3..4,
+            Contents::new_text("encumbrance").read_only()?.align(Alignment::Center)?,
+        )?,
+        Cell::try_new(
+            9..10,
+            3..4,
+            Contents::new_checkbox("use_encumbrance").tooltip("Use Encumbrance Variant")?,
+        )?,
         Cell::try_new(10..12, 3..4, Contents::new_label().label("Encumb.")?)?,
     ];
     let body_parts = Grid::new(body_part_cells, false);
@@ -65,7 +115,15 @@ pub fn get_layout(name) {
     ];
     let left = Grid::new(left_cells, false);
     let right_cells = [
-        Cell::try_new(5..9, 0..1, Contents::new_button().key("add_equipment")?.size(Size::Large)?.icon("add_box")?.label("Add Item")?)?,
+        Cell::try_new(
+            5..9,
+            0..1,
+            Contents::new_button()
+                .key("add_equipment")?
+                .size(Size::Large)?
+                .icon("add_box")?
+                .label("Add Item")?,
+        )?,
         Cell::try_new(9..12, 0..1, Contents::new_number("weight").read_only()?.suffix("lb")?)?,
     ];
     let right = Grid::new(right_cells, false);
@@ -84,10 +142,18 @@ pub fn get_layout(name) {
         Column::new("active", 1, Contents::new_checkbox("active")),
         Column::new("name", 5, Contents::new_text("name").read_only()?),
         Column::new("drop", 1, Contents::new_button().key("drop")?.icon("place_item")?),
-        Column::new("decrement", 1, Contents::new_button().key("decrement")?.label("−")?.depends_on("quantity")?),
+        Column::new(
+            "decrement",
+            1,
+            Contents::new_button().key("decrement")?.label("−")?.hide_unless("quantity")?,
+        ),
         Column::new("quantity", 1, Contents::new_number("quantity")),
-        Column::new("increment", 1, Contents::new_button().key("increment")?.label("+")?.depends_on("quantity")?),
-        Column::new("weight", 2, Contents::new_number("weight").read_only()?), 
+        Column::new(
+            "increment",
+            1,
+            Contents::new_button().key("increment")?.label("+")?.hide_unless("quantity")?,
+        ),
+        Column::new("weight", 2, Contents::new_number("weight").read_only()?),
         Column::new("attributes", 12, Contents::Attributes),
     ];
 
@@ -101,7 +167,15 @@ pub fn get_layout(name) {
     ];
     let left = Grid::new(left_cells, false);
     let right_cells = [
-        Cell::try_new(5..9, 0..1, Contents::new_button().key("add_equipment")?.size(Size::Large)?.icon("add_box")?.label("Add Item")?)?,
+        Cell::try_new(
+            5..9,
+            0..1,
+            Contents::new_button()
+                .key("add_equipment")?
+                .size(Size::Large)?
+                .icon("add_box")?
+                .label("Add Item")?,
+        )?,
         Cell::try_new(9..12, 0..1, Contents::new_number("weight").read_only()?.suffix("lb")?)?,
     ];
     let right = Grid::new(right_cells, false);
@@ -118,14 +192,24 @@ pub fn get_layout(name) {
     let columns = [
         Column::new("name", 6, Contents::new_text("name").read_only()?),
         Column::new("drop", 1, Contents::new_button().key("drop")?.icon("place_item")?),
-        Column::new("decrement", 1, Contents::new_button().key("decrement")?.label("−")?.depends_on("quantity")?),
+        Column::new(
+            "decrement",
+            1,
+            Contents::new_button().key("decrement")?.label("−")?.hide_unless("quantity")?,
+        ),
         Column::new("quantity", 1, Contents::new_number("quantity")),
-        Column::new("increment", 1, Contents::new_button().key("increment")?.label("+")?.depends_on("quantity")?),
-        Column::new("weight", 2, Contents::new_number("weight").read_only()?), 
+        Column::new(
+            "increment",
+            1,
+            Contents::new_button().key("increment")?.label("+")?.hide_unless("quantity")?,
+        ),
+        Column::new("weight", 2, Contents::new_number("weight").read_only()?),
         Column::new("attributes", 12, Contents::Attributes),
     ];
 
-    layout.push(Section::Table(Table::new("containers", container_controls, headers, columns, "name")));
+    layout.push(
+        Section::Table(Table::new("containers", container_controls, headers, columns, "name")),
+    );
 
     Ok(Some(layout))
 }

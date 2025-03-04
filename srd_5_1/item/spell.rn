@@ -1,6 +1,6 @@
 use tavern::{Alignment, Cell, Contents, Font, Grid, Section};
 
-pub fn headline(level, school) {
+pub fn headline(level, school, ritual) {
     let lowercase = school.to_lowercase();
 
     let headline = match level {
@@ -16,6 +16,10 @@ pub fn headline(level, school) {
             }
         }
     };
+
+    if ritual {
+        headline += " (ritual)";
+    }
 
     Ok(headline)
 }

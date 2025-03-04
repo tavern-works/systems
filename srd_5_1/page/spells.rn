@@ -147,6 +147,53 @@ pub fn get_layout(name) {
     ];
 
     layout.push(Section::Table(Table::new("cantrips", cantrip_controls, headers, columns, "name")));
+    layout.push(Section::Gap);
+
+    let left_cells = [Cell::try_new(0..5, 0..1, Contents::new_text("name"))?];
+    let left = Grid::new(left_cells, false);
+    let right_cells = [
+        Cell::try_new(8..12, 0..1, Contents::new_label().label("")?)?,
+        // Cell::try_new(
+        //     8..12,
+        //     0..1,
+        //     Contents::new_button()
+        //         .key("add_cantrip")?
+        //         .size(Size::Large)?
+        //         .icon("add_box")?
+        //         .label("Add Cantrip")?,
+        // )?,
+    ];
+    let right = Grid::new(right_cells, false);
+    let spellbook_controls = Columns::new([left, right]);
+
+    let headers = [
+        Header::new("prepared", 1, "Prep.", Sort::None),
+        Header::new("level", 1, "Lvl.", Sort::None),
+        Header::new("name", 6, "Name", Sort::None),
+        Header::new("save", 2, "Save DC", Sort::None),
+        Header::new("attack", 2, "Attack", Sort::None),
+        Header::new("attributes", 12, "Attributes", Sort::None),
+    ];
+
+    let columns = [
+        Column::new("prepared", 1, Contents::new_checkbox("prepared")),
+        Column::new("level", 1, Contents::new_text("level").read_only()?.align(Alignment::Center)?),
+        Column::new("name", 6, Contents::new_text("name").read_only()?),
+        Column::new("save", 2, Contents::new_number("save").read_only()?),
+        Column::new(
+            "attack",
+            2,
+            Contents::new_button()
+                .roll(PrepareOptions::by_key("roll"))?
+                .label("Roll")?
+                .hide_unless("roll")?,
+        ),
+        Column::new("attributes", 12, Contents::Attributes),
+    ];
+
+    layout.push(
+        Section::Table(Table::new("spellbooks", spellbook_controls, headers, columns, "name")),
+    );
 
     Ok(Some(layout))
 }

@@ -33,7 +33,7 @@
         "casting_time": {
             "title": "Casting Time",
             "type": "string",
-            "enum": ["1 action", "1 bonus action", "1 minute"]
+            "enum": ["1 action", "1 bonus action", "1 minute", "1 hour"]
         },
         "range": {
             "title": "Range",
@@ -41,6 +41,7 @@
             "enum": [
                 "Self",
                 "Touch",
+                "10 feet",
                 "30 feet",
                 "60 feet",
                 "90 feet",

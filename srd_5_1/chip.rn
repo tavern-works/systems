@@ -2,6 +2,8 @@ use tavern::{Chip, ChipField, Error, PrepareOptions};
 
 pub fn get_for_attribute(attribute) {
     let chip = match attribute {
+        "abjuration" => Chip::new([ChipField::Text("Abjuration")])
+            .tooltip("Abjuration spells are protective in nature, though some of them have aggressive uses."),
         "ac" => Chip::new([ChipField::Text("AC"), ChipField::Divider, ChipField::Value])
             .tooltip("The base Armor Class provided by this armor"),
         "ac_plus_dex_mod" => Chip::new([ChipField::Text("AC + Dex mod"), ChipField::Divider, ChipField::Value])
@@ -48,6 +50,10 @@ pub fn get_for_attribute(attribute) {
             .tooltip(
                 "This spell requires you to maintain concentration in order to keep your magic active. If you lose concentration, such a spell ends.\n\nNormal activity, such as moving and attacking, doesn't interfere with concentration. The following factors can break concentration:\n\n- Casting another spell that requires concentration.\n\n- Taking damage. Whenever you take damage while you are concentrating on a spell, make a Constitution saving throw to maintain concentration. The DC equals 10 or half the damage you take, whichever is higher. If you take damage from multiple sources, you make a separate saving throw for each source of damage.\n\n- Being incapacitated or killed.\n\n- Other environmental phenomena as determined by your GM.",
             ),
+        "conjuration" => Chip::new([ChipField::Text("Conjuration")])
+            .tooltip(
+                "Conjuration spells involve involve the transportation of objects and creatures from one location to another.",
+            ),
         "Constitution" => Chip::new([ChipField::Text("Constitution"), ChipField::Divider, ChipField::Value])
             .tooltip("Roll Constitution Saving Throw")
             .roll(PrepareOptions::by_name("Constitution Saving Throw")),
@@ -66,10 +72,16 @@ pub fn get_for_attribute(attribute) {
             .tooltip("Emits dim light in a {}-foot radius"),
         "disadvantage" => Chip::new([ChipField::Text("Disadvantage"), ChipField::Divider, ChipField::Value])
             .tooltip("The wearer has disadvantage on {} skill checks"),
+        "divination" => Chip::new([ChipField::Text("Divination")])
+            .tooltip("Divination spells reveal information."),
         "druidic_focus" => Chip::new([ChipField::Text("Druidic Focus")])
             .tooltip("A druid can use such an object as a spellcasting focus."),
         "duration" => Chip::new([ChipField::Text("Duration"), ChipField::Divider, ChipField::Value])
             .tooltip("This spell lasts for {}"),
+        "enchantment" => Chip::new([ChipField::Text("Enchantment")])
+            .tooltip(
+                "Enchantment spells affect the minds of others, influencing or controlling their behavior.",
+            ),
         "evocation" => Chip::new([ChipField::Text("Evocation")])
             .tooltip("Evocation spells manipulate magical energy to produce a desired effect."),
         "finesse" => Chip::new([ChipField::Text("Finesse")])

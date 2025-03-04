@@ -59,43 +59,44 @@ impl super::Character {
     fn spell_rolls(self, tables) {
         let rolls = [];
 
-        for cantrip_table in self.cantrips {
-            let id = Uid::from_string(cantrip_table["id"]);
-            let table = tables.get_hydrated_entries(id)?;
-            for spell in table {
-                if !spell.contains_key("damage") {
-                    continue;
-                }
+        if self.cantrips is Tuple {
+            return Ok(rolls);
+        }
 
-                let class_level = self.class_levels()[spell["class"]];
+        let cantrips = tables.get_hydrated_entries(self.cantrips)?;
+        for spell in cantrips {
+            if !spell.contains_key("damage") {
+                continue;
+            }
 
-                let damage = spell["damage"];
-                let split = damage.split(" ");
-                let expression = split.next().ok_or_else(|| anyhow!("couldn't find damage expression"))?;
-                let damage_type = split.next().ok_or_else(|| anyhow!("couldn't find damage type"))?;
+            let class_level = self.class_levels()[spell["class"]];
 
-                let split = expression.split("d");
-                let count = split.next().ok_or_else(|| anyhow!("couldn't find dice count"))?;
-                let count = count.parse::<i64>()?;
-                let sides = split.next().ok_or_else(|| anyhow!("couldn't find dice sides"))?;
+            let damage = spell["damage"];
+            let split = damage.split(" ");
+            let expression = split.next().ok_or_else(|| anyhow!("couldn't find damage expression"))?;
+            let damage_type = split.next().ok_or_else(|| anyhow!("couldn't find damage type"))?;
 
-                if spell.contains_key("damage_increases") {
-                    for threshold in spell["damage_increases"] {
-                        if class_level >= threshold {
-                            count += 1;
-                        }
+            let split = expression.split("d");
+            let count = split.next().ok_or_else(|| anyhow!("couldn't find dice count"))?;
+            let count = count.parse::<i64>()?;
+            let sides = split.next().ok_or_else(|| anyhow!("couldn't find dice sides"))?;
+
+            if spell.contains_key("damage_increases") {
+                for threshold in spell["damage_increases"] {
+                    if class_level >= threshold {
+                        count += 1;
                     }
                 }
-
-                let expression = format!("{count}d{sides}");
-
-                let ability = match spell["class"] {
-                    "Wizard" => Ability::Intelligence,
-                    _ => bail!("unhandled class {}", spell["class"]),
-                };
-
-                rolls.push(self.build_attack_roll(spell["name"], ability, 1, expression, damage_type)?);
             }
+
+            let expression = format!("{count}d{sides}");
+
+            let ability = match spell["class"] {
+                "Wizard" => Ability::Intelligence,
+                _ => bail!("unhandled class {}", spell["class"]),
+            };
+
+            rolls.push(self.build_attack_roll(spell["name"], ability, 1, expression, damage_type)?);
         }
 
         Ok(rolls)

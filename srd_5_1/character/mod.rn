@@ -66,6 +66,7 @@ struct Character {
     attacks,
     attack_rolls,
     cantrips,
+    spellbooks,
 }
 
 impl Character {
@@ -258,18 +259,29 @@ impl Character {
         data["encumbrance"] = encumbrance;
         data["speed"] = self.speed(tables, encumbrance);
 
+        for spellbook in self.spellbooks {
+            let container_prefix = "table:" + spellbook["id"].to_string() + ":";
+            data[container_prefix + "name"] = spellbook["name"];
+        }
+
         Ok(data)
     }
 
     fn get_tables(self) {
-        #{
+        let tables = #{
             "carried": [self.carried.clone()],
             "containers": self.containers.iter().map(|container| container["id"].clone()).collect::<Vec>(),
             "resources": [self.resources.clone()],
             "features": [self.features.clone()],
             "attacks": [self.attacks.clone()],
-            "cantrips": self.cantrips.iter().map(|cantrips| cantrips["id"].clone()).collect::<Vec>(),
+            "spellbooks": self.spellbooks.iter().map(|spellbook| spellbook["id"].clone()).collect::<Vec>(),
+        };
+
+        if self.cantrips is not Tuple {
+            tables["cantrips"] = [self.cantrips.clone()];
         }
+        
+        tables
     }
 
     fn add_item(self, tables, table_id, item) {

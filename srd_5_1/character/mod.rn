@@ -216,9 +216,21 @@ impl Character {
         let spell_slots = self.spell_slots();
         for spell_level in 0..9 {
             data[format!("spell_slots_{}", spell_level + 1)] = spell_slots[spell_level];
-            data[format!("can_add_spell_slot_{}", spell_level + 1)] = if spell_slots[spell_level] < max_spell_slots[spell_level] { true } else { () };
-            data[format!("can_remove_spell_slot_{}", spell_level + 1)] = if spell_slots[spell_level] > 0 { true } else { () };
-            data[format!("can_have_spell_slot_{}", spell_level + 1)] = if max_spell_slots[spell_level] > 0 { true } else { () };
+            data[format!("can_add_spell_slot_{}", spell_level + 1)] = if spell_slots[spell_level] < max_spell_slots[spell_level] {
+                true
+            } else {
+                ()
+            };
+            data[format!("can_remove_spell_slot_{}", spell_level + 1)] = if spell_slots[spell_level] > 0 {
+                true
+            } else {
+                ()
+            };
+            data[format!("can_have_spell_slot_{}", spell_level + 1)] = if max_spell_slots[spell_level] > 0 {
+                true
+            } else {
+                ()
+            };
         }
 
         data["wealth"] = self.wealth();
@@ -262,6 +274,8 @@ impl Character {
         for spellbook in self.spellbooks {
             let container_prefix = "table:" + spellbook["id"].to_string() + ":";
             data[container_prefix + "name"] = spellbook["name"];
+            data[container_prefix + "spell_save_dc"] = Class::Wizard.spell_save_dc(self);
+            data[container_prefix + "spells_prepared"] = Class::Wizard.prepared_string(self, tables, spellbook["id"])?;
         }
 
         Ok(data)
@@ -280,7 +294,6 @@ impl Character {
         if self.cantrips is not Tuple {
             tables["cantrips"] = [self.cantrips.clone()];
         }
-        
         tables
     }
 
@@ -631,28 +644,238 @@ impl Character {
         let caster_level = double_level / 2;
 
         match caster_level {
-            0 => [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            1 => [2, 0, 0, 0, 0, 0, 0, 0, 0],
-            2 => [3, 0, 0, 0, 0, 0, 0, 0, 0],
-            3 => [4, 2, 0, 0, 0, 0, 0, 0, 0],
-            4 => [4, 3, 0, 0, 0, 0, 0, 0, 0],
-            5 => [4, 3, 2, 0, 0, 0, 0, 0, 0],
-            6 => [4, 3, 3, 0, 0, 0, 0, 0, 0],
-            7 => [4, 3, 3, 1, 0, 0, 0, 0, 0],
-            8 => [4, 3, 3, 2, 0, 0, 0, 0, 0],
-            9 => [4, 3, 3, 3, 1, 0, 0, 0, 0],
-            10 => [4, 3, 3, 3, 2, 0, 0, 0, 0],
-            11 => [4, 3, 3, 3, 2, 1, 0, 0, 0],
-            12 => [4, 3, 3, 3, 2, 1, 0, 0, 0],
-            13 => [4, 3, 3, 3, 2, 1, 1, 0, 0],
-            14 => [4, 3, 3, 3, 2, 1, 1, 0, 0],
-            15 => [4, 3, 3, 3, 2, 1, 1, 1, 0],
-            16 => [4, 3, 3, 3, 2, 1, 1, 1, 0],
-            17 => [4, 3, 3, 3, 2, 1, 1, 1, 1],
-            18 => [4, 3, 3, 3, 3, 1, 1, 1, 1],
-            19 => [4, 3, 3, 3, 3, 2, 1, 1, 1],
-            20 => [4, 3, 3, 3, 3, 2, 2, 1, 1],
-            _ => panic!("invalid caster level {caster_level}")
+            0 => [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+            ],
+            1 => [
+                2,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+            ],
+            2 => [
+                3,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+            ],
+            3 => [
+                4,
+                2,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+            ],
+            4 => [
+                4,
+                3,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+            ],
+            5 => [
+                4,
+                3,
+                2,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+            ],
+            6 => [
+                4,
+                3,
+                3,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+            ],
+            7 => [
+                4,
+                3,
+                3,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+            ],
+            8 => [
+                4,
+                3,
+                3,
+                2,
+                0,
+                0,
+                0,
+                0,
+                0,
+            ],
+            9 => [
+                4,
+                3,
+                3,
+                3,
+                1,
+                0,
+                0,
+                0,
+                0,
+            ],
+            10 => [
+                4,
+                3,
+                3,
+                3,
+                2,
+                0,
+                0,
+                0,
+                0,
+            ],
+            11 => [
+                4,
+                3,
+                3,
+                3,
+                2,
+                1,
+                0,
+                0,
+                0,
+            ],
+            12 => [
+                4,
+                3,
+                3,
+                3,
+                2,
+                1,
+                0,
+                0,
+                0,
+            ],
+            13 => [
+                4,
+                3,
+                3,
+                3,
+                2,
+                1,
+                1,
+                0,
+                0,
+            ],
+            14 => [
+                4,
+                3,
+                3,
+                3,
+                2,
+                1,
+                1,
+                0,
+                0,
+            ],
+            15 => [
+                4,
+                3,
+                3,
+                3,
+                2,
+                1,
+                1,
+                1,
+                0,
+            ],
+            16 => [
+                4,
+                3,
+                3,
+                3,
+                2,
+                1,
+                1,
+                1,
+                0,
+            ],
+            17 => [
+                4,
+                3,
+                3,
+                3,
+                2,
+                1,
+                1,
+                1,
+                1,
+            ],
+            18 => [
+                4,
+                3,
+                3,
+                3,
+                3,
+                1,
+                1,
+                1,
+                1,
+            ],
+            19 => [
+                4,
+                3,
+                3,
+                3,
+                3,
+                2,
+                1,
+                1,
+                1,
+            ],
+            20 => [
+                4,
+                3,
+                3,
+                3,
+                3,
+                2,
+                2,
+                1,
+                1,
+            ],
+            _ => panic!("invalid caster level {caster_level}", ),
         }
     }
 

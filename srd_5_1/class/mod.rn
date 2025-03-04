@@ -1,3 +1,5 @@
+use tavern::Uid;
+
 use crate::Ability;
 
 mod fighter;
@@ -50,6 +52,13 @@ impl Class {
         }
     }
 
+    fn max_prepared(self, character) {
+        match self {
+            Class::Wizard => character.class_levels()["Wizard"] + Ability::modifier_for_value(character.ability_scores()["Intelligence"]),
+            _ => panic!("can't get prepared for class {:?}", self),
+        }
+    }
+
     fn parse_choices(self, parsed, choices, level, is_initial) {
         match self {
             Class::Fighter => fighter::parse_choices(self, parsed, choices, level, is_initial),
@@ -57,6 +66,17 @@ impl Class {
             Class::Rogue => rogue::parse_choices(self, parsed, choices, level, is_initial),
             Class::Wizard => wizard::parse_choices(self, parsed, choices, level, is_initial),
         }
+    }
+
+    fn prepared_string(self, character, tables, spellbook_id) {
+        let prepared = format!("{} / {}", self.prepared(character, tables, spellbook_id)?, self.max_prepared(character));
+        Ok(prepared)
+    }
+
+    fn prepared(self, character, tables, spellbook_id) {
+        let spellbook = tables.get_hydrated_entries(spellbook_id)?;
+        let prepared = spellbook.iter().filter(|spell| spell["prepared"]).count();
+        Ok(prepared)
     }
 
     fn proficiencies(self, character, is_initial) {

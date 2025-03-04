@@ -1,5 +1,7 @@
 use tavern::{anyhow, bail, Change, Confirmation, TableKey, Uid};
 
+use crate::Class;
+
 impl super::Character {
     fn apply_table_update(self, tables, key, value) {
         let entry = tables.get_entry_by_id(key.table_id, key.entry_id)?;
@@ -46,6 +48,40 @@ impl super::Character {
                         Change::Rolls(self.get_rolls(tables)?),
                     ],
                 )
+            }
+            "prepared" => {
+                for spellbook in self.spellbooks {
+                    if spellbook["id"] != key.table_id {
+                        continue;
+                    }
+
+                    let class = Class::from_string(spellbook["class"]);
+                    let prepared = class.prepared(self, tables, spellbook["id"])?;
+                    let max_prepared = class.max_prepared(self);
+
+                    entry.set_value("prepared", value)?;
+                    tables.save_entry(entry)?;
+
+                    if value && prepared == max_prepared - 1 {
+                        for spell in tables.get_hydrated_entries(spellbook["id"])? {
+                            if !spell["prepared"] {
+                                let entry = tables.get_entry_by_id(spellbook["id"], Uid::from_string(spell["id"]))?;
+                                entry.set_value("prepared", ())?;
+                                tables.save_entry(entry)?;
+                            }
+                        }
+                    } else if !value {
+                        for spell in tables.get_hydrated_entries(spellbook["id"])? {
+                            if spell["prepared"] is Tuple {
+                                let entry = tables.get_entry_by_id(spellbook["id"], Uid::from_string(spell["id"]))?;
+                                entry.set_value("prepared", false)?;
+                                tables.save_entry(entry)?;
+                            }
+                        }
+                    }
+                }
+
+                Ok([Change::SheetData(self.get_sheet_data(tables)?)])
             }
             "quantity" => {
                 if value < 0 {

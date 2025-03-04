@@ -1,5 +1,3 @@
-use tavern::Uid;
-
 use crate::Ability;
 
 mod fighter;
@@ -75,7 +73,16 @@ impl Class {
 
     fn prepared(self, character, tables, spellbook_id) {
         let spellbook = tables.get_hydrated_entries(spellbook_id)?;
-        let prepared = spellbook.iter().filter(|spell| spell["prepared"]).count();
+        let prepared = spellbook
+            .iter()
+            .filter(|spell| {
+                if spell["prepared"] is Tuple {
+                    false
+                } else {
+                    spell["prepared"]
+                }
+            })
+            .count();
         Ok(prepared)
     }
 

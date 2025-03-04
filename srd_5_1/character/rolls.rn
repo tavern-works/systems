@@ -1,7 +1,7 @@
 use std::collections::{HashMap, HashSet};
-use tavern::{anyhow, bail, Action, ConfigOption, Roll, RollConfig, Target, Uid};
+use tavern::{anyhow, bail, Action, ConfigOption, Roll, RollConfig, Target};
 
-use crate::{Ability, Class, Skill};
+use crate::{Ability, Skill};
 
 fn string_for_factor(factor) {
     match (factor.to::<f64>() * 2.0).round().to::<i64>() {

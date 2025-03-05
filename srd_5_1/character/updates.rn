@@ -120,6 +120,7 @@ impl super::Character {
         let container = self
             .containers
             .iter()
+            .chain(self.spellbooks.iter())
             .find(|container| container["id"] == table_id)
             .ok_or_else(|| anyhow!("Failed to find container with id {:?}", table_id))?;
         match command {

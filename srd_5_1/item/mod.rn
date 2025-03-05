@@ -52,6 +52,7 @@ fn get_data_for_caster(character_, section, entry) {
 
 pub fn get_data(character_, section, entry) {
     match section {
+        "actions" => {}
         "attacks" => {}
         "background" => {
             entry["attributes"] = entry["skill_proficiencies"];

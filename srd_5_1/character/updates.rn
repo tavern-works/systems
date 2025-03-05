@@ -2,6 +2,29 @@ use tavern::{anyhow, bail, Change, Confirmation, TableKey, Uid};
 
 use crate::Class;
 
+enum Integer {
+    Absolute(value),
+    Relative(difference),
+}
+
+impl Integer {
+    fn from_string(string) {
+        string
+            .parse::<f64>()
+            .ok()
+            .map(
+                |value| {
+                    let value = value.round() as i64;
+                    if string.starts_with("-") || string.starts_with("+") {
+                        Self::Relative(value)
+                    } else {
+                        Self::Absolute(value)
+                    }
+                },
+            )
+    }
+}
+
 impl super::Character {
     fn apply_table_update(self, tables, key, value) {
         let entry = tables.get_entry_by_id(key.table_id, key.entry_id)?;
@@ -84,22 +107,31 @@ impl super::Character {
                 Ok([Change::SheetData(self.get_sheet_data(tables)?)])
             }
             "quantity" => {
-                if value < 0 {
-                    bail!("Quantity may not be less than 0");
-                } else if value == 0 {
-                    key.name = "remove-no-confirm";
-                    Ok(
-                        Confirmation::new(
-                            format!("Remove **{}** from&nbsp;inventory?", entry.get_value("name")?),
-                            "Remove",
-                            self.id(),
-                            key.to_string(),
-                        ),
-                    )
+                if let Some(integer) = Integer::from_string(value) {
+                    let current_value = entry.get_value("quantity")?;
+
+                    let value = match integer {
+                        Integer::Absolute(value) => value.max(0),
+                        Integer::Relative(difference) => (current_value + difference).max(0),
+                    };
+
+                    if value == 0 {
+                        key.name = "remove-no-confirm";
+                        Ok(
+                            Confirmation::new(
+                                format!("Remove **{}** from&nbsp;inventory?", entry.get_value("name")?),
+                                "Remove",
+                                self.id(),
+                                key.to_string(),
+                            ),
+                        )
+                    } else {
+                        entry.set_value("quantity", value)?;
+                        tables.save_entry(entry)?;
+                        Ok([Change::SheetData(self.get_sheet_data(tables)?)])
+                    }
                 } else {
-                    entry.set_value("quantity", value)?;
-                    tables.save_entry(entry)?;
-                    Ok([Change::SheetData(self.get_sheet_data(tables)?)])
+                    Ok([])
                 }
             }
             _ => {
@@ -243,8 +275,14 @@ impl super::Character {
                     notify_sheet = true;
                 }
                 "copper" => {
-                    self.coins[4] = value.max(0);
-                    notify_sheet = true;
+                    if let Some(integer) = Integer::from_string(value) {
+                        self.coins[4] = match integer {
+                            Integer::Absolute(value) => value.max(0),
+                            Integer::Relative(difference) => (self.coins[4] + difference).max(0),
+                        };
+
+                        notify_sheet = true;
+                    }
                 }
                 "death_saving_throw" => {
                     if value is f64 {
@@ -268,25 +306,56 @@ impl super::Character {
                     notify_sheet = true;
                 }
                 "electrum" => {
-                    self.coins[2] = value.max(0);
-                    notify_sheet = true;
+                    if let Some(integer) = Integer::from_string(value) {
+                        self.coins[2] = match integer {
+                            Integer::Absolute(value) => value.max(0),
+                            Integer::Relative(difference) => (self.coins[2] + difference).max(0),
+                        };
+
+                        notify_sheet = true;
+                    }
                 }
                 "experience" => {
-                    self.experience = value.max(0);
-                    notify_sheet = true;
+                    if let Some(integer) = Integer::from_string(value) {
+                        self.experience = match integer {
+                            Integer::Absolute(value) => value.max(0),
+                            Integer::Relative(difference) => (self.experience + difference).max(0),
+                        };
+
+                        notify_sheet = true;
+                    }
                 }
                 "flaw" => {
                     self.flaw = value;
                     notify_sheet = true;
                 }
                 "gold" => {
-                    self.coins[1] = value.max(0);
-                    notify_sheet = true;
+                    if let Some(integer) = Integer::from_string(value) {
+                        self.coins[1] = match integer {
+                            Integer::Absolute(value) => value.max(0),
+                            Integer::Relative(difference) => (self.coins[1] + difference).max(0),
+                        };
+
+                        notify_sheet = true;
+                    }
                 }
                 "hp" => {
-                    self.hp = value.min(self.max_hp()).max(0);
-                    notify_card = true;
-                    notify_sheet = true;
+                    if let Some(integer) = Integer::from_string(value) {
+                        let new_value = match integer {
+                            Integer::Absolute(value) => value,
+                            Integer::Relative(difference) => self.hp + difference,
+                        };
+
+                        if new_value < self.hp && self.temp_hp > 0 {
+                            let covered = self.temp_hp.min(self.hp - new_value);
+                            self.temp_hp -= covered;
+                            new_value += covered;
+                        }
+
+                        self.hp = new_value.min(self.max_hp()).max(0);
+                        notify_card = true;
+                        notify_sheet = true;
+                    }
                 }
                 "ideal" => {
                     self.ideal = value;
@@ -314,8 +383,14 @@ impl super::Character {
                     notify_sheet = true;
                 }
                 "platinum" => {
-                    self.coins[0] = value.max(0);
-                    notify_sheet = true;
+                    if let Some(integer) = Integer::from_string(value) {
+                        self.coins[0] = match integer {
+                            Integer::Absolute(value) => value.max(0),
+                            Integer::Relative(difference) => (self.coins[0] + difference).max(0),
+                        };
+
+                        notify_sheet = true;
+                    }
                 }
                 "relationships" => {
                     self.relationships = value;
@@ -346,13 +421,25 @@ impl super::Character {
                     notify_sheet = true;
                 }
                 "silver" => {
-                    self.coins[3] = value.max(0);
-                    notify_sheet = true;
+                    if let Some(integer) = Integer::from_string(value) {
+                        self.coins[3] = match integer {
+                            Integer::Absolute(value) => value.max(0),
+                            Integer::Relative(difference) => (self.coins[3] + difference).max(0),
+                        };
+
+                        notify_sheet = true;
+                    }
                 }
                 "temp_hp" => {
-                    self.temp_hp = value.max(0);
-                    notify_card = true;
-                    notify_sheet = true;
+                    if let Some(integer) = Integer::from_string(value) {
+                        self.temp_hp = match integer {
+                            Integer::Absolute(value) => value.max(0),
+                            Integer::Relative(difference) => (self.temp_hp + difference).max(0),
+                        };
+
+                        notify_card = true;
+                        notify_sheet = true;
+                    }
                 }
                 "use_encumbrance" => {
                     self.use_encumbrance = value;

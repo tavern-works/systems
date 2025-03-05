@@ -146,7 +146,9 @@ pub fn get_layout(name) {
         Column::new("attributes", 12, Contents::Attributes),
     ];
 
-    layout.push(Section::Table(Table::new("cantrips", cantrip_controls, headers, columns, "name")));
+    let cantrip_table = Table::new("cantrips", cantrip_controls, headers, columns, "name");
+    cantrip_table.set_draggable(false);
+    layout.push(Section::Table(cantrip_table));
     layout.push(Section::Gap);
 
     let left_cells = [
@@ -167,15 +169,6 @@ pub fn get_layout(name) {
                 .align(Alignment::Center)?
                 .read_only()?,
         )?,
-        // Cell::try_new(
-        //     8..12,
-        //     0..1,
-        //     Contents::new_button()
-        //         .key("add_cantrip")?
-        //         .size(Size::Large)?
-        //         .icon("add_box")?
-        //         .label("Add Cantrip")?,
-        // )?,
     ];
     let right = Grid::new(right_cells, false);
     let spellbook_controls = Columns::new([left, right]);
@@ -203,9 +196,9 @@ pub fn get_layout(name) {
         Column::new("attributes", 12, Contents::Attributes),
     ];
 
-    layout.push(
-        Section::Table(Table::new("spellbooks", spellbook_controls, headers, columns, "name")),
-    );
+    let spellbook_table = Table::new("spellbooks", spellbook_controls, headers, columns, "name");
+    spellbook_table.set_draggable(false);
+    layout.push(Section::Table(spellbook_table));
 
     Ok(Some(layout))
 }

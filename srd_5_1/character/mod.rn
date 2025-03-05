@@ -944,7 +944,7 @@ impl Character {
     fn set_held_item_active(self, tables, entry, active) {
         let attributes = attribute_map(entry.get_value("attributes")?);
 
-        if !attributes.contains_key("simple_weapon") && !attributes.contains_key("martial_weapon") && !attributes.contains_key("ranged_weapon") && !attributes.contains_key("shield") {
+        if !attributes.contains_key("simple_weapon") && !attributes.contains_key("martial_weapon") && !attributes.contains_key("ranged_weapon") && !attributes.contains_key("shield") && !attributes.contains_key("arcane_focus") {
             return Ok(());
         }
 

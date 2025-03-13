@@ -1,6 +1,7 @@
-use crate::{Ability, Skill};
-
 use tavern::{anyhow, Action, Card, Change, CompendiumOptions, HitPoints, Mode, Roll, RollConfig, TableKey, Target, Uid, Variable};
+
+use crate::{Ability, Skill};
+use crate::character::Integer;
 
 mod layout;
 
@@ -148,19 +149,38 @@ impl Supporting {
                 return Ok(options);
             }
             "hp" => {
-                self.hp = value.min(self.max_hp).max(0);
-                notify_card = true;
-                notify_sheet = true;
+                if let Some(integer) = Integer::from_string(value) {
+                    let new_value = match integer {
+                        Integer::Absolute(value) => value,
+                        Integer::Relative(difference) => self.hp + difference,
+                    };
+
+                    if new_value < self.hp && self.temp_hp > 0 {
+                        let covered = self.temp_hp.min(self.hp - new_value);
+                        self.temp_hp -= covered;
+                        new_value += covered;
+                    }
+
+                    self.hp = new_value.min(self.max_hp).max(0);
+                    notify_card = true;
+                    notify_sheet = true;
+                }
             }
             "language" => {
                 self.languages = value;
                 notify_sheet = true;
             }
             "max_hp" => {
-                self.max_hp = value.max(0);
-                self.hp = self.hp.min(self.max_hp);
-                notify_card = true;
-                notify_sheet = true;
+                if let Some(integer) = Integer::from_string(value) {
+                    self.max_hp = match integer {
+                        Integer::Absolute(value) => value.max(0),
+                        Integer::Relative(difference) => (self.max_hp + difference).max(0),
+                    };
+                    self.hp = self.hp.min(self.max_hp);
+
+                    notify_card = true;
+                    notify_sheet = true;
+                }
             }
             "name" => {
                 self.name = value;
@@ -178,9 +198,15 @@ impl Supporting {
                 notify_sheet = true;
             }
             "temp_hp" => {
-                self.temp_hp = value.max(0);
-                notify_card = true;
-                notify_sheet = true;
+                if let Some(integer) = Integer::from_string(value) {
+                    self.temp_hp = match integer {
+                        Integer::Absolute(value) => value.max(0),
+                        Integer::Relative(difference) => (self.temp_hp + difference).max(0),
+                    };
+
+                    notify_card = true;
+                    notify_sheet = true;
+                }
             }
             _ => ::log::error!("unhandled update {key}"),
         }

@@ -1,29 +1,7 @@
 use tavern::{anyhow, bail, Change, Confirmation, TableKey, Uid};
 
 use crate::Class;
-
-enum Integer {
-    Absolute(value),
-    Relative(difference),
-}
-
-impl Integer {
-    fn from_string(string) {
-        string
-            .parse::<f64>()
-            .ok()
-            .map(
-                |value| {
-                    let value = value.round() as i64;
-                    if string.starts_with("-") || string.starts_with("+") {
-                        Self::Relative(value)
-                    } else {
-                        Self::Absolute(value)
-                    }
-                },
-            )
-    }
-}
+use super::Integer;
 
 impl super::Character {
     fn apply_table_update(self, tables, key, value) {

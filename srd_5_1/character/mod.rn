@@ -14,6 +14,29 @@ mod rolls;
 mod updates;
 mod variables;
 
+pub enum Integer {
+    Absolute(value),
+    Relative(difference),
+}
+
+impl Integer {
+    pub fn from_string(string) {
+        string
+            .parse::<f64>()
+            .ok()
+            .map(
+                |value| {
+                    let value = value.round() as i64;
+                    if string.starts_with("-") || string.starts_with("+") {
+                        Self::Relative(value)
+                    } else {
+                        Self::Absolute(value)
+                    }
+                },
+            )
+    }
+}
+
 fn attribute_map(attributes) {
     HashMap::from_iter(
         attributes

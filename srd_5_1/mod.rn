@@ -1,4 +1,5 @@
 use json::from_string;
+use tavern::Creator;
 
 pub mod character;
 pub mod chip;
@@ -30,18 +31,18 @@ enum Armor {
     Medium,
     Heavy,
     Shields,
-    All
+    All,
 }
 
 enum WeaponComplexity {
     Simple,
-    Martial
+    Martial,
 }
 
 struct BaseWeapon(id);
 
 enum Tool {
-    Artisan(craft)
+    Artisan(craft),
 }
 
 struct Proficiency {
@@ -78,7 +79,7 @@ impl Compendium {
 
 enum SavingThrow {
     Poison,
-    Ability(ability)
+    Ability(ability),
 }
 
 pub enum Ability {
@@ -92,7 +93,14 @@ pub enum Ability {
 
 impl Ability {
     pub fn all() {
-        [Ability::Strength, Ability::Dexterity, Ability::Constitution, Ability::Intelligence, Ability::Wisdom, Ability::Charisma]
+        [
+            Ability::Strength,
+            Ability::Dexterity,
+            Ability::Constitution,
+            Ability::Intelligence,
+            Ability::Wisdom,
+            Ability::Charisma,
+        ]
     }
 
     fn from_string(string) {
@@ -159,7 +167,11 @@ impl Ability {
     }
 
     fn saving_throw_factor(self, proficiencies) {
-        let relevant_proficiencies = proficiencies.iter().filter(|p| p.with is SavingThrow && p.with == SavingThrow::Ability(self) && p.condition.is_none());
+        let relevant_proficiencies = proficiencies
+            .iter()
+            .filter(
+                |p| p.with is SavingThrow && p.with == SavingThrow::Ability(self) && p.condition.is_none(),
+            );
         let factor = if let Some(proficiency) = relevant_proficiencies.next() {
             proficiency.factor
         } else {
@@ -320,7 +332,9 @@ impl Skill {
     }
 
     fn unconditional_factor(self, proficiencies) {
-        let relevant_proficiencies = proficiencies.iter().filter(|p| p.with is Skill && p.with == self && p.condition.is_none());
+        let relevant_proficiencies = proficiencies
+            .iter()
+            .filter(|p| p.with is Skill && p.with == self && p.condition.is_none());
         let factor = if let Some(proficiency) = relevant_proficiencies.next() {
             proficiency.factor
         } else {
@@ -384,6 +398,10 @@ pub fn get_all_pages() {
 
 pub fn get_chip_for_attribute(attribute) {
     chip::get_for_attribute(attribute)
+}
+
+pub fn get_creators() {
+    #{ Supporting: Creator::Compendium("supporting") }
 }
 
 pub fn get_item_data(character, section, entry) {

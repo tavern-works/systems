@@ -1,0 +1,64 @@
+[
+    {
+        "title": "Character",
+        "type": "object",
+        "properties": {
+            "name": {
+                "title": "Name",
+                "type": "string",
+                "propertyOrder": 1
+            },
+            "headline": {
+                "title": "Headline",
+                "type": "string",
+                "propertyOrder": 2,
+                "options": {
+                    "inputAttributes": {
+                        "placeholder": "Optional"
+                    }
+                }
+            },
+            "hp": {
+                "title": "Hit Points (Optional)",
+                "type": "object",
+                "format": "grid",
+                "properties": {
+                    "current": {
+                        "title": "Current",
+                        "type": "integer",
+                        "propertyOrder": 1,
+                        "options": {
+                            "containerAttributes": {
+                                "class": "hp"
+                            },
+                            "input_width": "calc(22 * var(--sem))"
+                        }
+                    },
+                    "max": {
+                        "title": "Max",
+                        "type": "integer",
+                        "propertyOrder": 2,
+                        "options": {
+                            "containerAttributes": {
+                                "class": "hp"
+                            },
+                            "input_width": "calc(22 * var(--sem))"
+                        }
+                    },
+                    "temp": {
+                        "title": "Temp",
+                        "type": "integer",
+                        "propertyOrder": 3,
+                        "options": {
+                            "containerAttributes": {
+                                "class": "hp"
+                            },
+                            "input_width": "calc(22 * var(--sem))"
+                        }
+                    }
+                }
+            }
+        },
+        "required": ["name"]
+    }
+]

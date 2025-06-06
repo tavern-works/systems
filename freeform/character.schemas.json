@@ -6,7 +6,12 @@
             "name": {
                 "title": "Name",
                 "type": "string",
-                "propertyOrder": 1
+                "propertyOrder": 1,
+                "options": {
+                    "inputAttributes": {
+                        "class": "default-focus"
+                    }
+                }
             },
             "headline": {
                 "title": "Headline",

@@ -1,11 +1,14 @@
-use tavern::Creator;
+use tavern::{Creator, SchemaError};
 
 pub fn get_all_pages() {
     []
 }
 
 pub fn get_creators() {
-    #{
-        Character: Creator::Dialog("character")
-    }
+    #{ Character: Creator::Dialog("character") }
+}
+
+pub fn validate_schema(page, data) {
+    log::info!("rune {page} {data:?}");
+    Err(SchemaError::new("you suck", None))
 }

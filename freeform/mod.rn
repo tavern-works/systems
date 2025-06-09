@@ -1,5 +1,7 @@
 use tavern::{Creator, SchemaError};
 
+mod character;
+
 pub fn get_all_pages() {
     []
 }

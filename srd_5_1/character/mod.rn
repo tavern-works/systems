@@ -14,6 +14,8 @@ mod rolls;
 mod updates;
 mod variables;
 
+pub use crate::supporting::create as from_template;
+
 pub enum Integer {
     Absolute(value),
     Relative(difference),

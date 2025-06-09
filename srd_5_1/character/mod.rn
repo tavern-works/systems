@@ -130,7 +130,7 @@ impl Character {
     }
 
     fn get_core(self) {
-        Core::new(self.id, self.name, self.avatar)
+        Core::new(self.id, self.name, Some(self.avatar.clone()))
     }
 
     fn get_sheet_data(self, tables) {

@@ -1,0 +1,65 @@
+use json::from_bytes;
+
+use tavern::{Card, Core, Uid};
+
+struct Character {
+    id,
+    name,
+    headline,
+    avatar,
+}
+
+impl Character {
+    fn get_methods(self) {
+        #{ "get_card": |tables| self.get_card(tables), "get_core": || self.get_core() }
+    }
+
+    fn get_card(self, tables) {
+        log::info!("get_card");
+
+        let card = Card::new();
+
+        card.name = self.name.clone();
+        card.avatar = self.avatar.clone();
+        card.headline = self.headline.clone();
+        card.hp = None;
+
+        card.pages = [];
+
+        card
+    }
+
+    fn get_core(self) {
+        log::info!("get_core {:?} {:?}", self.avatar, None);
+
+        Core::new(self.id, self.name, self.avatar.clone())
+    }
+}
+
+fn parse_string(parsed, key) {
+    if !parsed.contains_key(key) {
+        ::tavern::bail!("Couldn't find {key}");
+    }
+    let value = parsed[key];
+    if value is not String {
+        ::tavern::bail!("Expected {key} to be a string");
+    }
+    Ok(value)
+}
+
+pub fn parse(bytes, tables) {
+    let parsed = from_bytes(Bytes::from_vec(bytes))?;
+
+    log::info!("parsed {parsed:?}");
+
+    let id = Uid::from_string(parse_string(parsed, "id")?);
+
+    let character = Character {
+        id,
+        name: parse_string(parsed, "name")?,
+        avatar: None,
+        headline: parse_string(parsed, "headline")?,
+    };
+
+    Ok(character.get_methods())
+}

@@ -6,6 +6,7 @@
             "name": {
                 "title": "Name",
                 "type": "string",
+                "maxLength": 32,
                 "propertyOrder": 1,
                 "options": {
                     "inputAttributes": {

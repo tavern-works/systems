@@ -9,6 +9,43 @@ pub fn get_creators() {
 }
 
 pub fn validate_schema(page, data) {
-    log::info!("rune {page} {data:?}");
-    Err(SchemaError::new("you suck", None))
+    if page != 0 {
+        return Err(SchemaError::new("invalid page {page}", None));
+    }
+
+    let name = data["name"];
+    if name.is_empty() {
+        return Err(SchemaError::new("Name is required", Some("root[name]")));
+    }
+
+    let max = data["hp"]["max"];
+    if !(max is i64) {
+        return Err(SchemaError::new("Maximum HP must be an integer", Some("root[hp][max]")));
+    }
+    if max < 0 {
+        return Err(SchemaError::new("Maximum HP must not be negative", Some("root[hp][max]")));
+    }
+
+    let current = data["hp"]["current"];
+    if !(current is i64) {
+        return Err(SchemaError::new("Current HP must be an integer", Some("root[hp][current]")));
+    }
+    if current < 0 {
+        return Err(SchemaError::new("Current HP must not be negative", Some("root[hp][current]")));
+    }
+    if current > max {
+        return Err(
+            SchemaError::new("Current HP must not be greater than maximum HP", Some("root[hp][current]")),
+        );
+    }
+
+    let temp = data["hp"]["temp"];
+    if !(temp is i64) {
+        return Err(SchemaError::new("Temporary HP must be an integer", Some("root[hp][temp]")));
+    }
+    if temp < 0 {
+        return Err(SchemaError::new("Temporary HP must not be negative", Some("root[hp][temp]")));
+    }
+
+    Ok(())
 }

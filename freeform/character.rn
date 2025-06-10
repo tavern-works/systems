@@ -11,7 +11,11 @@ struct Character {
 
 impl Character {
     fn get_methods(self) {
-        #{ "get_card": |tables| self.get_card(tables), "get_core": || self.get_core() }
+        #{
+            "get_card": |tables| self.get_card(tables),
+            "get_core": || self.get_core(),
+            "get_sheet_data": |tables| self.get_sheet_data(tables),
+        }
     }
 
     fn get_card(self, tables) {
@@ -29,6 +33,16 @@ impl Character {
 
     fn get_core(self) {
         Core::new(self.id, self.name, self.avatar.clone())
+    }
+
+    fn get_sheet_data(self, tables) {
+        Ok(
+            #{
+                name: self.name.clone(),
+                headline: self.headline.clone(),
+                avatar: self.avatar.clone().unwrap_or(()),
+            },
+        )
     }
 
     fn id(self) {

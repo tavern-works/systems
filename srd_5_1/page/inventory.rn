@@ -1,4 +1,4 @@
-use ::tavern::{Alignment, Cell, Column, Columns, Contents, Grid, Header, Page, Section, Size, Sort, Table};
+use ::tavern::{Alignment, Cell, Column, Columns, Contents, Grid, Header, Layout, Page, Section, Size, Sort, Table};
 
 const NAME = "Inventory";
 
@@ -211,5 +211,5 @@ pub fn get_layout(name) {
         Section::Table(Table::new("containers", container_controls, headers, columns, "name")),
     );
 
-    Ok(Some(layout))
+    Ok(Some(Layout::new(2, layout)))
 }

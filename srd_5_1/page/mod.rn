@@ -30,7 +30,6 @@ pub fn get_layout(name) {
     ] {
         if let Some(layout) = get_layout(name)? {
             return Ok(layout);
-
         }
     }
     Err(tavern::anyhow!("Unknown page {name} in get_layout"))

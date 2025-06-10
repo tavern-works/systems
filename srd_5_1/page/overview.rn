@@ -1,4 +1,4 @@
-use ::tavern::{Alignment, Cell, Columns, Contents, Font, Grid, Page, PrepareOptions, Section};
+use ::tavern::{Alignment, Cell, Columns, Contents, Font, Grid, Layout, Page, PrepareOptions, Section};
 
 use crate::{Ability, Skill};
 
@@ -287,5 +287,5 @@ pub fn get_layout(name) {
     }
     layout.push(Section::Columns(Columns::new(abilities)));
 
-    Ok(Some(layout))
+    Ok(Some(Layout::new(2, layout)))
 }

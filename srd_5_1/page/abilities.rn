@@ -1,4 +1,4 @@
-use ::tavern::{Alignment, Cell, Column, Columns, Contents, Grid, Header, Page, PrepareOptions, Section, Size, Sort, Table};
+use ::tavern::{Alignment, Cell, Column, Columns, Contents, Grid, Header, Layout, Page, PrepareOptions, Section, Size, Sort, Table};
 
 const NAME = "Abilities";
 
@@ -154,5 +154,5 @@ pub fn get_layout(name) {
 
     layout.push(Section::Table(table));
 
-    Ok(Some(layout))
+    Ok(Some(Layout::new(2, layout)))
 }

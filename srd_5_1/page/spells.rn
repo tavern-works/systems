@@ -1,4 +1,4 @@
-use tavern::{Alignment, Cell, Column, Columns, Contents, Grid, Header, Page, PrepareOptions, Section, Size, Sort, Table};
+use tavern::{Alignment, Cell, Column, Columns, Contents, Grid, Header, Layout, Page, PrepareOptions, Section, Size, Sort, Table};
 
 const NAME = "Spells";
 
@@ -200,5 +200,5 @@ pub fn get_layout(name) {
     spellbook_table.set_draggable(false);
     layout.push(Section::Table(spellbook_table));
 
-    Ok(Some(layout))
+    Ok(Some(Layout::new(2, layout)))
 }

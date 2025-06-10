@@ -1,0 +1,31 @@
+use tavern::{Alignment, Cell, Contents, Grid, Layout, Page, Section};
+
+const NAME = "Overview";
+
+pub fn get_page(character) {
+    let page = Page::new();
+    page.character = character.id();
+    page.name = NAME;
+    page.icon = "newsmode";
+    page.shortcut = "o";
+    page
+}
+
+pub fn get_layout(name) {
+    if name != NAME {
+        return Ok(None);
+    }
+
+    let layout = [];
+
+    let description_cells = [
+        Cell::try_new(0..5, 0..6, Contents::Image("portrait"))?,
+        Cell::try_new(5..12, 0..2, Contents::new_text("name").align(Alignment::Center)?.label("Name")?)?,
+    ];
+
+    let description = Grid::new(description_cells, false);
+
+    layout.push(Section::Grid(description));
+
+    Ok(Some(Layout::new(1, layout)))
+}

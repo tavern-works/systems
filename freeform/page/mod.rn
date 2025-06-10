@@ -1,0 +1,16 @@
+pub mod mechanics;
+pub mod overview;
+
+pub fn get_all() {
+    ["Overview", "Mechanics"]
+}
+
+pub fn get_layout(name) {
+    for get_layout in [mechanics::get_layout, overview::get_layout] {
+        if let Some(layout) = get_layout(name)? {
+            return Ok(layout);
+        }
+    }
+
+    Err(tavern::anyhow!("Unknown page {name} in get_layout"))
+}

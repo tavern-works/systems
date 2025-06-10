@@ -392,10 +392,6 @@ impl Alignment {
     }
 }
 
-pub fn get_all_pages() {
-    page::get_all_pages()
-}
-
 pub fn get_chip_for_attribute(attribute) {
     chip::get_for_attribute(attribute)
 }

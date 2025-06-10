@@ -15,8 +15,6 @@ impl Character {
     }
 
     fn get_card(self, tables) {
-        log::info!("get_card");
-
         let card = Card::new();
 
         card.name = self.name.clone();
@@ -24,15 +22,17 @@ impl Character {
         card.headline = self.headline.clone();
         card.hp = None;
 
-        card.pages = [];
+        card.pages = [crate::page::overview::get_page(self), crate::page::mechanics::get_page(self)];
 
         card
     }
 
     fn get_core(self) {
-        log::info!("get_core {:?} {:?}", self.avatar, None);
-
         Core::new(self.id, self.name, self.avatar.clone())
+    }
+
+    fn id(self) {
+        self.id.clone()
     }
 }
 
@@ -49,8 +49,6 @@ fn parse_string(parsed, key) {
 
 pub fn parse(bytes, tables) {
     let parsed = from_bytes(Bytes::from_vec(bytes))?;
-
-    log::info!("parsed {parsed:?}");
 
     let id = Uid::from_string(parse_string(parsed, "id")?);
 

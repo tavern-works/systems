@@ -2,6 +2,8 @@ use json::from_bytes;
 
 use tavern::{Card, Core, Uid};
 
+mod updates;
+
 struct Character {
     id,
     name,
@@ -12,6 +14,7 @@ struct Character {
 impl Character {
     fn get_methods(self) {
         #{
+            "apply_sheet_update": |tables, key, value| self.apply_sheet_update(tables, key, value),
             "get_card": |tables| self.get_card(tables),
             "get_core": || self.get_core(),
             "get_sheet_data": |tables| self.get_sheet_data(tables),

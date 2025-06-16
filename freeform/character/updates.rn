@@ -1,0 +1,36 @@
+use tavern::{bail, Change};
+
+impl super::Character {
+    fn apply_sheet_update(self, tables, key, value) {
+        log::info!("applying {key} {value:?}");
+
+        let notify_card = false;
+        let notify_sheet = false;
+
+        match key {
+            "headline" => {
+                self.headline = value;
+                notify_card = true;
+                notify_sheet = true;
+            }
+            "name" => {
+                self.name = value;
+                notify_card = true;
+                notify_sheet = true;
+            }
+            _ => {
+                bail!("unknown key {key}");
+            }
+        }
+
+        let changes = [];
+        if notify_card {
+            changes.push(Change::Card(self.get_card(tables)));
+        }
+        if notify_sheet {
+            changes.push(Change::SheetData(self.get_sheet_data(tables)?));
+        }
+
+        Ok(changes)
+    }
+}

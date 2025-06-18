@@ -1,0 +1,5 @@
+[workspace]
+members = [
+    "freeform",
+    "srd_5_1",
+]

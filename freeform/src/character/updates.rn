@@ -2,8 +2,6 @@ use tavern::{bail, Change};
 
 impl super::Character {
     fn apply_sheet_update(self, tables, key, value) {
-        log::info!("applying {key} {value:?}");
-
         let notify_card = false;
         let notify_sheet = false;
 
